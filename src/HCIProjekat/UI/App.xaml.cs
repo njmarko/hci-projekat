@@ -15,6 +15,11 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using UI.Context;
+using UI.Context.Locators;
+using UI.Context.Routers;
+using UI.Context.Stores;
+using UI.ViewModels;
 
 namespace UI
 {
@@ -42,6 +47,14 @@ namespace UI
                 {
                     services.AddDomain();
                     services.AddInfrastructure(context.Configuration);
+
+                    services.AddSingleton<IViewModelLocator, ViewModelLocator>();
+                    services.AddSingleton<IRouter, Router>();
+                    services.AddSingleton<IStore, Store>();
+                    services.AddSingleton<IApplicationContext, ApplicationContext>();
+
+                    services.AddTransient<MainViewModel>();
+                    services.AddTransient<LoginViewModel>();
                 });
         }
 
@@ -61,6 +74,9 @@ namespace UI
             var admin = new Admin { FirstName = "admin", LastName = "admin", Username = "vidojegavrilovic", Password = "test123", DateOfBirth = DateTime.Now };
             var adminService = _host.Services.GetRequiredService<IAdminService>();
             admin = adminService.Create(admin);
+
+            Window window = new MainWindow(_host.Services.GetRequiredService<MainViewModel>());
+            window.Show();
 
             base.OnStartup(e);
         }

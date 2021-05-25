@@ -81,3 +81,9 @@ D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-window
 D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\bin\Debug\net5.0-windows\Microsoft.EntityFrameworkCore.InMemory.dll
 D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\bin\Debug\net5.0-windows\Infrastructure.dll
 D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\bin\Debug\net5.0-windows\Infrastructure.pdb
+D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
+D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-windows\Views\LoginView.g.cs
+D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-windows\Views\LoginView.baml
+D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-windows\App.baml
+D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\bin\Debug\net5.0-windows\MaterialDesignColors.dll
+D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\bin\Debug\net5.0-windows\MaterialDesignThemes.Wpf.dll
