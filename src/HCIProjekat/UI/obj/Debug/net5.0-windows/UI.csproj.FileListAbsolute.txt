@@ -78,3 +78,4 @@ D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-window
 D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-windows\ref\UI.dll
 D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-windows\UI.pdb
 D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\obj\Debug\net5.0-windows\UI.genruntimeconfig.cache
+D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\bin\Debug\net5.0-windows\Microsoft.EntityFrameworkCore.InMemory.dll

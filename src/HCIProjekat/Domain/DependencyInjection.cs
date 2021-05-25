@@ -22,7 +22,15 @@ namespace Domain
 
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            Action<DbContextOptionsBuilder> dbContextOptionsBuilder = options => options.UseSqlite(configuration.GetConnectionString("sqlite"), b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
+            Action<DbContextOptionsBuilder> dbContextOptionsBuilder;
+            if (configuration.GetValue<bool>("UseInMemoryDb"))
+            {
+                dbContextOptionsBuilder = options => options.UseInMemoryDatabase("HCIInMemoryDb");
+            } 
+            else
+            {
+                dbContextOptionsBuilder = options => options.UseSqlite(configuration.GetConnectionString("sqlite"), b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
+            }
             //services.AddDbContext<ApplicationDbContext>(dbContextOptionsBuilder);
             services.AddDbContextFactory<ApplicationDbContext>(dbContextOptionsBuilder);
             return services;
