@@ -20,5 +20,6 @@ namespace Domain.Entities
 
         public virtual Client Client { get; set; }
         public virtual EventPlanner EventPlanner { get; set; }
+        public virtual IList<Task> Tasks { get; set; }
     }
 }

@@ -16,82 +16,31 @@ namespace Domain.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.6");
 
-            modelBuilder.Entity("Domain.Entities.Admin", b =>
+            modelBuilder.Entity("Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admins");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int?>("SenderId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime>("SentDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("Domain.Entities.EventPlanner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int?>("TaskId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.ToTable("EventPlanners");
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Domain.Entities.Offer", b =>
@@ -187,6 +136,133 @@ namespace Domain.Migrations
                     b.ToTable("Requests");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Task", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("RequestId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TaskStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TaskType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TaskOffer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("OfferId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OfferStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("TaskId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfferId");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("TaskOffers");
+                });
+
+            modelBuilder.Entity("Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Admin", b =>
+                {
+                    b.HasBaseType("Domain.Entities.User");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RequestParticipant", b =>
+                {
+                    b.HasBaseType("Domain.Entities.User");
+
+                    b.HasDiscriminator().HasValue("RequestParticipant");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Client", b =>
+                {
+                    b.HasBaseType("Domain.Entities.RequestParticipant");
+
+                    b.HasDiscriminator().HasValue("Client");
+                });
+
+            modelBuilder.Entity("Domain.Entities.EventPlanner", b =>
+                {
+                    b.HasBaseType("Domain.Entities.RequestParticipant");
+
+                    b.HasDiscriminator().HasValue("EventPlanner");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("Domain.Entities.RequestParticipant", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+
+                    b.HasOne("Domain.Entities.Task", "Task")
+                        .WithMany("Comments")
+                        .HasForeignKey("TaskId");
+
+                    b.Navigation("Sender");
+
+                    b.Navigation("Task");
+                });
+
             modelBuilder.Entity("Domain.Entities.Offer", b =>
                 {
                     b.HasOne("Domain.Entities.Partner", "Partner")
@@ -241,6 +317,45 @@ namespace Domain.Migrations
                     b.Navigation("EventPlanner");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Task", b =>
+                {
+                    b.HasOne("Domain.Entities.Request", "Request")
+                        .WithMany("Tasks")
+                        .HasForeignKey("RequestId");
+
+                    b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TaskOffer", b =>
+                {
+                    b.HasOne("Domain.Entities.Offer", "Offer")
+                        .WithMany()
+                        .HasForeignKey("OfferId");
+
+                    b.HasOne("Domain.Entities.Task", null)
+                        .WithMany("Offers")
+                        .HasForeignKey("TaskId");
+
+                    b.Navigation("Offer");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Partner", b =>
+                {
+                    b.Navigation("Offers");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Request", b =>
+                {
+                    b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Task", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Offers");
+                });
+
             modelBuilder.Entity("Domain.Entities.Client", b =>
                 {
                     b.Navigation("MyRequests");
@@ -249,11 +364,6 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Entities.EventPlanner", b =>
                 {
                     b.Navigation("AcceptedRequests");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Partner", b =>
-                {
-                    b.Navigation("Offers");
                 });
 #pragma warning restore 612, 618
         }
