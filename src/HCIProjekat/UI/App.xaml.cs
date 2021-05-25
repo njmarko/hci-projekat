@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.Entities;
+using Domain.Persistence;
 using Domain.Services.Interfaces;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -47,8 +48,8 @@ namespace UI
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
-            var contextFactory = _host.Services.GetRequiredService<IDbContextFactory<ApplicationDbContext>>();
-            using (var context = contextFactory.CreateDbContext())
+            var contextFactory = _host.Services.GetRequiredService<IApplicationDbContextFactory>();
+            using (var context = (ApplicationDbContext) contextFactory.CreateDbContext())
             {
                 if (context.Database.IsSqlite())
                 {

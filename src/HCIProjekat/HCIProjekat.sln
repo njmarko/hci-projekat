@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{94A17F06-1C89-456A-82CD-45CC86CA313D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{94A17F06-1C89-456A-82CD-45CC86CA313D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{B648BAD4-3C56-4090-A032-354E738E36CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{B648BAD4-3C56-4090-A032-354E738E36CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{B8C39C92-8C58-4ED5-ACF3-86834305338A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B648BAD4-3C56-4090-A032-354E738E36CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B648BAD4-3C56-4090-A032-354E738E36CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B648BAD4-3C56-4090-A032-354E738E36CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8C39C92-8C58-4ED5-ACF3-86834305338A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8C39C92-8C58-4ED5-ACF3-86834305338A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8C39C92-8C58-4ED5-ACF3-86834305338A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8C39C92-8C58-4ED5-ACF3-86834305338A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,5 @@
 ﻿using Domain.Services;
 using Domain.Services.Interfaces;
-using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,22 +14,6 @@ namespace Domain
         public static IServiceCollection AddDomain(this IServiceCollection services)
         {
             services.AddSingleton<IAdminService, AdminService>();
-            return services;
-        }
-
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
-            Action<DbContextOptionsBuilder> dbContextOptionsBuilder;
-            if (configuration.GetValue<bool>("UseInMemoryDb"))
-            {
-                dbContextOptionsBuilder = options => options.UseInMemoryDatabase("HCIInMemoryDb");
-            } 
-            else
-            {
-                dbContextOptionsBuilder = options => options.UseSqlite(configuration.GetConnectionString("sqlite"), b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
-            }
-            //services.AddDbContext<ApplicationDbContext>(dbContextOptionsBuilder);
-            services.AddDbContextFactory<ApplicationDbContext>(dbContextOptionsBuilder);
             return services;
         }
     }

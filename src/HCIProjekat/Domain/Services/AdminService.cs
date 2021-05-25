@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
+using Domain.Persistence;
 using Domain.Services.Interfaces;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,9 +12,9 @@ namespace Domain.Services
 {
     public class AdminService : IAdminService
     {
-        private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
+        private readonly IApplicationDbContextFactory _dbContextFactory;
 
-        public AdminService(IDbContextFactory<ApplicationDbContext> dbContextFactory)
+        public AdminService(IApplicationDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
         }
