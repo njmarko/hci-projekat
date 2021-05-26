@@ -32,6 +32,7 @@ namespace UI.Context.Routers
             CurrentViewModel = route switch
             {
                 "Login" => _locator.Get<LoginViewModel>(),
+                "ClientRequests" => _locator.Get<ClientRequestsViewModel>(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
             };
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentViewModel)));

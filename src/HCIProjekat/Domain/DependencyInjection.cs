@@ -14,6 +14,7 @@ namespace Domain
         public static IServiceCollection AddDomain(this IServiceCollection services)
         {
             services.AddSingleton<IAdminService, AdminService>();
+            services.AddSingleton<IClientService, ClientService>();
             return services;
         }
     }

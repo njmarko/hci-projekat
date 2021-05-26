@@ -7,12 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\ClientRequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\LoginView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\ClientRequestCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Pagination.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ClientRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\LoginView.xaml">

@@ -17,7 +17,10 @@
     <Grid>
         <StackPanel>
             <Label Content="{Binding Name}" />
-            <Button Content="Go to login" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="Login" />
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Go to login" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="Login" />
+                <Button Content="Go to clients requests" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="ClientRequests" />
+            </StackPanel>
             <ContentControl Content="{Binding Context.Router.CurrentViewModel}"></ContentControl>
         </StackPanel>
     </Grid>

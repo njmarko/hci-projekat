@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.Entities;
+using Domain.Pagination.Requests;
 using Domain.Persistence;
 using Domain.Services.Interfaces;
 using Infrastructure;
@@ -47,14 +48,8 @@ namespace UI
                 {
                     services.AddDomain();
                     services.AddInfrastructure(context.Configuration);
-
-                    services.AddSingleton<IViewModelLocator, ViewModelLocator>();
-                    services.AddSingleton<IRouter, Router>();
-                    services.AddSingleton<IStore, Store>();
-                    services.AddSingleton<IApplicationContext, ApplicationContext>();
-
-                    services.AddTransient<MainViewModel>();
-                    services.AddTransient<LoginViewModel>();
+                    services.AddApplicationContext();
+                    services.AddViewModels();
                 });
         }
 
@@ -68,12 +63,12 @@ namespace UI
                 {
                     context.Database.Migrate();
                 }
+                ApplicationDbContextSeed.Seed(context);
             }
-            //ApplicationDbContextSeed.Seed(context);
 
-            var admin = new Admin { FirstName = "admin", LastName = "admin", Username = "vidojegavrilovic", Password = "test123", DateOfBirth = DateTime.Now };
-            var adminService = _host.Services.GetRequiredService<IAdminService>();
-            admin = adminService.Create(admin);
+            //var clientService = _host.Services.GetRequiredService<IClientService>();
+            //var page = clientService.GetRequestsForClient(1, new RequestsPage { Page = 0, Size = 6, RequestName = "req" });
+            //Console.WriteLine(page);
 
             Window window = new MainWindow(_host.Services.GetRequiredService<MainViewModel>());
             window.Show();
