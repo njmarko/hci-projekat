@@ -12,5 +12,7 @@ namespace Domain.Services.Interfaces
     public interface IClientService
     {
         Page<Request> GetRequestsForClient(int clientId, RequestsPage page);
+
+        public Page<Client> GetClients(ClientsPage page);
     }
 }

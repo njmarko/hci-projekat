@@ -21,6 +21,19 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        public Page<Client> GetClients(ClientsPage page)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Clients
+                          .Where(c => c.Username.ToLower().Contains(page.SearchQuery.ToLower())
+                          || c.FirstName.ToLower().Contains(page.SearchQuery.ToLower())
+                          || c.LastName.ToLower().Contains(page.SearchQuery.ToLower())
+                          || c.DateOfBirth.ToString().ToLower().Contains(page.SearchQuery.ToLower()))
+                          .Include(c => c.MyRequests)
+                          .ToPage(page);
+        }
+
         public Page<Request> GetRequestsForClient(int clientId, RequestsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -30,5 +43,6 @@ namespace Domain.Services
                           .Where(r => r.Name.ToLower().Contains(page.RequestName.ToLower()))
                           .ToPage(page);
         }
+
     }
 }
