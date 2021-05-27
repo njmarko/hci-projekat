@@ -16,6 +16,7 @@ namespace UI.ViewModels
             services.AddTransient<RegisterViewModel>();
             services.AddTransient<ClientRequestsViewModel>();
             services.AddTransient<AdminClientsViewModel>();
+            services.AddTransient<AdminEventPlannersViewModel>();
             return services;
         }
     }

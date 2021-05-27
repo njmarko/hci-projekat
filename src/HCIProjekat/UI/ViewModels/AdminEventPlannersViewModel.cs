@@ -13,7 +13,7 @@ using UI.Context;
 namespace UI.ViewModels
 {
 
-    public class AdminClientCardModel
+    public class AdminEventPlannerCardModel
     {
         public string Name { get; set; }
         public string Username { get; set; }
@@ -23,9 +23,9 @@ namespace UI.ViewModels
 
     }
 
-    public class AdminClientsViewModel : PagingViewModelBase
+    public class AdminEventPlannersViewModel : PagingViewModelBase
     {
-        private readonly IClientService _clientService;
+        private readonly IEventPlannersService _eventPlannersService;
 
         private string _searchQuery;
         public string SearchQuery
@@ -39,11 +39,11 @@ namespace UI.ViewModels
         }
 
         public ICommand SearchCommand { get; set; }
-        public ObservableCollection<AdminClientCardModel> ClientModels { get; private set; } = new ObservableCollection<AdminClientCardModel>();
+        public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
 
-        public AdminClientsViewModel(IApplicationContext context, IClientService clientService) : base(context)
+        public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService) : base(context)
         {
-            _clientService = clientService;
+            _eventPlannersService = eventPlannersService;
             SearchQuery = string.Empty;
             SearchCommand = new DelegateCommand(() => UpdatePage(0));
             Columns = 4;
@@ -52,17 +52,17 @@ namespace UI.ViewModels
 
         public override void UpdatePage(int pageNumber)
         {
-            ClientModels.Clear();
-            var page = _clientService.GetClients(new ClientsPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
+            EventPlannerModels.Clear();
+            var page = _eventPlannersService.GetEventPlanners(new EventPlannersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
             foreach (var entity in page.Entities)
             {
 
-                ClientModels.Add(new AdminClientCardModel
+                EventPlannerModels.Add(new AdminEventPlannerCardModel
                 {
                     Name = entity.FirstName + " " + entity.LastName,
                     Username = entity.Username,
                     DateOfBirth = entity.DateOfBirth.ToString(),
-                    ActiveRequests = 12,
+                    ActiveRequests = entity.AcceptedRequests.Count,
                     CompletedRequests = 150
                 });
             }

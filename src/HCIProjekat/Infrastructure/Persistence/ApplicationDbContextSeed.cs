@@ -19,7 +19,9 @@ namespace Infrastructure.Persistence
             var c5 = new Client { FirstName = "Dejan4", LastName = "Djordjevic4", Username = "dejandjordjevic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(4) };
             var c6 = new Client { FirstName = "Dejan5", LastName = "Djordjevic5", Username = "dejandjordjevic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(5) };
             var c7 = new Client { FirstName = "Dejan6", LastName = "Djordjevic6", Username = "dejandjordjevic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(6) };
-            var c8 = new Client { FirstName = "Dejan7", LastName = "Djordjevic7", Username = "dejandjordjevic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(1) };
+            var c8 = new Client { FirstName = "Dejan7", LastName = "Djordjevic7", Username = "dejandjordjevic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(7) };
+            var c9 = new Client { FirstName = "Dejan8", LastName = "Djordjevic8", Username = "dejandjordjevic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(8) };
+            var c10 = new Client { FirstName = "Dejan9", LastName = "Djordjevic9", Username = "dejandjordjevic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(9) };
             context.Clients.Add(c1);
             context.Clients.Add(c2);
             context.Clients.Add(c3);
@@ -28,6 +30,8 @@ namespace Infrastructure.Persistence
             context.Clients.Add(c6);
             context.Clients.Add(c7);
             context.Clients.Add(c8);
+            context.Clients.Add(c9);
+            context.Clients.Add(c10);
 
             var r1 = new Request { Name = "Request 1", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
             var r2 = new Request { Name = "Request 2", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
@@ -57,6 +61,37 @@ namespace Infrastructure.Persistence
             context.Requests.Add(r12);
             context.Requests.Add(r13);
             context.Requests.Add(r14);
+
+
+            var ep1 = new EventPlanner { FirstName = "Pera1", LastName = "Peric1", Username = "peraperic1", Password = "test123", DateOfBirth = DateTime.Now.AddDays(1), AcceptedRequests = new List<Request>() };
+            var ep2 = new EventPlanner { FirstName = "Pera2", LastName = "Peric2", Username = "peraperic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(2), AcceptedRequests = new List<Request>() };
+            var ep3 = new EventPlanner { FirstName = "Pera3", LastName = "Peric3", Username = "peraperic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(3), AcceptedRequests = new List<Request>() };
+            var ep4 = new EventPlanner { FirstName = "Pera4", LastName = "Peric4", Username = "peraperic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(4), AcceptedRequests = new List<Request>() };
+            var ep5 = new EventPlanner { FirstName = "Pera5", LastName = "Peric5", Username = "peraperic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(5), AcceptedRequests = new List<Request>() };
+            var ep6 = new EventPlanner { FirstName = "Pera6", LastName = "Peric6", Username = "peraperic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(6), AcceptedRequests = new List<Request>() };
+            var ep7 = new EventPlanner { FirstName = "Pera7", LastName = "Peric7", Username = "peraperic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(7), AcceptedRequests = new List<Request>() };
+            var ep8 = new EventPlanner { FirstName = "Pera8", LastName = "Peric8", Username = "peraperic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(8), AcceptedRequests = new List<Request>() };
+            var ep9 = new EventPlanner { FirstName = "Pera9", LastName = "Peric9", Username = "peraperic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(9), AcceptedRequests = new List<Request>() };
+            ep1.AcceptedRequests.Add(r1);
+            ep1.AcceptedRequests.Add(r2);
+            ep1.AcceptedRequests.Add(r3);
+            ep1.AcceptedRequests.Add(r4);
+            ep2.AcceptedRequests.Add(r5);
+            ep2.AcceptedRequests.Add(r6);
+            ep2.AcceptedRequests.Add(r7);
+            ep3.AcceptedRequests.Add(r8);
+
+            context.EventPlanners.Add(ep1);
+            context.EventPlanners.Add(ep2);
+            context.EventPlanners.Add(ep3);
+            context.EventPlanners.Add(ep4);
+            context.EventPlanners.Add(ep5);
+            context.EventPlanners.Add(ep6);
+            context.EventPlanners.Add(ep7);
+            context.EventPlanners.Add(ep8);
+            context.EventPlanners.Add(ep9);
+
+
 
             context.SaveChanges();
         }

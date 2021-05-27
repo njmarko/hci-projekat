@@ -11,7 +11,7 @@ namespace UI.ViewModels
     {
         public MainViewModel(IApplicationContext context) : base(context)
         {
-            Context.Router.Push("AdminClients");
+            Context.Router.Push("AdminEventPlanners");
         }
     }
 }

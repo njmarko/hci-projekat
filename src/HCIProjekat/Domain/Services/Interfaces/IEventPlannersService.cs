@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IClientService
+    public interface IEventPlannersService
     {
-        Page<Request> GetRequestsForClient(int clientId, RequestsPage page);
-
-        Page<Client> GetClients(ClientsPage page);
+        Page<EventPlanner> GetEventPlanners(EventPlannersPage page);
     }
 }
