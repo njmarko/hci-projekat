@@ -13,6 +13,6 @@ namespace Domain.Services.Interfaces
     {
         Page<Request> GetRequestsForClient(int clientId, RequestsPage page);
 
-        public Page<Client> GetClients(RequestsPage page);
+        public Page<Client> GetClients(ClientsPage page);
     }
 }

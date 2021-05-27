@@ -21,11 +21,12 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
-        public Page<Client> GetClients(RequestsPage page)
+        public Page<Client> GetClients(ClientsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Clients
+                          .Where(c => c.Username.ToLower().Contains(page.SearchQuery.ToLower()))
                           .ToPage(page);
         }
 

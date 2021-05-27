@@ -21,8 +21,6 @@
                      <LineBreak/>
                     <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignBody1TextBlock}" Text="{Binding DateOfBirth}"/>   <LineBreak/>    
                 </TextBlock>
-
-                <Button Grid.Row="2" Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" />
             </Grid>
         </materialDesign:Card>
     </Grid>

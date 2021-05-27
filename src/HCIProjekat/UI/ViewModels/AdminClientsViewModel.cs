@@ -23,33 +23,33 @@ namespace UI.ViewModels
     {
         private readonly IClientService _clientService;
 
-        private string _requestName;
-        public string RequestName
+        private string _searchQuery;
+        public string SearchQuery
         {
-            get => _requestName;
+            get => _searchQuery;
             set
             {
-                _requestName = value;
-                OnPropertyChanged(nameof(RequestName));
+                _searchQuery = value;
+                OnPropertyChanged(nameof(SearchQuery));
             }
         }
 
-        public ObservableCollection<AdminClientCardModel> RequestModels { get; private set; } = new ObservableCollection<AdminClientCardModel>();
+        public ObservableCollection<AdminClientCardModel> ClientModels { get; private set; } = new ObservableCollection<AdminClientCardModel>();
 
         public AdminClientsViewModel(IApplicationContext context, IClientService clientService) : base(context)
         {
             _clientService = clientService;
-            RequestName = string.Empty;
+            SearchQuery = string.Empty;
             UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
         {
-            RequestModels.Clear();
-            var page = _clientService.GetClients(new RequestsPage { Page = pageNumber, Size = Size, RequestName = RequestName });
+            ClientModels.Clear();
+            var page = _clientService.GetClients(new ClientsPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
             foreach (var entity in page.Entities)
             {
-                RequestModels.Add(new AdminClientCardModel { Name = entity.FirstName + "" + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString() });
+                ClientModels.Add(new AdminClientCardModel { Name = entity.FirstName + "" + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString() });
             }
             OnPageFetched(page);
         }
