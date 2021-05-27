@@ -18,7 +18,9 @@ namespace UI.ViewModels
         public string Name { get; set; }
         public string Username { get; set; }
         public string DateOfBirth { get; set; }
-        
+        public int ActiveRequests { get; set; }
+        public int CompletedRequests { get; set; }
+
     }
 
     public class AdminClientsViewModel : PagingViewModelBase
@@ -54,7 +56,8 @@ namespace UI.ViewModels
             var page = _clientService.GetClients(new ClientsPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
             foreach (var entity in page.Entities)
             {
-                ClientModels.Add(new AdminClientCardModel { Name = entity.FirstName + " " + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString() });
+
+                ClientModels.Add(new AdminClientCardModel { Name = entity.FirstName + " " + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString(), ActiveRequests = 12, CompletedRequests = 150});
             }
             OnPageFetched(page);
         }

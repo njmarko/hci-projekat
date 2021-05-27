@@ -30,6 +30,7 @@ namespace Domain.Services
                           || c.FirstName.ToLower().Contains(page.SearchQuery.ToLower())
                           || c.LastName.ToLower().Contains(page.SearchQuery.ToLower())
                           || c.DateOfBirth.ToString().ToLower().Contains(page.SearchQuery.ToLower()))
+                          .Include(c => c.MyRequests)
                           .ToPage(page);
         }
 

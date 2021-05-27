@@ -22,6 +22,14 @@
                         <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Date of birth: "/>
                         <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding DateOfBirth}"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Active requests: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding ActiveRequests}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Completed requests: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding CompletedRequests}"/>
+                    </StackPanel>
                 </StackPanel>
                 <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">
   
