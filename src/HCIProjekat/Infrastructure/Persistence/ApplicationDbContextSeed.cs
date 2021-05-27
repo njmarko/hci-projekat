@@ -63,15 +63,15 @@ namespace Infrastructure.Persistence
             context.Requests.Add(r14);
 
 
-            var ep1 = new EventPlanner { FirstName = "Pera1", LastName = "Peric1", Username = "peraperic1", Password = "test123", DateOfBirth = DateTime.Now.AddDays(1) };
-            var ep2 = new EventPlanner { FirstName = "Pera2", LastName = "Peric2", Username = "peraperic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(2) };
-            var ep3 = new EventPlanner { FirstName = "Pera3", LastName = "Peric3", Username = "peraperic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(3) };
-            var ep4 = new EventPlanner { FirstName = "Pera4", LastName = "Peric4", Username = "peraperic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(4) };
-            var ep5 = new EventPlanner { FirstName = "Pera5", LastName = "Peric5", Username = "peraperic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(5) };
-            var ep6 = new EventPlanner { FirstName = "Pera6", LastName = "Peric6", Username = "peraperic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(6) };
-            var ep7 = new EventPlanner { FirstName = "Pera7", LastName = "Peric7", Username = "peraperic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(7) };
-            var ep8 = new EventPlanner { FirstName = "Pera8", LastName = "Peric8", Username = "peraperic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(8) };
-            var ep9 = new EventPlanner { FirstName = "Pera9", LastName = "Peric9", Username = "peraperic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(9) };
+            var ep1 = new EventPlanner { FirstName = "Pera1", LastName = "Peric1", Username = "peraperic1", Password = "test123", DateOfBirth = DateTime.Now.AddDays(1), AcceptedRequests = new List<Request>() };
+            var ep2 = new EventPlanner { FirstName = "Pera2", LastName = "Peric2", Username = "peraperic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(2), AcceptedRequests = new List<Request>() };
+            var ep3 = new EventPlanner { FirstName = "Pera3", LastName = "Peric3", Username = "peraperic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(3), AcceptedRequests = new List<Request>() };
+            var ep4 = new EventPlanner { FirstName = "Pera4", LastName = "Peric4", Username = "peraperic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(4), AcceptedRequests = new List<Request>() };
+            var ep5 = new EventPlanner { FirstName = "Pera5", LastName = "Peric5", Username = "peraperic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(5), AcceptedRequests = new List<Request>() };
+            var ep6 = new EventPlanner { FirstName = "Pera6", LastName = "Peric6", Username = "peraperic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(6), AcceptedRequests = new List<Request>() };
+            var ep7 = new EventPlanner { FirstName = "Pera7", LastName = "Peric7", Username = "peraperic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(7), AcceptedRequests = new List<Request>() };
+            var ep8 = new EventPlanner { FirstName = "Pera8", LastName = "Peric8", Username = "peraperic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(8), AcceptedRequests = new List<Request>() };
+            var ep9 = new EventPlanner { FirstName = "Pera9", LastName = "Peric9", Username = "peraperic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(9), AcceptedRequests = new List<Request>() };
             ep1.AcceptedRequests.Add(r1);
             ep1.AcceptedRequests.Add(r2);
             ep1.AcceptedRequests.Add(r3);
@@ -90,6 +90,8 @@ namespace Infrastructure.Persistence
             context.EventPlanners.Add(ep7);
             context.EventPlanners.Add(ep8);
             context.EventPlanners.Add(ep9);
+
+
 
             context.SaveChanges();
         }

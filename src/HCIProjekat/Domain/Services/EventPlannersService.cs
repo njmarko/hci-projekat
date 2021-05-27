@@ -22,7 +22,7 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
-        public Page<EventPlanner> GetClients(EventPlannersPage page)
+        public Page<EventPlanner> GetEventPlanners(EventPlannersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
 

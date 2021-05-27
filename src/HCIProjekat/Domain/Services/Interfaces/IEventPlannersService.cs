@@ -11,6 +11,6 @@ namespace Domain.Services.Interfaces
 {
     public interface IEventPlannersService
     {
-        Page<EventPlanner> GetClients(EventPlannersPage page);
+        Page<EventPlanner> GetEventPlanners(EventPlannersPage page);
     }
 }
