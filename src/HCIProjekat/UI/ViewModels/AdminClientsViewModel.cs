@@ -57,7 +57,14 @@ namespace UI.ViewModels
             foreach (var entity in page.Entities)
             {
 
-                ClientModels.Add(new AdminClientCardModel { Name = entity.FirstName + " " + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString(), ActiveRequests = 12, CompletedRequests = 150});
+                ClientModels.Add(new AdminClientCardModel
+                {
+                    Name = entity.FirstName + " " + entity.LastName,
+                    Username = entity.Username,
+                    DateOfBirth = entity.DateOfBirth.ToString(),
+                    ActiveRequests = 12,
+                    CompletedRequests = 150
+                });
             }
             OnPageFetched(page);
         }

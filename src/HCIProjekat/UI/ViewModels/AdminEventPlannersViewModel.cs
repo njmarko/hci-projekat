@@ -57,7 +57,14 @@ namespace UI.ViewModels
             foreach (var entity in page.Entities)
             {
 
-                EventPlannerModels.Add(new AdminEventPlannerCardModel { Name = entity.FirstName + " " + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString(), ActiveRequests = 12, CompletedRequests = 150});
+                EventPlannerModels.Add(new AdminEventPlannerCardModel
+                {
+                    Name = entity.FirstName + " " + entity.LastName,
+                    Username = entity.Username,
+                    DateOfBirth = entity.DateOfBirth.ToString(),
+                    ActiveRequests = entity.AcceptedRequests.Count,
+                    CompletedRequests = 150
+                });
             }
             OnPageFetched(page);
         }
