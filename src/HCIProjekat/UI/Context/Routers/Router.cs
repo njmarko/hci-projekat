@@ -32,6 +32,7 @@ namespace UI.Context.Routers
             CurrentViewModel = route switch
             {
                 "Login" => _locator.Get<LoginViewModel>(),
+                "Register" => _locator.Get<RegisterViewModel>(),
                 "ClientRequests" => _locator.Get<ClientRequestsViewModel>(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
             };

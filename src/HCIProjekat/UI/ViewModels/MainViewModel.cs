@@ -9,20 +9,9 @@ namespace UI.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-
         public MainViewModel(IApplicationContext context) : base(context)
         {
-            Name = "test samo da radi";
+            Context.Router.Push("ClientRequests");
         }
     }
 }

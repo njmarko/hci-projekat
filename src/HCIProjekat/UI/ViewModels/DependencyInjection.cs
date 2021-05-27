@@ -13,6 +13,7 @@ namespace UI.ViewModels
         {
             services.AddTransient<MainViewModel>();
             services.AddTransient<LoginViewModel>();
+            services.AddTransient<RegisterViewModel>();
             services.AddTransient<ClientRequestsViewModel>();
             return services;
         }

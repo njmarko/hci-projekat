@@ -13,15 +13,14 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" MinHeight="768" MinWidth="1366">
     <Grid>
-        <StackPanel>
-            <Label Content="{Binding Name}" />
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Go to login" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="Login" />
-                <Button Content="Go to clients requests" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="ClientRequests" />
-            </StackPanel>
-            <ContentControl Content="{Binding Context.Router.CurrentViewModel}"></ContentControl>
-        </StackPanel>
+        <Grid.Background>
+            <ImageBrush ImageSource="https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2048x1152/46b99f6354a74981917ea032525ecebb/photo-1614254480533-d2a816781d58.jpg" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Content="{Binding Context.Router.CurrentViewModel}"></ContentControl>
     </Grid>
 </Window>

@@ -26,7 +26,6 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Requests
-                          .Include(r => r.Client)                       // ovo je samo primer za join fetch
                           .Where(r => r.Client.Id == clientId)
                           .Where(r => r.Name.ToLower().Contains(page.RequestName.ToLower()))
                           .ToPage(page);

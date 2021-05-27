@@ -19,7 +19,7 @@
                 <views:ClientRequestsView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
-                <Label Content="THIS IS REGISTER PAGE" />
+                <views:RegisterView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
