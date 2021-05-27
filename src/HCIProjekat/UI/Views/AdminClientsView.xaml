@@ -23,7 +23,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="White" Margin="10">
-            <Grid>
+            <Grid FocusManager.FocusedElement="{Binding ElementName=SearchTextBox}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -35,8 +35,13 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <!--Search and filter block-->
-                <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search clients" />
-                <Button Grid.Row="0" Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" />
+                <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10" Name="SearchTextBox"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search clients">
+                    <TextBox.Text>
+                        <Binding Path="SearchQuery" UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Button Grid.Row="0" Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding SearchCommand}"/>
                 <CheckBox Grid.Row="0" Grid.Column="3" Margin="10 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
                 <!--Filter block-->
                 <UniformGrid Grid.Row="1" Grid.Column="0" Rows="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">

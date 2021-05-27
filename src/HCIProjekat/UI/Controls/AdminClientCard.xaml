@@ -16,10 +16,15 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
+                <StackPanel Grid.Row="1">
+                    <TextBlock Margin="0 0 0 50" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Username}" />
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Date of birth: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding DateOfBirth}"/>
+                    </StackPanel>
+                </StackPanel>
                 <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">
-                    <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Username}" /> <LineBreak/>
-                     <LineBreak/>
-                    <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignBody1TextBlock}" Text="{Binding DateOfBirth}"/>   <LineBreak/>    
+  
                 </TextBlock>
             </Grid>
         </materialDesign:Card>

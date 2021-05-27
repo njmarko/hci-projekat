@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UI.Commands;
 using UI.Context;
 
 namespace UI.ViewModels
@@ -34,12 +36,15 @@ namespace UI.ViewModels
             }
         }
 
+        public ICommand SearchCommand { get; set; }
         public ObservableCollection<AdminClientCardModel> ClientModels { get; private set; } = new ObservableCollection<AdminClientCardModel>();
 
         public AdminClientsViewModel(IApplicationContext context, IClientService clientService) : base(context)
         {
             _clientService = clientService;
             SearchQuery = string.Empty;
+            SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            Columns = 4;
             UpdatePage(0);
         }
 
@@ -49,7 +54,7 @@ namespace UI.ViewModels
             var page = _clientService.GetClients(new ClientsPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
             foreach (var entity in page.Entities)
             {
-                ClientModels.Add(new AdminClientCardModel { Name = entity.FirstName + "" + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString() });
+                ClientModels.Add(new AdminClientCardModel { Name = entity.FirstName + " " + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString() });
             }
             OnPageFetched(page);
         }

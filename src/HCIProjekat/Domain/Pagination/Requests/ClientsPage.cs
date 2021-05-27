@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Pagination.Requests
 {
-    public class ClientsPage:PageRequest
+    public class ClientsPage : PageRequest
     {
         public string SearchQuery { get; set; }
     }

@@ -26,7 +26,10 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Clients
-                          .Where(c => c.Username.ToLower().Contains(page.SearchQuery.ToLower()))
+                          .Where(c => c.Username.ToLower().Contains(page.SearchQuery.ToLower())
+                          || c.FirstName.ToLower().Contains(page.SearchQuery.ToLower())
+                          || c.LastName.ToLower().Contains(page.SearchQuery.ToLower())
+                          || c.DateOfBirth.ToString().ToLower().Contains(page.SearchQuery.ToLower()))
                           .ToPage(page);
         }
 
@@ -40,5 +43,5 @@ namespace Domain.Services
                           .ToPage(page);
         }
 
-     }
+    }
 }
