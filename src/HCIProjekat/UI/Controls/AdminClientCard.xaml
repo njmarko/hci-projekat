@@ -16,12 +16,12 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
-                <TextBlock Grid.Row="1" TextWrapping="Wrap" TextAlignment="Left" Style="{DynamicResource MaterialDesignBody1TextBlock}" FontSize="14">
-                    Stavka 1 <LineBreak />
-                    Stavka 2 <LineBreak />
-                    Stavka 3 <LineBreak />
-                    Stavka 4 <LineBreak />
+                <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">
+                    <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Username}" /> <LineBreak/>
+                     <LineBreak/>
+                    <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignBody1TextBlock}" Text="{Binding DateOfBirth}"/>   <LineBreak/>    
                 </TextBlock>
+
                 <Button Grid.Row="2" Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" />
             </Grid>
         </materialDesign:Card>

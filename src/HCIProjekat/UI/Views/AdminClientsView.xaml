@@ -55,7 +55,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <controls:ClientRequestCard />
+                    <controls:AdminClientCard />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
