@@ -13,7 +13,21 @@ namespace Infrastructure.Persistence
         public static void Seed(ApplicationDbContext context)
         {
             var c1 = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.Now };
+            var c2 = new Client { FirstName = "Dejan1", LastName = "Djordjevic1", Username = "dejandjordjevic1", Password = "test123", DateOfBirth = DateTime.Now };
+            var c3 = new Client { FirstName = "Dejan2", LastName = "Djordjevic2", Username = "dejandjordjevic2", Password = "test123", DateOfBirth = DateTime.Now };
+            var c4 = new Client { FirstName = "Dejan3", LastName = "Djordjevic3", Username = "dejandjordjevic3", Password = "test123", DateOfBirth = DateTime.Now };
+            var c5 = new Client { FirstName = "Dejan4", LastName = "Djordjevic4", Username = "dejandjordjevic4", Password = "test123", DateOfBirth = DateTime.Now };
+            var c6 = new Client { FirstName = "Dejan5", LastName = "Djordjevic5", Username = "dejandjordjevic5", Password = "test123", DateOfBirth = DateTime.Now };
+            var c7 = new Client { FirstName = "Dejan6", LastName = "Djordjevic6", Username = "dejandjordjevic6", Password = "test123", DateOfBirth = DateTime.Now };
+            var c8 = new Client { FirstName = "Dejan7", LastName = "Djordjevic7", Username = "dejandjordjevic7", Password = "test123", DateOfBirth = DateTime.Now };
             context.Clients.Add(c1);
+            context.Clients.Add(c2);
+            context.Clients.Add(c3);
+            context.Clients.Add(c4);
+            context.Clients.Add(c5);
+            context.Clients.Add(c6);
+            context.Clients.Add(c7);
+            context.Clients.Add(c8);
 
             var r1 = new Request { Name = "Request 1", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
             var r2 = new Request { Name = "Request 2", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
