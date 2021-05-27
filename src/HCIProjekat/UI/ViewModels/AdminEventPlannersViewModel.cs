@@ -13,7 +13,7 @@ using UI.Context;
 namespace UI.ViewModels
 {
 
-    public class AdminRequestPlannerCardModel
+    public class AdminEventPlannerCardModel
     {
         public string Name { get; set; }
         public string Username { get; set; }
@@ -23,7 +23,7 @@ namespace UI.ViewModels
 
     }
 
-    public class AdminRequestPlannersViewModel : PagingViewModelBase
+    public class AdminEventPlannersViewModel : PagingViewModelBase
     {
         private readonly IEventPlannersService _eventPlannersService;
 
@@ -39,9 +39,9 @@ namespace UI.ViewModels
         }
 
         public ICommand SearchCommand { get; set; }
-        public ObservableCollection<AdminRequestPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminRequestPlannerCardModel>();
+        public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
 
-        public AdminRequestPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService) : base(context)
+        public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService) : base(context)
         {
             _eventPlannersService = eventPlannersService;
             SearchQuery = string.Empty;
@@ -57,7 +57,7 @@ namespace UI.ViewModels
             foreach (var entity in page.Entities)
             {
 
-                EventPlannerModels.Add(new AdminRequestPlannerCardModel { Name = entity.FirstName + " " + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString(), ActiveRequests = 12, CompletedRequests = 150});
+                EventPlannerModels.Add(new AdminEventPlannerCardModel { Name = entity.FirstName + " " + entity.LastName, Username = entity.Username, DateOfBirth = entity.DateOfBirth.ToString(), ActiveRequests = 12, CompletedRequests = 150});
             }
             OnPageFetched(page);
         }
