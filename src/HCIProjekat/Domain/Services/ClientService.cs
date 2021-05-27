@@ -21,6 +21,14 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        public Page<Client> GetClients(RequestsPage page)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Clients
+                          .ToPage(page);
+        }
+
         public Page<Request> GetRequestsForClient(int clientId, RequestsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -30,5 +38,6 @@ namespace Domain.Services
                           .Where(r => r.Name.ToLower().Contains(page.RequestName.ToLower()))
                           .ToPage(page);
         }
-    }
+
+     }
 }
