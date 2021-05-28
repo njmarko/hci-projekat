@@ -17,6 +17,7 @@ namespace Domain
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IEventPlannersService, EventPlannersService>();
             services.AddSingleton<IAuthService, AuthService>();
+            services.AddSingleton<IPartnersService, PartnersService>();
             return services;
         }
     }
