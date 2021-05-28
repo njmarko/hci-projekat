@@ -11,26 +11,39 @@
         <materialDesign:Card UniformCornerRadius="20" Margin="10" Padding="5">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
-                <StackPanel Grid.Row="1">
-                    <TextBlock Margin="0 0 0 50" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Username}" />
-                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Date of birth: "/>
-                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding DateOfBirth}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Active requests: "/>
-                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding ActiveRequests}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Completed requests: "/>
-                        <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding CompletedRequests}"/>
-                    </StackPanel>
-                </StackPanel>
+                <Viewbox Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Margin="50 0 50 0">
+                        <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
+                    </Grid>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Margin="25 0 25 25">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Margin="0 0 0 25" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Username}" />
+                            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                                <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Date of birth: "/>
+                                <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding DateOfBirth}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                                <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Active requests: "/>
+                                <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding ActiveRequests}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                                <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="Completed requests: "/>
+                                <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding CompletedRequests}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                </Viewbox>
+
             </Grid>
         </materialDesign:Card>
     </Grid>
