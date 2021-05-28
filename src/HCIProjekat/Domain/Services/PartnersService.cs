@@ -21,7 +21,7 @@ namespace Domain.Services
         {
             _dbContextFactory = dbContextFactory;
         }
-        public Page<Partner> GetClients(PartnersPage page)
+        public Page<Partner> GetPartners(PartnersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
