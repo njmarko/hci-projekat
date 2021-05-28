@@ -11,7 +11,7 @@ using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class RegisterEventPlannerModel : ViewModelBase, ISelfValidatingViewModel
+    public class RegisterEventPlannerViewModel : ViewModelBase, ISelfValidatingViewModel
     {
         // Poperties
         private string _username;
@@ -65,11 +65,12 @@ namespace UI.ViewModels
         public ErrorMessageViewModel DateOfBirthError { get; private set; } = new ErrorMessageViewModel();
 
         public bool CanRegister => IsValid();
-        public ICommand RegisterCommand { get; private set; }
+        public ICommand RegisterEventPlannerCommand { get; private set; }
 
-        public RegisterEventPlannerModel(IApplicationContext context, IEventPlannersService eventPlannerService) : base(context)
+        public RegisterEventPlannerViewModel(IApplicationContext context, IEventPlannersService eventPlannerService) : base(context)
         {
-            RegisterCommand = new RegisterEventPlannerCommand(this, eventPlannerService, context.Router);
+            //DateOfBirth = new DateTime(1990, 01, 01);
+            RegisterEventPlannerCommand = new RegisterEventPlannerCommand(this, eventPlannerService, context.Router);
         }
 
         public bool IsValid()

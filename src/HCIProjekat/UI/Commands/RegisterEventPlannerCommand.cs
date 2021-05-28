@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using UI.Context.Routers;
 using UI.ViewModels;
@@ -14,13 +15,13 @@ namespace UI.Commands
 {
     public class RegisterEventPlannerCommand : ICommand
     {
-        private readonly RegisterEventPlannerModel _registerVm;
+        private readonly RegisterEventPlannerViewModel _registerVm;
         private readonly IEventPlannersService _eventPlannerService;
         private readonly IRouter _router;
 
         public event EventHandler CanExecuteChanged;
 
-        public RegisterEventPlannerCommand(RegisterEventPlannerModel registerVm, IEventPlannersService eventPlannerService, IRouter router)
+        public RegisterEventPlannerCommand(RegisterEventPlannerViewModel registerVm, IEventPlannersService eventPlannerService, IRouter router)
         {
             _registerVm = registerVm;
             _eventPlannerService = eventPlannerService;
@@ -30,7 +31,7 @@ namespace UI.Commands
 
         private void _registerVm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(RegisterViewModel.CanRegister))
+            if (e.PropertyName == nameof(RegisterEventPlannerViewModel.CanRegister))
             {
                 CanExecuteChanged?.Invoke(sender, e);
             }
@@ -45,7 +46,8 @@ namespace UI.Commands
         {
             try
             { 
-                var registeredClient = _eventPlannerService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
+                var registeredEventPlanner = _eventPlannerService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
+                //MessageBox.Show($"Event planner sucessfuly added, {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName}.");
             } 
             catch (UsernameAlreadyExistsException exception)
             {
