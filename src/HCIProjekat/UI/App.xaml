@@ -30,6 +30,9 @@
             <DataTemplate DataType="{x:Type vm:CreateOfferViewModel}">
                 <views:CreateOfferView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PartnerOffersViewModel}">
+                <views:PartnerOffersView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

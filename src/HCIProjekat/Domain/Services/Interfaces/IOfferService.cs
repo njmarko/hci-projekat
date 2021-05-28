@@ -1,4 +1,6 @@
 ﻿using Domain.Entities;
+using Domain.Pagination;
+using Domain.Pagination.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +12,7 @@ namespace Domain.Services.Interfaces
     public interface IOfferService
     {
         Offer Create(Offer offer);
+
+        Page<Offer> GetOffersForPartner(int partnerId, OffersPage page);
     }
 }
