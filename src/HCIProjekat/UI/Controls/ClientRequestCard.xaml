@@ -15,13 +15,30 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
-                <TextBlock Grid.Row="1" TextWrapping="Wrap" TextAlignment="Left" Style="{DynamicResource MaterialDesignBody1TextBlock}" FontSize="14">
-                    Stavka 1 <LineBreak />
-                    Stavka 2 <LineBreak />
-                    Stavka 3 <LineBreak />
-                    Stavka 4 <LineBreak />
-                </TextBlock>
+                <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" Text="{Binding Name}" />
+                <StackPanel Grid.Row="1">
+                    <TextBlock Margin="0 0 0 10" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Type}" />
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Guest number: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding GuestNumber}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Theme: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Theme}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Budget: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Budget}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Budget flexible: "/>
+                        <CheckBox IsChecked="{Binding BudgetFlexible}" IsHitTestVisible="False" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Date: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Date}"/>
+                    </StackPanel>
+                </StackPanel>
                 <Button Grid.Row="2" Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" />
             </Grid>
         </materialDesign:Card>

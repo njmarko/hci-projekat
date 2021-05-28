@@ -17,6 +17,12 @@ namespace UI.ViewModels
     public class ClientRequestCardModel
     {
         public string Name { get; set; }
+        public string Theme { get; set; }
+        public string Type { get; set; }
+        public string Budget { get; set; }
+        public int GuestNumber { get; set; }
+        public bool BudgetFlexible { get; set; }
+        public string Date { get; set; }
     }
 
     public class RequestTypeModel
@@ -85,6 +91,8 @@ namespace UI.ViewModels
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.PARTY, Name = "Party" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.WEDDING, Name = "Wedding" });
 
+            Rows = 2;
+            Columns = 4;
             UpdatePage(0);
         }
 
@@ -94,7 +102,7 @@ namespace UI.ViewModels
             var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type });
             foreach (var entity in page.Entities)
             {
-                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name });
+                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name, Type = entity.Type.ToString(), GuestNumber = entity.GuestNumber, Budget = $"{entity.Budget} RSD", BudgetFlexible = entity.BudgetFlexible, Theme = entity.Theme, Date = entity.Date.ToString("dd.MM.yyyy") });
             }
             OnPageFetched(page);
         }
