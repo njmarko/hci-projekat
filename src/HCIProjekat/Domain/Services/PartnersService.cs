@@ -27,9 +27,9 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Users.FirstOrDefault(u => u.Username == partner.Name) != null)
+            if (context.Partner.FirstOrDefault(u => u.Name == partner.Name) != null)
             {
-                throw new UsernameAlreadyExistsException(partner.Name);
+                throw new PartnerAlreadyExistsException(partner.Name);
             }
 
             context.Partner.Add(partner);

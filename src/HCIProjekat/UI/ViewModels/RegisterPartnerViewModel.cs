@@ -64,7 +64,7 @@ namespace UI.ViewModels
         private string _streetNumber;
         public string StreetNumber
         {
-            get { return _street; }
+            get { return _streetNumber; }
             set { _streetNumber = value; OnPropertyChanged(nameof(StreetNumber)); OnPropertyChanged(nameof(CanRegister)); }
         }
 
@@ -123,7 +123,7 @@ namespace UI.ViewModels
                 TypeError.ErrorMessage = null;
             }
             //Country
-            if (string.IsNullOrEmpty(Street))
+            if (string.IsNullOrEmpty(Country))
             {
                 CountryError.ErrorMessage = "Country cannot be empty.";
                 valid = false;
