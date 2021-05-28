@@ -11,7 +11,7 @@ namespace Domain.Pagination
 {
     public static class PageExtensions
     {
-        public static Page<TEntity> ToPage<TEntity>(this IQueryable<TEntity> processedDbSet, PageRequest page) where TEntity : BaseEntity
+        public static Page<TEntity> ToPage<TEntity>(this IQueryable<TEntity> processedDbSet, PageRequest page) where TEntity : class
         {
             var totalElements = processedDbSet.Count();
             var pageElements = processedDbSet.Skip(page.Page * page.Size).Take(page.Size).ToList();
@@ -21,7 +21,7 @@ namespace Domain.Pagination
             return new Page<TEntity> { Entities = pageElements, TotalElements = totalElements, PageNumber = page.Page, Size = page.Size, PageCount = totalPages, Count = count };
         }
 
-        public static async Task<Page<TEntity>> ToPageAsync<TEntity>(this IQueryable<TEntity> processedDbSet, PageRequest page) where TEntity : BaseEntity
+        public static async Task<Page<TEntity>> ToPageAsync<TEntity>(this IQueryable<TEntity> processedDbSet, PageRequest page) where TEntity : class
         {
             var totalElements = await processedDbSet.CountAsync();
             var pageElements = await processedDbSet.Skip(page.Page * page.Size).Take(page.Size).ToListAsync();
