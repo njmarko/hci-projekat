@@ -22,30 +22,27 @@ namespace UI.ViewModels
     {
         private readonly IClientService _clientService;
 
-        private string _requestName;
-        public string RequestName
+        private string _query = string.Empty;
+        public string Query
         {
-            get => _requestName;
-            set
-            {
-                _requestName = value;
-                OnPropertyChanged(nameof(RequestName));
-            }
+            get { return _query; }
+            set { _query = value; OnPropertyChanged(nameof(Query)); }
         }
 
         public ObservableCollection<ClientRequestCardModel> RequestModels { get; private set; } = new ObservableCollection<ClientRequestCardModel>();
+        public ICommand Search { get; private set; }
 
         public ClientRequestsViewModel(IApplicationContext context, IClientService clientService) : base(context)
         {
             _clientService = clientService;
-            RequestName = string.Empty;
+            Search = new DelegateCommand(() => UpdatePage(0));
             UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
         {
             RequestModels.Clear();
-            var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, RequestName = RequestName });
+            var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, Query = Query });
             foreach (var entity in page.Entities)
             {
                 RequestModels.Add(new ClientRequestCardModel { Name = entity.Name });

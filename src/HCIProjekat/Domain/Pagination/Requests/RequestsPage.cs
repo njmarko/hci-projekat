@@ -8,6 +8,6 @@ namespace Domain.Pagination.Requests
 {
     public class RequestsPage : PageRequest
     {
-        public string RequestName { get; set; }
+        public string Query { get; set; }
     }
 }
