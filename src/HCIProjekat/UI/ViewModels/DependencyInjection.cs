@@ -15,6 +15,7 @@ namespace UI.ViewModels
             services.AddTransient<LoginViewModel>();
             services.AddTransient<RegisterViewModel>();
             services.AddTransient<ClientRequestsViewModel>();
+            services.AddTransient<RequestDetailsViewModel>();
             return services;
         }
     }

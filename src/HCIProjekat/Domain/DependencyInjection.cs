@@ -15,6 +15,7 @@ namespace Domain
         {
             services.AddSingleton<IAdminService, AdminService>();
             services.AddSingleton<IClientService, ClientService>();
+            services.AddSingleton<IRequestService, RequestService>();
             return services;
         }
     }

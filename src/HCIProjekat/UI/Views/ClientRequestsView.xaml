@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                          xmlns:controls="clr-namespace:UI.Controls"
+             xmlns:controls="clr-namespace:UI.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -35,7 +35,7 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <!--Search and filter block-->
-                <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search reqeusts" />
+                <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search requests" />
                 <Button Grid.Row="0" Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" />
                 <Button Grid.Row="0" Grid.Column="2" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add request" />
                 <CheckBox Grid.Row="0" Grid.Column="3" Margin="10 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />

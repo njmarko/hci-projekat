@@ -9,14 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.ViewModels.CardViewModels;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class ClientRequestCardModel
-    {
-        public string Name { get; set; }
-    }
+    
 
     public class ClientRequestsViewModel : PagingViewModelBase
     {
@@ -48,7 +46,7 @@ namespace UI.ViewModels
             var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, RequestName = RequestName });
             foreach (var entity in page.Entities)
             {
-                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name });
+                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name});
             }
             OnPageFetched(page);
         }

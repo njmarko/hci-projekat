@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="UI.Views.RequestDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="50 40 20 20">
+            <StackPanel Orientation="Vertical" Background="#e8e8e8">
+                <TextBlock Text="{Binding Request.Name}" Style="{DynamicResource MaterialDesignHeadline3TextBlock}"></TextBlock>
+                <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>
+                <TextBlock Text="{Binding Request.Notes}" Style="{DynamicResource MaterialDesignBody1TextBlock}"></TextBlock>
+            </StackPanel>
+            <!--<Grid Margin="0 30 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="2"  BorderBrush="Black" BorderThickness="1,0,0,0" Background="{x:Null}"></Border>
+                <Border Grid.Column="4"  BorderBrush="Black" BorderThickness="1,0,0,0" Background="{x:Null}"></Border>
+
+                
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Guest number" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Request.GuestNumber}" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,0,0,0" Text="Theme" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Request.Theme}" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+
+                <TextBlock Grid.Row="0" Grid.Column="4" Margin="5,0,0,0" Text="Budget" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="5" Text="{Binding Request.Budget}" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+            </Grid>
+
+            <Grid Margin="0,20,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="3" BorderBrush="Black" BorderThickness="1,0,0,0" Background="{x:Null}"></Border>
+
+                <TextBlock Grid.Row="0" Grid.Column="1"  Text="Budget flexible" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding Request.BudgetFlexible}" IsHitTestVisible="False"></CheckBox>
+
+
+                <TextBlock Grid.Row="0" Grid.Column="3" Margin="5,0,0,0" Text="Date" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Request.Date}" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                
+            </Grid>-->
+
+            <Grid Margin="0 30 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Guest number" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Theme" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Budget" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="3" Text="Budget flexible" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="Date" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Request.GuestNumber}" FontSize="16"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Request.Theme}" FontSize="16"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Request.Budget}" FontSize="16"></TextBlock>
+                <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="{Binding Request.BudgetFlexible}" IsHitTestVisible="False"></CheckBox>
+                <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Request.Date}" FontSize="16"></TextBlock>
+
+            </Grid>
+            
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

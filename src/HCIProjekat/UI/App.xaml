@@ -21,6 +21,9 @@
             <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
                 <views:RegisterView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RequestDetailsViewModel}">
+                <views:RequestDetailsView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
