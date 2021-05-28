@@ -49,7 +49,7 @@ namespace UI.Commands
                 var registerPartner = _partnerService.Create(new Partner { Name = _registerVm.Name, Type = _registerVm.Type, Location = _registerVm.Location});
                 // Just a message to show it works. Success message will be changed after the windows are connected it also redirects to aprtners for now. This should be changed
                 // TODO: Change message displaying for successfull registration
-                MessageBox.Show($"Partner sucessfuly added, {registerPartner.FirstName} {registerPartner.LastName}.");
+                MessageBox.Show($"Partner sucessfuly added, {registerPartner.Name}.");
                 _router.Push("AdminPartners");
             }
             catch (PartnerAlreadyExistsException exception)
