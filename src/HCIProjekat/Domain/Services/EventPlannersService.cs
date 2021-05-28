@@ -29,7 +29,7 @@ namespace Domain.Services
 
             if (context.Users.FirstOrDefault(u => u.Username == eventPlanner.Username) != null)
             {
-                throw new UsernameAlreadyExistsException(eventPlanner.Username);
+                throw new PartnerAlreadyExistsException(eventPlanner.Username);
             }
 
             context.EventPlanners.Add(eventPlanner);
