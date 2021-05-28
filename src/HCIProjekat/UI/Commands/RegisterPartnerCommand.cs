@@ -49,7 +49,7 @@ namespace UI.Commands
                 var registerPartner = _partnerService.Create(new Partner
                 {
                     Name = _registerVm.Name,
-                    Type = _registerVm.Type,
+                    Type = (Domain.Enums.PartnerType)_registerVm.PartnerTypeValue.Type,
                     Location = new Location { City = _registerVm.City, Country = _registerVm.Country, Street = _registerVm.Street, StreetNumber = _registerVm.StreetNumber }
                 });
                 // Just a message to show it works. Success message will be changed after the windows are connected it also redirects to aprtners for now. This should be changed

@@ -2,6 +2,7 @@
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,18 @@ using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
+
+
+    public class PartnerTypeModel
+    {
+        public string Name { get; set; }
+        public PartnerType? Type { get; set; }
+    }
+
     public class RegisterPartnerViewModel : ViewModelBase, ISelfValidatingViewModel
     {
+        private readonly PartnerTypeModel _typeInitial;
+
         // Poperties
         private string _name;
         public string Name
@@ -22,11 +33,11 @@ namespace UI.ViewModels
             set { _name = value; OnPropertyChanged(nameof(Name)); OnPropertyChanged(nameof(CanRegister)); }
         }
 
-        private PartnerType _Type;
-        public PartnerType Type
+        private PartnerTypeModel _partnerType;
+        public PartnerTypeModel PartnerTypeValue
         {
-            get { return _Type; }
-            set { _Type = value; OnPropertyChanged(nameof(Type)); OnPropertyChanged(nameof(CanRegister)); }
+            get { return _partnerType; }
+            set { _partnerType = value; OnPropertyChanged(nameof(PartnerTypeValue)); OnPropertyChanged(nameof(CanRegister)); }
         }
 
         private string _country;
@@ -58,6 +69,7 @@ namespace UI.ViewModels
         }
 
 
+
         // Error message view models
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel TypeError { get; private set; } = new ErrorMessageViewModel();
@@ -66,6 +78,8 @@ namespace UI.ViewModels
         public ErrorMessageViewModel StreetError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel StreetNumberError { get; private set; } = new ErrorMessageViewModel();
 
+        public ObservableCollection<PartnerTypeModel> PartnerTypeModels { get; private set; } = new ObservableCollection<PartnerTypeModel>();
+
         public bool CanRegister => IsValid();
         public ICommand RegisterPartnerCommand { get; private set; }
 
@@ -73,6 +87,15 @@ namespace UI.ViewModels
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
             RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router);
+
+            PartnerTypeModels.Add(_typeInitial);
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.ANIMATOR, Name = "Animator" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.BAKERY, Name = "Bakery" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.CAFFEE, Name = "Coffee" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.CONFECTIONERY, Name = "Confectionery" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.MUSIC, Name = "Music" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.PHOTOGRAPHY, Name = "Photography" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.RESTAURANT, Name = "Restaurant" });
         }
 
         public bool IsValid()
@@ -82,32 +105,32 @@ namespace UI.ViewModels
             //Name
             if (string.IsNullOrEmpty(Name))
             {
-                CountryError.ErrorMessage = "Name cannot be empty.";
-                valid = false;
-            }
-            else
-            {
-                CountryError.ErrorMessage = null;
-            }
-            //Type
-            if (Enum.IsDefined(Type))
-            {
-                NameError.ErrorMessage = "Type must be selected.";
+                NameError.ErrorMessage = "Name cannot be empty.";
                 valid = false;
             }
             else
             {
                 NameError.ErrorMessage = null;
             }
-            //Country
-            if (string.IsNullOrEmpty(Street))
+            //Type
+            if (PartnerTypeValue == _typeInitial)
             {
-                TypeError.ErrorMessage = "Country cannot be empty.";
+                TypeError.ErrorMessage = "Type must be selected.";
                 valid = false;
             }
             else
             {
                 TypeError.ErrorMessage = null;
+            }
+            //Country
+            if (string.IsNullOrEmpty(Street))
+            {
+                CountryError.ErrorMessage = "Country cannot be empty.";
+                valid = false;
+            }
+            else
+            {
+                CountryError.ErrorMessage = null;
             }
             //City
             if (string.IsNullOrEmpty(City))

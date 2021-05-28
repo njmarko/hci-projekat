@@ -23,7 +23,8 @@
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter name" Margin="10 15 10 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <!--Type-->
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter last name" Margin="10 15 10 0" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox Style="{DynamicResource MaterialDesignComboBox}" materialDesign:HintAssist.Hint="Select partner type" Margin="10 15 10 0" ItemsSource="{Binding PartnerTypeModels}" SelectedItem="{Binding PartnerTypeValue}" DisplayMemberPath="Name" />
+                
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding TypeError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <!--Country-->
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter country" Margin="10 15 10 0" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" />
