@@ -23,14 +23,14 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            /*var tasks = context.Tasks
-                          .Where(t => t.Request.Id == requestId)
-                          .Where(t => t.Name.ToLower().Contains(page.TaskName.ToLower()));*/
-            var tasks = context.Tasks;
-            Console.WriteLine($"BROJ TASKOVA JE {tasks.ToList().Count()}");
-            return tasks.ToPage(page);
             
-                      //    .ToPage(page);
+            return context.Tasks
+                .Where(t=>t.Request.Id == requestId)
+                .Where(t=>t.Name.ToLower().Contains(page.TaskName.ToLower()))
+                .ToPage(page);
+           
+            
+                      
 
         }
     }

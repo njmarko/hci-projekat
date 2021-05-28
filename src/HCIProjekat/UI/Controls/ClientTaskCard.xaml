@@ -17,10 +17,16 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
-                <TextBlock Grid.Row="1" TextWrapping="Wrap" TextAlignment="Left" Style="{DynamicResource MaterialDesignBody1TextBlock}" FontSize="14">
-                    OVO JE NEKI TASK
+                <TextBlock Grid.Row="1" TextWrapping="Wrap" 
+                           TextAlignment="Left" 
+                           Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                           FontSize="14"
+                           Text="{Binding Description}">
                 </TextBlock>
-                <Button Grid.Row="2" Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" />
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Button Margin="20,0,0,10" Content="Accept" Style="{DynamicResource MaterialDesignOutlinedButton}" Foreground="Green" BorderBrush="Green"></Button>
+                    <Button Margin="10,0,0,10" Content="Decline" Style="{DynamicResource MaterialDesignOutlinedButton}" Foreground="Red" BorderBrush="Red"></Button>
+                </StackPanel>
             </Grid>
         </materialDesign:Card>
     </Grid>

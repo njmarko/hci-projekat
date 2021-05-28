@@ -30,16 +30,16 @@ namespace Infrastructure.Persistence
             var r14 = new Request { Name = "Request 14", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
 
 
-            var t1 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 1", Description = "ovo je neki opis", Request = r1 };
-            var t2 = new Task { TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Name = "Task 2", Description = "ovo je neki opis", Request = r1 };
-            var t3 = new Task { TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.CATERING, Name = "Task 3", Description = "ovo je neki opis", Request = r1 };
-            var t4 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 4", Description = "ovo je neki opis", Request = r1 };
-            var t5 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 5", Description = "ovo je neki opis", Request = r1 };
-            var t6 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 6", Description = "ovo je neki opis", Request = r1 };
-            var t7 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 7", Description = "ovo je neki opis", Request = r1 };
-            var t8 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 8", Description = "ovo je neki opis", Request = r1 };
-            var t9 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 9", Description = "ovo je neki opis", Request = r1 };
-            var t10 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 10", Description = "ovo je neki opis", Request = r1 };
+            var t1 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 1", Description = "ovo je neki opis taska", Request = r1 };
+            var t2 = new Task { TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Name = "Task 2", Description = "ovo je neki opis taska", Request = r2 };
+            var t3 = new Task { TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.CATERING, Name = "Task 3", Description = "ovo je neki opis taska", Request = r1 };
+            var t4 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 4", Description = "ovo je neki opis taska", Request = r1 };
+            var t5 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 5", Description = "ovo je neki opis taska", Request = r1 };
+            var t6 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 6", Description = "ovo je neki opis taska", Request = r2 };
+            var t7 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 7", Description = "ovo je neki opis taska", Request = r1 };
+            var t8 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 8", Description = "ovo je neki opis taska", Request = r2 };
+            var t9 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 9", Description = "ovo je neki opis taska", Request = r1 };
+            var t10 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 10", Description = "ovo je neki opis taska", Request = r1 };
 
             context.Requests.Add(r1);
             context.Requests.Add(r2);

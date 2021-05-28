@@ -9,5 +9,7 @@ namespace UI.ViewModels.CardViewModels
     public class ClientTaskCardModel
     {
         public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

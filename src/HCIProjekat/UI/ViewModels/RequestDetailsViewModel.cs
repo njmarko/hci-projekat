@@ -50,9 +50,11 @@ namespace UI.ViewModels
 
         public RequestDetailsViewModel(IApplicationContext context, IRequestService requestService, ITaskService taskService) : base(context)
         {
+            Rows = 2;
+            Columns = 4;
+            TaskName = "";
             _requestService = requestService;
             _taskService = taskService;
-            Rows = 1;
             _request = _requestService.GetRequest(1);
             UpdatePage(0);
         }
@@ -63,7 +65,7 @@ namespace UI.ViewModels
             var page = _taskService.GetTasksForRequest(_request.Id, new TasksPageRequest { Size = Size, Page = pageNumber, TaskName = TaskName});
             foreach (var entity in page.Entities)
             {
-                TaskModels.Add(new ClientTaskCardModel { Name = entity.Name });
+                TaskModels.Add(new ClientTaskCardModel { Name = entity.Name,Description = entity.Description });
             }
             OnPageFetched(page);
         }
