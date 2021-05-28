@@ -31,9 +31,6 @@
                         <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"  TextAlignment="Center" Text="{Binding CompletedRequests}"/>
                     </StackPanel>
                 </StackPanel>
-                <TextBlock Grid.Row="1" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">
-  
-                </TextBlock>
             </Grid>
         </materialDesign:Card>
     </Grid>
