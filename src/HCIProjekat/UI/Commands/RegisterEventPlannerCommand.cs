@@ -47,7 +47,10 @@ namespace UI.Commands
             try
             { 
                 var registeredEventPlanner = _eventPlannerService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
-                //MessageBox.Show($"Event planner sucessfuly added, {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName}.");
+                // Just a message to show it works. Success message will be changed after the windows are connected it also redirects to event planners for now. This should be changed
+                // TODO: Change message displaying for successfull registration
+                MessageBox.Show($"Event planner sucessfuly added, {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName}.");
+                _router.Push("AdminEventPlanners");
             } 
             catch (UsernameAlreadyExistsException exception)
             {
