@@ -12,7 +12,7 @@ namespace Domain.Entities
         public string Name { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public ServiceType OfferType { get; set; }
 
         public virtual Partner Partner { get; set; }

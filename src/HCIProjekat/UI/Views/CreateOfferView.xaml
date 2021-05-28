@@ -83,7 +83,7 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Save" Margin="10 15" Foreground="White" />
+                    <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding CreateOfferCommand}" Content="Save" Margin="10 15" Foreground="White" />
                 </Grid>
               
             </StackPanel>

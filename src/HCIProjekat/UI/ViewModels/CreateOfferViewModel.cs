@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Domain.Services.Interfaces;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,13 +10,14 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using UI.Commands;
 using UI.Context;
+using UI.Util;
 
 namespace UI.ViewModels
 {
     public class CreateOfferViewModel : ViewModelBase
     {
         private byte[] _imageInBytes;
-        private byte[] ImageInBytes
+        public byte[] ImageInBytes
         {
             get { return _imageInBytes; }
             set { _imageInBytes = value; }
@@ -50,30 +52,19 @@ namespace UI.ViewModels
         }
 
         public ICommand OnImageInput { get; set; }
+        public ICommand CreateOfferCommand { get; set; }
 
-        public CreateOfferViewModel(IApplicationContext context) : base(context)
+        public CreateOfferViewModel(IApplicationContext context, IOfferService offerService) : base(context)
         {
             Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
             OnImageInput = new RelayCommand<byte[]>(ImageInput);
+            CreateOfferCommand = new CreateOfferCommand(this, offerService);
         }
 
         private void ImageInput(byte[] newImage)
         {
             ImageInBytes = newImage;
-            Image = ConvertToImage(newImage);
-        }
-
-        private BitmapImage ConvertToImage(byte[] imageArray)
-        {
-            using (var ms = new MemoryStream(imageArray))
-            {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad; 
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
-            }
+            Image = ImageUtil.ConvertToImage(newImage);
         }
     }
 }
