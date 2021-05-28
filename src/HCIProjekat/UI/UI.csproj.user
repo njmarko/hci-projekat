@@ -48,6 +48,9 @@
     <Page Update="Views\LoginView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\RegisterPartnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\RegisterAdminView.xaml">
       <SubType>Designer</SubType>
     </Page>

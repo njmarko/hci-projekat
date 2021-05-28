@@ -32,6 +32,9 @@
     <Compile Update="Views\AdminClientsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RegisterAdminView - Copy.xaml.cs">
+      <DependentUpon>RegisterAdminView.xaml.cs</DependentUpon>
+    </Compile>
     <Compile Update="Views\RegisterEventPlannerView - Copy %282%29 - Copy.xaml.cs">
       <DependentUpon>RegisterEventPlannerView.xaml.cs</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
     </Page>
     <Page Update="Views\AdminPartnersView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Views\RegisterPartnerView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RegisterAdminView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

@@ -12,5 +12,7 @@ namespace Domain.Services.Interfaces
     public interface IPartnersService
     {
         Page<Partner> GetPartners(PartnersPage page);
+
+        Partner Create(Partner partner);
     }
 }

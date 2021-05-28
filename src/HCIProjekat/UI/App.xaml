@@ -36,6 +36,9 @@
             <DataTemplate DataType="{x:Type vm:RegisterAdminViewModel}">
                 <views:RegisterAdminView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RegisterPartnerViewModel}">
+                <views:RegisterPartnerView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

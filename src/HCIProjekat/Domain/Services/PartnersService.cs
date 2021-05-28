@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Pagination;
 using Domain.Pagination.Requests;
 using Domain.Persistence;
@@ -21,6 +22,21 @@ namespace Domain.Services
         {
             _dbContextFactory = dbContextFactory;
         }
+
+        public Partner Create(Partner partner)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            if (context.Partner.FirstOrDefault(u => u.Name == partner.Name) != null)
+            {
+                throw new PartnerAlreadyExistsException(partner.Name);
+            }
+
+            context.Partner.Add(partner);
+            context.SaveChanges();
+            return partner;
+        }
+
         public Page<Partner> GetPartners(PartnersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
