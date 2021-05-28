@@ -41,6 +41,21 @@ namespace Infrastructure.Persistence
             var t9 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 9", Description = "ovo je neki opis taska", Request = r1 };
             var t10 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 10", Description = "ovo je neki opis taska", Request = r1 };
 
+
+            var l1 = new Location { StreetNumber = "301", Street = "Ulica1", City = "Novi Sad", Country = "Srbija" };
+            var l2 = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" };
+            var l3 = new Location { StreetNumber = "303", Street = "Ulica3", City = "Novi Sad", Country = "Srbija" };
+
+            var p1 = new Partner { Name = "Parnter 1", Location = l1, Type = PartnerType.RESTAURANT };
+            var p2 = new Partner { Name = "Parnter 2", Location = l2, Type = PartnerType.RESTAURANT };
+
+            var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", Image = "slika", OfferType = t1.TaskType, Partner = p1 };
+            var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", Image = "slika", OfferType = t1.TaskType, Partner = p2 };
+
+            var taskOffer1 = new TaskOffer { Offer = o1, Task = t1 };
+            var taskOffer2 = new TaskOffer { Offer = o2, Task = t1 };
+
+
             context.Requests.Add(r1);
             context.Requests.Add(r2);
             context.Requests.Add(r3);
@@ -66,6 +81,15 @@ namespace Infrastructure.Persistence
             context.Tasks.Add(t8);
             context.Tasks.Add(t9);
             context.Tasks.Add(t10);
+
+            context.Partner.Add(p1);
+            context.Partner.Add(p2);
+
+            context.Offers.Add(o1);
+            context.Offers.Add(o2);
+
+            context.TaskOffers.Add(taskOffer1);
+            context.TaskOffers.Add(taskOffer2);
 
 
             context.SaveChanges();

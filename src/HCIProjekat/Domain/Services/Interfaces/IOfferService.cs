@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface ITaskService
+    public interface IOfferService
     {
-        Page<Task> GetTasksForRequest(int requestId, TasksPageRequest pageRequest);
+        Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page);
 
-        Task GetTask(int taskId);
     }
 }

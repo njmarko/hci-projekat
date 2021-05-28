@@ -19,6 +19,12 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        public Task GetTask(int taskId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            return context.Tasks.First(t => t.Id == taskId);
+        }
+
         public Page<Task> GetTasksForRequest(int requestId, TasksPageRequest page)
         {
             using var context = _dbContextFactory.CreateDbContext();
