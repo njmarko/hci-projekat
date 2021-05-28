@@ -46,7 +46,7 @@ namespace UI.Commands
         {
             try
             {
-                var registerAdmin = _adminService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
+                var registerAdmin = _adminService.Create(new Admin { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
                 // Just a message to show it works. Success message will be changed after the windows are connected it also redirects to aprtners for now. This should be changed
                 // TODO: Change message displaying for successfull registration
                 MessageBox.Show($"Admin sucessfuly added, {registerAdmin.FirstName} {registerAdmin.LastName}.");
