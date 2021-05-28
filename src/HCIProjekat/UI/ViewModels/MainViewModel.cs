@@ -11,7 +11,7 @@ namespace UI.ViewModels
     {
         public MainViewModel(IApplicationContext context) : base(context)
         {
-            Context.Router.Push("Login");
+            Context.Router.Push("ClientRequests");
         }
     }
 }
