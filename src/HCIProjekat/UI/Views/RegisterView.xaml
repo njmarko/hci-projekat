@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rules="clr-namespace:UI.Validators"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -16,13 +17,63 @@
         <materialDesign:Card Height="600" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Margin="100 0" Padding="5">
             <StackPanel>
                 <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Register" Margin="0 10" />
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter first name" Margin="10 15"/>
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter last name" Margin="10 15"/>
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter username" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Margin="10 15"/>
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter password" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="10 15"/>
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Confirm password" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="10 15"/>
-                <DatePicker Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Enter date of birth" IsTodayHighlighted="True" Margin="5 15" SelectedDate="01/01/1970" />
-                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Register" Margin="10 15" Foreground="White" Command="{Binding RegisterCommandUI}" />
+                <!--First name-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter first name" Margin="10 15">
+                    <TextBox.Text>
+                        <Binding Path="FirstName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidator FieldName="First name" ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <!--Last name-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter last name" Margin="10 15">
+                    <TextBox.Text>
+                        <Binding Path="LastName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidator FieldName="Last name" ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <!--Username-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter username" Margin="10 15">
+                    <TextBox.Text>
+                        <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidator FieldName="Username" ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <!--Password-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter password" Margin="10 15">
+                    <TextBox.Text>
+                        <Binding Path="Password" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidator FieldName="Password" ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <!--Confirm password-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Confirm password" Margin="10 15">
+                    <TextBox.Text>
+                        <Binding Path="ConfirmPassword" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidator FieldName="Confirm password" ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <!--Date of birth-->
+                <DatePicker Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Enter date of birth" IsTodayHighlighted="True" Margin="5 15">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="DateOfBirth" UpdateSourceTrigger="PropertyChanged" />
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Register" Margin="10 15" Foreground="White" Command="{Binding RegisterCommand}" />
                 <TextBlock HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignBody2TextBlock}" Margin="0 15">
                 Already have an account? <Hyperlink Foreground="Blue" Style="{DynamicResource MaterialDesignBody2Hyperlink}" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="Login">Login here!</Hyperlink>
                 </TextBlock>
