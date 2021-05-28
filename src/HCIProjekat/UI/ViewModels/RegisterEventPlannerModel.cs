@@ -11,7 +11,7 @@ using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class RegisterViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class RegisterEventPlannerModel : ViewModelBase, ISelfValidatingViewModel
     {
         // Poperties
         private string _username;
@@ -67,9 +67,9 @@ namespace UI.ViewModels
         public bool CanRegister => IsValid();
         public ICommand RegisterCommand { get; private set; }
 
-        public RegisterViewModel(IApplicationContext context, IClientService clientService) : base(context)
+        public RegisterEventPlannerModel(IApplicationContext context, IEventPlannersService eventPlannerService) : base(context)
         {
-            RegisterCommand = new RegisterCommand(this, clientService, context.Router);
+            RegisterCommand = new RegisterEventPlannerCommand(this, eventPlannerService, context.Router);
         }
 
         public bool IsValid()

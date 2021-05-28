@@ -14,13 +14,13 @@ namespace UI.Commands
 {
     public class RegisterEventPlannerCommand : ICommand
     {
-        private readonly RegisterViewModel _registerVm;
+        private readonly RegisterEventPlannerModel _registerVm;
         private readonly IEventPlannersService _eventPlannerService;
         private readonly IRouter _router;
 
         public event EventHandler CanExecuteChanged;
 
-        public RegisterEventPlannerCommand(RegisterViewModel registerVm, IEventPlannersService eventPlannerService, IRouter router)
+        public RegisterEventPlannerCommand(RegisterEventPlannerModel registerVm, IEventPlannersService eventPlannerService, IRouter router)
         {
             _registerVm = registerVm;
             _eventPlannerService = eventPlannerService;
