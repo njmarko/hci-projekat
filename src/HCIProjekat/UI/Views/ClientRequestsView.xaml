@@ -29,23 +29,40 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
                 <!--Search and filter block-->
-                <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search reqeusts" />
-                <Button Grid.Row="0" Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" />
-                <Button Grid.Row="0" Grid.Column="2" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add request" />
-                <CheckBox Grid.Row="0" Grid.Column="3" Margin="10 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search reqeusts" Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
+                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add request" />
+                    <CheckBox Grid.Row="0" Grid.Column="3" Margin="5 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
+                </Grid>
                 <!--Filter block-->
-                <UniformGrid Grid.Row="1" Grid.Column="0" Rows="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">
-                    <TextBox Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search status" />
-                    <TextBox Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search something elese" />
-                    <TextBox Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Another search" />
-                </UniformGrid>
+                <Grid Grid.Row="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <UniformGrid Grid.Row="0" Grid.Column="0" Rows="1">
+                        <ComboBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Select request type" ItemsSource="{Binding RequestTypeModels}" SelectedItem="{Binding RequestTypeValue}" DisplayMemberPath="Name" />
+                        <DatePicker Margin="10 10 10 10" SelectedDate="{Binding From, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select from date" />
+                        <DatePicker Margin="10 10 10 10" SelectedDate="{Binding To, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select to date" />
+                    </UniformGrid>
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" />
+                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" />
+                </Grid>
             </Grid>
         </Grid>
         <ItemsControl Grid.Row="1" ItemsSource="{Binding RequestModels}">
