@@ -27,6 +27,9 @@
             <DataTemplate DataType="{x:Type vm:AdminEventPlannersViewModel}">
                 <views:AdminEventPlannersView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CreateOfferViewModel}">
+                <views:CreateOfferView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
