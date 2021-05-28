@@ -1,5 +1,6 @@
 ﻿using Domain.Services.Interfaces;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,14 +58,20 @@ namespace UI.ViewModels
         public CreateOfferViewModel(IApplicationContext context, IOfferService offerService) : base(context)
         {
             Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
-            OnImageInput = new RelayCommand<byte[]>(ImageInput);
+            OnImageInput = new DelegateCommand(() => ImageInput());
             CreateOfferCommand = new CreateOfferCommand(this, offerService);
         }
 
-        private void ImageInput(byte[] newImage)
+        private void ImageInput()
         {
-            ImageInBytes = newImage;
-            Image = ImageUtil.ConvertToImage(newImage);
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            if (dialog.ShowDialog() == true)
+            {
+                var newImage = ImageUtil.ReadFromFile(dialog.FileName);
+                ImageInBytes = newImage;
+                Image = ImageUtil.ConvertToImage(newImage);
+            }
         }
     }
 }

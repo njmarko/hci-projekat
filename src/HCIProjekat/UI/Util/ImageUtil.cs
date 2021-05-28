@@ -22,5 +22,17 @@ namespace UI.Util
                 return image;
             }
         }
+
+        public static byte[] ReadFromFile(string fileName)
+        {
+            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            {
+                byte[] bytes = File.ReadAllBytes(fileName);
+                fs.Read(bytes, 0, Convert.ToInt32(fs.Length));
+                fs.Close();
+
+                return bytes;
+            }
+        }
     }
 }

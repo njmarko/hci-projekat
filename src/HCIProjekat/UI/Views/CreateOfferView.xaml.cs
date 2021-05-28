@@ -26,23 +26,5 @@ namespace UI.Views
         {
             InitializeComponent();
         }
-
-        private void InputImage(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-            if (dialog.ShowDialog() == true)
-            {
-                using (FileStream fs = new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read))
-                {
-                    byte[] bytes = File.ReadAllBytes(dialog.FileName);
-                    fs.Read(bytes, 0, Convert.ToInt32(fs.Length));
-                    fs.Close();
-                    
-                    var vm = DataContext as CreateOfferViewModel;
-                    vm.OnImageInput?.Execute(bytes);
-                }
-            }
-        }
     }
 }
