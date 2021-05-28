@@ -76,13 +76,14 @@ namespace UI.ViewModels
         public bool IsValid()
         {
             bool valid = true;
-            
+
             //Username
             if (string.IsNullOrEmpty(Username))
             {
                 UsernameError.ErrorMessage = "Username cannot be empty.";
                 valid = false;
-            } else
+            }
+            else
             {
                 UsernameError.ErrorMessage = null;
             }

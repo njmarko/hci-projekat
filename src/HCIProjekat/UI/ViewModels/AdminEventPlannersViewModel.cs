@@ -61,7 +61,7 @@ namespace UI.ViewModels
                 {
                     Name = entity.FirstName + " " + entity.LastName,
                     Username = entity.Username,
-                    DateOfBirth = entity.DateOfBirth.ToString(),
+                    DateOfBirth = entity.DateOfBirth.ToShortDateString(),
                     ActiveRequests = entity.AcceptedRequests.Count,
                     CompletedRequests = 150
                 });

@@ -17,7 +17,7 @@ namespace UI.ViewModels
     {
         public string Name { get; set; }
         public string PartnerType { get; set; }
-        
+
         public string Address { get; set; }
 
     }
