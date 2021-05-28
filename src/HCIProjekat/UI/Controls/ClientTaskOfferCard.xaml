@@ -23,7 +23,7 @@
                     
                     <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
                                Text="{Binding OfferName}"/>
-                <Image Source="C:\\Users\\dimit\\Pictures\\Backgrounds\\2veek29rath51.jpg" Margin="0 30 0 0">
+                <Image Source="https://i.redd.it/oo8hu88g5pg61.png" Margin="0 30 0 0">
                 </Image>
                     <TextBlock Grid.Row="1" TextWrapping="Wrap" 
                            TextAlignment="Left" 
