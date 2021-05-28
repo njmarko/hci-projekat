@@ -125,6 +125,22 @@ namespace UI.ViewModels
             {
                 ConfirmPasswordError.ErrorMessage = null;
             }
+            //Date of birth
+            DateTime today = DateTime.Today;
+            int age = today.Year - DateOfBirth.Year;
+            if (DateOfBirth > today.AddYears(-age))
+            {
+                age--;
+            }
+            if (age < 18)
+            {
+                DateOfBirthError.ErrorMessage = "You must be at least 18 years old in order to register.";
+                valid = false;
+            }
+            else
+            {
+                DateOfBirthError.ErrorMessage = null;
+            }
             return valid;
         }
     }
