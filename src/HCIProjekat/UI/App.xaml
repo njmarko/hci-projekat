@@ -33,6 +33,9 @@
             <DataTemplate DataType="{x:Type vm:RegisterEventPlannerViewModel}">
                 <views:RegisterEventPlannerView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RegisterAdminViewModel}">
+                <views:RegisterAdminView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
