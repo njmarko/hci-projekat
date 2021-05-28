@@ -66,9 +66,9 @@ namespace UI
                 ApplicationDbContextSeed.Seed(context);
             }
 
-            //var clientService = _host.Services.GetRequiredService<IClientService>();
-            //var page = clientService.GetRequestsForClient(1, new RequestsPage { Page = 0, Size = 6, RequestName = "req" });
-            //Console.WriteLine(page);
+            //var service = _host.Services.GetRequiredService<IAuthService>();
+            //var user = service.Login("peraperic1", "test12345");
+            //Console.WriteLine(user);
 
             Window window = new MainWindow(_host.Services.GetRequiredService<MainViewModel>());
             window.Show();
