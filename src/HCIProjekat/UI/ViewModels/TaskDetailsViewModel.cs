@@ -16,6 +16,8 @@ namespace UI.ViewModels
     {
         private readonly ITaskService _taskService;
         private readonly IOfferService _offerService;
+        private readonly ICommentService _commentService;
+        
         private Task _task;
 
         public Task Task
@@ -28,16 +30,32 @@ namespace UI.ViewModels
             }
         }
 
+        private string _comment;
+
+        public string Comment
+        {
+            get { return _comment; }
+            set 
+            { 
+                _comment = value;
+                OnPropertyChanged(nameof(Comment));
+            }
+        }
+
+
+
 
         public ObservableCollection<ClientTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<ClientTaskOfferCardModel>();
+        public ObservableCollection<CommentViewModel> CommentModels { get; private set; } = new ObservableCollection<CommentViewModel>();
 
 
-
-        public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, IOfferService offerService) : base(context)
+        public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, IOfferService offerService, ICommentService commentService) : base(context)
         {
             _taskService = taskService;
             _offerService = offerService;
+            _commentService = commentService;
             _task = _taskService.GetTask(1);
+            LoadComments();
             UpdatePage(0);
         }
 
@@ -47,6 +65,8 @@ namespace UI.ViewModels
             var page = _offerService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber});
             foreach (var entity in page.Entities)
             {
+                
+
                 TaskOfferModels.Add(new ClientTaskOfferCardModel 
                 { 
                     PartnerName = entity.Offer.Partner.Name, 
@@ -58,6 +78,37 @@ namespace UI.ViewModels
             }
             OnPageFetched(page);
 
+        }
+
+        private void LoadComments()
+        {
+            CommentModels.Clear();
+            var comments = _commentService.GetCommentsForTask(_task.Id);
+            foreach(var comment in comments)
+            {
+                string color;// = Context.Store.LoggedUserId == comment.Sender.Id ? "Blue" : "White";
+                string margin;
+
+                if (Context.Store.LoggedUserId == comment.Sender.Id) {
+                    color = "#78cdff";
+                    margin = "800,5,0,0";
+                }
+                else
+                {
+                    margin = "-800,5,0,0";
+                    color = "White";
+                }
+
+
+                CommentModels.Add(new CommentViewModel
+                {
+                    SentDate = comment.SentDate,
+                    Sender = comment.Sender.Username,
+                    Content = comment.Content,
+                    Color = color,
+                    Margin = margin
+                });
+            }
         }
     }
 }

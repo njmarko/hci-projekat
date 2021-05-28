@@ -8,5 +8,7 @@ namespace UI.Context.Stores
 {
     public interface IStore
     {
+        public int LoggedUserId { get; set; }
+
     }
 }

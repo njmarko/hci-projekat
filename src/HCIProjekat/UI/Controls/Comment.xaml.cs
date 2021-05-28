@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UI.Views
+namespace UI.Controls
 {
     /// <summary>
-    /// Interaction logic for TaskDetailsView.xaml
+    /// Interaction logic for Comment.xaml
     /// </summary>
-    public partial class TaskDetailsView : UserControl
+    public partial class Comment : UserControl
     {
-        public TaskDetailsView()
+        public Comment()
         {
             InitializeComponent();
-            this.CommentScrollViewer.ScrollToEnd();
         }
     }
 }
