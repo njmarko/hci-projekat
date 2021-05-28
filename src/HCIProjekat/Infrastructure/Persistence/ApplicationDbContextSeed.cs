@@ -91,20 +91,17 @@ namespace Infrastructure.Persistence
             context.EventPlanners.Add(ep8);
             context.EventPlanners.Add(ep9);
 
-            // Locations
-            var l1 = new Location { City = "Novi Sad", Country = "Serbia", Street = "Dunavska", StreetNumber = "11" };
-
             // Partners
-            var par1 = new Partner { Name = "Prečenjara1", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par2 = new Partner { Name = "Prečenjara2", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par3 = new Partner { Name = "Prečenjara3", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par4 = new Partner { Name = "Prečenjara4", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par5 = new Partner { Name = "Prečenjara5", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par6 = new Partner { Name = "Prečenjara6", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par7 = new Partner { Name = "Prečenjara7", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par8 = new Partner { Name = "Prečenjara8", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par9 = new Partner { Name = "Prečenjara9", Type = PartnerType.RESTAURANT, Location = l1 };
-            var par10 = new Partner { Name = "Prečenjara10", Type = PartnerType.RESTAURANT, Location = l1 };
+            var par1 = new Partner { Name = "Prečenjara1", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par2 = new Partner { Name = "Prečenjara2", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par3 = new Partner { Name = "Prečenjara3", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par4 = new Partner { Name = "Prečenjara4", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par5 = new Partner { Name = "Prečenjara5", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par6 = new Partner { Name = "Prečenjara6", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par7 = new Partner { Name = "Prečenjara7", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par8 = new Partner { Name = "Prečenjara8", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par9 = new Partner { Name = "Prečenjara9", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
+            var par10 = new Partner { Name = "Prečenjara10", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
 
             context.Partner.Add(par1);
             context.Partner.Add(par2);
