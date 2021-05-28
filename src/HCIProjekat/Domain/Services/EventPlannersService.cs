@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Pagination;
 using Domain.Pagination.Requests;
 using Domain.Persistence;
@@ -20,6 +21,20 @@ namespace Domain.Services
         public EventPlannersService(IApplicationDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+        }
+
+        public EventPlanner Create(EventPlanner eventPlanner)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            if (context.Users.FirstOrDefault(u => u.Username == eventPlanner.Username) != null)
+            {
+                throw new UsernameAlreadyExistsException(eventPlanner.Username);
+            }
+
+            context.EventPlanners.Add(eventPlanner);
+            context.SaveChanges();
+            return eventPlanner;
         }
 
         public Page<EventPlanner> GetEventPlanners(EventPlannersPage page)
