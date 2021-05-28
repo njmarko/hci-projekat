@@ -18,6 +18,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\AdminPartnerCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\AdminEventPlannerCard.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -34,6 +37,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdminClientsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminPartnersView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ClientRequestsView.xaml">
