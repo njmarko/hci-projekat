@@ -28,8 +28,12 @@
                     <Rectangle Grid.Column="1" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
 
                 </Grid>
-                
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter name" Margin="10 15"/>
+
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter name" Margin="10 15">
+                    <TextBox.Text>
+                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged"/>
+                    </TextBox.Text>
+                </TextBox>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -37,10 +41,15 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter price" Margin="10 15"/>
+                    <TextBox Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter price" Margin="10 15">
+                        <TextBox.Text>
+                            <Binding Path="Price" UpdateSourceTrigger="PropertyChanged"/>
+                        </TextBox.Text>
+                    </TextBox>
+                    
                     <TextBlock Grid.Column="1" Text="RSD" Margin="0 38 0 0" />
                 </Grid>
- 
+
                 <TextBox
                     BorderThickness="1"
                     Height="100"
@@ -49,7 +58,11 @@
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter description" 
-                    Margin="10 15"/>
+                    Margin="10 15">
+                    <TextBox.Text>
+                        <Binding Path="Description" UpdateSourceTrigger="PropertyChanged"/>
+                    </TextBox.Text>
+                </TextBox>
 
                 <Grid>
                     <Grid.ColumnDefinitions>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,15 @@ namespace UI.Views
             dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
             if (dialog.ShowDialog() == true)
             {
-                var fileUri = new Uri(dialog.FileName);
-                var vm = DataContext as CreateOfferViewModel;
-                vm.OnImageInput?.Execute(new BitmapImage(fileUri));
+                using (FileStream fs = new FileStream(dialog.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    byte[] bytes = File.ReadAllBytes(dialog.FileName);
+                    fs.Read(bytes, 0, Convert.ToInt32(fs.Length));
+                    fs.Close();
+                    
+                    var vm = DataContext as CreateOfferViewModel;
+                    vm.OnImageInput?.Execute(bytes);
+                }
             }
         }
     }
