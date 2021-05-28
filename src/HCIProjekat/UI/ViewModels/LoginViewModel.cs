@@ -25,8 +25,6 @@ namespace UI.ViewModels
 
         public LoginViewModel(IApplicationContext context) : base(context)
         {
-            Username = "vidojegavrilovic";
-            Password = "test123";
         }
     }
 }
