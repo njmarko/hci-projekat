@@ -39,6 +39,7 @@ namespace UI.Context.Routers
                 "AdminPartners" => _locator.Get<AdminPartnersViewModel>(),
                 "RegisterEventPlanner" => _locator.Get<RegisterEventPlannerViewModel>(),
                 "RegisterAdmin" => _locator.Get<RegisterAdminViewModel>(),
+                "RegisterPartner" => _locator.Get<RegisterPartnerViewModel>(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
             };
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentViewModel)));

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="UI.Views.RegisterPartnerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rules="clr-namespace:UI.Validators"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"    
+             xmlns:local="clr-namespace:UI"
+             mc:Ignorable="d" d:DesignWidth="800" Height="572">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Center" MaxWidth="620">
+        <materialDesign:Card Height="auto" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Margin="100 0" Padding="5">
+            <StackPanel>
+                <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Register partner" Margin="0 10" />
+                <!--Name-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter name" Margin="10 15 10 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <!--Type-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter last name" Margin="10 15 10 0" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding TypeError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <!--Country-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter country" Margin="10 15 10 0" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding CountryError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <!--City-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter city" Margin="10 15 10 0" Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding CityError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <!--Street-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Confirm street name" Margin="10 15 10 0" Text="{Binding Street, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding StreetError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <!--Street Number-->
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Confirm street number" Margin="10 15 10 0" Text="{Binding StreetNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding StreetNumberError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Register" Margin="10 25 10 15" Foreground="White" Command="{Binding RegisterPartnerCommand}" />
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
