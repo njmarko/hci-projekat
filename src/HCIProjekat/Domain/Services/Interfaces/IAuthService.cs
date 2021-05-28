@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UI.Context.Stores
+namespace Domain.Services.Interfaces
 {
-    public class Store : IStore
+    public interface IAuthService
     {
-        public User CurrentUser { get; set; }
+        User Login(string username, string password);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Pagination;
 using Domain.Pagination.Requests;
 using Domain.Persistence;
@@ -19,6 +20,20 @@ namespace Domain.Services
         public ClientService(IApplicationDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+        }
+
+        public Client Create(Client client)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            if (context.Users.FirstOrDefault(u => u.Username == client.Username) != null)
+            {
+                throw new UsernameAlreadyExistsException(client.Username);
+            }
+
+            context.Clients.Add(client);
+            context.SaveChanges();
+            return client;
         }
 
         public Page<Client> GetClients(ClientsPage page)
