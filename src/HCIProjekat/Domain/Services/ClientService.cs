@@ -53,9 +53,16 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
+            var query = page.Query.ToLower();
             return context.Requests
                           .Where(r => r.Client.Id == clientId)
-                          .Where(r => r.Name.ToLower().Contains(page.RequestName.ToLower()))
+                          .Where(r => page.Type == null || r.Type == page.Type)
+                          .Where(r => page.From == null || r.Date >= page.From)
+                          .Where(r => page.To == null || r.Date <= page.To)
+                          .Where(r => r.Name.ToLower().Contains(query)
+                          || r.Notes.ToLower().Contains(query)
+                          || r.Type.ToString().ToLower().Contains(query)
+                          || r.Theme.ToLower().Contains(query))
                           .ToPage(page);
         }
 
