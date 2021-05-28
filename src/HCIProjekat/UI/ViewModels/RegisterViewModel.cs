@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class RegisterViewModel : ViewModelBase
+    public class RegisterViewModel : ViewModelBase, ISelfValidatingViewModel
     {
+        // Poperties
         private string _username;
         public string Username
         {
@@ -54,13 +56,76 @@ namespace UI.ViewModels
             set { _dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); OnPropertyChanged(nameof(CanRegister)); }
         }
 
-        public bool CanRegister =>
-            !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password) && (Password == ConfirmPassword);
+        // Error message view models
+        public ErrorMessageViewModel FirstNameError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel LastNameError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel UsernameError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel PasswordError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel ConfirmPasswordError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel DateOfBirthError { get; private set; } = new ErrorMessageViewModel();
+
+        public bool CanRegister => IsValid();
         public ICommand RegisterCommand { get; private set; }
 
         public RegisterViewModel(IApplicationContext context, IClientService clientService) : base(context)
         {
             RegisterCommand = new RegisterCommand(this, clientService, context.Router);
+        }
+
+        public bool IsValid()
+        {
+            bool valid = true;
+            
+            //Username
+            if (string.IsNullOrEmpty(Username))
+            {
+                UsernameError.ErrorMessage = "Username cannot be empty.";
+                valid = false;
+            } else
+            {
+                UsernameError.ErrorMessage = null;
+            }
+            //First name
+            if (string.IsNullOrEmpty(FirstName))
+            {
+                FirstNameError.ErrorMessage = "First name cannot be empty.";
+                valid = false;
+            }
+            else
+            {
+                FirstNameError.ErrorMessage = null;
+            }
+            //Last name
+            if (string.IsNullOrEmpty(LastName))
+            {
+                LastNameError.ErrorMessage = "Last name cannot be empty.";
+                valid = false;
+            }
+            else
+            {
+                LastNameError.ErrorMessage = null;
+            }
+            //Password
+            if (string.IsNullOrEmpty(Password))
+            {
+                PasswordError.ErrorMessage = "Password cannot be empty.";
+                valid = false;
+            }
+            else
+            {
+                PasswordError.ErrorMessage = null;
+            }
+            //Confirm password
+            if (ConfirmPassword != Password)
+            {
+                ConfirmPasswordError.ErrorMessage = "Password and confirm password must match.";
+                valid = false;
+            }
+            else
+            {
+                ConfirmPasswordError.ErrorMessage = null;
+            }
+            return valid;
         }
     }
 }

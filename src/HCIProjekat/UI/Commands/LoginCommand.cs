@@ -47,7 +47,7 @@ namespace UI.Commands
             User user = _authService.Login(_loginVm.Username, _loginVm.Password);
             if (user == null)
             {
-                _loginVm.ErrorViewModel.ErrorMessage = "Invalid username and/or password.";
+                _loginVm.LoginError.ErrorMessage = "Invalid username and/or password.";
                 return;
             }
             _context.Store.CurrentUser = user;

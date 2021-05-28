@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using UI.Context;
 
 namespace UI.ViewModels
 {
-    public class ErrorMessageViewModel : ViewModelBase
+    public class ErrorMessageViewModel : INotifyPropertyChanged
     {
         private string _errorMessage = "";
         public string ErrorMessage
@@ -18,8 +19,11 @@ namespace UI.ViewModels
 
         public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
 
-        public ErrorMessageViewModel(IApplicationContext context) : base(context)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

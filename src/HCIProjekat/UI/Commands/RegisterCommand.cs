@@ -50,7 +50,7 @@ namespace UI.Commands
             } 
             catch (UsernameAlreadyExistsException exception)
             {
-                // TODO: Error handling
+                _registerVm.UsernameError.ErrorMessage = exception.Message;
             }
         }
     }

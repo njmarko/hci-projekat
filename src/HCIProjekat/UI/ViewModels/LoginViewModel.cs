@@ -7,33 +7,60 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase, ISelfValidatingViewModel
     {
         private string _username;
         public string Username
         {
             get { return _username; }
-            set { _username = value; OnPropertyChanged(nameof(Username)); OnPropertyChanged(nameof(CanLogin)); ErrorViewModel.ErrorMessage = null; }
+            set { _username = value; OnPropertyChanged(nameof(Username)); OnPropertyChanged(nameof(CanLogin)); }
         }
 
         private string _password;
         public string Password
         {
             get { return _password; }
-            set { _password = value; OnPropertyChanged(nameof(Password)); OnPropertyChanged(nameof(CanLogin)); ; ErrorViewModel.ErrorMessage = null; }
+            set { _password = value; OnPropertyChanged(nameof(Password)); OnPropertyChanged(nameof(CanLogin)); }
         }
 
-        public bool CanLogin => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
-        public ErrorMessageViewModel ErrorViewModel { get; private set; }
+        public bool CanLogin => IsValid();
+        public ErrorMessageViewModel LoginError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel UsernameError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel PasswordError { get; private set; } = new ErrorMessageViewModel();
         public ICommand LoginCommand { get; private set; }
 
         public LoginViewModel(IApplicationContext context, IAuthService authService) : base(context)
         {
-            ErrorViewModel = new ErrorMessageViewModel(context);
             LoginCommand = new LoginCommand(this, authService, context);
+        }
+
+        public bool IsValid()
+        {
+            bool valid = true;
+            //Username
+            if (string.IsNullOrEmpty(Username))
+            {
+                UsernameError.ErrorMessage = "Username cannot be empty.";
+                valid = false;
+            } else
+            {
+                UsernameError.ErrorMessage = null;
+            }
+            //Password
+            if (string.IsNullOrEmpty(Password))
+            {
+                PasswordError.ErrorMessage = "Password cannot be empty.";
+                valid = false;
+            } else
+            {
+                PasswordError.ErrorMessage = null;
+            }
+            LoginError.ErrorMessage = null;
+            return valid;
         }
     }
 }
