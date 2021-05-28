@@ -56,6 +56,9 @@ namespace Domain.Services
             var query = page.Query.ToLower();
             return context.Requests
                           .Where(r => r.Client.Id == clientId)
+                          .Where(r => page.Type == null || r.Type == page.Type)
+                          .Where(r => page.From == null || r.Date >= page.From)
+                          .Where(r => page.To == null || r.Date <= page.To)
                           .Where(r => r.Name.ToLower().Contains(query)
                           || r.Notes.ToLower().Contains(query)
                           || r.Type.ToString().ToLower().Contains(query)
