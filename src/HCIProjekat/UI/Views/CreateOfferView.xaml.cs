@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UI.ViewModels;
 
 namespace UI.Views
 {
@@ -24,9 +26,16 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void InputImage(object sender, RoutedEventArgs e)
         {
-
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            if (dialog.ShowDialog() == true)
+            {
+                var fileUri = new Uri(dialog.FileName);
+                var vm = DataContext as CreateOfferViewModel;
+                vm.OnImageInput?.Execute(new BitmapImage(fileUri));
+            }
         }
     }
 }

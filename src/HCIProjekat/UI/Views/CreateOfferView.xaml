@@ -57,7 +57,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Width="250" Height="200" BorderThickness="1">
+                    <Button Width="250" Height="200" BorderThickness="1" Click="InputImage">
                         <Button.Background>
                             <ImageBrush ImageSource="{Binding Image, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" />
                         </Button.Background>
