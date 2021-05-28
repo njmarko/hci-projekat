@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Persistence;
 using Domain.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +24,16 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
+
+            if (context.Users.FirstOrDefault(u => u.Username == admin.Username) != null)
+            {
+                throw new UsernameAlreadyExistsException(admin.Username);
+            }
             // TODO: Ovde bi bolje bilo koristiti asinhrone pozive, al u sustini moze i ovo
             context.Admins.Add(admin);
             context.SaveChanges();
             return admin;
+
         }
     }
 }
