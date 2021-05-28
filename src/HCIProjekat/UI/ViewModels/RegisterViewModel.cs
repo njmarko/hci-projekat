@@ -72,6 +72,11 @@ namespace UI.ViewModels
             RegisterCommand = new RegisterCommand(this, clientService, context.Router);
         }
 
+        public RegisterViewModel(IApplicationContext context, IEventPlannersService eventPlannersService) : base(context)
+        {
+            RegisterCommand = new RegisterCommand(this, eventPlannersService, context.Router);
+        }
+
         public bool IsValid()
         {
             bool valid = true;
