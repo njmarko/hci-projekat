@@ -13,18 +13,47 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                    
                     <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
-                               Text="{Binding OfferName}" />
+                               Text="{Binding OfferName}"/>
+                <Image Source="C:\\Users\\dimit\\Pictures\\Backgrounds\\2veek29rath51.jpg" Margin="0 30 0 0">
+                </Image>
                     <TextBlock Grid.Row="1" TextWrapping="Wrap" 
                            TextAlignment="Left" 
                            Style="{DynamicResource MaterialDesignBody1TextBlock}" 
                            FontSize="14"
-                           Text="{Binding Description}">
+                           Text="{Binding Description}"
+                           Margin="20,0,0,0"
+                               >
                     </TextBlock>
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    
+                    
+                    <Separator Grid.Row="2" Style="{DynamicResource MaterialDesignDarkSeparator}"></Separator>
+
+                <TextBlock Grid.Row="3" TextWrapping="Wrap" 
+                               TextAlignment="Left"
+                                Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                               FontSize="14"
+                               Text="{Binding PartnerName}"
+                               Margin="20,0,0,0">
+
+                </TextBlock>
+
+                <TextBlock Grid.Row="4"
+                           TextAlignment="Left"
+                           Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                            FontSize="14"
+                            Text="{Binding OfferPrice}"
+                            Margin="20,0,0,0"></TextBlock>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
                         <Button Margin="20,0,0,10" Content="Accept" Style="{DynamicResource MaterialDesignOutlinedButton}" Foreground="Green" BorderBrush="Green"></Button>
                     </StackPanel>
                 </Grid>

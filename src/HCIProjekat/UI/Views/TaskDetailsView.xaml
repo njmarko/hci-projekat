@@ -51,6 +51,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="0">
                         <ItemsControl.ItemsPanel>
@@ -64,6 +65,10 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                    
+                    <StackPanel Grid.Row="1">
+                        <controls:Pagination />
+                    </StackPanel>
                 </Grid>
                 
             </TabItem>

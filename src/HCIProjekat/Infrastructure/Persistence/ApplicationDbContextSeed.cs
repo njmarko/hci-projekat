@@ -46,8 +46,8 @@ namespace Infrastructure.Persistence
             var l2 = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" };
             var l3 = new Location { StreetNumber = "303", Street = "Ulica3", City = "Novi Sad", Country = "Srbija" };
 
-            var p1 = new Partner { Name = "Parnter 1", Location = l1, Type = PartnerType.RESTAURANT };
-            var p2 = new Partner { Name = "Parnter 2", Location = l2, Type = PartnerType.RESTAURANT };
+            var p1 = new Partner { Name = "Partner 1", Location = l1, Type = PartnerType.RESTAURANT };
+            var p2 = new Partner { Name = "Partner 2", Location = l2, Type = PartnerType.RESTAURANT };
 
             var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", Image = "slika", OfferType = t1.TaskType, Partner = p1 };
             var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", Image = "slika", OfferType = t1.TaskType, Partner = p2 };
