@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
@@ -29,6 +28,19 @@ namespace Infrastructure.Persistence
             var r12 = new Request { Name = "Request 12", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
             var r13 = new Request { Name = "Request 13", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
             var r14 = new Request { Name = "Request 14", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+
+
+            var t1 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 1", Description = "ovo je neki opis", Request = r1 };
+            var t2 = new Task { TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Name = "Task 2", Description = "ovo je neki opis", Request = r1 };
+            var t3 = new Task { TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.CATERING, Name = "Task 3", Description = "ovo je neki opis", Request = r1 };
+            var t4 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 4", Description = "ovo je neki opis", Request = r1 };
+            var t5 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 5", Description = "ovo je neki opis", Request = r1 };
+            var t6 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 6", Description = "ovo je neki opis", Request = r1 };
+            var t7 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 7", Description = "ovo je neki opis", Request = r1 };
+            var t8 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 8", Description = "ovo je neki opis", Request = r1 };
+            var t9 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 9", Description = "ovo je neki opis", Request = r1 };
+            var t10 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 10", Description = "ovo je neki opis", Request = r1 };
+
             context.Requests.Add(r1);
             context.Requests.Add(r2);
             context.Requests.Add(r3);
@@ -43,6 +55,18 @@ namespace Infrastructure.Persistence
             context.Requests.Add(r12);
             context.Requests.Add(r13);
             context.Requests.Add(r14);
+
+            context.Tasks.Add(t1);
+            context.Tasks.Add(t2);
+            context.Tasks.Add(t3);
+            context.Tasks.Add(t4);
+            context.Tasks.Add(t5);
+            context.Tasks.Add(t6);
+            context.Tasks.Add(t7);
+            context.Tasks.Add(t8);
+            context.Tasks.Add(t9);
+            context.Tasks.Add(t10);
+
 
             context.SaveChanges();
         }
