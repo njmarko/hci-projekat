@@ -124,7 +124,7 @@ namespace Infrastructure.Persistence
             // Tasks
             var t1 = new Task { Name = "Task1", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
             var t2 = new Task { Name = "Task2", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.LOCATION, Request = r1 };
-            var t3 = new Task { Name = "Task3", Description = "Neki opis", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t3 = new Task { Name = "Task3", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel vulputate ipsum. Etiam vehicula iaculis tempus. Quisque eu eleifend libero. Sed et pretium nisl, sed tempus turpis. Sed vel egestas tortor, vel vehicula nulla. Donec sit amet mi eros. Aenean rutrum libero id ex consectetur, vitae molestie lorem viverra.", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
             var t4 = new Task { Name = "Task4", Description = "Neki opis", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Request = r1 };
             var t5 = new Task { Name = "Task5", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
             var t6 = new Task { Name = "Task6", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };

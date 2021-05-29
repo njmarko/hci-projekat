@@ -8,24 +8,85 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    
     <Grid>
         <materialDesign:Card UniformCornerRadius="20" Margin="10" Padding="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
-                <TextBlock Grid.Row="1" TextWrapping="Wrap" 
-                           TextAlignment="Left" 
-                           Style="{DynamicResource MaterialDesignBody1TextBlock}" 
-                           FontSize="14"
-                           Text="{Binding Description}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                
+                <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
+                           Text="{Binding Name}" 
+                           />
+                
+                
+
+                <TextBlock Text="{Binding Type}"
+                           Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Foreground="DarkGray"
+                           Grid.Row="1" 
+                           Grid.ColumnSpan="2"
+                           TextAlignment="Center"
+                           >
+                            
                 </TextBlock>
-                <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <Button Margin="20,0,0,10" Content="Accept" Style="{DynamicResource MaterialDesignOutlinedButton}" Foreground="Green" BorderBrush="Green"></Button>
-                    <Button Margin="10,0,0,10" Content="Decline" Style="{DynamicResource MaterialDesignOutlinedButton}" Foreground="Red" BorderBrush="Red"></Button>
+                
+                <Border Grid.Row="0" Grid.Column="1"  Background="{Binding Color}" 
+                        CornerRadius="10" Padding="4" Margin="10 0"
+                        Width="70"
+                        HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Foreground="White" FontWeight="Bold" Text="{Binding Status}">
+                    </TextBlock>
+                </Border>
+                
+                <Separator Grid.Row="3" 
+                           Grid.ColumnSpan="2"
+                           Style="{DynamicResource MaterialDesignDarkSeparator}"></Separator>
+                
+                <ScrollViewer Grid.Row="4" Grid.ColumnSpan="2">
+                    <TextBlock   TextWrapping="Wrap" 
+                               TextAlignment="Left" 
+                               Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                               FontSize="14"
+                               Text="{Binding Description}"
+                               Margin="20,0,0,0">
+                    </TextBlock>
+                </ScrollViewer>
+                
+                <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0 5 0 0">
+                    <StackPanel Orientation="Horizontal"  
+                                Visibility="{Binding  Path=IsPending, Converter={StaticResource b2vc}}">
+                        
+                        <Button Margin="20,0,0,10"
+                                Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
+                                BorderBrush="Green" Background="Green">
+                            <TextBlock Text="Accept" Foreground="White"></TextBlock>
+                        </Button>
+                        
+                        <Button Margin="10,0,0,10"  
+                                Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
+                                Background="Red" BorderBrush="Red">
+                            <TextBlock Text="Reject" Foreground="White"></TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <Button Margin="10,0,0,10" Content="View details" Style="{DynamicResource MaterialDesignOutlinedButton}" ></Button>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>

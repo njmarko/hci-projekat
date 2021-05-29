@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Domain.Pagination.Requests;
+using Domain.Enums;
 
 namespace Domain.Services
 {
@@ -31,7 +32,14 @@ namespace Domain.Services
 
             return context.Tasks
                           .Where(t => t.Request.Id == requestId)
-                          .Where(t => t.Name.ToLower().Contains(page.TaskName.ToLower()))
+                          .Where(t =>
+                            t.Name.ToLower().Contains(page.Query.ToLower()) ||
+                            t.Description.ToLower().Contains(page.Query.ToLower()))
+                          .Where(t => page.Type == null || t.TaskType == page.Type)
+                          .Where(t=> t.TaskStatus == TaskStatus.SENT_TO_CLIENT || 
+                              t.TaskStatus == TaskStatus.ACCEPTED || 
+                              t.TaskStatus == TaskStatus.REJECTED)
+                          .Where(t=> page.Status == null || t.TaskStatus == page.Status)
                           .ToPage(page);
         }
         public List<Task> GetTasksForRequest(int requestId, string searchQuery)
