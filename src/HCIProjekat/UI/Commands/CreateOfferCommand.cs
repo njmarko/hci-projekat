@@ -24,24 +24,27 @@ namespace UI.Commands
         {
             _createOfferVm = createOfferViewModel;
             _offerService = offerService;
-
+            _createOfferVm.PropertyChanged += _createOfferVm_PropertyChanged;
         }
 
         private void _createOfferVm_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            CanExecuteChanged?.Invoke(sender, e);
+            if (e.PropertyName == nameof(CreateOfferViewModel.CanCreateOffer))
+            {
+                CanExecuteChanged?.Invoke(sender, e);
+            }
         }
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return _createOfferVm.CanCreateOffer;
         }
 
         public void Execute(object parameter)
         {
             ((Window)parameter).Close();
             _offerService.Create(new Offer { Description = _createOfferVm.Description, Image = _createOfferVm.ImageInBytes, Name = _createOfferVm.Name, 
-            Price = _createOfferVm.Price, OfferType = ServiceType.LOCATION}, 1);
+            Price = int.Parse(_createOfferVm.Price), OfferType = ServiceType.LOCATION}, 1);
         }
     }
 }

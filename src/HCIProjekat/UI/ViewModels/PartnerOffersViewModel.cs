@@ -41,7 +41,7 @@ namespace UI.ViewModels
             }
         }
 
-        public ICommand AddOffer { get; set; }
+        public ICommand AddOffer { get; private set; }
 
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
 
