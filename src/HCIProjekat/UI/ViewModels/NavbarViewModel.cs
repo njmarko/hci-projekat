@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using UI.Commands;
 using UI.Context;
 
 namespace UI.ViewModels
@@ -26,10 +27,13 @@ namespace UI.ViewModels
             get { return _isVisible; }
             set { _isVisible = value; OnPropertyChanged(nameof(IsVisible)); }
         }
+
+        public ICommand Logout { get; private set; }
         public ObservableCollection<NavbarItemModel> NavbarItems { get; private set; } = new ObservableCollection<NavbarItemModel>();
 
         public NavbarViewModel(IApplicationContext context) : base(context)
         {
+            Logout = new LogoutCommand(context);
             context.Router.OnRouteChanged += UpdateNavbar;
         }
 
