@@ -52,7 +52,7 @@ namespace UI.ViewModels
             _eventPlannersService = eventPlannersService;
             _taskService = taskService;
             Search = new DelegateCommand(FetchTasksForSelectedRequest);
-            ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(11));
+            ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(11)); // TODO: Zameni ovo sa Context.Store.CurrentUser.Id
             if (ActiveRequests.Count > 0)
             {
                 CurrentRequest = ActiveRequests[0];
