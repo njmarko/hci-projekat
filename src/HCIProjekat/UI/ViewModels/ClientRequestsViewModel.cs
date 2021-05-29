@@ -103,11 +103,7 @@ namespace UI.ViewModels
             var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type }); // TODO: Zameni ovo sa Context.Store.CurrentUser.Id
             foreach (var entity in page.Entities)
             {
-<<<<<<< HEAD
                 RequestModels.Add(new ClientRequestCardModel { Name = entity.Name, Type = entity.Type.ToString(), GuestNumber = entity.GuestNumber, Budget = $"{entity.Budget} RSD", BudgetFlexible = entity.BudgetFlexible, Theme = entity.Theme, Date = entity.Date.ToString("dd.MM.yyyy") });
-=======
-                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name});
->>>>>>> feature/client-request-details
             }
             OnPageFetched(page);
         }

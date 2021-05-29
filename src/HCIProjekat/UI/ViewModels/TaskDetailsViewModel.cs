@@ -89,7 +89,7 @@ namespace UI.ViewModels
                 string color;// = Context.Store.LoggedUserId == comment.Sender.Id ? "Blue" : "White";
                 string margin;
 
-                if (Context.Store.LoggedUserId == comment.Sender.Id) {
+                if (Context.Store.CurrentUser.Id == comment.Sender.Id) {
                     color = "#78cdff";
                     margin = "800,5,0,0";
                 }

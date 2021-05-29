@@ -40,6 +40,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:RegisterPartnerViewModel}">
                 <views:RegisterPartnerView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:RequestDetailsViewModel}">
                 <views:RequestDetailsView/>
             </DataTemplate>

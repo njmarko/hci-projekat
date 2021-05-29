@@ -14,6 +14,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Comment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\EventPlannerTaskCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -56,6 +58,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Comment.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\EventPlannerTaskCard.xaml">
       <SubType>Designer</SubType>
     </Page>

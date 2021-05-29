@@ -1,20 +1,14 @@
-<<<<<<< HEAD
-﻿using Domain.Pagination;
-=======
+using Domain.Pagination;
 ﻿using Domain.Entities;
 using Domain.Persistence;
->>>>>>> 451de900e0a34cad7a5d027f31e7cfda29b89d29
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-<<<<<<< HEAD
 using Domain.Entities;
 using Domain.Persistence;
 using Domain.Pagination.Requests;
-=======
->>>>>>> 451de900e0a34cad7a5d027f31e7cfda29b89d29
 
 namespace Domain.Services
 {
@@ -27,7 +21,6 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
-<<<<<<< HEAD
         public Task GetTask(int taskId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -38,16 +31,12 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            
-            return context.Tasks
-                .Where(t=>t.Request.Id == requestId)
-                .Where(t=>t.Name.ToLower().Contains(page.TaskName.ToLower()))
-                .ToPage(page);
-           
-            
-                      
 
-=======
+            return context.Tasks
+                          .Where(t => t.Request.Id == requestId)
+                          .Where(t => t.Name.ToLower().Contains(page.TaskName.ToLower()))
+                          .ToPage(page);
+        }
         public List<Task> GetTasksForRequest(int requestId, string searchQuery)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -59,7 +48,6 @@ namespace Domain.Services
                           || t.Description.ToLower().Contains(searchQuery)
                           || t.TaskType.ToString().ToLower().Contains(searchQuery))
                           .ToList();
->>>>>>> 451de900e0a34cad7a5d027f31e7cfda29b89d29
         }
     }
 }
