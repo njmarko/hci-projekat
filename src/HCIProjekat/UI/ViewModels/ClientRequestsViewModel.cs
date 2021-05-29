@@ -100,7 +100,7 @@ namespace UI.ViewModels
         public override void UpdatePage(int pageNumber)
         {
             RequestModels.Clear();
-            var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type });
+            var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type }); // TODO: Zameni ovo sa Context.Store.CurrentUser.Id
             foreach (var entity in page.Entities)
             {
 <<<<<<< HEAD

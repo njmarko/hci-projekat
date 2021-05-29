@@ -14,9 +14,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Comment.xaml.cs">
+    <Compile Update="Controls\EventPlannerTaskCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EventPlannerHomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\LoginView.xaml.cs">
@@ -52,6 +56,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Comment.xaml">
+    <Page Update="Controls\EventPlannerTaskCard.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Pagination.xaml">
@@ -67,6 +72,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ClientRequestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EventPlannerHomeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\LoginView.xaml">
