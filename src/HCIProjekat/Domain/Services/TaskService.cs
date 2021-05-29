@@ -24,13 +24,12 @@ namespace Domain.Services
         public Task GetTask(int taskId)
         {
             using var context = _dbContextFactory.CreateDbContext();
-            return context.Tasks.First(t => t.Id == taskId);
+            return context.Tasks.Find(taskId);
         }
 
         public Page<Task> GetTasksForRequest(int requestId, TasksPageRequest page)
         {
             using var context = _dbContextFactory.CreateDbContext();
-
 
             return context.Tasks
                           .Where(t => t.Request.Id == requestId)

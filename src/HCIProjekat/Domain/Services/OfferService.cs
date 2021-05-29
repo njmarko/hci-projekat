@@ -25,10 +25,10 @@ namespace Domain.Services
         {
             var context = _dbContextFactory.CreateDbContext();
             return context.TaskOffers
-                .Include(to => to.Offer)
-                .Include(to => to.Offer.Partner)
-                .Where(o => o.Task.Id == taskId)
-                .ToPage(page);
+                          .Include(to => to.Offer)
+                          .Include(to => to.Offer.Partner)
+                          .Where(o => o.Task.Id == taskId)
+                          .ToPage(page);
         }
     }
 }

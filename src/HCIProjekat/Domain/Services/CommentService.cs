@@ -24,10 +24,10 @@ namespace Domain.Services
         {
             var context = _dbContextFactory.CreateDbContext();
             return context.Comments
-                .Include(c => c.Sender)
-                .Where(c => c.Task.Id == taskId)
-                .OrderBy(c => c.SentDate)
-                .ToList();
+                          .Include(c => c.Sender)
+                          .Where(c => c.Task.Id == taskId)
+                          .OrderBy(c => c.SentDate)
+                          .ToList();
         }
     }
 }

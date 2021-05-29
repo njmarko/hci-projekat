@@ -21,8 +21,7 @@ namespace Domain.Services
         public Request GetRequest(int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();
-            return context.Requests.First(r => r.Id == requestId);
-            //throw new NotImplementedException();
+            return context.Requests.Find(requestId);
         }
     }
 }
