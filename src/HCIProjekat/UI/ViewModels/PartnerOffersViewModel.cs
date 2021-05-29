@@ -67,7 +67,6 @@ namespace UI.ViewModels
 
         private void OpenOfferModal()
         {
-            Context.Notifier.ShowInformation("Offer successfully added!");
             _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService));
             UpdatePage(0);
         }

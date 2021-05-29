@@ -28,6 +28,7 @@ namespace Domain.Services
                           .Include(to => to.Offer)
                           .Include(to => to.Offer.Partner)
                           .Where(o => o.Task.Id == taskId)
+                          .ToPage(page);
         }
       
        public Offer Create(Offer offer, int partnerId)

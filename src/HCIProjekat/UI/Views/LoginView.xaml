@@ -20,6 +20,7 @@
         <materialDesign:Card Height="380" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Margin="100 0" Padding="5">
             <StackPanel>
                 <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Login" Margin="0 20" />
+                <Rectangle Margin="10 0" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter username" Margin="10 20 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding UsernameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter password" Margin="10 20 10 0" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />

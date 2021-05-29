@@ -9,6 +9,7 @@ using UI.Context;
 using UI.ViewModels.CardViewModels;
 using Domain.Pagination.Requests;
 using System.Windows;
+using UI.Util;
 
 namespace UI.ViewModels
 {
@@ -72,7 +73,7 @@ namespace UI.ViewModels
                     PartnerName = entity.Offer.Partner.Name, 
                     Description = entity.Offer.Description,
                     OfferName = entity.Offer.Name,
-                    Image = entity.Offer.Image,
+                    //Image = entity.Offer.Image,
                     OfferPrice = entity.Offer.Price
                 });
             }

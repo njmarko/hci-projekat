@@ -164,8 +164,8 @@ namespace Infrastructure.Persistence
             context.Partner.Add(p1);
             context.Partner.Add(p2);
 
-            var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", Image = "slika", OfferType = t1.TaskType, Partner = p1 };
-            var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", Image = "slika", OfferType = t1.TaskType, Partner = p2 };
+            var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", /*Image = "slika"*/ OfferType = t1.TaskType, Partner = p1 };
+            var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", /*Image = "slika"*/ OfferType = t1.TaskType, Partner = p2 };
             context.Offers.Add(o1);
             context.Offers.Add(o2);
 
