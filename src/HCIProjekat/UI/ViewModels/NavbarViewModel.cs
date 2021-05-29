@@ -17,7 +17,12 @@ namespace UI.ViewModels
 
     public class NavbarViewModel : ViewModelBase
     {
-        public bool IsVisible { get; private set; }
+        private bool _isVisible;
+        public bool IsVisible
+        {
+            get { return _isVisible; }
+            set { _isVisible = value; OnPropertyChanged(nameof(IsVisible)); }
+        }
         public ObservableCollection<NavbarItemModel> NavbarItems { get; private set; } = new ObservableCollection<NavbarItemModel>();
 
         public NavbarViewModel(IApplicationContext context) : base(context)
