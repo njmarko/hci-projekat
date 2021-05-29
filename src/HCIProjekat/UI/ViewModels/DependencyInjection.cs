@@ -25,6 +25,9 @@ namespace UI.ViewModels
             services.AddTransient<TaskDetailsViewModel>();
             services.AddTransient<EventPlannerHomeViewModel>();
             services.AddTransient<PartnerOffersViewModel>();
+
+            services.AddSingleton<NavbarViewModel>();
+            
             return services;
         }
     }
