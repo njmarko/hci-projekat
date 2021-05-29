@@ -15,7 +15,7 @@ namespace UI.ViewModels
         private readonly IEventPlannersService _eventPlannersService;
 
         public ObservableCollection<Request> ActiveRequests { get; private set; }
-        public Request CurrentRequest { get; private set; }
+        public Request CurrentRequest { get; set; }
 
         public EventPlannerHomeViewModel(IApplicationContext context, IEventPlannersService eventPlannersService) : base(context)
         {
