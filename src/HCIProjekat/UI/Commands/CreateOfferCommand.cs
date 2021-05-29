@@ -23,7 +23,7 @@ namespace UI.Commands
 
         public event EventHandler CanExecuteChanged;
 
-        public CreateOfferCommand(CreateOfferViewModel createOfferViewModel, IOfferService offerService, int offerId, int partnerId)
+        public CreateOfferCommand(CreateOfferViewModel createOfferViewModel, IOfferService offerService, int partnerId, int offerId)
         {
             _createOfferVm = createOfferViewModel;
             _offerService = offerService;
@@ -70,6 +70,7 @@ namespace UI.Commands
                 }, _partnerId);
             }
 
+            ((Window)parameter).DialogResult = true;
             ((Window)parameter).Close();
         }
     }
