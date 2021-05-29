@@ -2,9 +2,9 @@
 using Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
@@ -33,20 +33,63 @@ namespace Infrastructure.Persistence
             context.Clients.Add(c9);
             context.Clients.Add(c10);
 
-            var r1 = new Request { Name = "Request 1", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r2 = new Request { Name = "Request 2", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.WEDDING, Theme = "Theme", Notes = "No notes." };
-            var r3 = new Request { Name = "Request 3", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.ANNIVERSARY, Theme = "Theme", Notes = "No notes." };
-            var r4 = new Request { Name = "Request 4", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.BIRTHDAY, Theme = "Theme", Notes = "No notes." };
-            var r5 = new Request { Name = "Request 5", Budget = 1000, BudgetFlexible = true, Client = c2, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r6 = new Request { Name = "Request 6", Budget = 1000, BudgetFlexible = true, Client = c2, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.GRADUATION, Theme = "Theme", Notes = "No notes." };
-            var r7 = new Request { Name = "Request 7", Budget = 1000, BudgetFlexible = true, Client = c2, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.BIRTHDAY, Theme = "Theme", Notes = "No notes." };
-            var r8 = new Request { Name = "Request 8", Budget = 1000, BudgetFlexible = true, Client = c3, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r9 = new Request { Name = "Request 9", Budget = 1000, BudgetFlexible = true, Client = c3, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r10 = new Request { Name = "Request 10", Budget = 1000, BudgetFlexible = true, Client = c4, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.GRADUATION, Theme = "Theme", Notes = "No notes." };
-            var r11 = new Request { Name = "Request 11", Budget = 1000, BudgetFlexible = true, Client = c4, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.WEDDING, Theme = "Theme", Notes = "No notes." };
-            var r12 = new Request { Name = "Request 12", Budget = 1000, BudgetFlexible = true, Client = c5, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r13 = new Request { Name = "Request 13", Budget = 1000, BudgetFlexible = true, Client = c6, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.ANNIVERSARY, Theme = "Theme", Notes = "No notes." };
-            var r14 = new Request { Name = "Request 14", Budget = 1000, BudgetFlexible = true, Client = c7, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var ep1 = new EventPlanner { FirstName = "Jakov", LastName = "Matic", Username = "jakovmatic", Password = "test123", DateOfBirth = DateTime.Now };
+            context.EventPlanners.Add(ep1);
+
+            var r1 = new Request { Name = "Request 1", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Neka tema", Notes = "No notes." };
+            var r2 = new Request { Name = "Request 2", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r3 = new Request { Name = "Request 3", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r4 = new Request { Name = "Request 4", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r5 = new Request { Name = "Request 5", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r6 = new Request { Name = "Request 6", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r7 = new Request { Name = "Request 7", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r8 = new Request { Name = "Request 8", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r9 = new Request { Name = "Request 9", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r10 = new Request { Name = "Request 10", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r11 = new Request { Name = "Request 11", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r12 = new Request { Name = "Request 12", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r13 = new Request { Name = "Request 13", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r14 = new Request { Name = "Request 14", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+
+
+            var t1 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 1", Description = "ovo je neki opis taska", Request = r1 };
+            var t2 = new Task { TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Name = "Task 2", Description = "ovo je neki opis taska", Request = r2 };
+            var t3 = new Task { TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.CATERING, Name = "Task 3", Description = "ovo je neki opis taska", Request = r1 };
+            var t4 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 4", Description = "ovo je neki opis taska", Request = r1 };
+            var t5 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 5", Description = "ovo je neki opis taska", Request = r1 };
+            var t6 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 6", Description = "ovo je neki opis taska", Request = r2 };
+            var t7 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 7", Description = "ovo je neki opis taska", Request = r1 };
+            var t8 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 8", Description = "ovo je neki opis taska", Request = r2 };
+            var t9 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 9", Description = "ovo je neki opis taska", Request = r1 };
+            var t10 = new Task { TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.CATERING, Name = "Task 10", Description = "ovo je neki opis taska", Request = r1 };
+
+
+            var l1 = new Location { StreetNumber = "301", Street = "Ulica1", City = "Novi Sad", Country = "Srbija" };
+            var l2 = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" };
+            var l3 = new Location { StreetNumber = "303", Street = "Ulica3", City = "Novi Sad", Country = "Srbija" };
+
+            var p1 = new Partner { Name = "Partner 1", Location = l1, Type = PartnerType.RESTAURANT };
+            var p2 = new Partner { Name = "Partner 2", Location = l2, Type = PartnerType.RESTAURANT };
+
+            var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", Image = "slika", OfferType = t1.TaskType, Partner = p1 };
+            var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", Image = "slika", OfferType = t1.TaskType, Partner = p2 };
+
+            var taskOffer1 = new TaskOffer { Offer = o1, Task = t1 };
+            var taskOffer2 = new TaskOffer { Offer = o2, Task = t1 };
+
+
+            var com1 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 1", Sender = c1, Task = t1 };
+            var com2 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:20", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 2", Sender = c1, Task = t1 };
+            var com3 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:50", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 3", Sender = ep1, Task = t1 };
+            var com4 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:51", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 4", Sender = ep1, Task = t1 };
+            var com5 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:52", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 5", Sender = ep1, Task = t1 };
+            var com6 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:53", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 6", Sender = ep1, Task = t1 };
+            var com7 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:54", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 7", Sender = ep1, Task = t1 };
+            var com8 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:55", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 8", Sender = ep1, Task = t1 };
+            var com9 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:56", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 9", Sender = ep1, Task = t1 };
+            var com10 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:57", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 10", Sender = ep1, Task = t1 };
+
+
             context.Requests.Add(r1);
             context.Requests.Add(r2);
             context.Requests.Add(r3);
@@ -114,6 +157,36 @@ namespace Infrastructure.Persistence
             context.Partner.Add(par9);
             context.Partner.Add(par10);
 
+            context.Tasks.Add(t1);
+            context.Tasks.Add(t2);
+            context.Tasks.Add(t3);
+            context.Tasks.Add(t4);
+            context.Tasks.Add(t5);
+            context.Tasks.Add(t6);
+            context.Tasks.Add(t7);
+            context.Tasks.Add(t8);
+            context.Tasks.Add(t9);
+            context.Tasks.Add(t10);
+
+            context.Partner.Add(p1);
+            context.Partner.Add(p2);
+
+            context.Offers.Add(o1);
+            context.Offers.Add(o2);
+
+            context.TaskOffers.Add(taskOffer1);
+            context.TaskOffers.Add(taskOffer2);
+
+            context.Comments.Add(com1);
+            context.Comments.Add(com2);
+            context.Comments.Add(com3);
+            context.Comments.Add(com4);
+            context.Comments.Add(com5);
+            context.Comments.Add(com6);
+            context.Comments.Add(com7);
+            context.Comments.Add(com8);
+            context.Comments.Add(com9);
+            context.Comments.Add(com10);
 
             context.SaveChanges();
         }

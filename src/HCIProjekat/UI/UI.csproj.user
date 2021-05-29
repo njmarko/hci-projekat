@@ -7,6 +7,15 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\ClientTaskCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ClientTaskOfferCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Comment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -14,6 +23,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\RegisterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RequestDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TaskDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -28,6 +43,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ClientRequestCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ClientTaskCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ClientTaskOfferCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Comment.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Pagination.xaml">
@@ -58,6 +82,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RegisterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RequestDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TaskDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

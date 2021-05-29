@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="UI.Controls.ClientTaskOfferCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+>
+    <Grid>
+            <materialDesign:Card UniformCornerRadius="20" Margin="10" Padding="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
+                               Text="{Binding OfferName}"/>
+                <Image Source="https://i.redd.it/oo8hu88g5pg61.png" Margin="0 30 0 0">
+                </Image>
+                    <TextBlock Grid.Row="1" TextWrapping="Wrap" 
+                           TextAlignment="Left" 
+                           Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                           FontSize="14"
+                           Text="{Binding Description}"
+                           Margin="20,0,0,0"
+                               >
+                    </TextBlock>
+                    
+                    
+                    <Separator Grid.Row="2" Style="{DynamicResource MaterialDesignDarkSeparator}"></Separator>
+
+                <TextBlock Grid.Row="3" TextWrapping="Wrap" 
+                               TextAlignment="Left"
+                                Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                               FontSize="14"
+                               Text="{Binding PartnerName}"
+                               Margin="20,0,0,0">
+
+                </TextBlock>
+
+                <TextBlock Grid.Row="4"
+                           TextAlignment="Left"
+                           Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                            FontSize="14"
+                            Text="{Binding OfferPrice}"
+                            Margin="20,0,0,0"></TextBlock>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
+                        <Button Margin="20,0,0,10" Content="Accept" Style="{DynamicResource MaterialDesignOutlinedButton}" Foreground="Green" BorderBrush="Green"></Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+    </Grid>
+</UserControl>
