@@ -64,8 +64,10 @@ namespace UI.ViewModels
 
         private void ImageInput()
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp"
+            };
             if (dialog.ShowDialog() == true)
             {
                 var newImage = ImageUtil.ReadFromFile(dialog.FileName);

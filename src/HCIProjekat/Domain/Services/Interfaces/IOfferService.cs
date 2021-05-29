@@ -11,7 +11,7 @@ namespace Domain.Services.Interfaces
 {
     public interface IOfferService
     {
-        Offer Create(Offer offer);
+        Offer Create(Offer offer, int partnerId);
 
         Page<Offer> GetOffersForPartner(int partnerId, OffersPage page);
     }

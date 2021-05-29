@@ -13,7 +13,8 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="768" MinWidth="1366">
+        Title="MainWindow" MinHeight="768" MinWidth="1366"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2048x1152/46b99f6354a74981917ea032525ecebb/photo-1614254480533-d2a816781d58.jpg" />

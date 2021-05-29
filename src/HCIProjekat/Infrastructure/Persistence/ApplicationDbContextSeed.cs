@@ -91,7 +91,11 @@ namespace Infrastructure.Persistence
             context.EventPlanners.Add(ep8);
             context.EventPlanners.Add(ep9);
 
+            var p1 = new Partner { Name = "Partner 1", Location = new Location { StreetNumber = "301", Street = "Ulica1", City = "Novi Sad", Country = "Srbija" }, Type = PartnerType.RESTAURANT };
+            var p2 = new Partner { Name = "Partner 2", Location = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" }, Type = PartnerType.RESTAURANT };
 
+            context.Partner.Add(p1);
+            context.Partner.Add(p2);
 
             context.SaveChanges();
         }

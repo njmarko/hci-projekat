@@ -20,10 +20,12 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
       
-       public Offer Create(Offer offer)
+       public Offer Create(Offer offer, int partnerId)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
+            var partner = context.Partner.Find(partnerId);
+            offer.Partner = partner;
             context.Offers.Add(offer);
             context.SaveChanges();
             return offer;

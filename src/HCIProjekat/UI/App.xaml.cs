@@ -20,6 +20,8 @@ using UI.Context;
 using UI.Context.Locators;
 using UI.Context.Routers;
 using UI.Context.Stores;
+using UI.Modals;
+using UI.Services;
 using UI.ViewModels;
 
 namespace UI
@@ -50,6 +52,8 @@ namespace UI
                     services.AddInfrastructure(context.Configuration);
                     services.AddApplicationContext();
                     services.AddViewModels();
+                    services.AddServices();
+                    services.AddModalWindows();
                 });
         }
 

@@ -10,6 +10,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="LightBlue" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type vm:LoginViewModel}">
@@ -26,9 +27,6 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:AdminEventPlannersViewModel}">
                 <views:AdminEventPlannersView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:CreateOfferViewModel}">
-                <views:CreateOfferView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:PartnerOffersViewModel}">
                 <views:PartnerOffersView/>

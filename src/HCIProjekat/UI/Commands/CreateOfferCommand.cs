@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using UI.ViewModels;
 
@@ -38,8 +39,9 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
+            ((Window)parameter).Close();
             _offerService.Create(new Offer { Description = _createOfferVm.Description, Image = _createOfferVm.ImageInBytes, Name = _createOfferVm.Name, 
-            Price = _createOfferVm.Price, OfferType = ServiceType.LOCATION});
+            Price = _createOfferVm.Price, OfferType = ServiceType.LOCATION}, 1);
         }
     }
 }

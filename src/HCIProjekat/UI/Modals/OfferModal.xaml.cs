@@ -1,7 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using UI.ViewModels;
+using UI.Modals.Interfaces;
 
-namespace UI.Views
+namespace UI.Modals
 {
     /// <summary>
-    /// Interaction logic for CreateOfferView.xaml
+    /// Interaction logic for OfferModal.xaml
     /// </summary>
-    public partial class CreateOfferView : UserControl
+    public partial class OfferModal : Window, IModalWindow
     {
-        public CreateOfferView()
+        public OfferModal()
         {
             InitializeComponent();
         }
