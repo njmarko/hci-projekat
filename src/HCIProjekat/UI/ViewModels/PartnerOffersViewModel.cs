@@ -67,7 +67,7 @@ namespace UI.ViewModels
 
         private void OpenOfferModal(int partnerId, int offerId)
         {
-            bool? ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService, partnerId, offerId));
+            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService, partnerId, offerId));
             if ((bool)ok)
             {
                 Context.Notifier.ShowInformation($"Offer successfully {((offerId != -1) ? "updated" : "created" )}");
