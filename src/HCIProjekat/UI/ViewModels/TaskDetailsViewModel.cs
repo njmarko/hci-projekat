@@ -87,10 +87,12 @@ namespace UI.ViewModels
             var comments = _commentService.GetCommentsForTask(_task.Id);
             foreach(var comment in comments)
             {
-                string color;// = Context.Store.LoggedUserId == comment.Sender.Id ? "Blue" : "White";
+                string color;
                 string margin;
 
-                if (Context.Store.CurrentUser.Id == comment.Sender.Id) {
+                // if (Context.Store.CurrentUser.Id == comment.Sender.Id) {
+                //ovo je za sad hardkodovano, kada se poveze sa loginom vrsice se provjera
+                if (1 == comment.Sender.Id) {
                     color = "#78cdff";
                     margin = "800,5,0,0";
                 }
