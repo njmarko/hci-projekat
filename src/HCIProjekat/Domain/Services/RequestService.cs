@@ -18,6 +18,18 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        public Request Create(int clientId, Request request)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var client = context.Clients.Find(clientId);
+            request.Client = client;
+
+            context.Requests.Add(request);
+            context.SaveChanges();
+            return request;
+        }
+
         public Request GetRequest(int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();

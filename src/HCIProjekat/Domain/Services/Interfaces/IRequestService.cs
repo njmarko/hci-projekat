@@ -9,6 +9,8 @@ namespace Domain.Services.Interfaces
 {
     public interface IRequestService
     {
+        Request Create(int clientId, Request request);
+
         Request GetRequest(int requestId);
     }
 }

@@ -1,10 +1,13 @@
 ﻿using Domain.Enums;
+using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UI.Commands;
 using UI.Context;
 using UI.ViewModels.Interfaces;
 
@@ -12,9 +15,8 @@ namespace UI.ViewModels
 {
     public class CreateRequestViewModel : ViewModelBase, ISelfValidatingViewModel
     {
-
         // Poperties
-        private string _name;
+        private string _name = string.Empty;
         public string Name
         {
             get { return _name; }
@@ -28,42 +30,42 @@ namespace UI.ViewModels
             set { _requestType = value; OnPropertyChanged(nameof(RequestTypeValue)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private int _guestNumber;
+        private int _guestNumber = 0;
         public int GuestNumber
         {
             get { return _guestNumber; }
             set { _guestNumber = value; OnPropertyChanged(nameof(GuestNumber)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private string _theme;
+        private string _theme = string.Empty;
         public string Theme
         {
             get { return _theme; }
             set { _theme = value; OnPropertyChanged(nameof(Theme)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private int _budget;
+        private int _budget = 0;
         public int Budget
         {
             get { return _budget; }
             set { _budget = value; OnPropertyChanged(nameof(Budget)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private bool _budgetFlexible;
+        private bool _budgetFlexible = true;
         public bool BudgetFlexible
         {
             get { return _budgetFlexible; }
             set { _budgetFlexible = value; OnPropertyChanged(nameof(BudgetFlexible)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private DateTime _requestDate;
+        private DateTime _requestDate = DateTime.Today;
         public DateTime RequestDate
         {
             get { return _requestDate; }
             set { _requestDate = value; OnPropertyChanged(nameof(RequestDate)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private string _notes;
+        private string _notes = string.Empty;
         public string Notes
         {
             get { return _notes; }
@@ -81,11 +83,14 @@ namespace UI.ViewModels
         public ObservableCollection<RequestTypeModel> RequestTypeModels { get; private set; } = new ObservableCollection<RequestTypeModel>();
 
         public bool CanCreateRequest => IsValid();
+        public ICommand CreateRequest { get; private set; }
 
-        public CreateRequestViewModel(IApplicationContext context) : base(context)
+        public CreateRequestViewModel(IApplicationContext context, IRequestService requestService) : base(context)
         {
+            CreateRequest = new CreateRequestCommand(this, requestService, context);
+            RequestTypeValue = new RequestTypeModel { Type = RequestType.BIRTHDAY, Name = "Birthday" };
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.ANNIVERSARY, Name = "Anniversary" });
-            RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.BIRTHDAY, Name = "Birthday" });
+            RequestTypeModels.Add(RequestTypeValue);
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.GRADUATION, Name = "Graduation" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.PARTY, Name = "Party" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.WEDDING, Name = "Wedding" });
@@ -134,7 +139,7 @@ namespace UI.ViewModels
                 BudgetError.ErrorMessage = null;
             }
             //Request date
-            if (RequestDate < DateTime.Today)
+            if (RequestDate <= DateTime.Today)
             {
                 RequestDateError.ErrorMessage = "Request date must be in the future.";
             }
