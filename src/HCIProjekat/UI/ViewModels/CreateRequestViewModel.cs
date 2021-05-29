@@ -124,6 +124,7 @@ namespace UI.ViewModels
             if (GuestNumber <= 0)
             {
                 GuestNumberError.ErrorMessage = "Guest number must be a positive number.";
+                valid = false;
             } 
             else
             {
@@ -133,6 +134,7 @@ namespace UI.ViewModels
             if (Budget <= 0)
             {
                 BudgetError.ErrorMessage = "Budget must be a positive number.";
+                valid = false;
             } 
             else
             {
@@ -142,6 +144,7 @@ namespace UI.ViewModels
             if (RequestDate <= DateTime.Today)
             {
                 RequestDateError.ErrorMessage = "Request date must be in the future.";
+                valid = false;
             }
             else
             {
