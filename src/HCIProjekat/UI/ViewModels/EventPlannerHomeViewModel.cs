@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,12 @@ namespace UI.ViewModels
         private readonly ITaskService _taskService;
 
         public ObservableCollection<Request> ActiveRequests { get; private set; }
-
+        public ObservableCollection<Task> ToDo { get; private set; } = new ObservableCollection<Task>(); 
+        public ObservableCollection<Task> InProgress { get; private set; } = new ObservableCollection<Task>(); 
+        public ObservableCollection<Task> SentToClient { get; private set; } = new ObservableCollection<Task>(); 
+        public ObservableCollection<Task> Accepted { get; private set; } = new ObservableCollection<Task>(); 
+        public ObservableCollection<Task> Rejected { get; private set; } = new ObservableCollection<Task>(); 
+        
         private Request _currentRequest;
         public Request CurrentRequest
         {
@@ -43,8 +49,43 @@ namespace UI.ViewModels
 
         private void FetchTasksForSelectedRequest()
         {
+            ClearCollections();
             var tasks = _taskService.GetTasksForRequest(_currentRequest.Id, "");
-            Console.WriteLine(tasks);
+            foreach (var task in tasks)
+            {
+                InsertTask(task);
+            }
+        }
+
+        private void InsertTask(Task task)
+        {
+            switch (task.TaskStatus)
+            {
+                case TaskStatus.TO_DO:
+                    ToDo.Add(task);
+                    break;
+                case TaskStatus.IN_PROGRESS:
+                    InProgress.Add(task);
+                    break;
+                case TaskStatus.SENT_TO_CLIENT:
+                    SentToClient.Add(task);
+                    break;
+                case TaskStatus.ACCEPTED:
+                    Accepted.Add(task);
+                    break;
+                case TaskStatus.REJECTED:
+                    Rejected.Add(task);
+                    break;
+            }
+        }
+
+        private void ClearCollections()
+        {
+            ToDo.Clear();
+            InProgress.Clear();
+            SentToClient.Clear();
+            Accepted.Clear();
+            Rejected.Clear();
         }
     }
 }
