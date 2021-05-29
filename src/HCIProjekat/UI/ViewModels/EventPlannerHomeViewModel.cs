@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
+using UI.Commands;
 using UI.Context;
 
 namespace UI.ViewModels
@@ -36,10 +38,20 @@ namespace UI.ViewModels
             }
         }
 
+        private string _searchQuery = "";
+        public string SearchQuery
+        {
+            get { return _searchQuery; }
+            set { _searchQuery = value; OnPropertyChanged(nameof(SearchQuery)); }
+        }
+
+        public ICommand Search { get; private set; }
+
         public EventPlannerHomeViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, ITaskService taskService) : base(context)
         {
             _eventPlannersService = eventPlannersService;
             _taskService = taskService;
+            Search = new DelegateCommand(FetchTasksForSelectedRequest);
             ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(11));
             if (ActiveRequests.Count > 0)
             {
@@ -49,11 +61,14 @@ namespace UI.ViewModels
 
         private void FetchTasksForSelectedRequest()
         {
-            ClearCollections();
-            var tasks = _taskService.GetTasksForRequest(_currentRequest.Id, "");
-            foreach (var task in tasks)
+            if (_currentRequest != null)
             {
-                InsertTask(task);
+                ClearCollections();
+                var tasks = _taskService.GetTasksForRequest(_currentRequest.Id, SearchQuery);
+                foreach (var task in tasks)
+                {
+                    InsertTask(task);
+                }
             }
         }
 

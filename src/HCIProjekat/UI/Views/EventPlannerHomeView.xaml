@@ -29,8 +29,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Row="0" Grid.Column="0" Margin="10 10 5 10" ItemsSource="{Binding ActiveRequests}" SelectedItem="{Binding CurrentRequest}" DisplayMemberPath="Name" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Select request" />
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="5 10 5 10" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search tasks" />
-            <Button Grid.Row="0" Grid.Column="2" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5 10 5 10" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search tasks" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Row="0" Grid.Column="2" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
             <Button Grid.Row="0" Grid.Column="3" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add task" />
         </Grid>
         <Grid Grid.Row="1">
@@ -58,7 +58,7 @@
             <Border Grid.Row="0" Grid.Column="3" Background="#de1212" CornerRadius="10" Padding="4" Margin="10 0">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">Client rejected</TextBlock>
             </Border>
-            <Border Grid.Row="0" Grid.Column="4" Background="#0ccc4f" CornerRadius="10" Padding="4" Margin="10 0">
+            <Border Grid.Row="0" Grid.Column="4" Background="#088a35" CornerRadius="10" Padding="4" Margin="10 0">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">Client accepted</TextBlock>
             </Border>
             <!--To do tasks-->
