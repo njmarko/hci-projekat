@@ -13,8 +13,11 @@
              TextOptions.TextFormattingMode="Ideal" 
              TextOptions.TextRenderingMode="Auto"
              xmlns:controls="clr-namespace:UI.Controls"
+             xmlns:util="clr-namespace:UI.Util"
 >
-
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
     <Grid Margin="20,20,20,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -23,7 +26,7 @@
         </Grid.RowDefinitions>
         
         <StackPanel Orientation="Vertical" Background="#e8e8e8" Grid.Row="0">
-            <TextBlock Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline3TextBlock}"></TextBlock>
+            <TextBlock Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
             <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>
             <TextBlock Text="{Binding Task.Description}" Style="{DynamicResource MaterialDesignBody1TextBlock}"></TextBlock>
         </StackPanel>
@@ -81,11 +84,12 @@
                     </Grid.RowDefinitions>
 
 
-                    <DockPanel Grid.Row="0" Height="420">
+                    <DockPanel Grid.Row="0" Height="400">
                         <ScrollViewer VerticalScrollBarVisibility="Visible" 
                                       CanContentScroll="True" 
                                       Style="{DynamicResource MaterialDesignScrollViewer}"
-                                      x:Name="CommentScrollViewer">
+                                      x:Name="CommentScrollViewer"
+                                      util:ScrollToTheEnd.AutoScroll="{Binding CommentAdded}">
                             <ItemsControl ItemsSource="{Binding CommentModels}" >
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -98,6 +102,7 @@
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
@@ -106,14 +111,22 @@
 
                         <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
                                  materialDesign:HintAssist.Hint="Enter comment" Margin="10 20" Grid.Column="0"
-                                 Background="White">
+                                 Background="White"
+                                 Grid.Row="0">
                             <TextBox.Text>
-                                <Binding Path="Comment" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="CommentContent" UpdateSourceTrigger="PropertyChanged">
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-
-                        <Button Content="Send" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Grid.Column="1"></Button>
+                        
+                        <Button Content="Send" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Grid.Column="1" Grid.Row="0"
+                                Command="{Binding AddCommentCommand}"></Button>
+                        <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
+                                   Foreground="Red" DataContext="{Binding CommentError}" 
+                                   Text="{Binding ErrorMessage}" 
+                                   Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -10 0 0" 
+                                   FontSize="12"
+                                   Grid.Row="1"/>
 
                     </Grid>
                 </Grid>

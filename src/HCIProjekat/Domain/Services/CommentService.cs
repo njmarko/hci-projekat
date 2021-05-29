@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Domain.Services
 {
@@ -20,9 +21,29 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        public Comment Create(Comment comment)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            context.Comments.Add(comment);
+            context.SaveChanges();
+            return comment;
+        }
+
+        public Comment Create(Comment comment, int taskId, int senderId)
+        {
+            //throw new NotImplementedException();
+            using var context = _dbContextFactory.CreateDbContext();
+            RequestParticipant sender = (RequestParticipant)context.Users.Find(senderId);
+            comment.Sender = sender;
+            comment.Task = context.Tasks.Find(taskId);
+            context.Comments.Add(comment);
+            context.SaveChanges();
+            return comment;
+        }
+
         public List<Comment> GetCommentsForTask(int taskId)
         {
-            var context = _dbContextFactory.CreateDbContext();
+            using var context = _dbContextFactory.CreateDbContext();
             return context.Comments
                           .Include(c => c.Sender)
                           .Where(c => c.Task.Id == taskId)

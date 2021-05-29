@@ -10,10 +10,13 @@ using UI.ViewModels.CardViewModels;
 using Domain.Pagination.Requests;
 using System.Windows;
 using UI.Util;
+using UI.ViewModels.Interfaces;
+using System.Windows.Input;
+using UI.Commands;
 
 namespace UI.ViewModels
 {
-    public class TaskDetailsViewModel : PagingViewModelBase
+    public class TaskDetailsViewModel : PagingViewModelBase, ISelfValidatingViewModel
     {
         private readonly ITaskService _taskService;
         private readonly IOfferService _offerService;
@@ -31,31 +34,54 @@ namespace UI.ViewModels
             }
         }
 
-        private string _comment;
+        private string _commentContent;
 
-        public string Comment
+        public string CommentContent
         {
-            get { return _comment; }
+            get { return _commentContent; }
             set 
             { 
-                _comment = value;
-                OnPropertyChanged(nameof(Comment));
+                _commentContent = value;
+                OnPropertyChanged(nameof(CommentContent));
+                OnPropertyChanged(nameof(CanComment));
             }
         }
 
+        private bool _commentAdded;
+
+        public bool CommentAdded
+        {
+            get { return _commentAdded; }
+            set 
+            { 
+                _commentAdded = value;
+                OnPropertyChanged(nameof(CommentAdded));
+            }
+        }
+
+
+        public bool CanComment => IsValid();
+        public ICommand AddCommentCommand { get; set; }
 
 
 
         public ObservableCollection<ClientTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<ClientTaskOfferCardModel>();
         public ObservableCollection<CommentViewModel> CommentModels { get; private set; } = new ObservableCollection<CommentViewModel>();
 
+        public ErrorMessageViewModel CommentError { get; private set; } = new ErrorMessageViewModel();
 
         public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, IOfferService offerService, ICommentService commentService) : base(context)
         {
             _taskService = taskService;
             _offerService = offerService;
             _commentService = commentService;
+            AddCommentCommand = new AddCommentCommand(this, commentService);
             _task = _taskService.GetTask(1);
+
+            //ovo je samo za testiranje
+            Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.Now, Id = 1 };
+            //Context.Store.CurrentUser = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now, Username = "vidojegavrilovic", Password = "test123", Id=10 };
+
             LoadComments();
             UpdatePage(0);
         }
@@ -81,7 +107,27 @@ namespace UI.ViewModels
 
         }
 
-        private void LoadComments()
+        public bool IsValid()
+        {
+            bool valid = true;
+            if (string.IsNullOrEmpty(CommentContent))
+            {
+                valid = false;
+                CommentError.ErrorMessage = "Comment content cannot be empty.";
+            }
+            else
+            {
+                valid = true;
+                CommentError.ErrorMessage = null;
+
+            }
+
+
+            return valid;
+
+        }
+
+        public void LoadComments()
         {
             CommentModels.Clear();
             var comments = _commentService.GetCommentsForTask(_task.Id);
@@ -89,13 +135,15 @@ namespace UI.ViewModels
             {
                 string color;
                 string margin;
+                var user = Context.Store.CurrentUser;
 
-                // if (Context.Store.CurrentUser.Id == comment.Sender.Id) {
+                if (user.Id == comment.Sender.Id) {
                 //ovo je za sad hardkodovano, kada se poveze sa loginom vrsice se provjera
-                if (1 == comment.Sender.Id) {
+               // if (1 == comment.Sender.Id) {
                     color = "#78cdff";
                     margin = "800,5,0,0";
                 }
+                
                 else
                 {
                     margin = "-800,5,0,0";

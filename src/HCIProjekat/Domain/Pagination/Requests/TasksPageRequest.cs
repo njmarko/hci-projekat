@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Pagination.Requests
 {
     public class TasksPageRequest : PageRequest
     {
-        public string TaskName { get; set; }
+        public string Query { get; set; }
+
+        public ServiceType? Type { get; set; }
+    
+        public TaskStatus? Status { get; set; }
     }
 }
