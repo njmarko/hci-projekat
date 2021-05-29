@@ -51,5 +51,22 @@ namespace Domain.Services
                           .Where(o => o.Name.ToLower().Contains(page.OfferName.ToLower()))
                           .ToPage(page);
         }
+
+        public Offer Get(int offerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Offers.Find(offerId);
+        }
+
+        public Offer Update(Offer offer)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.Offers.Update(offer);
+            context.SaveChanges();
+
+            return offer;
+        }
     }
 }

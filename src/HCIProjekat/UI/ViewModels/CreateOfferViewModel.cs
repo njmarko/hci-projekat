@@ -18,6 +18,8 @@ namespace UI.ViewModels
 {
     public class CreateOfferViewModel : ViewModelBase, ISelfValidatingViewModel
     {
+        private IOfferService _offerService;
+
         private byte[] _imageInBytes;
         public byte[] ImageInBytes
         {
@@ -53,6 +55,13 @@ namespace UI.ViewModels
             set { _description = value; OnPropertyChanged(nameof(Description)); OnPropertyChanged(nameof(CanCreateOffer)); }
         }
 
+        private int _offerId;
+
+        public String ButtonText
+        {
+            get { return (_offerId != -1) ? "Save" : "Create"; }
+        }
+
         public bool CanCreateOffer => IsValid();
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel PriceError { get; private set; } = new ErrorMessageViewModel();
@@ -62,11 +71,28 @@ namespace UI.ViewModels
         public ICommand OnImageInput { get; private set; }
         public ICommand CreateOfferCommand { get; private set; }
 
-        public CreateOfferViewModel(IApplicationContext context, IOfferService offerService) : base(context)
+        public CreateOfferViewModel(IApplicationContext context, IOfferService offerService, int partnerId, int offerId) : base(context)
         {
             Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
             OnImageInput = new DelegateCommand(() => ImageInput());
-            CreateOfferCommand = new CreateOfferCommand(this, offerService);
+            CreateOfferCommand = new CreateOfferCommand(this, offerService, partnerId, offerId);
+            _offerService = offerService;
+            _offerId = offerId;
+            if (offerId != -1)
+            {
+                FetchOffer();
+            }
+        }
+
+        private void FetchOffer()
+        {
+            var offer = _offerService.Get(_offerId);
+
+            ImageInBytes = offer.Image;
+            Image = ImageUtil.ConvertToImage(ImageInBytes);
+            Name = offer.Name;
+            Description = offer.Description;
+            Price = offer.Price.ToString();
         }
 
         public bool IsValid()

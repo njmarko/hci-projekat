@@ -50,7 +50,7 @@ namespace UI.ViewModels
             _offerService = offerService;
             OfferName = string.Empty;
             UpdatePage(0);
-            AddOffer = new DelegateCommand(() => OpenOfferModal());
+            AddOffer = new DelegateCommand(() => OpenOfferModal(-1, -1));
             _modalService = modalService;
         }
 
@@ -65,9 +65,9 @@ namespace UI.ViewModels
             OnPageFetched(page);
         }
 
-        private void OpenOfferModal()
+        private void OpenOfferModal(int partnerId, int offerId)
         {
-            _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService));
+            _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService, partnerId, offerId));
             UpdatePage(0);
         }
     }
