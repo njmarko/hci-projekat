@@ -7,7 +7,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\EventPlannerTaskCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EventPlannerHomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\LoginView.xaml.cs">
@@ -30,6 +36,9 @@
     <Page Update="Controls\ClientRequestCard.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\EventPlannerTaskCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Pagination.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -43,6 +52,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ClientRequestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EventPlannerHomeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\LoginView.xaml">

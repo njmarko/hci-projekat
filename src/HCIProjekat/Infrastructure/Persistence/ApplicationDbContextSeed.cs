@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
@@ -114,6 +113,41 @@ namespace Infrastructure.Persistence
             context.Partner.Add(par9);
             context.Partner.Add(par10);
 
+            // Tasks
+            var t1 = new Task { Name = "Task1", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
+            var t2 = new Task { Name = "Task2", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.LOCATION, Request = r1 };
+            var t3 = new Task { Name = "Task3", Description = "Neki opis", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t4 = new Task { Name = "Task4", Description = "Neki opis", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Request = r1 };
+            var t5 = new Task { Name = "Task5", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t6 = new Task { Name = "Task6", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t7 = new Task { Name = "Task7", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.CATERING, Request = r1 };
+            var t8 = new Task { Name = "Task8", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
+            var t9 = new Task { Name = "Task9", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t10 = new Task { Name = "Task10", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
+            var t11 = new Task { Name = "Task11", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t12 = new Task { Name = "Task12", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.CATERING, Request = r1 };
+            var t13 = new Task { Name = "Task13", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
+            var t14 = new Task { Name = "Task14", Description = "Neki opis", TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
+            var t15 = new Task { Name = "Task15", Description = "Neki opis", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t16 = new Task { Name = "Task16", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.CATERING, Request = r1 };
+            var t17 = new Task { Name = "Task17", Description = "Neki opis", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.ANIMATOR, Request = r1 };
+            context.Tasks.Add(t1);
+            context.Tasks.Add(t2);
+            context.Tasks.Add(t3);
+            context.Tasks.Add(t4);
+            context.Tasks.Add(t5);
+            context.Tasks.Add(t6);
+            context.Tasks.Add(t7);
+            context.Tasks.Add(t8);
+            context.Tasks.Add(t9);
+            context.Tasks.Add(t10);
+            context.Tasks.Add(t11);
+            context.Tasks.Add(t12);
+            context.Tasks.Add(t13);
+            context.Tasks.Add(t14);
+            context.Tasks.Add(t15);
+            context.Tasks.Add(t16);
+            context.Tasks.Add(t17);
 
             context.SaveChanges();
         }

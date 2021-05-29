@@ -39,6 +39,9 @@
             <DataTemplate DataType="{x:Type vm:RegisterPartnerViewModel}">
                 <views:RegisterPartnerView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EventPlannerHomeViewModel}">
+                <views:EventPlannerHomeView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
