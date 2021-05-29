@@ -37,6 +37,15 @@ namespace Domain.Services
             return eventPlanner;
         }
 
+        public List<Request> GetActiveRequests(int eventPlannerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Requests
+                          .Where(r => r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId)    // TODO: Ubaci logiku za to da li je zahtev vec obradjen kad stavimo to u model
+                          .ToList();
+        }
+
         public Page<EventPlanner> GetEventPlanners(EventPlannersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
