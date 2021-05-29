@@ -21,7 +21,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <RadioButton Content="{Binding Name}" GroupName="NavbarGroup" Style="{DynamicResource MaterialDesignTabRadioButton}" />
+                    <RadioButton Content="{Binding Name}" GroupName="NavbarGroup" IsChecked="{Binding IsSelected}" Style="{DynamicResource MaterialDesignTabRadioButton}" Command="{Binding RouterPushCommand}" CommandParameter="{Binding Route}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
