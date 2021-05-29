@@ -13,5 +13,8 @@ namespace Domain.Services.Interfaces
     {
         Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page);
 
+        Offer Create(Offer offer, int partnerId);
+
+        Page<Offer> GetOffersForPartner(int partnerId, OffersPage page);
     }
 }

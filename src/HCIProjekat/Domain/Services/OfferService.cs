@@ -28,6 +28,26 @@ namespace Domain.Services
                           .Include(to => to.Offer)
                           .Include(to => to.Offer.Partner)
                           .Where(o => o.Task.Id == taskId)
+        }
+      
+       public Offer Create(Offer offer, int partnerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var partner = context.Partner.Find(partnerId);
+            offer.Partner = partner;
+            context.Offers.Add(offer);
+            context.SaveChanges();
+            return offer;
+        }
+
+        public Page<Offer> GetOffersForPartner(int partnerId, OffersPage page)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Offers
+                          .Where(o => o.Partner.Id == partnerId)
+                          .Where(o => o.Name.ToLower().Contains(page.OfferName.ToLower()))
                           .ToPage(page);
         }
     }

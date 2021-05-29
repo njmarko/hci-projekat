@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type vm:LoginViewModel}">
@@ -49,6 +50,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:EventPlannerHomeViewModel}">
                 <views:EventPlannerHomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PartnerOffersViewModel}">
+                <views:PartnerOffersView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

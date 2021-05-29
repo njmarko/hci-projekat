@@ -19,6 +19,12 @@
     <Compile Update="Controls\EventPlannerTaskCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\PartnerOfferCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\OfferModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -26,6 +32,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PartnerOffersView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\RegisterView.xaml.cs">
@@ -66,7 +75,13 @@
     <Page Update="Controls\Pagination.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\PartnerOfferCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\OfferModal.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdminClientsView.xaml">
@@ -91,6 +106,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RegisterEventPlannerView.xaml">
+       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PartnerOffersView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RegisterView.xaml">
