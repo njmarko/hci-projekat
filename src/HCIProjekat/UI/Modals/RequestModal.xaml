@@ -1,0 +1,53 @@
+﻿<Window x:Class="UI.Modals.RequestModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Modals"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"      
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Create request" Height="600" Width="500" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Create request" Margin="0 10" />
+            <Rectangle Margin="10 0" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
+            <!--Request name-->
+            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter request name" Margin="10 15 10 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+            <!--Request type-->
+            <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Select request type" Margin="10 15" />
+            <!--Enter guest number-->
+            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter guest number" Margin="10 15 10 0" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding GuestNumberError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+            <!--Enter theme-->
+            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter theme" Margin="10 15 10 0" Text="{Binding Theme, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding ThemeError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+            <!--Budget-->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <TextBox Width="260" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter budget" Margin="10 15 10 0"/>
+                <Label Content="RSD" Style="{DynamicResource MaterialDesignLabel}" FontSize="20" VerticalAlignment="Bottom" />
+                <CheckBox IsChecked="True" materialDesign:CheckBoxAssist.CheckBoxSize="32" Content="Flexible" Style="{DynamicResource MaterialDesignAccentCheckBox}" Margin="0 10" />
+            </StackPanel>
+            <!--Date-->
+            <DatePicker Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select date" IsTodayHighlighted="True" Margin="10 15 10 0" SelectedDate="{Binding RequestDate, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding RequestDateError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+            <!--Additional notes-->
+            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter additional notes" Margin="10 15 10 10" TextWrapping="Wrap" MaxHeight="100" VerticalScrollBarVisibility="Auto"/>
+            <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding CreateOfferCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                        AncestorType={x:Type Window}}}" Content="Save" Margin="10 30" Foreground="White" />
+        </StackPanel>
+    </Grid>
+</Window>
