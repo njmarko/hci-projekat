@@ -25,6 +25,9 @@
     <Compile Update="Modals\OfferModal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Modals\RequestModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +87,9 @@
     <Page Update="Modals\OfferModal.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Modals\RequestModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\AdminClientsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -106,7 +112,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RegisterEventPlannerView.xaml">
-       <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\PartnerOffersView.xaml">
       <SubType>Designer</SubType>

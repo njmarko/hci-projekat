@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Modals;
+using UI.Services.Interfaces;
 using UI.ViewModels.CardViewModels;
 using UI.ViewModels.Interfaces;
 
@@ -39,6 +41,8 @@ namespace UI.ViewModels
         private readonly RequestTypeModel _typeInitial;
 
         private readonly IClientService _clientService;
+        private readonly IRequestService _requestService;
+        private readonly IModalService _modalService;
 
         private string _query = string.Empty;
         public string Query
@@ -72,13 +76,17 @@ namespace UI.ViewModels
         public ObservableCollection<RequestTypeModel> RequestTypeModels { get; private set; } = new ObservableCollection<RequestTypeModel>();
         public ICommand Search { get; private set; }
         public ICommand Clear { get; private set; }
+        public ICommand ShowCreateRequestModal { get; private set; }
 
-        public ClientRequestsViewModel(IApplicationContext context, IClientService clientService) : base(context)
+        public ClientRequestsViewModel(IApplicationContext context, IClientService clientService, IRequestService requestService, IModalService modalService) : base(context)
         {
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
+            ShowCreateRequestModal = new DelegateCommand(ShowRequestModal);
 
             _clientService = clientService;
+            _requestService = requestService;
+            _modalService = modalService;
             _from = _fromDateInitial;
             _to = _toDateInitial;
             // Add enums to combo box
@@ -115,6 +123,12 @@ namespace UI.ViewModels
             Query = string.Empty;
             RequestTypeValue = _typeInitial;
             UpdatePage(0);
+        }
+
+        private void ShowRequestModal()
+        {
+            _modalService.ShowModal<RequestModal>(new CreateRequestViewModel(Context, _requestService));
+            ClearFilters();
         }
     }
 }
