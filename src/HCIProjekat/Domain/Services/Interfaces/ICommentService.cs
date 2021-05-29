@@ -10,5 +10,7 @@ namespace Domain.Services.Interfaces
     public interface ICommentService
     {
         List<Comment> GetCommentsForTask(int taskId);
+
+        Comment Create(Comment comment, int taskId, int senderId);
     }
 }
