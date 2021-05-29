@@ -51,17 +51,16 @@ namespace UI.Commands
                 return;
             }
             _context.Store.CurrentUser = user;
-            // TODO: Redirect the user to the apporopriate home page
             switch (user)
             {
                 case Client:
-                    MessageBox.Show($"Welcome client, {user.FirstName} {user.LastName}.");
+                    _context.Router.Push("ClientRequests");
                     break;
                 case EventPlanner:
-                    MessageBox.Show($"Welcome event planner, {user.FirstName} {user.LastName}.");
+                    _context.Router.Push("EventPlannerHome");
                     break;
                 case Admin:
-                    MessageBox.Show($"Welcome admin, {user.FirstName} {user.LastName}.");
+                    _context.Router.Push("AdminPartners");
                     break;
             }
         }

@@ -16,6 +16,7 @@ namespace UI.Context.Routers
         private readonly IViewModelLocator _locator;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event Action<ViewModelBase> OnRouteChanged;
 
         public ViewModelBase CurrentViewModel { get; set; }
 
@@ -46,6 +47,7 @@ namespace UI.Context.Routers
                 "PartnerOffers" => _locator.Get<PartnerOffersViewModel>(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
             };
+            OnRouteChanged?.Invoke(CurrentViewModel);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentViewModel)));
         }
     }

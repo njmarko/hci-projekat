@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
+        xmlns:controls="clr-namespace:UI.Controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -15,13 +16,20 @@
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="768" MinWidth="1366"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </Window.Resources>
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2048x1152/46b99f6354a74981917ea032525ecebb/photo-1614254480533-d2a816781d58.jpg" />
-        </Grid.Background>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ContentControl Grid.Row="0" Content="{Binding Context.Router.CurrentViewModel}"></ContentControl>
+        <controls:Navbar DataContext="{Binding NavbarVm}" Visibility="{Binding IsVisible, Converter={StaticResource b2vc}}" />
+        <Grid Grid.Row="1">
+            <Grid.Background>
+                <ImageBrush ImageSource="https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2048x1152/46b99f6354a74981917ea032525ecebb/photo-1614254480533-d2a816781d58.jpg" />
+            </Grid.Background>
+            <ContentControl Grid.Row="0" Content="{Binding Context.Router.CurrentViewModel}"></ContentControl>
+        </Grid>
     </Grid>
 </Window>

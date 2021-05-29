@@ -13,6 +13,7 @@ namespace UI.Context.Routers
     {
         public ViewModelBase CurrentViewModel { get; set; }
         public ICommand RouterPushCommand { get; }
+        public event Action<ViewModelBase> OnRouteChanged;
 
         void Push(string route);
     }
