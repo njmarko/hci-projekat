@@ -37,7 +37,7 @@
                 <MenuItem.Icon>
                     <materialDesign:PackIcon Kind="ArrowDownCircle" />
                 </MenuItem.Icon>
-                <MenuItem Header="Profile" Style="{DynamicResource MaterialDesignMenuItem}"/>
+                <MenuItem Header="Profile" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding UpdateProfile}"/>
                 <MenuItem Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding Logout}"/>
             </MenuItem>
         </Menu>
