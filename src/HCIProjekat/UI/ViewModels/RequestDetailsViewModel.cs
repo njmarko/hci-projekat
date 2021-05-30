@@ -76,12 +76,28 @@ namespace UI.ViewModels
             }
         }
 
+        private int _requestId;
+        public int RequestId
+        {
+            get { return _requestId; }
+            set
+            {
+                _requestId = value;
+                LoadTask();
+                OnPropertyChanged(nameof(RequestId));
+            }
+        }
+
         public ObservableCollection<ClientTaskCardModel> TaskModels { get; private set; } = new ObservableCollection<ClientTaskCardModel>();
         public ICommand Search { get; private set; }
         public ObservableCollection<TaskTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<TaskTypeModel>();
         public ObservableCollection<TaskStatusModel> TaskStatusModels { get; private set; } = new ObservableCollection<TaskStatusModel>();
 
-
+        private void LoadTask()
+        {
+            Request = _requestService.GetRequest(RequestId);
+            UpdatePage(0);
+        }
 
         public RequestDetailsViewModel(IApplicationContext context, IRequestService requestService, ITaskService taskService) : base(context)
         {
@@ -91,7 +107,7 @@ namespace UI.ViewModels
             Query = "";
             _requestService = requestService;
             _taskService = taskService;
-            _request = _requestService.GetRequest(1);
+            //_request = _requestService.GetRequest(1);
             
             _typeInitial = new TaskTypeModel { Name = "All types" };
             _taskType = _typeInitial;
@@ -112,7 +128,7 @@ namespace UI.ViewModels
             TaskStatusModels.Add(new TaskStatusModel { TaskStatus = TaskStatus.REJECTED, Name = "Rejected" });
 
 
-            UpdatePage(0);
+            //UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
@@ -147,7 +163,9 @@ namespace UI.ViewModels
                     Status = status, 
                     Color = color,
                     TaskStatus = entity.TaskStatus,
-                    IsPending = entity.TaskStatus == TaskStatus.SENT_TO_CLIENT
+                    IsPending = entity.TaskStatus == TaskStatus.SENT_TO_CLIENT,
+                    Context = Context,
+                    Route = $"TaskDetails?id={entity.Id}"
                 });
             }
             OnPageFetched(page);

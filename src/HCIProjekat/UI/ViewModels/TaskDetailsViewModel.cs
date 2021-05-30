@@ -21,6 +21,17 @@ namespace UI.ViewModels
         private readonly ITaskService _taskService;
         private readonly IOfferService _offerService;
         private readonly ICommentService _commentService;
+
+        private int _taskId;
+        public int TaskId
+        {
+            get { return _taskId; }
+            set
+            {
+                _taskId = value;
+            }
+        }
+
         
         private Task _task;
 
@@ -76,12 +87,20 @@ namespace UI.ViewModels
             _offerService = offerService;
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService);
-            _task = _taskService.GetTask(1);
+            //_task = _taskService.GetTask(1);
 
             //ovo je samo za testiranje
-            Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.Now, Id = 1 };
+            //Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.Now, Id = 1 };
             //Context.Store.CurrentUser = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now, Username = "vidojegavrilovic", Password = "test123", Id=10 };
 
+            //LoadComments();
+            //UpdatePage(0);
+        }
+
+
+        private void LoadTask()
+        {
+            Task = _taskService.GetTask(TaskId);
             LoadComments();
             UpdatePage(0);
         }

@@ -86,7 +86,9 @@
                             <TextBlock Text="Reject" Foreground="White"></TextBlock>
                         </Button>
                     </StackPanel>
-                    <Button Margin="10,0,0,10" Content="View details" Style="{DynamicResource MaterialDesignOutlinedButton}" ></Button>
+                    <Button Margin="10,0,0,10" Content="View details" 
+                            Style="{DynamicResource MaterialDesignOutlinedButton}" 
+                            Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding Route}"></Button>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>

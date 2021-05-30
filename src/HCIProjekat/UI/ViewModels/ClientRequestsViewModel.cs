@@ -26,6 +26,10 @@ namespace UI.ViewModels
         public int GuestNumber { get; set; }
         public bool BudgetFlexible { get; set; }
         public string Date { get; set; }
+
+        public IApplicationContext Context { get; set; }
+
+        public string Route { get; set; }
     }
 
     public class RequestTypeModel
@@ -111,7 +115,7 @@ namespace UI.ViewModels
             var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type }); // TODO: Zameni ovo sa Context.Store.CurrentUser.Id
             foreach (var entity in page.Entities)
             {
-                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name, Type = entity.Type.ToString(), GuestNumber = entity.GuestNumber, Budget = $"{entity.Budget} RSD", BudgetFlexible = entity.BudgetFlexible, Theme = entity.Theme, Date = entity.Date.ToString("dd.MM.yyyy") });
+                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name, Type = entity.Type.ToString(), GuestNumber = entity.GuestNumber, Budget = $"{entity.Budget} RSD", BudgetFlexible = entity.BudgetFlexible, Theme = entity.Theme, Date = entity.Date.ToString("dd.MM.yyyy"), Context = Context, Route = $"RequestDetails?id={entity.Id}" });
             }
             OnPageFetched(page);
         }

@@ -32,6 +32,11 @@
         </Grid.RowDefinitions>
     
             <StackPanel Orientation="Vertical" Background="#e8e8e8" Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="ClientRequestsView">
+                    <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
+                </Button>
+                </StackPanel>
                 <TextBlock Text="{Binding Request.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
                 <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>
                 <TextBlock Text="{Binding Request.Notes}" Style="{DynamicResource MaterialDesignBody1TextBlock}"></TextBlock>

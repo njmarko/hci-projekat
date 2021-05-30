@@ -11,5 +11,7 @@ namespace UI.ViewModels.CardViewModels
     {
         public string Name { get; set; }
 
+        public IApplicationContext Context { get; set; }
+
     }
 }
