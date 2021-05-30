@@ -54,7 +54,7 @@ namespace UI.Commands
                 offer.Image = _createOfferVm.ImageInBytes;
                 offer.Name = _createOfferVm.Name;
                 offer.Price = int.Parse(_createOfferVm.Price);
-                offer.OfferType = ServiceType.LOCATION;
+                offer.OfferType = (ServiceType)_createOfferVm.OfferTypeValue.Type;
 
                 _offerService.Update(offer);
             }
@@ -66,8 +66,8 @@ namespace UI.Commands
                     Image = _createOfferVm.ImageInBytes,
                     Name = _createOfferVm.Name,
                     Price = int.Parse(_createOfferVm.Price),
-                    OfferType = ServiceType.LOCATION
-                }, _partnerId);
+                    OfferType = (ServiceType)_createOfferVm.OfferTypeValue.Type
+            }, _partnerId);
             }
 
             ((Window)parameter).DialogResult = true;

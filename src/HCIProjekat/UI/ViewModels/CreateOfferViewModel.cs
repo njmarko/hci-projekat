@@ -1,8 +1,10 @@
-﻿using Domain.Services.Interfaces;
+﻿using Domain.Enums;
+using Domain.Services.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,12 @@ using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
+    public class OfferTypeModel
+    {
+        public string Name { get; set; }
+        public ServiceType? Type { get; set; }
+    }
+
     public class CreateOfferViewModel : ViewModelBase, ISelfValidatingViewModel
     {
         private IOfferService _offerService;
@@ -48,6 +56,13 @@ namespace UI.ViewModels
             set { _price = value; OnPropertyChanged(nameof(Price)); OnPropertyChanged(nameof(CanCreateOffer)); }
         }
 
+        private OfferTypeModel _offerType;
+        public OfferTypeModel OfferTypeValue
+        {
+            get { return _offerType; }
+            set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
+        }
+
         private string _description;
         public string Description
         {
@@ -62,6 +77,8 @@ namespace UI.ViewModels
             get { return (_offerId != -1) ? "Save" : "Create"; }
         }
 
+        public ObservableCollection<OfferTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<OfferTypeModel>();
+
         public bool CanCreateOffer => IsValid();
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel PriceError { get; private set; } = new ErrorMessageViewModel();
@@ -73,9 +90,18 @@ namespace UI.ViewModels
 
         public CreateOfferViewModel(IApplicationContext context, IOfferService offerService, int partnerId, int offerId) : base(context)
         {
+            OfferTypeValue = new OfferTypeModel { Name = "Location", Type = ServiceType.LOCATION };
+            OfferTypeModels.Add(OfferTypeValue);
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Catering", Type = ServiceType.CATERING });
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Music", Type = ServiceType.MUSIC });
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
+
             Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
+
             OnImageInput = new DelegateCommand(() => ImageInput());
             CreateOfferCommand = new CreateOfferCommand(this, offerService, partnerId, offerId);
+
             _offerService = offerService;
             _offerId = offerId;
             if (offerId != -1)
@@ -93,6 +119,8 @@ namespace UI.ViewModels
             Name = offer.Name;
             Description = offer.Description;
             Price = offer.Price.ToString();
+            var enumName = offer.OfferType.ToString().First().ToString().ToUpper() + offer.OfferType.ToString().ToLower()[1..];
+            OfferTypeValue = OfferTypeModels.Where(o => o.Name == enumName).First();
         }
 
         public bool IsValid()
