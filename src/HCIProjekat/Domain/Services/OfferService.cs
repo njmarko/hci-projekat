@@ -45,11 +45,15 @@ namespace Domain.Services
         public Page<Offer> GetOffersForPartner(int partnerId, OffersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
+            var searchQuery = page.SearchQuery.ToLower();
 
             return context.Offers
                           .Where(o => o.Active)
                           .Where(o => o.Partner.Id == partnerId)
-                          .Where(o => o.Name.ToLower().Contains(page.OfferName.ToLower()))
+                          .Where(o => o.Name.ToLower().Contains(searchQuery) || 
+                                      o.Description.ToLower().Contains(searchQuery) ||
+                                      o.Price.ToString().Contains(searchQuery))
+                          .Where(o => page.OfferType == null || o.OfferType == page.OfferType.Value)
                           .ToPage(page);
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Domain.Pagination.Requests
 {
     public class OffersPage : PageRequest
     {
-        public string OfferName { get; set; }
+        public string SearchQuery { get; set; }
+        public ServiceType? OfferType { get; set; }
     }
 }

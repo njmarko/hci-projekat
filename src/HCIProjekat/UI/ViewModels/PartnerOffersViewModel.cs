@@ -1,4 +1,5 @@
-﻿using Domain.Pagination.Requests;
+﻿using Domain.Enums;
+using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -42,29 +43,49 @@ namespace UI.ViewModels
 
         private readonly IModalService _modalService;
 
-        private string _offerName;
-        public string OfferName
+        private string _searchQuery;
+        public string SearchQuery
         {
-            get => _offerName;
+            get => _searchQuery;
             set
             {
-                _offerName = value;
-                OnPropertyChanged(nameof(OfferName));
+                _searchQuery = value;
+                OnPropertyChanged(nameof(SearchQuery));
             }
+        }
+
+        private OfferTypeModel _offerType;
+        public OfferTypeModel OfferTypeValue
+        {
+            get { return _offerType; }
+            set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
         }
 
         public int PartnerId { get; set; }
 
         public ICommand AddOffer { get; private set; }
+        public ICommand Search { get; private set; }
 
+        public ObservableCollection<OfferTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<OfferTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
 
         public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService) : base(context)
         {
+            OfferTypeValue = new OfferTypeModel { Name = "All types", Type = null };
+            OfferTypeModels.Add(OfferTypeValue);
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Location", Type = ServiceType.LOCATION });
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Catering", Type = ServiceType.CATERING });
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Music", Type = ServiceType.MUSIC });
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
+            OfferTypeModels.Add(new OfferTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
+
             _offerService = offerService;
-            OfferName = string.Empty;
+            SearchQuery = string.Empty;
             UpdatePage(0);
+
             AddOffer = new DelegateCommand(() => OpenOfferModal(1, -1));
+            Search = new DelegateCommand(() => UpdatePage(0));
+
             _modalService = modalService;
             PartnerId = 1;
         }
@@ -72,7 +93,7 @@ namespace UI.ViewModels
         public override void UpdatePage(int pageNumber)
         {
             OfferModels.Clear();
-            var page = _offerService.GetOffersForPartner(1, new OffersPage { Page = pageNumber, Size = Size, OfferName = OfferName });
+            var page = _offerService.GetOffersForPartner(1, new OffersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery, OfferType = OfferTypeValue.Type });
             foreach (var entity in page.Entities)
             {
                 OfferModels.Add(new PartnerOfferCardModel { Id = entity.Id, Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image), PartnerOffersVm = this });
