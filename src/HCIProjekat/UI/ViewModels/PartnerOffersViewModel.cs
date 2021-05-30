@@ -19,12 +19,24 @@ namespace UI.ViewModels
 {
     public class PartnerOfferCardModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public BitmapImage Image { get; set; }
+        public PartnerOffersViewModel PartnerOffersVm { get; set; }
+
+        public ICommand EditOffer { get; private set; }
+        public ICommand DeleteOffer { get; private set; }
+
+        public PartnerOfferCardModel()
+        {
+            EditOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(PartnerOffersVm.PartnerId, Id));
+            DeleteOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(PartnerOffersVm.PartnerId, Id));
+        }
+
     }
 
-    class PartnerOffersViewModel : PagingViewModelBase
+    public class PartnerOffersViewModel : PagingViewModelBase
     {
         private readonly IOfferService _offerService;
 
@@ -41,6 +53,8 @@ namespace UI.ViewModels
             }
         }
 
+        public int PartnerId { get; set; }
+
         public ICommand AddOffer { get; private set; }
 
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
@@ -52,6 +66,7 @@ namespace UI.ViewModels
             UpdatePage(0);
             AddOffer = new DelegateCommand(() => OpenOfferModal(1, -1));
             _modalService = modalService;
+            PartnerId = 1;
         }
 
         public override void UpdatePage(int pageNumber)
@@ -60,12 +75,12 @@ namespace UI.ViewModels
             var page = _offerService.GetOffersForPartner(1, new OffersPage { Page = pageNumber, Size = Size, OfferName = OfferName });
             foreach (var entity in page.Entities)
             {
-                OfferModels.Add(new PartnerOfferCardModel { Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image) });
+                OfferModels.Add(new PartnerOfferCardModel { Id = entity.Id, Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image), PartnerOffersVm = this });
             }
             OnPageFetched(page);
         }
 
-        private void OpenOfferModal(int partnerId, int offerId)
+        public void OpenOfferModal(int partnerId, int offerId)
         {
             var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService, partnerId, offerId));
             if ((bool)ok)
