@@ -13,6 +13,7 @@ namespace UI.Modals
         {
             services.AddTransient<OfferModal>();
             services.AddTransient<RequestModal>();
+            services.AddTransient<ConfirmationModal>();
             return services;
         }
     }

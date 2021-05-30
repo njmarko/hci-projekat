@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,11 +16,11 @@ using UI.Modals.Interfaces;
 namespace UI.Modals
 {
     /// <summary>
-    /// Interaction logic for OfferModal.xaml
+    /// Interaction logic for ConfirmationModal.xaml
     /// </summary>
-    public partial class OfferModal : Window, IModalWindow
+    public partial class ConfirmationModal : Window, IModalWindow
     {
-        public OfferModal()
+        public ConfirmationModal()
         {
             InitializeComponent();
         }
