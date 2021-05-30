@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Persistence;
 using Domain.Services.Interfaces;
 using System;
@@ -16,6 +17,18 @@ namespace Domain.Services
         public UserService(IApplicationDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+        }
+
+        public User ChangeUserPassword(int userId, string oldPassword, string newPassword)
+        {
+            //throw new NotImplementedException();
+            using var context = _dbContextFactory.CreateDbContext();
+            var user = context.Users.Find(userId);
+            if (user.Password != oldPassword)
+                throw new InvalidOldPasswordException("");
+            user.Password = newPassword;
+            context.SaveChanges();
+            return user;
         }
 
         public User GetUser(int userId)

@@ -13,5 +13,7 @@ namespace Domain.Services.Interfaces
         User Update(int userId, string username, string firstName, string lastName, DateTime dateOfBirth);
 
         User GetUser(int userId);
+
+        User ChangeUserPassword(int userId, string oldPassword, string newPassword);
     }
 }

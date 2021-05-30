@@ -38,6 +38,8 @@ namespace UI.ViewModels
         public ICommand Logout { get; private set; }
         public ICommand UpdateProfile { get; private set; }
 
+        public ICommand ChangePassword { get; private set; }
+
 
         public ObservableCollection<NavbarItemModel> NavbarItems { get; private set; } = new ObservableCollection<NavbarItemModel>();
 
@@ -47,8 +49,16 @@ namespace UI.ViewModels
             _userService = userService;
             Logout = new LogoutCommand(context);
             UpdateProfile = new DelegateCommand(() => OpenUpdateProfileInfoModal());
+            ChangePassword = new DelegateCommand(() => OpenChangePasswordModal());
+
             context.Router.OnRouteChanged += UpdateNavbar;
         }
+
+        private void OpenChangePasswordModal()
+        {
+            _modalService.ShowModal<ChangePasswordModal>(new ChangePasswordViewModel(Context, _userService));
+        }
+
         private void OpenUpdateProfileInfoModal()
         {
             _modalService.ShowModal<UpdateProfileInfoModal>(new UpdateProfileViewModel(Context, _userService));

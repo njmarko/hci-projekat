@@ -38,6 +38,7 @@
                     <materialDesign:PackIcon Kind="ArrowDownCircle" />
                 </MenuItem.Icon>
                 <MenuItem Header="Profile" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding UpdateProfile}"/>
+                <MenuItem Header="Change password" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding ChangePassword}"></MenuItem>
                 <MenuItem Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding Logout}"/>
             </MenuItem>
         </Menu>
