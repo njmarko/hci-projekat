@@ -12,7 +12,7 @@ namespace Infrastructure.Persistence
     {
         public static void Seed(ApplicationDbContext context)
         {
-            var c1 = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.Now };
+            var c1 = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) };
             var c2 = new Client { FirstName = "Dejan1", LastName = "Djordjevic1", Username = "dejandjordjevic1", Password = "test123", DateOfBirth = DateTime.Now.AddDays(1) };
             var c3 = new Client { FirstName = "Dejan2", LastName = "Djordjevic2", Username = "dejandjordjevic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(2) };
             var c4 = new Client { FirstName = "Dejan3", LastName = "Djordjevic3", Username = "dejandjordjevic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(3) };

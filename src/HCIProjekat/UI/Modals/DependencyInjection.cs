@@ -14,6 +14,8 @@ namespace UI.Modals
             services.AddTransient<OfferModal>();
             services.AddTransient<RequestModal>();
             services.AddTransient<ConfirmationModal>();
+            services.AddTransient<UpdateProfileInfoModal>();
+            services.AddTransient<ChangePasswordModal>();
             return services;
         }
     }

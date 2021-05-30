@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Modals;
+using UI.Services.Interfaces;
 
 namespace UI.ViewModels
 {
@@ -17,10 +20,14 @@ namespace UI.ViewModels
         public string Route { get; set; }
         public bool IsSelected { get; set; }
         public ICommand RouterPushCommand { get; set; }
+
     }
 
     public class NavbarViewModel : ViewModelBase
     {
+        private readonly IModalService _modalService;
+        private readonly IUserService _userService;
+
         private bool _isVisible;
         public bool IsVisible
         {
@@ -29,14 +36,33 @@ namespace UI.ViewModels
         }
 
         public ICommand Logout { get; private set; }
+        public ICommand UpdateProfile { get; private set; }
+
+        public ICommand ChangePassword { get; private set; }
+
+
         public ObservableCollection<NavbarItemModel> NavbarItems { get; private set; } = new ObservableCollection<NavbarItemModel>();
 
-        public NavbarViewModel(IApplicationContext context) : base(context)
+        public NavbarViewModel(IApplicationContext context, IModalService modalService, IUserService userService) : base(context)
         {
+            _modalService = modalService;
+            _userService = userService;
             Logout = new LogoutCommand(context);
+            UpdateProfile = new DelegateCommand(() => OpenUpdateProfileInfoModal());
+            ChangePassword = new DelegateCommand(() => OpenChangePasswordModal());
+
             context.Router.OnRouteChanged += UpdateNavbar;
         }
 
+        private void OpenChangePasswordModal()
+        {
+            _modalService.ShowModal<ChangePasswordModal>(new ChangePasswordViewModel(Context, _userService));
+        }
+
+        private void OpenUpdateProfileInfoModal()
+        {
+            _modalService.ShowModal<UpdateProfileInfoModal>(new UpdateProfileViewModel(Context, _userService));
+        }
         private void UpdateNavbar(ViewModelBase currentVm)
         {
             IsVisible = (currentVm is not LoginViewModel) && (currentVm is not RegisterViewModel);

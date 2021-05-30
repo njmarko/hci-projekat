@@ -25,13 +25,13 @@
     <Compile Update="Controls\PartnerOfferCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Modals\ConfirmationModal.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Modals\OfferModal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Modals\RequestModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\UpdateProfileInfoModal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
@@ -93,13 +93,13 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Modals\ConfirmationModal.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Modals\OfferModal.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modals\RequestModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\UpdateProfileInfoModal.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdminClientsView.xaml">
