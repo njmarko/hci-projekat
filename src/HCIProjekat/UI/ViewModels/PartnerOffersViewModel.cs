@@ -82,8 +82,8 @@ namespace UI.ViewModels
 
         public void OpenOfferModal(int partnerId, int offerId)
         {
-            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService, partnerId, offerId));
-            if ((bool)ok)
+            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService, _modalService, partnerId, offerId));
+            if (ok)
             {
                 Context.Notifier.ShowInformation($"Offer successfully {((offerId != -1) ? "updated" : "created" )}");
             }
@@ -92,9 +92,10 @@ namespace UI.ViewModels
 
         public void DeleteOffer(int offerId)
         {
-            var ok = _modalService.CreateConfirmationDialog("Are you sure you want to delete selected offer?");
-            if ((bool)ok)
+            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to delete selected offer?");
+            if (ok)
             {
+                _offerService.Delete(offerId);
                 Context.Notifier.ShowInformation($"Offer successfully deleted");
             }
             UpdatePage(0);

@@ -20,5 +20,7 @@ namespace Domain.Services.Interfaces
         Offer Create(Offer offer, int partnerId);
 
         Offer Update(Offer offer);
+
+        void Delete(int offerId);
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using UI.Commands;
 using UI.Context;
+using UI.Services.Interfaces;
 using UI.Util;
 using UI.ViewModels.Interfaces;
 
@@ -88,7 +89,7 @@ namespace UI.ViewModels
         public ICommand OnImageInput { get; private set; }
         public ICommand CreateOfferCommand { get; private set; }
 
-        public CreateOfferViewModel(IApplicationContext context, IOfferService offerService, int partnerId, int offerId) : base(context)
+        public CreateOfferViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService, int partnerId, int offerId) : base(context)
         {
             OfferTypeValue = new OfferTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             OfferTypeModels.Add(OfferTypeValue);
@@ -100,7 +101,7 @@ namespace UI.ViewModels
             Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
 
             OnImageInput = new DelegateCommand(() => ImageInput());
-            CreateOfferCommand = new CreateOfferCommand(this, offerService, partnerId, offerId);
+            CreateOfferCommand = new CreateOfferCommand(this, offerService, modalService, partnerId, offerId);
 
             _offerService = offerService;
             _offerId = offerId;

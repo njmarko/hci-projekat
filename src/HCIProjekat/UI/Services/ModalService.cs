@@ -24,21 +24,21 @@ namespace UI.Services
             _context = context;
         }
 
-        public bool? CreateConfirmationDialog(string message)
+        public bool ShowConfirmationDialog(string message)
         {
             var vm = new ConfirmationViewModel(_context, message);
             IModalWindow window = _serviceProvider.GetRequiredService<ConfirmationModal>();
             window.DataContext = vm;
             ((Window)window).Owner = Application.Current.MainWindow;
-            return window.ShowDialog();
+            return (bool) window.ShowDialog();
         }
 
-        public bool? ShowModal<T>(ViewModelBase viewModel) where T : IModalWindow
+        public bool ShowModal<T>(ViewModelBase viewModel) where T : IModalWindow
         {
             IModalWindow window = _serviceProvider.GetRequiredService<T>();
             window.DataContext = viewModel;
             ((Window)window).Owner = Application.Current.MainWindow;
-            return window.ShowDialog();
+            return (bool) window.ShowDialog();
         }
     }
 }
