@@ -31,7 +31,7 @@ namespace UI.ViewModels
         public PartnerOfferCardModel()
         {
             EditOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(PartnerOffersVm.PartnerId, Id));
-            DeleteOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(PartnerOffersVm.PartnerId, Id));
+            DeleteOffer = new DelegateCommand(() => PartnerOffersVm.DeleteOffer(Id));
         }
 
     }
@@ -86,6 +86,16 @@ namespace UI.ViewModels
             if ((bool)ok)
             {
                 Context.Notifier.ShowInformation($"Offer successfully {((offerId != -1) ? "updated" : "created" )}");
+            }
+            UpdatePage(0);
+        }
+
+        public void DeleteOffer(int offerId)
+        {
+            var ok = _modalService.CreateConfirmationDialog("Are you sure you want to delete selected offer?");
+            if ((bool)ok)
+            {
+                Context.Notifier.ShowInformation($"Offer successfully deleted");
             }
             UpdatePage(0);
         }

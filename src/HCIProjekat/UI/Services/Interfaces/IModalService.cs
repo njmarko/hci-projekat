@@ -11,5 +11,6 @@ namespace UI.Services.Interfaces
     public interface IModalService
     {
         bool? ShowModal<T>(ViewModelBase viewModel) where T : IModalWindow;
+        bool? CreateConfirmationDialog(string message);
     }
 }

@@ -12,6 +12,7 @@ namespace UI.Modals
         public static IServiceCollection AddModalWindows(this IServiceCollection services)
         {
             services.AddTransient<OfferModal>();
+            services.AddTransient<ConfirmationModal>();
             return services;
         }
     }
