@@ -14,7 +14,11 @@ namespace UI.Context.Stores
         public User CurrentUser
         {
             get { return _currentUser; }
-            set { _currentUser = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentUser))); }
+            set 
+            { 
+                _currentUser = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentUser))); 
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

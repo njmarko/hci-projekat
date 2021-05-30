@@ -37,7 +37,6 @@ namespace UI.ViewModels
 
         public ICommand Logout { get; private set; }
         public ICommand UpdateProfile { get; private set; }
-
         public ICommand ChangePassword { get; private set; }
 
 

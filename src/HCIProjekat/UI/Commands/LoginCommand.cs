@@ -51,6 +51,7 @@ namespace UI.Commands
                 return;
             }
             _context.Store.CurrentUser = user;
+            //MessageBox.Show($"Trenutni korisnik je {user.Username}");
             switch (user)
             {
                 case Client:
