@@ -16,6 +16,7 @@ namespace UI.Commands
 {
     public class CreateOfferCommand : ICommand
     {
+        private readonly PartnerOffersViewModel _partnerVm;
         private readonly CreateOfferViewModel _createOfferVm;
         private readonly IOfferService _offerService;
         private readonly IModalService _modalService;
@@ -25,8 +26,9 @@ namespace UI.Commands
 
         public event EventHandler CanExecuteChanged;
 
-        public CreateOfferCommand(CreateOfferViewModel createOfferViewModel, IOfferService offerService, IModalService modalService, int partnerId, int offerId)
+        public CreateOfferCommand(PartnerOffersViewModel partnerVm, CreateOfferViewModel createOfferViewModel, IOfferService offerService, IModalService modalService, int partnerId, int offerId)
         {
+            _partnerVm = partnerVm;
             _createOfferVm = createOfferViewModel;
             _offerService = offerService;
             _modalService = modalService;
@@ -74,6 +76,8 @@ namespace UI.Commands
         private void UpdateOffer()
         {
             var offer = _offerService.Get(_offerId);
+            _partnerVm.AddItem(offer);
+
             offer.Description = _createOfferVm.Description;
             offer.Image = _createOfferVm.ImageInBytes;
             offer.Name = _createOfferVm.Name;
@@ -85,7 +89,7 @@ namespace UI.Commands
 
         private void CreateOffer()
         {
-            _offerService.Create(new Offer
+            var offer = _offerService.Create(new Offer
             {
                 Description = _createOfferVm.Description,
                 Image = _createOfferVm.ImageInBytes,
@@ -93,6 +97,9 @@ namespace UI.Commands
                 Price = int.Parse(_createOfferVm.Price),
                 OfferType = (ServiceType)_createOfferVm.OfferTypeValue.Type
             }, _partnerId);
+
+            offer.Active = false;
+            _partnerVm.AddItem(offer);
         }
     }
 }

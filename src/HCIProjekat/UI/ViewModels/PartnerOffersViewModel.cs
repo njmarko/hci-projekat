@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
@@ -37,7 +38,7 @@ namespace UI.ViewModels
 
     }
 
-    public class PartnerOffersViewModel : PagingViewModelBase
+    public class PartnerOffersViewModel : UndoModelBase<Offer>
     {
         private readonly IOfferService _offerService;
 
@@ -69,7 +70,7 @@ namespace UI.ViewModels
         public ObservableCollection<OfferTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<OfferTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
 
-        public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService) : base(context)
+        public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService) : base(context, offerService, modalService)
         {
             OfferTypeValue = new OfferTypeModel { Name = "All types", Type = null };
             OfferTypeModels.Add(OfferTypeValue);
@@ -103,7 +104,7 @@ namespace UI.ViewModels
 
         public void OpenOfferModal(int partnerId, int offerId)
         {
-            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(Context, _offerService, _modalService, partnerId, offerId));
+            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(this, Context, _offerService, _modalService, partnerId, offerId));
             if (ok)
             {
                 Context.Notifier.ShowInformation($"Offer successfully {((offerId != -1) ? "updated" : "created" )}");
@@ -116,6 +117,7 @@ namespace UI.ViewModels
             var ok = _modalService.ShowConfirmationDialog("Are you sure you want to delete selected offer?");
             if (ok)
             {
+                AddItem(_offerService.Get(offerId));
                 _offerService.Delete(offerId);
                 Context.Notifier.ShowInformation($"Offer successfully deleted");
             }

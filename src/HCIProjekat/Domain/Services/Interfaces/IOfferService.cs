@@ -9,18 +9,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IOfferService
+    public interface IOfferService : ICRUDService<Offer>
     {
         Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page);
 
         Page<Offer> GetOffersForPartner(int partnerId, OffersPage page);
 
-        Offer Get(int offerId);
-
         Offer Create(Offer offer, int partnerId);
-
-        Offer Update(Offer offer);
-
-        void Delete(int offerId);
     }
 }
