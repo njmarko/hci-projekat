@@ -29,6 +29,8 @@ namespace UI.ViewModels
             set
             {
                 _taskId = value;
+                OnPropertyChanged(nameof(TaskId));
+                LoadTask();
             }
         }
 
@@ -70,6 +72,17 @@ namespace UI.ViewModels
             }
         }
 
+        private string _requestDetailsRoute;
+        public string RequestDetailsRoute 
+        { 
+            get { return _requestDetailsRoute; }
+            set
+            {
+                _requestDetailsRoute = value;
+                OnPropertyChanged(nameof(RequestDetailsRoute));
+            }
+        }
+
 
         public bool CanComment => IsValid();
         public ICommand AddCommentCommand { get; set; }
@@ -101,6 +114,7 @@ namespace UI.ViewModels
         private void LoadTask()
         {
             Task = _taskService.GetTask(TaskId);
+            RequestDetailsRoute = $"RequestDetails?id={Task.Request.Id}";
             LoadComments();
             UpdatePage(0);
         }

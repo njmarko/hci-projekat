@@ -26,9 +26,16 @@
         </Grid.RowDefinitions>
         
         <StackPanel Orientation="Vertical" Background="#e8e8e8" Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding RequestDetailsRoute}">
+                    <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
             <TextBlock Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
             <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>
-            <TextBlock Text="{Binding Task.Description}" Style="{DynamicResource MaterialDesignBody1TextBlock}"></TextBlock>
+            <ScrollViewer>
+                <TextBlock Text="{Binding Task.Description}" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap"></TextBlock>
+            </ScrollViewer>
         </StackPanel>
 
         <Grid Grid.Row="1">

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using Domain.Pagination.Requests;
 using Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Services
 {
@@ -23,7 +24,10 @@ namespace Domain.Services
         public Task GetTask(int taskId)
         {
             using var context = _dbContextFactory.CreateDbContext();
-            return context.Tasks.Find(taskId);
+            return context.Tasks
+                .Where(t => t.Id == taskId)
+                .Include(t => t.Request)
+                .First();
         }
 
         public Page<Task> GetTasksForRequest(int requestId, TasksPageRequest page)
