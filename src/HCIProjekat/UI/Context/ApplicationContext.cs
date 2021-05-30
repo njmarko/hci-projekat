@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
+using UI.Commands;
 using UI.Context.Routers;
 using UI.Context.Stores;
 
@@ -17,11 +19,13 @@ namespace UI.Context
         public IRouter Router { get; set; }
         public IStore Store { get; set; }
         public Notifier Notifier { get; set; }
+        public ICommand OpenLink { get; set; }
 
         public ApplicationContext(IRouter router, IStore store)
         {
             Router = router;
             Store = store;
+            OpenLink = new OpenLinkCommand();
             Notifier = new Notifier(cfg =>
             {
                 cfg.PositionProvider = new WindowPositionProvider(
@@ -37,5 +41,7 @@ namespace UI.Context
                 cfg.Dispatcher = Application.Current.Dispatcher;
             });
         }
+
+        
     }
 }
