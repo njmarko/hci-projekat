@@ -23,7 +23,7 @@
                 <Rectangle Margin="10 0" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter username" Margin="10 20 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding UsernameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter password" Margin="10 20 10 0" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                <PasswordBox Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}" materialDesign:HintAssist.Hint="Enter password" Margin="10 20 10 0" PasswordChanged="PasswordBox_PasswordChanged"/>
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding PasswordError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <TextBlock DataContext="{Binding LoginError}" Foreground="Red" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" HorizontalAlignment="Center" Margin="10 10 10 0" />
                 <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Grid.Row="3" Content="Login" Margin="10 40 10 10" Foreground="White" Command="{Binding LoginCommand}" />
