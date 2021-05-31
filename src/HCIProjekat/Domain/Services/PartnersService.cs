@@ -37,11 +37,21 @@ namespace Domain.Services
             return partner;
         }
 
+        public void Delete(int partnerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var partner = context.Partner.Find(partnerId);
+            partner.Active = false;
+            context.SaveChanges();
+        }
+
         public Page<Partner> GetPartners(PartnersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Partner
+                          .Where(p => p.Active)
                           .Where(p => p.Name.ToLower().Contains(page.SearchQuery.ToLower())
                           || p.Location.City.ToLower().Contains(page.SearchQuery.ToLower())
                           || p.Location.Country.ToLower().Contains(page.SearchQuery.ToLower())

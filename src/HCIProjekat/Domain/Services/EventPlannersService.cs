@@ -41,8 +41,8 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var request = context.EventPlanners.Find(eventPlannerId);
-            request.Active = false;
+            var eventPlanner = context.EventPlanners.Find(eventPlannerId);
+            eventPlanner.Active = false;
             context.SaveChanges();
         }
 

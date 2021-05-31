@@ -40,8 +40,8 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var request = context.Clients.Find(clientId);
-            request.Active = false;
+            var client = context.Clients.Find(clientId);
+            client.Active = false;
             context.SaveChanges();
         }
 

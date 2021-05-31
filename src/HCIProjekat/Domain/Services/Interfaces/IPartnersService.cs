@@ -14,5 +14,7 @@ namespace Domain.Services.Interfaces
         Page<Partner> GetPartners(PartnersPage page);
 
         Partner Create(Partner partner);
+
+        public void Delete(int partnerId);
     }
 }
