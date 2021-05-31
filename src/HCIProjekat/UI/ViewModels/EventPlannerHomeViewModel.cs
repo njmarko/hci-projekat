@@ -15,17 +15,40 @@ using UI.Services.Interfaces;
 
 namespace UI.ViewModels
 {
+    public class TaskCardModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string TaskType { get; set; }
+        public bool CanToDo { get; set; }
+        public bool CanInProgress { get; set; }
+        public bool CanSentToClient { get; set; }
+        public EventPlannerHomeViewModel Vm { get; set; }
+
+        public ICommand MoveToDo { get; private set; }
+        public ICommand MoveInProgress { get; private set; }
+        public ICommand MoveSentToClient { get; private set; }
+
+        public TaskCardModel()
+        {
+            MoveToDo = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.TO_DO));
+            MoveInProgress = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.IN_PROGRESS));
+            MoveSentToClient = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.SENT_TO_CLIENT));
+        }
+    }
+
     public class EventPlannerHomeViewModel : ViewModelBase
     {
         private readonly IEventPlannersService _eventPlannersService;
         private readonly ITaskService _taskService;
         private readonly IModalService _modalService;
         public ObservableCollection<Request> ActiveRequests { get; private set; }
-        public ObservableCollection<Task> ToDo { get; private set; } = new ObservableCollection<Task>(); 
-        public ObservableCollection<Task> InProgress { get; private set; } = new ObservableCollection<Task>(); 
-        public ObservableCollection<Task> SentToClient { get; private set; } = new ObservableCollection<Task>(); 
-        public ObservableCollection<Task> Accepted { get; private set; } = new ObservableCollection<Task>(); 
-        public ObservableCollection<Task> Rejected { get; private set; } = new ObservableCollection<Task>(); 
+        public ObservableCollection<TaskCardModel> ToDo { get; private set; } = new ObservableCollection<TaskCardModel>(); 
+        public ObservableCollection<TaskCardModel> InProgress { get; private set; } = new ObservableCollection<TaskCardModel>(); 
+        public ObservableCollection<TaskCardModel> SentToClient { get; private set; } = new ObservableCollection<TaskCardModel>(); 
+        public ObservableCollection<TaskCardModel> Accepted { get; private set; } = new ObservableCollection<TaskCardModel>(); 
+        public ObservableCollection<TaskCardModel> Rejected { get; private set; } = new ObservableCollection<TaskCardModel>(); 
         
         private Request _currentRequest;
         public Request CurrentRequest
@@ -65,6 +88,19 @@ namespace UI.ViewModels
             }
         }
 
+        public void UpdateTaskStatus(int taskId, TaskStatus taskStatus)
+        {
+            if ((taskStatus == TaskStatus.SENT_TO_CLIENT) && !_modalService.ShowConfirmationDialog($"Are you sure you want to send task {taskId} to the client for a review?"))
+            {
+                return;
+            }
+            Task task = _taskService.GetTask(taskId);
+            task.TaskStatus = taskStatus;
+            _taskService.Update(task);
+            Context.Notifier.ShowInformation($"Task {taskId}'s status has been updated to {taskStatus}.");
+            FetchTasksForSelectedRequest();
+        }
+
         private void ShowCreateTask()
         {
             var ok = _modalService.ShowModal<CreateTaskModal>(new CreateTaskViewModel(Context, _taskService, CurrentRequest));
@@ -90,22 +126,33 @@ namespace UI.ViewModels
 
         private void InsertTask(Task task)
         {
+            var taskModel = new TaskCardModel
+            {
+                Id = task.Id,
+                Name = task.Name,
+                Description = task.Description,
+                TaskType = task.TaskType.ToString().ToUpper()[0] + task.TaskType.ToString().ToLower()[1..],
+                CanToDo = task.TaskStatus == TaskStatus.IN_PROGRESS || task.TaskStatus == TaskStatus.REJECTED,
+                CanInProgress = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.REJECTED,
+                CanSentToClient = task.TaskStatus == TaskStatus.IN_PROGRESS,
+                Vm = this
+            };
             switch (task.TaskStatus)
             {
                 case TaskStatus.TO_DO:
-                    ToDo.Add(task);
+                    ToDo.Add(taskModel);
                     break;
                 case TaskStatus.IN_PROGRESS:
-                    InProgress.Add(task);
+                    InProgress.Add(taskModel);
                     break;
                 case TaskStatus.SENT_TO_CLIENT:
-                    SentToClient.Add(task);
+                    SentToClient.Add(taskModel);
                     break;
                 case TaskStatus.ACCEPTED:
-                    Accepted.Add(task);
+                    Accepted.Add(taskModel);
                     break;
                 case TaskStatus.REJECTED:
-                    Rejected.Add(task);
+                    Rejected.Add(taskModel);
                     break;
             }
         }

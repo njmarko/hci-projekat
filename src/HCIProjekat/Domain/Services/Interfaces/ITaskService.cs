@@ -13,6 +13,7 @@ namespace Domain.Services.Interfaces
         Page<Task> GetTasksForRequest(int requestId, TasksPageRequest pageRequest);
         Task Create(Task task, int requestId);
         Task GetTask(int taskId);
+        Task Update(Task task);
         List<Task> GetTasksForRequest(int requestId, string searchQuery);
     }
 }
