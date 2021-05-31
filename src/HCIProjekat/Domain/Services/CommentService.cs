@@ -46,6 +46,7 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
             return context.Comments
                           .Include(c => c.Sender)
+                          .Where(c => c.Active)
                           .Where(c => c.Task.Id == taskId)
                           .OrderBy(c => c.SentDate)
                           .ToList();

@@ -42,6 +42,7 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Requests
+                          .Where(r => r.Active)
                           .Where(r => r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId)    // TODO: Ubaci logiku za to da li je zahtev vec obradjen kad stavimo to u model
                           .ToList();
         }
@@ -51,6 +52,7 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.EventPlanners
+                          .Where(c => c.Active)
                           .Where(c => c.Username.ToLower().Contains(page.SearchQuery.ToLower())
                           || c.FirstName.ToLower().Contains(page.SearchQuery.ToLower())
                           || c.LastName.ToLower().Contains(page.SearchQuery.ToLower())

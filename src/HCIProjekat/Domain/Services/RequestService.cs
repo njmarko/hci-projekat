@@ -46,6 +46,15 @@ namespace Domain.Services
             return request;
         }
 
+        public void Delete(int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Requests.Find(requestId);
+            request.Active = false;
+            context.SaveChanges();
+        }
+
         public Request GetRequest(int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -59,6 +68,7 @@ namespace Domain.Services
 
             var query = page.Query.ToLower();
             var requests = context.Requests
+                                   .Where(r => r.Active)
                                    .Where(r => r.EventPlanner == null || r.EventPlanner.Id == eventPlannerId)
                                    .Where(r => page.Type == null || r.Type == page.Type)
                                    .Where(r => page.From == null || r.Date >= page.From)

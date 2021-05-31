@@ -22,7 +22,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            return context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            return context.Users.FirstOrDefault(u => u.Username == username && u.Password == password && u.Active);
         }
     }
 }

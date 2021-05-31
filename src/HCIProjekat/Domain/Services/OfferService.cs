@@ -27,6 +27,7 @@ namespace Domain.Services
             return context.TaskOffers
                           .Include(to => to.Offer)
                           .Include(to => to.Offer.Partner)
+                          .Where(to => to.Active)
                           .Where(o => o.Task.Id == taskId)
                           .ToPage(page);
         }
@@ -61,10 +62,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            return context.Offers
-                          .Where(o => o.Active)
-                          .Where(o => o.Id == offerId)
-                          .First();
+            return context.Offers.Find(offerId);
         }
 
         public Offer Update(Offer offer)
@@ -81,10 +79,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var offer = context.Offers
-                          .Where(o => o.Active)
-                          .Where(o => o.Id == offerId)
-                          .First();
+            var offer = context.Offers.Find(offerId);
 
             offer.Active = false;
 
