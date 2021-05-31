@@ -76,11 +76,13 @@
                     <StackPanel Orientation="Horizontal" Visibility="{Binding IsPending, Converter={StaticResource b2vc}}">
                         <Button Margin="20,0,0,10" Content="Accept" 
                                 Style="{DynamicResource MaterialDesignOutlinedButton}" 
-                                Foreground="Green" BorderBrush="Green"></Button>
+                                Foreground="Green" BorderBrush="Green"
+                                Command="{Binding AcceptTaskOffer}"></Button>
                     
                         <Button Margin="20,0,0,10" Content="Reject" 
                                 Style="{DynamicResource MaterialDesignOutlinedButton}" 
-                                Foreground="Red" BorderBrush="Red"></Button>
+                                Foreground="Red" BorderBrush="Red"
+                                Command="{Binding RejectTaskOffer}"></Button>
                     </StackPanel>
                 </StackPanel>
                 </Grid>

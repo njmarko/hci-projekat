@@ -29,6 +29,14 @@ namespace UI.ViewModels
 
         public bool IsPending { get; set; }
 
+        public int TaskOfferId { get; set; }
+
+        public int TaskId { get; set; }
+
+        public ICommand RejectTaskOffer { get; set; }
+
+        public ICommand AcceptTaskOffer { get; set; }
+
     }
     public class TaskDetailsViewModel : PagingViewModelBase, ISelfValidatingViewModel
     {
@@ -205,17 +213,24 @@ namespace UI.ViewModels
 
                 }
 
-                TaskOfferModels.Add(new ClientTaskOfferCardModel 
-                { 
-                    PartnerName = entity.Offer.Partner.Name, 
+                var taskOfferCardModel = new ClientTaskOfferCardModel
+                {
+                    PartnerName = entity.Offer.Partner.Name,
                     Description = entity.Offer.Description,
                     OfferName = entity.Offer.Name,
                     //Image = entity.Offer.Image,
                     OfferPrice = entity.Offer.Price,
                     Color = color,
                     Status = status,
-                    IsPending = entity.OfferStatus == OfferStatus.PENDING
-                });
+                    IsPending = entity.OfferStatus == OfferStatus.PENDING,
+                    TaskOfferId = entity.Id,
+                    TaskId = Task.Id
+                };
+
+                taskOfferCardModel.RejectTaskOffer = new RejectTaskOfferCommand(_taskService, taskOfferCardModel, this);
+                taskOfferCardModel.AcceptTaskOffer = new AcceptTaskOfferCommand(_taskService, taskOfferCardModel, this);
+
+                TaskOfferModels.Add(taskOfferCardModel);
             }
             OnPropertyChanged(nameof(CanRejectAllOffers));
             OnPageFetched(page);

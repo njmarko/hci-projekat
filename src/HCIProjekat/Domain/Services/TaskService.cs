@@ -22,6 +22,28 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        public void AcceptTaskOffer(int taskId, int taskOfferId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            var task = context.Tasks
+                .Include(t => t.Offers)
+                .Where(t => t.Id == taskId)
+                .First();
+
+            var offers = task.Offers;
+            
+            foreach(var offer in offers)
+            {
+                if (offer.Id == taskOfferId)
+                    offer.OfferStatus = OfferStatus.ACCEPTED;
+                else
+                    offer.OfferStatus = OfferStatus.REJECTED;
+            }
+            task.TaskStatus = TaskStatus.ACCEPTED;
+
+            context.SaveChanges();
+        }
+
         public Task Create(Task task, int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -87,12 +109,34 @@ namespace Domain.Services
 
         public void RejectAllTaskOffers(int taskId)
         {
-            //throw new NotImplementedException();
             using var context = _dbContextFactory.CreateDbContext();
-            var task = context.Tasks.Include(t => t.Offers).Where(t => t.Id == taskId).First();
+            var task = context.Tasks
+                .Include(t => t.Offers)
+                .Where(t => t.Id == taskId)
+                .First();
             foreach (var offer in task.Offers)
                 offer.OfferStatus = OfferStatus.REJECTED;
             task.TaskStatus = TaskStatus.REJECTED;
+            context.SaveChanges();
+        }
+
+        public void RejectTaskOffer(int taskId, int taskOfferId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            var task = context.Tasks
+                .Include(t => t.Offers)
+                .Where(t => t.Id == taskId)
+                .First();
+            
+           var offer = task     
+                .Offers
+                .Where(o => o.Id == taskOfferId)
+                .First();
+            
+            offer.OfferStatus = OfferStatus.REJECTED;
+            if (task.Offers.Where(offer => offer.OfferStatus == OfferStatus.REJECTED).Count() == task.Offers.Count())
+                task.TaskStatus = TaskStatus.REJECTED;
+            
             context.SaveChanges();
         }
     }
