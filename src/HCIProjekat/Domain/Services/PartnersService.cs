@@ -51,6 +51,7 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Partner
+                          .Where(p => p.Active)
                           .Where(p => p.Name.ToLower().Contains(page.SearchQuery.ToLower())
                           || p.Location.City.ToLower().Contains(page.SearchQuery.ToLower())
                           || p.Location.Country.ToLower().Contains(page.SearchQuery.ToLower())

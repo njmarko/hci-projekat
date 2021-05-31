@@ -21,6 +21,8 @@ namespace UI.ViewModels
 
         public string Address { get; set; }
 
+        public string Route { get; set; }
+
         public ICommand Delete { get; set; }
 
     }
@@ -66,7 +68,8 @@ namespace UI.ViewModels
                 {
                     Name = entity.Name,
                     PartnerType = entity.Type.ToString(),
-                    Address = entity.Location.Street + " " + entity.Location.StreetNumber + ", " + entity.Location.City + ", " + entity.Location.Country
+                    Address = entity.Location.Street + " " + entity.Location.StreetNumber + ", " + entity.Location.City + ", " + entity.Location.Country,
+                    Route = $"PartnerOffers?partnerId={entity.Id}"
                 };
                 partnerModel.Delete = new DeletePartnerCommand(this, entity.Id, entity.Name, _modalService, _partnersService);
                 PartnerModels.Add(partnerModel);
