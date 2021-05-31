@@ -37,6 +37,15 @@ namespace Domain.Services
             return eventPlanner;
         }
 
+        public void Delete(int eventPlannerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.EventPlanners.Find(eventPlannerId);
+            request.Active = false;
+            context.SaveChanges();
+        }
+
         public List<Request> GetActiveRequests(int eventPlannerId)
         {
             using var context = _dbContextFactory.CreateDbContext();

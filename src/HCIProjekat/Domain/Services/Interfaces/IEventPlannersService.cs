@@ -16,5 +16,7 @@ namespace Domain.Services.Interfaces
         EventPlanner Create(EventPlanner eventPlanner);
 
         List<Request> GetActiveRequests(int eventPlannerId);
+
+        public void Delete(int eventPlannerId);
     }
 }
