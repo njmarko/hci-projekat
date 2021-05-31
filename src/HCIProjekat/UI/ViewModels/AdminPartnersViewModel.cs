@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Services.Interfaces;
 
 namespace UI.ViewModels
 {
@@ -20,11 +21,15 @@ namespace UI.ViewModels
 
         public string Address { get; set; }
 
+        public ICommand Delete { get; set; }
+
     }
 
     public class AdminPartnersViewModel : PagingViewModelBase
     {
         private readonly IPartnersService _partnersService;
+
+        private readonly IModalService _modalService;
 
         private string _searchQuery;
         public string SearchQuery
@@ -40,11 +45,12 @@ namespace UI.ViewModels
         public ICommand SearchCommand { get; set; }
         public ObservableCollection<AdminPartnerCardModel> PartnerModels { get; private set; } = new ObservableCollection<AdminPartnerCardModel>();
 
-        public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService) : base(context)
+        public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService, IModalService modalService) : base(context)
         {
             _partnersService = partnersService;
             SearchQuery = string.Empty;
             SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
         }
@@ -56,12 +62,14 @@ namespace UI.ViewModels
             foreach (var entity in page.Entities)
             {
 
-                PartnerModels.Add(new AdminPartnerCardModel
+                var partnerModel = new AdminPartnerCardModel
                 {
                     Name = entity.Name,
                     PartnerType = entity.Type.ToString(),
                     Address = entity.Location.Street + " " + entity.Location.StreetNumber + ", " + entity.Location.City + ", " + entity.Location.Country
-                });
+                };
+                partnerModel.Delete = new DeletePartnerCommand(this, entity.Id, entity.Name, _modalService, _partnersService);
+                PartnerModels.Add(partnerModel);
             }
             OnPageFetched(page);
         }
