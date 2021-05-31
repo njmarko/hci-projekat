@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,7 @@ namespace UI.ViewModels
             set { _notes = value; OnPropertyChanged(nameof(Notes)); }
         }
 
+        public string ButtonText { get; private set; }
 
         // Error message view models
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
@@ -85,15 +87,31 @@ namespace UI.ViewModels
         public bool CanCreateRequest => IsValid();
         public ICommand CreateRequest { get; private set; }
 
-        public CreateRequestViewModel(IApplicationContext context, IRequestService requestService) : base(context)
+        public CreateRequestViewModel(IApplicationContext context, IRequestService requestService, int requestId = -1) : base(context)
         {
-            CreateRequest = new CreateRequestCommand(this, requestService, context);
+            CreateRequest = new CreateRequestCommand(this, requestService, context, requestId);
+
             RequestTypeValue = new RequestTypeModel { Type = RequestType.BIRTHDAY, Name = "Birthday" };
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.ANNIVERSARY, Name = "Anniversary" });
             RequestTypeModels.Add(RequestTypeValue);
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.GRADUATION, Name = "Graduation" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.PARTY, Name = "Party" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.WEDDING, Name = "Wedding" });
+
+            ButtonText = requestId == -1 ? "Create" : "Save";
+
+            if (requestId != -1)
+            {
+                Request request = requestService.GetRequest(requestId);
+                Name = request.Name;
+                Theme = request.Theme;
+                GuestNumber = request.GuestNumber;
+                BudgetFlexible = request.BudgetFlexible;
+                Budget = request.Budget;
+                RequestDate = request.Date;
+                Notes = request.Notes;
+                RequestTypeValue = RequestTypeModels.First(t => t.Type != null && t.Type == request.Type);
+            }
         }
 
         public bool IsValid()

@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
@@ -19,6 +20,7 @@ namespace UI.ViewModels
 {
     public class ClientRequestCardModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Theme { get; set; }
         public string Type { get; set; }
@@ -26,10 +28,16 @@ namespace UI.ViewModels
         public int GuestNumber { get; set; }
         public bool BudgetFlexible { get; set; }
         public string Date { get; set; }
-
         public IApplicationContext Context { get; set; }
-
         public string Route { get; set; }
+        public ClientRequestsViewModel Vm { get; set; }
+        public ICommand Edit { get; set; }
+        public ICommand Delete { get; set; }
+
+        public ClientRequestCardModel()
+        {
+            Edit = new DelegateCommand(() => Vm.ShowRequestModal(Id));
+        }
     }
 
     public class RequestTypeModel
@@ -86,7 +94,7 @@ namespace UI.ViewModels
         {
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
-            ShowCreateRequestModal = new DelegateCommand(ShowRequestModal);
+            ShowCreateRequestModal = new DelegateCommand(() => ShowRequestModal(-1));
 
             _clientService = clientService;
             _requestService = requestService;
@@ -115,7 +123,22 @@ namespace UI.ViewModels
             var page = _clientService.GetRequestsForClient(Context.Store.CurrentUser.Id, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type });
             foreach (var entity in page.Entities)
             {
-                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name, Type = entity.Type.ToString(), GuestNumber = entity.GuestNumber, Budget = $"{entity.Budget} RSD", BudgetFlexible = entity.BudgetFlexible, Theme = entity.Theme, Date = entity.Date.ToString("dd.MM.yyyy"), Context = Context, Route = $"RequestDetails?requestId={entity.Id}" });
+                var cardModel = new ClientRequestCardModel
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    Type = entity.Type.ToString().ToUpper()[0] + entity.Type.ToString().ToLower()[1..],
+                    GuestNumber = entity.GuestNumber,
+                    Budget = $"{entity.Budget} RSD",
+                    BudgetFlexible = entity.BudgetFlexible,
+                    Theme = entity.Theme,
+                    Date = entity.Date.ToString("dd.MM.yyyy"),
+                    Context = Context,
+                    Route = $"RequestDetails?requestId={entity.Id}",
+                    Vm = this,
+                };
+                cardModel.Delete = new DeleteRequestCommand(this, entity.Id, _modalService, _requestService);
+                RequestModels.Add(cardModel);
             }
             OnPageFetched(page);
         }
@@ -129,10 +152,12 @@ namespace UI.ViewModels
             UpdatePage(0);
         }
 
-        private void ShowRequestModal()
+        public void ShowRequestModal(int requestId = -1)
         {
-            _modalService.ShowModal<RequestModal>(new CreateRequestViewModel(Context, _requestService));
-            ClearFilters();
+            if (_modalService.ShowModal<RequestModal>(new CreateRequestViewModel(Context, _requestService, requestId)))
+            {
+                ClearFilters();
+            }
         }
     }
 }

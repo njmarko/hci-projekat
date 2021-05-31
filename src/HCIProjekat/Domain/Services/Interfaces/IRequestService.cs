@@ -19,6 +19,10 @@ namespace Domain.Services.Interfaces
 
         Request Reject(int requestId, int eventPlannerId);
 
+        Request Update(Request request);
+
+        void Delete(int requestId);
+
         Page<Request> GetRequestInterestingForEventPlanner(int eventPlannerId, EventPlannerRequestsPage page);
     }
 }

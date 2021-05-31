@@ -41,6 +41,7 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Clients
+                          .Where(c => c.Active)
                           .Where(c => c.Username.ToLower().Contains(page.SearchQuery.ToLower())
                           || c.FirstName.ToLower().Contains(page.SearchQuery.ToLower())
                           || c.LastName.ToLower().Contains(page.SearchQuery.ToLower())
@@ -55,6 +56,7 @@ namespace Domain.Services
 
             var query = page.Query.ToLower();
             return context.Requests
+                          .Where(r => r.Active)
                           .Where(r => r.Client.Id == clientId)
                           .Where(r => page.Type == null || r.Type == page.Type)
                           .Where(r => page.From == null || r.Date >= page.From)
