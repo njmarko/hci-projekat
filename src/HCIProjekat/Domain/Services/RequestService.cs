@@ -3,6 +3,7 @@ using Domain.Pagination;
 using Domain.Pagination.Requests;
 using Domain.Persistence;
 using Domain.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace Domain.Services
             {
                 requests = requests.Where(r => r.EventPlanner == null);
             }
-            return requests.ToPage(page);
+            return requests.Include(r => r.EventPlanner).ToPage(page);
         }
     }
 }

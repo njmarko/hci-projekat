@@ -13,6 +13,13 @@ using UI.Context;
 
 namespace UI.ViewModels
 {
+    public class EventPlannerRequestCardModel : ClientRequestCardModel
+    {
+        public bool CanAccept { get; set; }
+        public bool IsMine { get; set; }
+        public bool CanReject { get; set; }
+    }
+
     public class EventPlannerRequestsViewModel : PagingViewModelBase
     {
         private readonly DateTime _fromDateInitial = DateTime.Now.AddYears(-1);
@@ -63,7 +70,7 @@ namespace UI.ViewModels
             set { _requestType = value; OnPropertyChanged(nameof(RequestTypeValue)); }
         }
 
-        public ObservableCollection<ClientRequestCardModel> RequestModels { get; private set; } = new ObservableCollection<ClientRequestCardModel>();
+        public ObservableCollection<EventPlannerRequestCardModel> RequestModels { get; private set; } = new ObservableCollection<EventPlannerRequestCardModel>();
         public ObservableCollection<RequestTypeModel> RequestTypeModels { get; private set; } = new ObservableCollection<RequestTypeModel>();
         public ICommand Search { get; private set; }
         public ICommand Clear { get; private set; }
@@ -99,7 +106,21 @@ namespace UI.ViewModels
             var page = _requestService.GetRequestInterestingForEventPlanner(Context.Store.CurrentUser.Id, new EventPlannerRequestsPage { Page = pageNumber, Size = Size, Query = Query, Type = RequestTypeValue.Type, From = From, To = To, Mine = Mine, OnlyNew = OnlyNew });
             foreach (var entity in page.Entities)
             {
-                RequestModels.Add(new ClientRequestCardModel { Name = entity.Name, Type = entity.Type.ToString(), GuestNumber = entity.GuestNumber, Budget = $"{entity.Budget} RSD", BudgetFlexible = entity.BudgetFlexible, Theme = entity.Theme, Date = entity.Date.ToString("dd.MM.yyyy"), Context = Context, Route = $"RequestDetails?requestId={entity.Id}" });
+                RequestModels.Add(new EventPlannerRequestCardModel 
+                { 
+                    Name = entity.Name, 
+                    Type = entity.Type.ToString(), 
+                    GuestNumber = entity.GuestNumber, 
+                    Budget = $"{entity.Budget} RSD", 
+                    BudgetFlexible = entity.BudgetFlexible, 
+                    Theme = entity.Theme, 
+                    Date = entity.Date.ToString("dd.MM.yyyy"), 
+                    Context = Context, 
+                    Route = $"RequestDetails?requestId={entity.Id}",
+                    CanAccept = entity.EventPlanner == null,
+                    IsMine = entity.EventPlanner?.Id == Context.Store.CurrentUser.Id,
+                    CanReject = entity.EventPlanner?.Id == Context.Store.CurrentUser.Id // TODO: Mozda dodaj neku proveru kao da li je ostalo npr. minimum nedelju dana do datuma zahteva ili tako neko sranje
+                });
             }
             OnPageFetched(page);
         }

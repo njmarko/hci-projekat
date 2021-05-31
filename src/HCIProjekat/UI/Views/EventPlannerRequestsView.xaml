@@ -74,7 +74,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <controls:ClientRequestCard />
+                    <controls:EventPlannerRequestCard />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
