@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
@@ -19,6 +20,7 @@ namespace UI.ViewModels
 {
     public class ClientRequestCardModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Theme { get; set; }
         public string Type { get; set; }
@@ -34,7 +36,7 @@ namespace UI.ViewModels
 
         public ClientRequestCardModel()
         {
-            
+            Edit = new DelegateCommand(() => Vm.ShowRequestModal(Id));
         }
     }
 
@@ -92,7 +94,7 @@ namespace UI.ViewModels
         {
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
-            ShowCreateRequestModal = new DelegateCommand(ShowRequestModal);
+            ShowCreateRequestModal = new DelegateCommand(() => ShowRequestModal(-1));
 
             _clientService = clientService;
             _requestService = requestService;
@@ -123,6 +125,7 @@ namespace UI.ViewModels
             {
                 var cardModel = new ClientRequestCardModel
                 {
+                    Id = entity.Id,
                     Name = entity.Name,
                     Type = entity.Type.ToString().ToUpper()[0] + entity.Type.ToString().ToLower()[1..],
                     GuestNumber = entity.GuestNumber,
@@ -149,10 +152,12 @@ namespace UI.ViewModels
             UpdatePage(0);
         }
 
-        private void ShowRequestModal()
+        public void ShowRequestModal(int requestId = -1)
         {
-            _modalService.ShowModal<RequestModal>(new CreateRequestViewModel(Context, _requestService));
-            ClearFilters();
+            if (_modalService.ShowModal<RequestModal>(new CreateRequestViewModel(Context, _requestService, requestId)))
+            {
+                ClearFilters();
+            }
         }
     }
 }

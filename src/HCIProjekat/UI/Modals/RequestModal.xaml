@@ -48,7 +48,7 @@
             <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter additional notes" Margin="10 15 10 10" TextWrapping="Wrap" MaxHeight="100" VerticalScrollBarVisibility="Auto"/>
             <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding CreateRequest}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
-                        AncestorType={x:Type Window}}}" Content="Save" Margin="10 30" Foreground="White" />
+                        AncestorType={x:Type Window}}}" Content="{Binding ButtonText}" Margin="10 30" Foreground="White" />
         </StackPanel>
     </Grid>
 </Window>

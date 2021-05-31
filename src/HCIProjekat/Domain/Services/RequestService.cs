@@ -98,6 +98,14 @@ namespace Domain.Services
                                                             // u sustini ti kolekcije nam samo smetaju tako da ih komotno mozemo i obrisati posto svakako svugde filitrimamo odgovarajuci DbSet
                                                             // a mozemo i proglasiti da su ovi kolekcije mapirane na odgovarajuce pojedinacne elemente ako ne bismo koristili virutal za tu vezu na strani pojedinacnog elementa
             request.EventPlanner = null;
+            context.Requests.Update(request);
+            context.SaveChanges();
+            return request;
+        }
+
+        public Request Update(Request request)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
 
             context.Requests.Update(request);
             context.SaveChanges();

@@ -17,11 +17,10 @@ namespace UI.ViewModels
 {
     public class EventPlannerRequestCardModel : ClientRequestCardModel
     {
-        public int Id { get; set; }
         public bool CanAccept { get; set; }
         public bool IsMine { get; set; }
         public bool CanReject { get; set; }
-        public EventPlannerRequestsViewModel Vm { get; set; }
+        public new EventPlannerRequestsViewModel Vm { get; set; }
 
         public ICommand Accept { get; private set; }
         public ICommand Reject { get; private set; }
