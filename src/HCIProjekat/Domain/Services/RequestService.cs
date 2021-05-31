@@ -3,6 +3,7 @@ using Domain.Pagination;
 using Domain.Pagination.Requests;
 using Domain.Persistence;
 using Domain.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,19 @@ namespace Domain.Services
         public RequestService(IApplicationDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+        }
+
+        public Request Accept(int requestId, int eventPlannerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Requests.Find(requestId);
+            var eventPlanner = context.EventPlanners.Find(eventPlannerId);
+            request.EventPlanner = eventPlanner;
+
+            context.Requests.Update(request);
+            context.SaveChanges();
+            return request;
         }
 
         public Request Create(int clientId, Request request)
@@ -61,7 +75,23 @@ namespace Domain.Services
             {
                 requests = requests.Where(r => r.EventPlanner == null);
             }
-            return requests.ToPage(page);
+            return requests.Include(r => r.EventPlanner).ToPage(page);
+        }
+
+        public Request Reject(int requestId, int eventPlannerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Requests.Find(requestId);
+            var eventPlanner = context.EventPlanners.Find(eventPlannerId);
+            eventPlanner.AcceptedRequests.Remove(request);  // VAZNO: mora eksplicitno da se obrise iz ove kolekcije jer nama je sve virutal pa on nema pojma ko je vlasnik ove kolekcije
+                                                            // u sustini ti kolekcije nam samo smetaju tako da ih komotno mozemo i obrisati posto svakako svugde filitrimamo odgovarajuci DbSet
+                                                            // a mozemo i proglasiti da su ovi kolekcije mapirane na odgovarajuce pojedinacne elemente ako ne bismo koristili virutal za tu vezu na strani pojedinacnog elementa
+            request.EventPlanner = null;
+
+            context.Requests.Update(request);
+            context.SaveChanges();
+            return request;
         }
     }
 }

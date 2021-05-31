@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="UI.Controls.EventPlannerRequestCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Grid>
+        <materialDesign:Card UniformCornerRadius="20" Margin="10" Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock TextAlignment="Right" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" Text="{Binding Name}" />
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <Border Background="#0d62ff" CornerRadius="5" Padding="20 0" Margin="10 0" HorizontalAlignment="Center" Visibility="{Binding IsMine, Converter={StaticResource b2vc}}">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">Accepted</TextBlock>
+                    </Border>
+                    <TextBlock Margin="0 0 0 10" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Type}" />
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Guest number: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding GuestNumber}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Theme: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Theme}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Budget: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Budget}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Budget flexible: "/>
+                        <CheckBox IsChecked="{Binding BudgetFlexible}" IsHitTestVisible="False" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Date: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Date}"/>
+                    </StackPanel>
+                </StackPanel>
+                <UniformGrid Grid.Row="2" Margin="0" Rows="1">
+                    <Button Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" 
+                        Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding Route}"/>
+                    <Button Content="Accept" Style="{DynamicResource MaterialDesignFlatButton}" Visibility="{Binding CanAccept, Converter={StaticResource b2vc}}"
+                        Command="{Binding Accept}" />
+                    <Button Content="Reject" Style="{DynamicResource MaterialDesignFlatButton}" Visibility="{Binding CanReject, Converter={StaticResource b2vc}}" 
+                        Command="{Binding Reject}" />
+                </UniformGrid>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
