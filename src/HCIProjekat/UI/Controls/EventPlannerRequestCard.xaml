@@ -51,9 +51,9 @@
                     <Button Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" 
                         Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding Route}"/>
                     <Button Content="Accept" Style="{DynamicResource MaterialDesignFlatButton}" Visibility="{Binding CanAccept, Converter={StaticResource b2vc}}"
-                        Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding Route}"/>
+                        Command="{Binding Accept}" />
                     <Button Content="Reject" Style="{DynamicResource MaterialDesignFlatButton}" Visibility="{Binding CanReject, Converter={StaticResource b2vc}}" 
-                        Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding Route}"/>
+                        Command="{Binding Reject}" />
                 </UniformGrid>
             </Grid>
         </materialDesign:Card>
