@@ -37,6 +37,15 @@ namespace Domain.Services
             return partner;
         }
 
+        public void Delete(int partnerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var partner = context.Partner.Find(partnerId);
+            partner.Active = false;
+            context.SaveChanges();
+        }
+
         public Page<Partner> GetPartners(PartnersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
