@@ -88,6 +88,8 @@ namespace UI.ViewModels
             }
         }
 
+        public string BackRoute { get; private set; }
+
         public ObservableCollection<ClientTaskCardModel> TaskModels { get; private set; } = new ObservableCollection<ClientTaskCardModel>();
         public ICommand Search { get; private set; }
         public ObservableCollection<TaskTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<TaskTypeModel>();
@@ -127,7 +129,14 @@ namespace UI.ViewModels
             TaskStatusModels.Add(new TaskStatusModel { TaskStatus = TaskStatus.ACCEPTED, Name = "Accepted" });
             TaskStatusModels.Add(new TaskStatusModel { TaskStatus = TaskStatus.REJECTED, Name = "Rejected" });
 
-
+            if (Context.Store.CurrentUser is Client)
+            {
+                BackRoute = "ClientRequests";
+            }
+            else if (Context.Store.CurrentUser is EventPlanner)
+            {
+                BackRoute = "EventPlannerRequests";
+            }
             //UpdatePage(0);
         }
 
