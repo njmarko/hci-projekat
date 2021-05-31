@@ -13,6 +13,7 @@ using UI.Util;
 using UI.ViewModels.Interfaces;
 using System.Windows.Input;
 using UI.Commands;
+using Domain.Enums;
 
 namespace UI.ViewModels
 {
@@ -34,15 +35,16 @@ namespace UI.ViewModels
             }
         }
 
-        
+
         private Task _task;
 
         public Task Task
         {
             get { return _task; }
-            set 
-            { 
+            set
+            {
                 _task = value;
+                OnPropertyChanged(nameof(IsPending));
                 OnPropertyChanged(nameof(Task));
             }
         }
@@ -52,8 +54,8 @@ namespace UI.ViewModels
         public string CommentContent
         {
             get { return _commentContent; }
-            set 
-            { 
+            set
+            {
                 _commentContent = value;
                 OnPropertyChanged(nameof(CommentContent));
                 OnPropertyChanged(nameof(CanComment));
@@ -65,16 +67,16 @@ namespace UI.ViewModels
         public bool CommentAdded
         {
             get { return _commentAdded; }
-            set 
-            { 
+            set
+            {
                 _commentAdded = value;
                 OnPropertyChanged(nameof(CommentAdded));
             }
         }
 
         private string _requestDetailsRoute;
-        public string RequestDetailsRoute 
-        { 
+        public string RequestDetailsRoute
+        {
             get { return _requestDetailsRoute; }
             set
             {
@@ -82,6 +84,32 @@ namespace UI.ViewModels
                 OnPropertyChanged(nameof(RequestDetailsRoute));
             }
         }
+
+
+        private string _status;
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                _status = value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
+
+        private string _color;
+        public string Color
+        {
+            get { return _color; }
+            set
+            {
+                _color = value;
+                OnPropertyChanged(nameof(Color));
+            }
+        }
+
+        public bool IsPending => Task.TaskStatus == TaskStatus.SENT_TO_CLIENT;
+
 
 
         public bool CanComment => IsValid();
@@ -100,20 +128,29 @@ namespace UI.ViewModels
             _offerService = offerService;
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService);
-            //_task = _taskService.GetTask(1);
-
-            //ovo je samo za testiranje
-            //Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.Now, Id = 1 };
-            //Context.Store.CurrentUser = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now, Username = "vidojegavrilovic", Password = "test123", Id=10 };
-
-            //LoadComments();
-            //UpdatePage(0);
         }
 
+        
 
         private void LoadTask()
         {
             Task = _taskService.GetTask(TaskId);
+            switch (Task.TaskStatus)
+            {
+                case TaskStatus.SENT_TO_CLIENT:
+                    Color = "#fcc428";
+                    Status = "Pending";
+                    break;
+                case TaskStatus.REJECTED:
+                    Color = "#de1212";
+                    Status = "Rejected";
+                    break;
+                case TaskStatus.ACCEPTED:
+                    Color = "#088a35";
+                    Status = "Accepted";
+                    break;
+            }
+
             RequestDetailsRoute = $"RequestDetails?requestId={Task.Request.Id}";
             LoadComments();
             UpdatePage(0);
