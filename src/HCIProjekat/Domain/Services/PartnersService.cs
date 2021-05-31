@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Pagination;
 using Domain.Pagination.Requests;
@@ -60,6 +61,20 @@ namespace Domain.Services
                           )
                           .Include(c => c.Offers)
                           .ToPage(page);
+        }
+
+        public Partner Update(int partnerId, string name, PartnerType partnerType, string country, string city, string street, string streetNumber)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            var partner = context.Partner.Find(partnerId);
+            partner.Name = name;
+            partner.Type = partnerType;
+            partner.Location.Country = country;
+            partner.Location.City = city;
+            partner.Location.Street = street;
+            partner.Location.StreetNumber = streetNumber;
+            context.SaveChanges();
+            return partner;
         }
     }
 }
