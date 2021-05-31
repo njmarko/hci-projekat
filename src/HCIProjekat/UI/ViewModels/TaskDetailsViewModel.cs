@@ -158,7 +158,7 @@ namespace UI.ViewModels
         }
         private bool AbleToReject()
         {
-            return TaskOfferModels.Count() == TaskOfferModels.Where(tom => tom.Status == "Pending").Count();
+            return Task.TaskStatus == TaskStatus.SENT_TO_CLIENT;
         }
         
 
