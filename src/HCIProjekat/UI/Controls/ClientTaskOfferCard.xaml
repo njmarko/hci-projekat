@@ -22,6 +22,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
 
                 </Grid.RowDefinitions>
 
@@ -33,7 +34,7 @@
                     <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
                                Text="{Binding OfferName}"/>
 
-                <Border Grid.Column="1"   Grid.Row="0" Background="{Binding Color}" 
+                <Border   Grid.Row="0" Grid.Column="1"  Background="{Binding Color}" 
                         CornerRadius="10" Padding="4" Margin="5 0 0 0"
                         Width="70"
                         HorizontalAlignment="Left">
@@ -41,9 +42,27 @@
                                Foreground="White" FontWeight="Bold" Text="{Binding Status}">
                     </TextBlock>
                 </Border>
-                <!--<Image Source="https://i.redd.it/oo8hu88g5pg61.png" Margin="0 30 0 0">
-                </Image>-->
+                
                     <TextBlock Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap" 
+                               Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" 
+                               Foreground="DarkGray"
+                               TextAlignment="Center"
+                               FontSize="14"
+                               Text="{Binding PartnerName}"
+                               Margin="20,0,0,0">
+
+                </TextBlock>
+                    
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0 10 0 0">
+                    <Image Source="https://i.redd.it/oo8hu88g5pg61.png">
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="5"
+                                           RadiusY="5"
+                                           Rect="0,0,700,200"/>
+                        </Image.Clip>
+                    </Image>
+                </StackPanel>
+                    <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" 
                            TextAlignment="Left" 
                            Style="{DynamicResource MaterialDesignBody1TextBlock}" 
                            FontSize="14"
@@ -53,26 +72,29 @@
                     </TextBlock>
                     
                     
-                    <Separator Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource MaterialDesignDarkSeparator}"></Separator>
+                    <Separator Grid.Row="4" Grid.ColumnSpan="2" Style="{DynamicResource MaterialDesignDarkSeparator}"></Separator>
 
-                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" 
-                               TextAlignment="Left"
-                                Style="{DynamicResource MaterialDesignBody1TextBlock}" 
-                               FontSize="14"
-                               Text="{Binding PartnerName}"
-                               Margin="20,0,0,0">
-
-                </TextBlock>
-
-                <TextBlock Grid.Row="4"
-                           Grid.ColumnSpan="2"
+                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2">
+                    <TextBlock 
+                           
                            TextAlignment="Left"
-                           Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                           Text="Price:"
+                           FontSize="14"
+                           Margin="20,0,0,5"
+                            Style="{DynamicResource MaterialDesignHeadline6TextBlock}" >
+
+                    </TextBlock>
+
+                    <TextBlock 
+                           TextAlignment="Left"
+                           Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
                             FontSize="14"
                             Text="{Binding OfferPrice}"
-                            Margin="20,0,0,0"></TextBlock>
+                            Margin="20 0 0 5"></TextBlock>
 
-                <StackPanel Grid.Row="5" Orientation="Horizontal" MinHeight="37">
+                </StackPanel>
+                
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" MinHeight="37">
                     <StackPanel Orientation="Horizontal" Visibility="{Binding IsPending, Converter={StaticResource b2vc}}">
                         <Button Margin="20,0,0,10" Content="Accept" 
                                 Style="{DynamicResource MaterialDesignOutlinedButton}" 

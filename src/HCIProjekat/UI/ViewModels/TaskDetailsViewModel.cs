@@ -156,7 +156,7 @@ namespace UI.ViewModels
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService);
             Reject = new RejectAllTaskOffersCommand(this, taskService);
-            Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Id = 1 };
+            //Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Id = 1 };
             CommentAdded = false;
         }
         private bool AbleToReject()
