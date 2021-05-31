@@ -36,6 +36,15 @@ namespace Domain.Services
             return client;
         }
 
+        public void Delete(int clientId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Clients.Find(clientId);
+            request.Active = false;
+            context.SaveChanges();
+        }
+
         public Page<Client> GetClients(ClientsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();

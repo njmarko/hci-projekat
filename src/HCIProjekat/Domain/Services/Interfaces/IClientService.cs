@@ -16,5 +16,7 @@ namespace Domain.Services.Interfaces
         Page<Request> GetRequestsForClient(int clientId, RequestsPage page);
 
         Page<Client> GetClients(ClientsPage page);
+
+        public void Delete(int clientId);
     }
 }
