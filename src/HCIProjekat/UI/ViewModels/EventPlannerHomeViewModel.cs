@@ -70,6 +70,7 @@ namespace UI.ViewModels
             var ok = _modalService.ShowModal<CreateTaskModal>(new CreateTaskViewModel(Context, _taskService, CurrentRequest));
             if (ok)
             {
+                FetchTasksForSelectedRequest();
                 Context.Notifier.ShowInformation("New task has been created successfully.");
             }
         }

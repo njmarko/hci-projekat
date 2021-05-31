@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UI.Commands;
 using UI.Context;
 using UI.ViewModels.Interfaces;
 
@@ -24,6 +26,13 @@ namespace UI.ViewModels
             set { _name = value; OnPropertyChanged(nameof(Name)); OnPropertyChanged(nameof(CanCreateTask)); }
         }
 
+        private string _description = string.Empty;
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; OnPropertyChanged(nameof(Description)); }
+        }
+
         public bool CanCreateTask => IsValid();
 
         private ServiceTypeModel _taskType;
@@ -35,11 +44,15 @@ namespace UI.ViewModels
 
         public ObservableCollection<ServiceTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel TaskTypeError { get; private set; } = new ErrorMessageViewModel();
+
+        public ICommand CreateTask { get; private set; }
 
         public CreateTaskViewModel(IApplicationContext context, ITaskService taskService, Request request) : base(context)
         {
             _taskService = taskService;
             Request = request;
+            CreateTask = new CreateTaskCommand(this, _taskService);
 
             TaskTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             TaskTypeModels.Add(TaskTypeValue);
@@ -61,6 +74,7 @@ namespace UI.ViewModels
             {
                 NameError.ErrorMessage = null;
             }
+            TaskTypeError.ErrorMessage = null;
             return valid;
         }
     }
