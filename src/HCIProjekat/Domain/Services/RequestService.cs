@@ -43,12 +43,25 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            return context.Requests
-                          .Where(r => r.EventPlanner == null || r.EventPlanner.Id == eventPlannerId)
-                          .Where(r => page.OnlyNew && r.EventPlanner == null)
-                          .Where(r => page.Mine && r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId)
-                          .Where(r => page.Type == null || r.Type == page.Type)
-                          .ToPage(page);
+            var query = page.Query.ToLower();
+            var requests = context.Requests
+                                   .Where(r => r.EventPlanner == null || r.EventPlanner.Id == eventPlannerId)
+                                   .Where(r => page.Type == null || r.Type == page.Type)
+                                   .Where(r => page.From == null || r.Date >= page.From)
+                                   .Where(r => page.To == null || r.Date <= page.To)
+                                   .Where(r => r.Name.ToLower().Contains(query)
+                                    || r.Notes.ToLower().Contains(query)
+                                    || r.Type.ToString().ToLower().Contains(query)
+                                    || r.Theme.ToLower().Contains(query));
+            if (page.Mine)
+            {
+                requests = requests.Where(r => r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId);
+            }
+            if (page.OnlyNew)
+            {
+                requests = requests.Where(r => r.EventPlanner == null);
+            }
+            return requests.ToPage(page);
         }
     }
 }

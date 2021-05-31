@@ -46,6 +46,7 @@ namespace UI.Context.Routers
                 "RegisterPartner" => _locator.Get<RegisterPartnerViewModel>(),
                 "EventPlannerHome" => _locator.Get<EventPlannerHomeViewModel>(),
                 "PartnerOffers" => _locator.Get<PartnerOffersViewModel>(),
+                "EventPlannerRequests" => _locator.Get<EventPlannerRequestsViewModel>(),
 
                 // With route parameters
                 "RequestDetails" => GetRequestDetailsVm(),

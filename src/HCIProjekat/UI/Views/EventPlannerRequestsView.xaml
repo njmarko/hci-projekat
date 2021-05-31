@@ -58,6 +58,8 @@
                         <ComboBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Select request type" ItemsSource="{Binding RequestTypeModels}" SelectedItem="{Binding RequestTypeValue}" DisplayMemberPath="Name" />
                         <DatePicker Margin="10 10 10 10" SelectedDate="{Binding From, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select from date" />
                         <DatePicker Margin="10 10 10 10" SelectedDate="{Binding To, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select to date" />
+                        <CheckBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignAccentCheckBox}" Content="Only mine requests" IsChecked="{Binding Mine}" />
+                        <CheckBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignAccentCheckBox}" Content="Only new requests" IsChecked="{Binding OnlyNew}"/>
                     </UniformGrid>
                     <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" />
                     <Button Grid.Row="0" Grid.Column="2" Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" />
