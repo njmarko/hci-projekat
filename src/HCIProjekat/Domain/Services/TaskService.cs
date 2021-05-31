@@ -84,5 +84,16 @@ namespace Domain.Services
                           || t.TaskType.ToString().ToLower().Contains(searchQuery))
                           .ToList();
         }
+
+        public void RejectAllTaskOffers(int taskId)
+        {
+            //throw new NotImplementedException();
+            using var context = _dbContextFactory.CreateDbContext();
+            var task = context.Tasks.Include(t => t.Offers).Where(t => t.Id == taskId).First();
+            foreach (var offer in task.Offers)
+                offer.OfferStatus = OfferStatus.REJECTED;
+            task.TaskStatus = TaskStatus.REJECTED;
+            context.SaveChanges();
+        }
     }
 }

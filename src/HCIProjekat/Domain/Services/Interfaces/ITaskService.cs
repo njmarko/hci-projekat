@@ -14,5 +14,7 @@ namespace Domain.Services.Interfaces
         Task Create(Task task, int requestId);
         Task GetTask(int taskId);
         List<Task> GetTasksForRequest(int requestId, string searchQuery);
+
+        void RejectAllTaskOffers(int taskId);
     }
 }

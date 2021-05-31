@@ -17,6 +17,19 @@ using Domain.Enums;
 
 namespace UI.ViewModels
 {
+    public class ClientTaskOfferCardModel
+    {
+        public string PartnerName { get; set; }
+        public string OfferName { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
+        public int OfferPrice { get; set; }
+        public string Status { get; set; }
+        public string Color { get; set; }
+
+        public bool IsPending { get; set; }
+
+    }
     public class TaskDetailsViewModel : PagingViewModelBase, ISelfValidatingViewModel
     {
         private readonly ITaskService _taskService;
@@ -113,7 +126,12 @@ namespace UI.ViewModels
 
 
         public bool CanComment => IsValid();
+
+        public bool CanRejectAllOffers => AbleToReject();
+
         public ICommand AddCommentCommand { get; set; }
+
+        public ICommand Reject { get; set; }
 
 
 
@@ -128,8 +146,12 @@ namespace UI.ViewModels
             _offerService = offerService;
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService);
+            Reject = new RejectAllTaskOffersCommand(this, taskService);
         }
-
+        private bool AbleToReject()
+        {
+            return TaskOfferModels.Count() == TaskOfferModels.Where(tom => tom.Status == "Pending").Count();
+        }
         
 
         private void LoadTask()
@@ -160,9 +182,28 @@ namespace UI.ViewModels
         {
             TaskOfferModels.Clear();
             var page = _offerService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber});
+            string status = "";
+            string color = "";
+            
             foreach (var entity in page.Entities)
             {
-                
+
+                switch (entity.OfferStatus)
+                {
+                    case OfferStatus.PENDING:
+                        color = "#fcc428";
+                        status = "Pending";
+                        break;
+                    case OfferStatus.REJECTED:
+                        color = "#de1212";
+                        status = "Rejected";
+                        break;
+                    case OfferStatus.ACCEPTED:
+                        color = "#088a35";
+                        status = "Accepted";
+                        break;
+
+                }
 
                 TaskOfferModels.Add(new ClientTaskOfferCardModel 
                 { 
@@ -170,9 +211,13 @@ namespace UI.ViewModels
                     Description = entity.Offer.Description,
                     OfferName = entity.Offer.Name,
                     //Image = entity.Offer.Image,
-                    OfferPrice = entity.Offer.Price
+                    OfferPrice = entity.Offer.Price,
+                    Color = color,
+                    Status = status,
+                    IsPending = entity.OfferStatus == OfferStatus.PENDING
                 });
             }
+            OnPropertyChanged(nameof(CanRejectAllOffers));
             OnPageFetched(page);
 
         }
@@ -227,7 +272,7 @@ namespace UI.ViewModels
                     Sender = comment.Sender.Username,
                     Content = comment.Content,
                     Color = color,
-                    Margin = margin
+                    Margin = margin,
                 });
             }
         }

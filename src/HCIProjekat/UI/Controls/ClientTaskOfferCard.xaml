@@ -8,7 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
     <Grid>
+        <!-- Ova se kartica zeznula iz cista mira i nema sanse da mogu da je ispravim-->
             <materialDesign:Card UniformCornerRadius="20" Margin="10" Padding="5">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -20,12 +24,26 @@
                         <RowDefinition Height="auto"/>
 
                 </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                     
-                    <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
+                    <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
                                Text="{Binding OfferName}"/>
-                <Image Source="https://i.redd.it/oo8hu88g5pg61.png" Margin="0 30 0 0">
-                </Image>
-                    <TextBlock Grid.Row="1" TextWrapping="Wrap" 
+
+                <Border Grid.Column="1"   Grid.Row="0" Background="{Binding Color}" 
+                        CornerRadius="10" Padding="4" Margin="5 0 0 0"
+                        Width="70"
+                        HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Foreground="White" FontWeight="Bold" Text="{Binding Status}">
+                    </TextBlock>
+                </Border>
+                <!--<Image Source="https://i.redd.it/oo8hu88g5pg61.png" Margin="0 30 0 0">
+                </Image>-->
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap" 
                            TextAlignment="Left" 
                            Style="{DynamicResource MaterialDesignBody1TextBlock}" 
                            FontSize="14"
@@ -35,9 +53,9 @@
                     </TextBlock>
                     
                     
-                    <Separator Grid.Row="2" Style="{DynamicResource MaterialDesignDarkSeparator}"></Separator>
+                    <Separator Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource MaterialDesignDarkSeparator}"></Separator>
 
-                <TextBlock Grid.Row="3" TextWrapping="Wrap" 
+                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" 
                                TextAlignment="Left"
                                 Style="{DynamicResource MaterialDesignBody1TextBlock}" 
                                FontSize="14"
@@ -47,15 +65,24 @@
                 </TextBlock>
 
                 <TextBlock Grid.Row="4"
+                           Grid.ColumnSpan="2"
                            TextAlignment="Left"
                            Style="{DynamicResource MaterialDesignBody1TextBlock}" 
                             FontSize="14"
                             Text="{Binding OfferPrice}"
                             Margin="20,0,0,0"></TextBlock>
 
-                <StackPanel Grid.Row="5" Orientation="Horizontal">
-                        <Button Margin="20,0,0,10" Content="Accept" Style="{DynamicResource MaterialDesignOutlinedButton}" Foreground="Green" BorderBrush="Green"></Button>
+                <StackPanel Grid.Row="5" Orientation="Horizontal" MinHeight="37">
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding IsPending, Converter={StaticResource b2vc}}">
+                        <Button Margin="20,0,0,10" Content="Accept" 
+                                Style="{DynamicResource MaterialDesignOutlinedButton}" 
+                                Foreground="Green" BorderBrush="Green"></Button>
+                    
+                        <Button Margin="20,0,0,10" Content="Reject" 
+                                Style="{DynamicResource MaterialDesignOutlinedButton}" 
+                                Foreground="Red" BorderBrush="Red"></Button>
                     </StackPanel>
+                </StackPanel>
                 </Grid>
             </materialDesign:Card>
     </Grid>

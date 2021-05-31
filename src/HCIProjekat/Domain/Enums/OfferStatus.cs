@@ -9,6 +9,7 @@ namespace Domain.Enums
     public enum OfferStatus
     {
         ACCEPTED,
-        REJECTED
+        REJECTED,
+        PENDING
     }
 }

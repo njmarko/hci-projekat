@@ -67,7 +67,8 @@
             <Button Margin="0,10,0,0"  
                                 Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
                                 Background="Red" BorderBrush="Red"
-                    Visibility="{Binding IsPending, Converter={StaticResource b2vc}}">
+                    Visibility="{Binding IsPending, Converter={StaticResource b2vc}}"
+                    Command="{Binding Reject}">
                 <TextBlock Text="Reject all offers" Foreground="White"></TextBlock>
             </Button>
         </StackPanel>
