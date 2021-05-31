@@ -84,5 +84,14 @@ namespace Domain.Services
                           || t.TaskType.ToString().ToLower().Contains(searchQuery))
                           .ToList();
         }
+
+        public Task Update(Task task)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.Tasks.Update(task);
+            context.SaveChanges();
+            return task;
+        }
     }
 }

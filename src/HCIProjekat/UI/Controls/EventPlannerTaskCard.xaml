@@ -28,13 +28,13 @@
                     <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="View task details">
                         <materialDesign:PackIcon Kind="DotsVertical" />
                     </Button>
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanToDo, Converter={StaticResource b2vc}}" ToolTip="Move task to the To Do list" >
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanToDo, Converter={StaticResource b2vc}}" ToolTip="Move task to the To Do list" Command="{Binding MoveToDo}">
                         <materialDesign:PackIcon Kind="Subtasks" />
                     </Button>
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanInProgress, Converter={StaticResource b2vc}}" ToolTip="Start working on a task" >
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanInProgress, Converter={StaticResource b2vc}}" ToolTip="Start working on a task" Command="{Binding MoveInProgress}">
                         <materialDesign:PackIcon Kind="TrendingUp" />
                     </Button>
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#fcc428" BorderBrush="#fcc428" Foreground="White" Visibility="{Binding CanSentToClient, Converter={StaticResource b2vc}}" ToolTip="Send task to client for a review" >
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#fcc428" BorderBrush="#fcc428" Foreground="White" Visibility="{Binding CanSentToClient, Converter={StaticResource b2vc}}" ToolTip="Send task to client for a review" Command="{Binding MoveSentToClient}">
                         <materialDesign:PackIcon Kind="RateReview" />
                     </Button>
                 </StackPanel>

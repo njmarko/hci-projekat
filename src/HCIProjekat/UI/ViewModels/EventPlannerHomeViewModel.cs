@@ -24,6 +24,18 @@ namespace UI.ViewModels
         public bool CanToDo { get; set; }
         public bool CanInProgress { get; set; }
         public bool CanSentToClient { get; set; }
+        public EventPlannerHomeViewModel Vm { get; set; }
+
+        public ICommand MoveToDo { get; private set; }
+        public ICommand MoveInProgress { get; private set; }
+        public ICommand MoveSentToClient { get; private set; }
+
+        public TaskCardModel()
+        {
+            MoveToDo = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.TO_DO));
+            MoveInProgress = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.IN_PROGRESS));
+            MoveSentToClient = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.SENT_TO_CLIENT));
+        }
     }
 
     public class EventPlannerHomeViewModel : ViewModelBase
@@ -76,6 +88,19 @@ namespace UI.ViewModels
             }
         }
 
+        public void UpdateTaskStatus(int taskId, TaskStatus taskStatus)
+        {
+            if ((taskStatus == TaskStatus.SENT_TO_CLIENT) && !_modalService.ShowConfirmationDialog($"Are you sure you want to send task {taskId} to the client for a review?"))
+            {
+                return;
+            }
+            Task task = _taskService.GetTask(taskId);
+            task.TaskStatus = taskStatus;
+            _taskService.Update(task);
+            Context.Notifier.ShowInformation($"Task {taskId}'s status has been updated to {taskStatus}.");
+            FetchTasksForSelectedRequest();
+        }
+
         private void ShowCreateTask()
         {
             var ok = _modalService.ShowModal<CreateTaskModal>(new CreateTaskViewModel(Context, _taskService, CurrentRequest));
@@ -109,7 +134,8 @@ namespace UI.ViewModels
                 TaskType = task.TaskType.ToString().ToUpper()[0] + task.TaskType.ToString().ToLower()[1..],
                 CanToDo = task.TaskStatus == TaskStatus.IN_PROGRESS || task.TaskStatus == TaskStatus.REJECTED,
                 CanInProgress = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.REJECTED,
-                CanSentToClient = task.TaskStatus == TaskStatus.IN_PROGRESS
+                CanSentToClient = task.TaskStatus == TaskStatus.IN_PROGRESS,
+                Vm = this
             };
             switch (task.TaskStatus)
             {
