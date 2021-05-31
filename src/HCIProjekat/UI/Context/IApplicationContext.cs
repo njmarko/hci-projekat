@@ -14,9 +14,7 @@ namespace UI.Context
     {
         public IRouter Router { get; set; }
         public IStore Store { get; set; }
-
         public ICommand OpenLink { get; set; }
-
         public Notifier Notifier { get; set; }
     }
 }

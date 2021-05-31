@@ -14,7 +14,7 @@ namespace UI.ViewModels
         public MainViewModel(IApplicationContext context, NavbarViewModel navbarVm) : base(context)
         {
             NavbarVm = navbarVm;
-            Context.Router.Push("ClientRequestsView");
+            Context.Router.Push("Login");
         }
     }
 }

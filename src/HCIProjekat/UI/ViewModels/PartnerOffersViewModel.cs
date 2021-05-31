@@ -55,8 +55,8 @@ namespace UI.ViewModels
             }
         }
 
-        private OfferTypeModel _offerType;
-        public OfferTypeModel OfferTypeValue
+        private ServiceTypeModel _offerType;
+        public ServiceTypeModel OfferTypeValue
         {
             get { return _offerType; }
             set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
@@ -67,18 +67,18 @@ namespace UI.ViewModels
         public ICommand AddOffer { get; private set; }
         public ICommand Search { get; private set; }
 
-        public ObservableCollection<OfferTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<OfferTypeModel>();
+        public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
 
         public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService) : base(context, offerService, modalService)
         {
-            OfferTypeValue = new OfferTypeModel { Name = "All types", Type = null };
+            OfferTypeValue = new ServiceTypeModel { Name = "All types", Type = null };
             OfferTypeModels.Add(OfferTypeValue);
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Location", Type = ServiceType.LOCATION });
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Catering", Type = ServiceType.CATERING });
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Music", Type = ServiceType.MUSIC });
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Catering", Type = ServiceType.CATERING });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Music", Type = ServiceType.MUSIC });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
 
             _offerService = offerService;
             SearchQuery = string.Empty;

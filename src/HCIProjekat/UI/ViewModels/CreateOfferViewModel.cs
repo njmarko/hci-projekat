@@ -18,7 +18,7 @@ using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class OfferTypeModel
+    public class ServiceTypeModel
     {
         public string Name { get; set; }
         public ServiceType? Type { get; set; }
@@ -56,8 +56,8 @@ namespace UI.ViewModels
             set { _price = value; OnPropertyChanged(nameof(Price)); OnPropertyChanged(nameof(CanCreateOffer)); }
         }
 
-        private OfferTypeModel _offerType;
-        public OfferTypeModel OfferTypeValue
+        private ServiceTypeModel _offerType;
+        public ServiceTypeModel OfferTypeValue
         {
             get { return _offerType; }
             set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
@@ -77,7 +77,7 @@ namespace UI.ViewModels
             get { return (_offerId != -1) ? "Save" : "Create"; }
         }
 
-        public ObservableCollection<OfferTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<OfferTypeModel>();
+        public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
 
         public bool CanCreateOffer => IsValid();
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
@@ -90,12 +90,12 @@ namespace UI.ViewModels
 
         public CreateOfferViewModel(PartnerOffersViewModel partnerVm, IApplicationContext context, IOfferService offerService, IModalService modalService, int partnerId, int offerId) : base(context)
         {
-            OfferTypeValue = new OfferTypeModel { Name = "Location", Type = ServiceType.LOCATION };
+            OfferTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             OfferTypeModels.Add(OfferTypeValue);
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Catering", Type = ServiceType.CATERING });
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Music", Type = ServiceType.MUSIC });
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
-            OfferTypeModels.Add(new OfferTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Catering", Type = ServiceType.CATERING });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Music", Type = ServiceType.MUSIC });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
+            OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
 
             Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
 
