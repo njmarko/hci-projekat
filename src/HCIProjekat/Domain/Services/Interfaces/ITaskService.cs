@@ -15,5 +15,11 @@ namespace Domain.Services.Interfaces
         Task GetTask(int taskId);
         Task Update(Task task);
         List<Task> GetTasksForRequest(int requestId, string searchQuery);
+
+        void RejectAllTaskOffers(int taskId);
+
+        void RejectTaskOffer(int taskId, int taskOfferId);
+
+        void AcceptTaskOffer(int taskId, int taskOfferId);
     }
 }
