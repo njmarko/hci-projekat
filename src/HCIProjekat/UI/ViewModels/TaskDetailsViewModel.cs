@@ -14,6 +14,7 @@ using UI.ViewModels.Interfaces;
 using System.Windows.Input;
 using UI.Commands;
 using Domain.Enums;
+using System.Globalization;
 
 namespace UI.ViewModels
 {
@@ -155,6 +156,8 @@ namespace UI.ViewModels
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService);
             Reject = new RejectAllTaskOffersCommand(this, taskService);
+            Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Id = 1 };
+            CommentAdded = false;
         }
         private bool AbleToReject()
         {
@@ -260,6 +263,7 @@ namespace UI.ViewModels
         public void LoadComments()
         {
             CommentModels.Clear();
+            CommentAdded = false;
             var comments = _commentService.GetCommentsForTask(_task.Id);
             foreach(var comment in comments)
             {

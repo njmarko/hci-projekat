@@ -103,17 +103,16 @@
             <TabItem Header="Comments">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <DockPanel Grid.Row="0" Height="330">
                         <ScrollViewer
-                                     VerticalScrollBarVisibility="Visible" 
-                                      CanContentScroll="True" 
+                                     VerticalScrollBarVisibility="Auto" 
+                                      Grid.Row="0"
                                       Style="{DynamicResource MaterialDesignScrollViewer}"
-                                      x:Name="CommentScrollViewer"
-                                      util:ScrollToTheEnd.AutoScroll="{Binding CommentAdded}">
+                                      util:ScrollToTheEnd.AutoScroll="{Binding CommentAdded}"
+                            x:Name="CommentScrollViewer">
                             <ItemsControl ItemsSource="{Binding CommentModels}" >
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -122,7 +121,6 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
-                    </DockPanel>
                     
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>

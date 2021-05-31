@@ -26,6 +26,7 @@ namespace UI.Util
         private static void AutoScrollPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var scrollViewer = d as ScrollViewer;
+            //MessageBox.Show($"TREBA SKROL DO KRAJA!");
 
             if (scrollViewer != null && (bool)e.NewValue)
             {
