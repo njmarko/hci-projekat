@@ -11,6 +11,7 @@ namespace Domain.Services.Interfaces
     public interface ITaskService
     {
         Page<Task> GetTasksForRequest(int requestId, TasksPageRequest pageRequest);
+        Task Create(Task task, int requestId);
         Task GetTask(int taskId);
         List<Task> GetTasksForRequest(int requestId, string searchQuery);
     }

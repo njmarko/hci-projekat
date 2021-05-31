@@ -29,7 +29,7 @@ namespace UI.Services
             var vm = new ConfirmationViewModel(_context, message);
             IModalWindow window = _serviceProvider.GetRequiredService<ConfirmationModal>();
             window.DataContext = vm;
-            ((Window)window).Owner = Application.Current.MainWindow;
+            (window as Window).Owner = Application.Current.MainWindow;
             return (bool) window.ShowDialog();
         }
 
@@ -37,7 +37,7 @@ namespace UI.Services
         {
             IModalWindow window = _serviceProvider.GetRequiredService<T>();
             window.DataContext = viewModel;
-            ((Window)window).Owner = Application.Current.MainWindow;
+            (window as Window).Owner = Application.Current.MainWindow;
             return (bool) window.ShowDialog();
         }
     }

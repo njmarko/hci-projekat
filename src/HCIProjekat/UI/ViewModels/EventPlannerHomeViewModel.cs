@@ -7,8 +7,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using ToastNotifications.Messages;
 using UI.Commands;
 using UI.Context;
+using UI.Modals;
+using UI.Services.Interfaces;
 
 namespace UI.ViewModels
 {
@@ -16,7 +19,7 @@ namespace UI.ViewModels
     {
         private readonly IEventPlannersService _eventPlannersService;
         private readonly ITaskService _taskService;
-
+        private readonly IModalService _modalService;
         public ObservableCollection<Request> ActiveRequests { get; private set; }
         public ObservableCollection<Task> ToDo { get; private set; } = new ObservableCollection<Task>(); 
         public ObservableCollection<Task> InProgress { get; private set; } = new ObservableCollection<Task>(); 
@@ -46,16 +49,29 @@ namespace UI.ViewModels
         }
 
         public ICommand Search { get; private set; }
+        public ICommand ShowCreateTaskModal { get; private set; }
 
-        public EventPlannerHomeViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, ITaskService taskService) : base(context)
+        public EventPlannerHomeViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, ITaskService taskService, IModalService modalService) : base(context)
         {
             _eventPlannersService = eventPlannersService;
             _taskService = taskService;
+            _modalService = modalService;
             Search = new DelegateCommand(FetchTasksForSelectedRequest);
+            ShowCreateTaskModal = new DelegateCommand(ShowCreateTask);
             ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(11)); // TODO: Zameni ovo sa Context.Store.CurrentUser.Id
             if (ActiveRequests.Count > 0)
             {
                 CurrentRequest = ActiveRequests[0];
+            }
+        }
+
+        private void ShowCreateTask()
+        {
+            var ok = _modalService.ShowModal<CreateTaskModal>(new CreateTaskViewModel(Context, _taskService, CurrentRequest));
+            if (ok)
+            {
+                FetchTasksForSelectedRequest();
+                Context.Notifier.ShowInformation("New task has been created successfully.");
             }
         }
 

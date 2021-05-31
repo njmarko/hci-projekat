@@ -9,6 +9,7 @@ using System.Text;
 using Domain.Pagination.Requests;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using Domain.Exceptions;
 
 namespace Domain.Services
 {
@@ -21,9 +22,34 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        public Task Create(Task task, int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            if (task.TaskType == ServiceType.LOCATION)
+            {
+                var sameTask = context.Tasks
+                                      .Where(t => t.Request.Id == requestId)
+                                      .Where(t => t.TaskType == ServiceType.LOCATION)
+                                      .Where(t => t.TaskStatus != TaskStatus.REJECTED)
+                                      .FirstOrDefault();
+                if (sameTask != null)
+                {
+                    throw new DuplicateTaskException(ServiceType.LOCATION);
+                }
+            }
+
+            task.Request = context.Requests.Find(requestId);
+
+            context.Tasks.Add(task);
+            context.SaveChanges();
+            return task;
+        }
+
         public Task GetTask(int taskId)
         {
             using var context = _dbContextFactory.CreateDbContext();
+
             return context.Tasks
                 .Where(t => t.Id == taskId)
                 .Include(t => t.Request)
