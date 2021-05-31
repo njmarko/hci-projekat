@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Services.Interfaces;
 
 namespace UI.ViewModels
 {
@@ -21,11 +22,15 @@ namespace UI.ViewModels
         public int ActiveRequests { get; set; }
         public int CompletedRequests { get; set; }
 
+        public ICommand Delete { get; set; }
+
     }
 
     public class AdminEventPlannersViewModel : PagingViewModelBase
     {
         private readonly IEventPlannersService _eventPlannersService;
+
+        private readonly IModalService _modalService;
 
         private string _searchQuery;
         public string SearchQuery
@@ -41,11 +46,12 @@ namespace UI.ViewModels
         public ICommand SearchCommand { get; set; }
         public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
 
-        public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService) : base(context)
+        public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, IModalService modalService) : base(context)
         {
             _eventPlannersService = eventPlannersService;
             SearchQuery = string.Empty;
             SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
         }
@@ -57,14 +63,16 @@ namespace UI.ViewModels
             foreach (var entity in page.Entities)
             {
 
-                EventPlannerModels.Add(new AdminEventPlannerCardModel
+                var eventPlannerModel = new AdminEventPlannerCardModel
                 {
                     Name = entity.FirstName + " " + entity.LastName,
                     Username = entity.Username,
                     DateOfBirth = entity.DateOfBirth.ToShortDateString(),
                     ActiveRequests = entity.AcceptedRequests.Count,
                     CompletedRequests = 150
-                });
+                };
+                eventPlannerModel.Delete = new DeleteEventPlannerCommand(this, entity.Id, entity.Username, _modalService, _eventPlannersService);
+                EventPlannerModels.Add(eventPlannerModel);
             }
             OnPageFetched(page);
         }
