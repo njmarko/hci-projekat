@@ -1,4 +1,6 @@
 ﻿using Domain.Entities;
+using Domain.Pagination;
+using Domain.Pagination.Requests;
 using Domain.Persistence;
 using Domain.Services.Interfaces;
 using System;
@@ -33,7 +35,19 @@ namespace Domain.Services
         public Request GetRequest(int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();
+
             return context.Requests.Find(requestId);
+        }
+
+        public Page<Request> GetRequestInterestingForEventPlanner(int eventPlannerId, EventPlannerRequestsPage page)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Requests
+                          .Where(r => page.OnlyNew && r.EventPlanner == null)
+                          .Where(r => page.Mine && r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId)
+                          .Where(r => page.Type == null || r.Type == page.Type)
+                          .ToPage(page);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace UI.ViewModels
             _modalService = modalService;
             Search = new DelegateCommand(FetchTasksForSelectedRequest);
             ShowCreateTaskModal = new DelegateCommand(ShowCreateTask);
-            ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(11)); // TODO: Zameni ovo sa Context.Store.CurrentUser.Id
+            ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(Context.Store.CurrentUser.Id));
             if (ActiveRequests.Count > 0)
             {
                 CurrentRequest = ActiveRequests[0];

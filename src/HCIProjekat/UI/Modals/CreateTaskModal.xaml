@@ -32,7 +32,7 @@
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding TaskTypeModels}" SelectedItem="{Binding TaskTypeValue}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Select task type" Margin="10 15 10 0" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding TaskTypeError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
             <!--Description-->
-            <TextBox BorderThickness="1" Height="100"  AcceptsReturn="True" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter description" Margin="10 15 10 10" TextWrapping="Wrap" MaxHeight="100" VerticalScrollBarVisibility="Auto"/>
+            <TextBox BorderThickness="1" Height="100" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter description" Margin="10 15 10 10" TextWrapping="Wrap" MaxHeight="100" VerticalScrollBarVisibility="Auto"/>
             <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding CreateTask}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
                         AncestorType={x:Type Window}}}" Content="Save" Margin="10 30" Foreground="White" />

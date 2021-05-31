@@ -112,7 +112,7 @@ namespace UI.ViewModels
         public override void UpdatePage(int pageNumber)
         {
             RequestModels.Clear();
-            var page = _clientService.GetRequestsForClient(1, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type }); // TODO: Zameni ovo sa Context.Store.CurrentUser.Id
+            var page = _clientService.GetRequestsForClient(Context.Store.CurrentUser.Id, new RequestsPage { Page = pageNumber, Size = Size, Query = Query, From = From, To = To, Type = RequestTypeValue.Type });
             foreach (var entity in page.Entities)
             {
                 RequestModels.Add(new ClientRequestCardModel { Name = entity.Name, Type = entity.Type.ToString(), GuestNumber = entity.GuestNumber, Budget = $"{entity.Budget} RSD", BudgetFlexible = entity.BudgetFlexible, Theme = entity.Theme, Date = entity.Date.ToString("dd.MM.yyyy"), Context = Context, Route = $"RequestDetails?id={entity.Id}" });
