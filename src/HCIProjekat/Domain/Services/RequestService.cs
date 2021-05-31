@@ -44,6 +44,7 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Requests
+                          .Where(r => r.EventPlanner == null || r.EventPlanner.Id == eventPlannerId)
                           .Where(r => page.OnlyNew && r.EventPlanner == null)
                           .Where(r => page.Mine && r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId)
                           .Where(r => page.Type == null || r.Type == page.Type)
