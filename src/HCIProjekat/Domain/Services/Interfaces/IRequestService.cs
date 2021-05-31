@@ -1,4 +1,6 @@
 ﻿using Domain.Entities;
+using Domain.Pagination;
+using Domain.Pagination.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,7 @@ namespace Domain.Services.Interfaces
         Request Create(int clientId, Request request);
 
         Request GetRequest(int requestId);
+
+        Page<Request> GetRequestInterestingForEventPlanner(int eventPlannerId, EventPlannerRequestsPage page);
     }
 }

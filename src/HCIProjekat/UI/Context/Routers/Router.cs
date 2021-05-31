@@ -14,6 +14,7 @@ namespace UI.Context.Routers
     public class Router : IRouter, INotifyPropertyChanged
     {
         private readonly IViewModelLocator _locator;
+        private readonly Dictionary<string, object> _routeParameters = new Dictionary<string, object>();
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action<ViewModelBase> OnRouteChanged;
@@ -30,8 +31,10 @@ namespace UI.Context.Routers
 
         public void Push(string route)
         {
-            /*CurrentViewModel = route switch
+            string baseRoute = ParseRouteParameters(route);
+            CurrentViewModel = baseRoute switch
             {
+                // No route parameters
                 "Login" => _locator.Get<LoginViewModel>(),
                 "Register" => _locator.Get<RegisterViewModel>(),
                 "ClientRequests" => _locator.Get<ClientRequestsViewModel>(),
@@ -41,83 +44,54 @@ namespace UI.Context.Routers
                 "RegisterEventPlanner" => _locator.Get<RegisterEventPlannerViewModel>(),
                 "RegisterAdmin" => _locator.Get<RegisterAdminViewModel>(),
                 "RegisterPartner" => _locator.Get<RegisterPartnerViewModel>(),
-                "RequestDetails" => _locator.Get<RequestDetailsViewModel>(),
-                "TaskDetails" => _locator.Get<TaskDetailsViewModel>(),
                 "EventPlannerHome" => _locator.Get<EventPlannerHomeViewModel>(),
                 "PartnerOffers" => _locator.Get<PartnerOffersViewModel>(),
+                "EventPlannerRequests" => _locator.Get<EventPlannerRequestsViewModel>(),
+
+                // With route parameters
+                "RequestDetails" => GetRequestDetailsVm(),
+                "TaskDetails" => GetTaskDetailsVm(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
-            };*/
+            };
             OnRouteChanged?.Invoke(CurrentViewModel);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentViewModel)));
+        }
 
-            ViewModelBase viewModel;
+        public T GetRouteParameter<T>(string parameterName)
+        {
+            if (!_routeParameters.ContainsKey(parameterName))
+            {
+                throw new Exception($"Undefined route parameter '{parameterName}'.");
+            }
+            return (T) Convert.ChangeType(_routeParameters[parameterName], typeof(T));
+        }
 
+        // TODO: Ovo najverovatnije ispaviti da se u view modelu hvata event kad se promeni route parametar, ali i ovo radi
+        private ViewModelBase GetRequestDetailsVm()
+        {
+            RequestDetailsViewModel vm = _locator.Get<RequestDetailsViewModel>() as RequestDetailsViewModel;
+            vm.RequestId = GetRouteParameter<int>("requestId");
+            return vm;
+        }
 
-            if (route.Contains("Login"))
-            {
-                viewModel = _locator.Get<LoginViewModel>();
+        private ViewModelBase GetTaskDetailsVm()
+        {
+            TaskDetailsViewModel vm = _locator.Get<TaskDetailsViewModel>() as TaskDetailsViewModel;
+            vm.TaskId = GetRouteParameter<int>("taskId");
+            return vm;
+        }
 
-            }
-            else if (route.Contains("Register"))
+        private string ParseRouteParameters(string route)
+        {
+            _routeParameters.Clear();
+            var tokens = route.Split("?");
+            var baseRoute = tokens[0];
+            foreach (var param in tokens[1..])
             {
-                viewModel = _locator.Get<RegisterViewModel>();
+                var paramTokens = param.Split("=");
+                _routeParameters[paramTokens[0].Trim()] = paramTokens[1].Trim();
             }
-            else if (route.Contains("ClientRequests"))
-            {
-                viewModel = _locator.Get<ClientRequestsViewModel>();
-            }
-            else if (route.Contains("AdminClients"))
-            {
-                viewModel = _locator.Get<AdminClientsViewModel>();
-            }
-            else if (route.Contains("AdminEventPlanners"))
-            {
-                viewModel = _locator.Get<AdminEventPlannersViewModel>();
-            }
-            else if (route.Contains("RegisterEventPlanner"))
-            {
-                viewModel = _locator.Get<RegisterEventPlannerViewModel>();
-            }
-            else if (route.Contains("RegisterAdmin"))
-            {
-                viewModel = _locator.Get<RegisterAdminViewModel>();
-            }
-            else if (route.Contains("RegisterPartner"))
-            {
-                viewModel = _locator.Get<RegisterPartnerViewModel>();
-            }
-            else if (route.Contains("RequestDetails"))
-            {
-                viewModel = _locator.Get<RequestDetailsViewModel>();
-                string[] tokens = route.Split("?");
-                string idValue = tokens[1].Split("=")[1];
-                ((RequestDetailsViewModel)viewModel).RequestId = Int32.Parse(idValue);
-            }
-            else if (route.Contains("TaskDetails"))
-            {
-                viewModel = _locator.Get<TaskDetailsViewModel>();
-                string[] tokens = route.Split("?");
-                string idValue = tokens[1].Split("=")[1];
-                ((TaskDetailsViewModel)viewModel).TaskId = Int32.Parse(idValue);
-            }
-            else if (route.Contains("EventPlannerHome"))
-            {
-                viewModel = _locator.Get<EventPlannerHomeViewModel>();
-            }
-            else if (route.Contains("PartnerOffers"))
-            {
-                viewModel = _locator.Get<PartnerOffersViewModel>();
-            }
-            else
-            {
-                throw new Exception($"Undefined route '{route}'. No view model registered for the given route.");
-            }
-            
-            
-            CurrentViewModel = viewModel;
-            OnRouteChanged?.Invoke(CurrentViewModel);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentViewModel)));
-
+            return baseRoute;
         }
     }
 }

@@ -165,7 +165,7 @@ namespace UI.ViewModels
                     TaskStatus = entity.TaskStatus,
                     IsPending = entity.TaskStatus == TaskStatus.SENT_TO_CLIENT,
                     Context = Context,
-                    Route = $"TaskDetails?id={entity.Id}"
+                    Route = $"TaskDetails?taskId={entity.Id}"
                 });
             }
             OnPageFetched(page);

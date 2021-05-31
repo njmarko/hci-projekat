@@ -114,7 +114,7 @@ namespace UI.ViewModels
         private void LoadTask()
         {
             Task = _taskService.GetTask(TaskId);
-            RequestDetailsRoute = $"RequestDetails?id={Task.Request.Id}";
+            RequestDetailsRoute = $"RequestDetails?requestId={Task.Request.Id}";
             LoadComments();
             UpdatePage(0);
         }

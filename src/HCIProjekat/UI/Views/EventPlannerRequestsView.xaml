@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="UI.Views.EventPlannerRequestsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:UI.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"      
+             xmlns:local="clr-namespace:UI"
+             controls:MyUserControlBehavior.WindowTitle="User home page"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="White" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <!--Search and filter block-->
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search reqeusts" Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
+                    <CheckBox Grid.Row="0" Grid.Column="3" Margin="5 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
+                </Grid>
+                <!--Filter block-->
+                <Grid Grid.Row="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <UniformGrid Grid.Row="0" Grid.Column="0" Rows="1">
+                        <ComboBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Select request type" ItemsSource="{Binding RequestTypeModels}" SelectedItem="{Binding RequestTypeValue}" DisplayMemberPath="Name" />
+                        <DatePicker Margin="10 10 10 10" SelectedDate="{Binding From, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select from date" />
+                        <DatePicker Margin="10 10 10 10" SelectedDate="{Binding To, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select to date" />
+                        <CheckBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignAccentCheckBox}" Content="Only mine requests" IsChecked="{Binding Mine}" />
+                        <CheckBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignAccentCheckBox}" Content="Only new requests" IsChecked="{Binding OnlyNew}"/>
+                    </UniformGrid>
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" />
+                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" />
+                </Grid>
+            </Grid>
+        </Grid>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding RequestModels}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:ClientRequestCard />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <controls:Pagination Grid.Row="2" />
+    </Grid>
+</UserControl>
