@@ -91,6 +91,8 @@ namespace UI.ViewModels
 
             _modalService = modalService;
             PartnerId = 1;
+
+            Rows = 1;
         }
 
         private void ClearFilter()

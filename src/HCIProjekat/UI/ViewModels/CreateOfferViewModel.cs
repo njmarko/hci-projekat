@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,15 +25,15 @@ namespace UI.ViewModels
         public ServiceType? Type { get; set; }
     }
 
-    public class CreateOfferViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class CreateOfferViewModel : ValidationModel<CreateOfferViewModel>
     {
         private IOfferService _offerService;
 
         private byte[] _imageInBytes;
-        public byte[] ImageInBytes
+        public byte[] ImageInBytesField
         {
             get { return _imageInBytes; }
-            set { _imageInBytes = value; }
+            set { _imageInBytes = value; OnPropertyChanged(nameof(ImageInBytesField)); }
         }
 
         private BitmapImage _image;
@@ -43,17 +44,17 @@ namespace UI.ViewModels
         }
 
         private string _name;
-        public string Name
+        public string NameField
         {
             get { return _name; }
-            set { _name = value; OnPropertyChanged(nameof(Name)); OnPropertyChanged(nameof(CanCreateOffer)); }
+            set { _name = value; OnPropertyChanged(nameof(NameField)); OnPropertyChanged(nameof(CanCreateOffer)); }
         }
 
         private string _price;
-        public string Price
+        public string PriceField
         {
             get { return _price; }
-            set { _price = value; OnPropertyChanged(nameof(Price)); OnPropertyChanged(nameof(CanCreateOffer)); }
+            set { _price = value; OnPropertyChanged(nameof(PriceField)); OnPropertyChanged(nameof(CanCreateOffer)); }
         }
 
         private ServiceTypeModel _offerType;
@@ -64,10 +65,10 @@ namespace UI.ViewModels
         }
 
         private string _description;
-        public string Description
+        public string DescriptionField
         {
             get { return _description; }
-            set { _description = value; OnPropertyChanged(nameof(Description)); OnPropertyChanged(nameof(CanCreateOffer)); }
+            set { _description = value; OnPropertyChanged(nameof(DescriptionField)); OnPropertyChanged(nameof(CanCreateOffer)); }
         }
 
         private int _offerId;
@@ -114,11 +115,11 @@ namespace UI.ViewModels
         {
             var offer = _offerService.Get(_offerId);
 
-            ImageInBytes = offer.Image;
-            Image = ImageUtil.ConvertToImage(ImageInBytes);
-            Name = offer.Name;
-            Description = offer.Description;
-            Price = offer.Price.ToString();
+            ImageInBytesField = offer.Image;
+            Image = ImageUtil.ConvertToImage(ImageInBytesField);
+            NameField = offer.Name;
+            DescriptionField = offer.Description;
+            PriceField = offer.Price.ToString();
             var enumName = offer.OfferType.ToString().First().ToString().ToUpper() + offer.OfferType.ToString().ToLower()[1..];
             OfferTypeValue = OfferTypeModels.Where(o => o.Name == enumName).First();
         }
@@ -127,7 +128,7 @@ namespace UI.ViewModels
         {
             bool valid = true;
             //Name
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(NameField) && IsDirty(nameof(NameField)))
             {
                 NameError.ErrorMessage = "Name is required.";
                 valid = false;
@@ -137,7 +138,7 @@ namespace UI.ViewModels
                 NameError.ErrorMessage = null;
             }
             //Description
-            if (string.IsNullOrEmpty(Description))
+            if (string.IsNullOrEmpty(DescriptionField) && IsDirty(nameof(DescriptionField)))
             {
                 DescriptionError.ErrorMessage = "Description is required.";
                 valid = false;
@@ -147,14 +148,14 @@ namespace UI.ViewModels
                 DescriptionError.ErrorMessage = null;
             }
             //Price
-            if (string.IsNullOrEmpty(Price))
+            if (string.IsNullOrEmpty(PriceField) && IsDirty(nameof(PriceField)))
             {
                 PriceError.ErrorMessage = "Price is required!";
                 valid = false;
             }
-            else if (int.TryParse(Price, out int priceNumber))
+            else if (int.TryParse(PriceField, out int priceNumber))
             {
-                if (priceNumber <= 0)
+                if (priceNumber <= 0 && IsDirty(nameof(PriceField)))
                 {
                     PriceError.ErrorMessage = "Price must be greater than 0!";
                     valid = false;
@@ -164,13 +165,13 @@ namespace UI.ViewModels
                     PriceError.ErrorMessage = null;
                 }
             }
-            else
+            else if (IsDirty(nameof(PriceField)))
             {
                 PriceError.ErrorMessage = "Price must be number!";
                 valid = false;
             }
             //Image
-            if (ImageInBytes == null)
+            if (ImageInBytesField == null && IsDirty(nameof(ImageInBytesField)))
             {
                 ImageError.ErrorMessage = "Image is required.";
                 valid = false;
@@ -180,7 +181,7 @@ namespace UI.ViewModels
                 ImageError.ErrorMessage = null;
             }
 
-            return valid;
+            return valid && AllDirty();
         }
 
         private void ImageInput()
@@ -192,7 +193,7 @@ namespace UI.ViewModels
             if (dialog.ShowDialog() == true)
             {
                 var newImage = ImageUtil.ReadFromFile(dialog.FileName);
-                ImageInBytes = newImage;
+                ImageInBytesField = newImage;
                 Image = ImageUtil.ConvertToImage(newImage);
             }
         }
