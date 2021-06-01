@@ -35,22 +35,24 @@ namespace UI.ViewModels
             set { _isVisible = value; OnPropertyChanged(nameof(IsVisible)); }
         }
 
+        public NotificationViewModel NotificationViewModel { get; private set; }
         public ICommand Logout { get; private set; }
         public ICommand UpdateProfile { get; private set; }
         public ICommand ChangePassword { get; private set; }
 
-
         public ObservableCollection<NavbarItemModel> NavbarItems { get; private set; } = new ObservableCollection<NavbarItemModel>();
 
-        public NavbarViewModel(IApplicationContext context, IModalService modalService, IUserService userService) : base(context)
+        public NavbarViewModel(IApplicationContext context, IModalService modalService, IUserService userService, INotificationService notificationService) : base(context)
         {
             _modalService = modalService;
             _userService = userService;
-            Logout = new LogoutCommand(context);
-            UpdateProfile = new DelegateCommand(() => OpenUpdateProfileInfoModal());
-            ChangePassword = new DelegateCommand(() => OpenChangePasswordModal());
 
-            context.Router.OnRouteChanged += UpdateNavbar;
+            NotificationViewModel = new NotificationViewModel(context, notificationService);
+            Logout = new LogoutCommand(context);
+            UpdateProfile = new DelegateCommand(OpenUpdateProfileInfoModal);
+            ChangePassword = new DelegateCommand(OpenChangePasswordModal);
+
+            context.Router.RouteChanged += UpdateNavbar;
         }
 
         private void OpenChangePasswordModal()
@@ -62,6 +64,8 @@ namespace UI.ViewModels
         {
             _modalService.ShowModal<UpdateProfileInfoModal>(new UpdateProfileViewModel(Context, _userService));
         }
+
+
         private void UpdateNavbar(ViewModelBase currentVm)
         {
             IsVisible = (currentVm is not LoginViewModel) && (currentVm is not RegisterViewModel);

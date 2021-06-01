@@ -39,5 +39,22 @@ namespace Domain.Services
                                         .Take(limit)
                                         .ToList();
         }
+
+        public void ReadNotification(int notificationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Seen(int userId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var unseen = context.Notifications.Where(n => n.UserId == userId && !n.Seen);
+            foreach (var notification in unseen)
+            {
+                notification.Seen = true;
+            }
+            context.SaveChanges();
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace UI.Context.Routers
         private readonly Dictionary<string, object> _routeParameters = new Dictionary<string, object>();
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public event Action<ViewModelBase> OnRouteChanged;
+        public event Action<ViewModelBase> RouteChanged;
 
         public ViewModelBase CurrentViewModel { get; set; }
 
@@ -53,7 +53,7 @@ namespace UI.Context.Routers
                 "TaskDetails" => GetTaskDetailsVm(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
             };
-            OnRouteChanged?.Invoke(CurrentViewModel);
+            RouteChanged?.Invoke(CurrentViewModel);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentViewModel)));
         }
 
