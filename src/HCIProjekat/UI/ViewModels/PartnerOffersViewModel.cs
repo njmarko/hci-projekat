@@ -66,6 +66,7 @@ namespace UI.ViewModels
 
         public ICommand AddOffer { get; private set; }
         public ICommand Search { get; private set; }
+        public ICommand Clear { get; private set; }
 
         public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
@@ -86,9 +87,16 @@ namespace UI.ViewModels
 
             AddOffer = new DelegateCommand(() => OpenOfferModal(1, -1));
             Search = new DelegateCommand(() => UpdatePage(0));
+            Clear = new DelegateCommand(() => ClearFilter());
 
             _modalService = modalService;
             PartnerId = 1;
+        }
+
+        private void ClearFilter()
+        {
+            OfferTypeValue = OfferTypeModels.First();
+            UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
