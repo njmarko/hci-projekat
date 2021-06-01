@@ -276,7 +276,7 @@ namespace UI.ViewModels
                 string margin;
                 var user = Context.Store.CurrentUser;
 
-                if (user.Id == comment.Sender.Id) {
+                if (user.Id == comment.Sender.Id || (Context.Store.CurrentUser is Admin && comment.Sender is EventPlanner)) {
                 //ovo je za sad hardkodovano, kada se poveze sa loginom vrsice se provjera
                // if (1 == comment.Sender.Id) {
                     color = "#78cdff";
