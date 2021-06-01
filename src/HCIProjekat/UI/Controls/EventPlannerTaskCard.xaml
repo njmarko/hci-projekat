@@ -25,20 +25,23 @@
                     <TextBlock TextWrapping="Wrap" TextAlignment="Center" Style="{DynamicResource MaterialDesignBody1TextBlock}" Text="{Binding Description}" />
                 </ScrollViewer>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Margin="0 10 0 0">
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="View task details">
+                    <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="View task details">
                         <materialDesign:PackIcon Kind="DotsVertical" />
                     </Button>
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanToDo, Converter={StaticResource b2vc}}" ToolTip="Move task to the To Do list" Command="{Binding MoveToDo}">
+                    <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanToDo, Converter={StaticResource b2vc}}" ToolTip="Move task to the To Do list" Command="{Binding MoveToDo}">
                         <materialDesign:PackIcon Kind="Subtasks" />
                     </Button>
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanInProgress, Converter={StaticResource b2vc}}" ToolTip="Start working on a task" Command="{Binding MoveInProgress}">
+                    <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#0d62ff" BorderBrush="#0d62ff" Foreground="White" Visibility="{Binding CanInProgress, Converter={StaticResource b2vc}}" ToolTip="Start working on a task" Command="{Binding MoveInProgress}">
                         <materialDesign:PackIcon Kind="TrendingUp" />
                     </Button>
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#fcc428" BorderBrush="#fcc428" Foreground="White" Visibility="{Binding CanSentToClient, Converter={StaticResource b2vc}}" ToolTip="Send task to client for a review" Command="{Binding MoveSentToClient}">
+                    <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#fcc428" BorderBrush="#fcc428" Foreground="White" Visibility="{Binding CanSentToClient, Converter={StaticResource b2vc}}" ToolTip="Send task to client for a review" Command="{Binding MoveSentToClient}">
                         <materialDesign:PackIcon Kind="RateReview" />
                     </Button>
-                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete task" Visibility="{Binding CanDelete, Converter={StaticResource b2vc}}" Command="{Binding Delete}">
+                    <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete task" Visibility="{Binding CanDelete, Converter={StaticResource b2vc}}" Command="{Binding Delete}">
                         <materialDesign:PackIcon Kind="Remove" />
+                    </Button>
+                    <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Edit basic task information" Visibility="{Binding CanEdit, Converter={StaticResource b2vc}}" Command="{Binding Edit}">
+                        <materialDesign:PackIcon Kind="Edit" />
                     </Button>
                 </StackPanel>
             </Grid>

@@ -16,13 +16,15 @@ namespace UI.Commands
     {
         private readonly CreateTaskViewModel _createTaskVm;
         private readonly ITaskService _taskService;
+        private readonly int _taskId;
 
         public event EventHandler CanExecuteChanged;
 
-        public CreateTaskCommand(CreateTaskViewModel createTaskVm, ITaskService taskService)
+        public CreateTaskCommand(CreateTaskViewModel createTaskVm, ITaskService taskService, int taskId)
         {
             _createTaskVm = createTaskVm;
             _taskService = taskService;
+            _taskId = taskId;
 
             _createTaskVm.PropertyChanged += _createTaskVm_PropertyChanged;
         }
@@ -44,16 +46,14 @@ namespace UI.Commands
         {
             try
             {
-                var task = new Task
+                if (_taskId == -1)
                 {
-                    Name = _createTaskVm.Name,
-                    Comments = new List<Comment>(),
-                    Offers = new List<TaskOffer>(),
-                    Description = _createTaskVm.Description,
-                    TaskStatus = TaskStatus.TO_DO,
-                    TaskType = _createTaskVm.TaskTypeValue.Type.Value
-                };
-                _taskService.Create(task, _createTaskVm.Request.Id);
+                    Create();
+                }
+                else
+                {
+                    Update();
+                }
                 (parameter as Window).DialogResult = true;
                 (parameter as Window).Close();
             }
@@ -61,6 +61,29 @@ namespace UI.Commands
             {
                 _createTaskVm.TaskTypeError.ErrorMessage = exception.Message;
             }
+        }
+
+        private void Create()
+        {
+            var task = new Task
+            {
+                Name = _createTaskVm.Name,
+                Comments = new List<Comment>(),
+                Offers = new List<TaskOffer>(),
+                Description = _createTaskVm.Description,
+                TaskStatus = TaskStatus.TO_DO,
+                TaskType = _createTaskVm.TaskTypeValue.Type.Value
+            };
+            _taskService.Create(task, _createTaskVm.Request.Id);
+        }
+
+        private void Update()
+        {
+            var task = _taskService.GetTask(_taskId);
+            task.Name = _createTaskVm.Name;
+            task.Description = _createTaskVm.Description;
+            task.TaskType = _createTaskVm.TaskTypeValue.Type.Value;
+            _taskService.Update(task);
         }
     }
 }

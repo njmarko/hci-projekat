@@ -114,6 +114,21 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
+            if (task.TaskType == ServiceType.LOCATION)
+            {
+                var sameTask = context.Tasks
+                                      .Where(t => t.Active)
+                                      .Where(t => t.Id != task.Id)
+                                      .Where(t => t.Request.Id == task.Request.Id)
+                                      .Where(t => t.TaskType == ServiceType.LOCATION)
+                                      .Where(t => t.TaskStatus != TaskStatus.REJECTED)
+                                      .FirstOrDefault();
+                if (sameTask != null)
+                {
+                    throw new DuplicateTaskException(ServiceType.LOCATION);
+                }
+            }
+
             context.Tasks.Update(task);
             context.SaveChanges();
             return task;
