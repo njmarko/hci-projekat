@@ -26,7 +26,7 @@
 
             <Rectangle Grid.Column="1" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" Margin="10 10"/>
 
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" MaxLength="30" materialDesign:HintAssist.Hint="Enter name" Margin="10 15" Text="{Binding NameField, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" MaxLength="30" materialDesign:HintAssist.Hint="Enter name" Margin="10 15" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -15 10 0" FontSize="10" />
 
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding OfferTypeModels}" SelectedItem="{Binding OfferTypeValue}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Select offer type" Margin="10 15" />
@@ -37,7 +37,7 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" MaxLength="9" materialDesign:HintAssist.Hint="Enter price" Margin="10 15" Text="{Binding PriceField, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" MaxLength="9" materialDesign:HintAssist.Hint="Enter price" Margin="10 15" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Column="1" Text="RSD" Margin="0 38 0 0" />
             </Grid>
@@ -51,7 +51,7 @@
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter description" 
-                    Margin="10 15" Text="{Binding DescriptionField, UpdateSourceTrigger=PropertyChanged}" />
+                    Margin="10 15" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding DescriptionError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -15 10 0" FontSize="10" />
 
             <Grid>

@@ -78,10 +78,10 @@ namespace UI.Commands
             var offer = _offerService.Get(_offerId);
             _partnerVm.AddItem(offer);
 
-            offer.Description = _createOfferVm.DescriptionField;
-            offer.Image = _createOfferVm.ImageInBytesField;
-            offer.Name = _createOfferVm.NameField;
-            offer.Price = int.Parse(_createOfferVm.PriceField);
+            offer.Description = _createOfferVm.Description;
+            offer.Image = _createOfferVm.ImageInBytes;
+            offer.Name = _createOfferVm.Name;
+            offer.Price = int.Parse(_createOfferVm.Price);
             offer.OfferType = (ServiceType)_createOfferVm.OfferTypeValue.Type;
 
             _offerService.Update(offer);
@@ -91,10 +91,10 @@ namespace UI.Commands
         {
             var offer = _offerService.Create(new Offer
             {
-                Description = _createOfferVm.DescriptionField,
-                Image = _createOfferVm.ImageInBytesField,
-                Name = _createOfferVm.NameField,
-                Price = int.Parse(_createOfferVm.PriceField),
+                Description = _createOfferVm.Description,
+                Image = _createOfferVm.ImageInBytes,
+                Name = _createOfferVm.Name,
+                Price = int.Parse(_createOfferVm.Price),
                 OfferType = (ServiceType)_createOfferVm.OfferTypeValue.Type
             }, _partnerId);
 

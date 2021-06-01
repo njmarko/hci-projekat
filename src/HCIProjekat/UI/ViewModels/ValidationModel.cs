@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UI.Context;
+using UI.CustomAttributes;
 
 namespace UI.ViewModels
 {
@@ -22,14 +24,12 @@ namespace UI.ViewModels
         {
             _dirtyValues = new Dictionary<string, bool>();
 
-            var properties = typeof(T).GetProperties();
+            var properties = typeof(T).GetProperties()
+                                      .Where(prop => Attribute.IsDefined(prop, typeof(ValidationField)));
             foreach (var prop in properties)
             {
-                if (prop.Name.ToLower().Contains("field"))
-                {
-                    _dirtyValues.Add(prop.Name, false);
-                    _numOfFields++;
-                }
+                _dirtyValues.Add(prop.Name, false);
+                _numOfFields++;
             }
         }
 
@@ -50,7 +50,6 @@ namespace UI.ViewModels
 
         protected bool AllDirty()
         {
-            System.Console.WriteLine(_dirtyValues.Values.Where(v => v).Count());
             return _dirtyValues.Values.Where(v => v).Count() == _numOfFields;
         }
     }
