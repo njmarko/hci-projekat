@@ -37,6 +37,9 @@
                     <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Background="#fcc428" BorderBrush="#fcc428" Foreground="White" Visibility="{Binding CanSentToClient, Converter={StaticResource b2vc}}" ToolTip="Send task to client for a review" Command="{Binding MoveSentToClient}">
                         <materialDesign:PackIcon Kind="RateReview" />
                     </Button>
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete task" Visibility="{Binding CanDelete, Converter={StaticResource b2vc}}" Command="{Binding Delete}">
+                        <materialDesign:PackIcon Kind="Remove" />
+                    </Button>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>

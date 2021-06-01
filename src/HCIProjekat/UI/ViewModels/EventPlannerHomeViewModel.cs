@@ -24,11 +24,13 @@ namespace UI.ViewModels
         public bool CanToDo { get; set; }
         public bool CanInProgress { get; set; }
         public bool CanSentToClient { get; set; }
+        public bool CanDelete => CanToDo || CanInProgress || CanSentToClient;
         public EventPlannerHomeViewModel Vm { get; set; }
 
         public ICommand MoveToDo { get; private set; }
         public ICommand MoveInProgress { get; private set; }
         public ICommand MoveSentToClient { get; private set; }
+        public ICommand Delete { get; set; }
 
         public TaskCardModel()
         {
@@ -111,7 +113,7 @@ namespace UI.ViewModels
             }
         }
 
-        private void FetchTasksForSelectedRequest()
+        public void FetchTasksForSelectedRequest()
         {
             if (_currentRequest != null)
             {
@@ -137,6 +139,7 @@ namespace UI.ViewModels
                 CanSentToClient = task.TaskStatus == TaskStatus.IN_PROGRESS,
                 Vm = this
             };
+            taskModel.Delete = new DeleteTaskCommand(this, task.Id, _taskService, _modalService);
             switch (task.TaskStatus)
             {
                 case TaskStatus.TO_DO:
