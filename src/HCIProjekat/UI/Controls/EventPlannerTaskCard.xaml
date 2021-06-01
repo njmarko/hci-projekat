@@ -38,7 +38,7 @@
                         <materialDesign:PackIcon Kind="RateReview" />
                     </Button>
                     <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete task" Visibility="{Binding CanDelete, Converter={StaticResource b2vc}}" Command="{Binding Delete}">
-                        <materialDesign:PackIcon Kind="Remove" />
+                        <materialDesign:PackIcon Kind="Delete" />
                     </Button>
                     <Button Width="35" Height="35" Margin="3 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Edit basic task information" Visibility="{Binding CanEdit, Converter={StaticResource b2vc}}" Command="{Binding Edit}">
                         <materialDesign:PackIcon Kind="Edit" />

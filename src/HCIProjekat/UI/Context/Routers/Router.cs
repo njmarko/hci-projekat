@@ -86,10 +86,13 @@ namespace UI.Context.Routers
             _routeParameters.Clear();
             var tokens = route.Split("?");
             var baseRoute = tokens[0];
-            foreach (var param in tokens[1..])
+            if (tokens.Length > 1)
             {
-                var paramTokens = param.Split("=");
-                _routeParameters[paramTokens[0].Trim()] = paramTokens[1].Trim();
+                foreach (var param in tokens[1].Split("&"))
+                {
+                    var paramTokens = param.Split("=");
+                    _routeParameters[paramTokens[0].Trim()] = paramTokens[1].Trim();
+                }
             }
             return baseRoute;
         }

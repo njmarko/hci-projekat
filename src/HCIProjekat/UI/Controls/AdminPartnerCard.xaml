@@ -28,7 +28,7 @@
                         <materialDesign:PackIcon Kind="DotsVertical" />
                     </Button>
                     <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete partner" Command="{Binding Delete}">
-                        <materialDesign:PackIcon Kind="Remove" />
+                        <materialDesign:PackIcon Kind="Delete" />
                     </Button>
                 </StackPanel>
             </Grid>

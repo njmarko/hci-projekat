@@ -47,7 +47,7 @@
                         <materialDesign:PackIcon Kind="Edit" />
                     </Button>
                     <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete request" Command="{Binding Delete}">
-                        <materialDesign:PackIcon Kind="Remove" />
+                        <materialDesign:PackIcon Kind="Delete" />
                     </Button>
                 </StackPanel>
             </Grid>
