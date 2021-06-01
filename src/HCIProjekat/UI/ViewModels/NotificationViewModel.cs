@@ -2,6 +2,7 @@
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,12 @@ using UI.Context;
 
 namespace UI.ViewModels
 {
+    public class NotificationModel
+    {
+        public int Id { get; set; }
+        public string Message { get; set; }
+    }
+
     public class NotificationViewModel : ViewModelBase
     {
         private readonly INotificationService _notificationService;
@@ -32,9 +39,10 @@ namespace UI.ViewModels
                     MarkAllAsSeen();
                 }
                 OnPropertyChanged(nameof(DidOpenNotifications));
-                OnPropertyChanged(nameof(NotificationCount));
             }
         }
+
+        public ObservableCollection<Notification> Notifications { get; private set; } = new ObservableCollection<Notification>();
 
         public NotificationViewModel(IApplicationContext context, INotificationService notificationService) : base(context)
         {
@@ -47,11 +55,30 @@ namespace UI.ViewModels
         {
             if (currentUser != null)
             {
+                Notifications.Clear();
                 var notifications = _notificationService.Read(currentUser.Id);
+                InsertNotifications(notifications);
                 NotificationCount = notifications.Count;
             }
         }
 
+        private void InsertNotifications(IEnumerable<Notification> notifications)
+        {
+            foreach (var notification in notifications)
+            {
+                InsertNotification(notification);
+            }
+        }
+
+        private void InsertNotification(Notification notification)
+        {
+            var model = new NotificationModel
+            {
+                Id = notification.Id,
+                Message = notification.Message
+            };
+            Notifications.Add(notification);
+        }
 
         private void MarkAllAsSeen()
         {
