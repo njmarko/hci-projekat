@@ -26,5 +26,7 @@ namespace Domain.Services.Interfaces
         Page<Request> GetRequestInterestingForEventPlanner(int eventPlannerId, EventPlannerRequestsPage page);
 
         Page<Request> GetAllRequests(RequestsPage page);
+
+        int GetRequestCost(int requestId);
     }
 }

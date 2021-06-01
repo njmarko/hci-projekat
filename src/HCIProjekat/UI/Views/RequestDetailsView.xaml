@@ -56,6 +56,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
 
                 </Grid.ColumnDefinitions>
 
@@ -64,6 +65,7 @@
                 <TextBlock Grid.Row="0" Grid.Column="2" Text="Budget" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
                 <TextBlock Grid.Row="0" Grid.Column="3" Text="Budget flexible" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
                 <TextBlock Grid.Row="0" Grid.Column="4" Text="Date" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="5" Text="Current cost" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
 
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Request.GuestNumber}" FontSize="16"></TextBlock>
@@ -71,8 +73,9 @@
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Request.Budget}" FontSize="16"></TextBlock>
                 <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="{Binding Request.BudgetFlexible}" IsHitTestVisible="False"></CheckBox>
                 <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Request.Date}" FontSize="16"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding CurrentCost}" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
 
-            </Grid>
+        </Grid>
         
         
         

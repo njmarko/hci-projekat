@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Pagination;
 using Domain.Pagination.Requests;
 using Domain.Persistence;
@@ -8,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services
 {
@@ -80,6 +80,42 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Requests.Find(requestId);
+        }
+
+        public int GetRequestCost(int requestId)
+        {
+            //throw new NotImplementedException();
+            using var context = _dbContextFactory.CreateDbContext();
+            
+            var request = context.Requests
+                .Include(r => r.Tasks)
+                .ThenInclude(t => t.Offers)
+                .ThenInclude(o => o.Offer)
+                .Where(r => r.Id == requestId)
+                .First();
+            
+            var acceptedTasks = request.Tasks
+                .Where(t => t.TaskStatus == TaskStatus.ACCEPTED);
+            int cost = 0;
+            
+            foreach (var task in acceptedTasks)
+            {
+                var offers = task.Offers
+                    .Where(o => o.OfferStatus == OfferStatus.ACCEPTED);
+                
+                if (offers.Count() != 0)
+                {
+                    var offer = offers.First();
+                    cost += offer.Offer.Price;
+
+                }
+
+                
+            }
+            
+            
+            return cost;
+            
         }
 
         public Page<Request> GetRequestInterestingForEventPlanner(int eventPlannerId, EventPlannerRequestsPage page)

@@ -28,8 +28,6 @@ namespace UI.ViewModels
         public string Status { get; set; }
         public string Color { get; set; }
 
-        //public bool IsPending { get; set; }
-
         public int TaskOfferId { get; set; }
 
         public int TaskId { get; set; }
@@ -37,8 +35,6 @@ namespace UI.ViewModels
         public ICommand RejectTaskOffer { get; set; }
 
         public ICommand AcceptTaskOffer { get; set; }
-
-        //public bool IsNotAdmin { get; set; }
 
         public bool IsVisible { get; set; }
 
@@ -70,7 +66,7 @@ namespace UI.ViewModels
             set
             {
                 _task = value;
-                OnPropertyChanged(nameof(IsPending));
+                OnPropertyChanged(nameof(IsPendingAndIsClient));
                 OnPropertyChanged(nameof(Task));
             }
         }
@@ -134,13 +130,15 @@ namespace UI.ViewModels
             }
         }
 
-        public bool IsPending => Task.TaskStatus == TaskStatus.SENT_TO_CLIENT;
+        public bool IsPendingAndIsClient => Task.TaskStatus == TaskStatus.SENT_TO_CLIENT && Context.Store.CurrentUser is Client;
 
 
 
         public bool CanComment => IsValid();
 
         public bool CommentAreaVisible => Context.Store.CurrentUser is not Admin;
+
+       
 
         public bool CanRejectAllOffers => AbleToReject();
 

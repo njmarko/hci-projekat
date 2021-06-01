@@ -35,6 +35,19 @@ namespace UI.ViewModels
         private readonly TaskTypeModel _typeInitial;
         private readonly TaskStatusModel _statusInitial;
 
+        private int _currentCost { get; set; }
+
+        public int CurrentCost 
+        {
+            get { return _currentCost; }
+            set 
+            {
+                _currentCost = value;
+                OnPropertyChanged(nameof(CurrentCost));
+            
+            }
+        }
+
         private Request _request;
 
         public Request Request
@@ -83,7 +96,7 @@ namespace UI.ViewModels
             set
             {
                 _requestId = value;
-                LoadTask();
+                LoadRequest();
                 OnPropertyChanged(nameof(RequestId));
             }
         }
@@ -95,9 +108,10 @@ namespace UI.ViewModels
         public ObservableCollection<TaskTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<TaskTypeModel>();
         public ObservableCollection<TaskStatusModel> TaskStatusModels { get; private set; } = new ObservableCollection<TaskStatusModel>();
 
-        private void LoadTask()
+        private void LoadRequest()
         {
             Request = _requestService.GetRequest(RequestId);
+            CurrentCost = _requestService.GetRequestCost(RequestId);
             UpdatePage(0);
         }
 
