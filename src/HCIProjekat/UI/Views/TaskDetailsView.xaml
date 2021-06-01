@@ -121,8 +121,8 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
-                    
-                    <Grid Grid.Row="1">
+
+                    <Grid Grid.Row="1" Visibility="{Binding CommentAreaVisible, Converter={StaticResource b2vc}}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>

@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\AdminRequestCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\ClientTaskCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -38,6 +41,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Modals\UpdateProfileInfoModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
@@ -73,6 +79,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\AdminClientCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\AdminRequestCard.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ClientRequestCard.xaml">
@@ -121,6 +130,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdminPartnersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ClientRequestsView.xaml">

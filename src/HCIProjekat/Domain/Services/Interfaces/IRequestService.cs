@@ -24,5 +24,7 @@ namespace Domain.Services.Interfaces
         void Delete(int requestId);
 
         Page<Request> GetRequestInterestingForEventPlanner(int eventPlannerId, EventPlannerRequestsPage page);
+
+        Page<Request> GetAllRequests(RequestsPage page);
     }
 }

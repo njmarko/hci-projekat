@@ -28,7 +28,7 @@ namespace UI.ViewModels
         public string Status { get; set; }
         public string Color { get; set; }
 
-        public bool IsPending { get; set; }
+        //public bool IsPending { get; set; }
 
         public int TaskOfferId { get; set; }
 
@@ -37,6 +37,10 @@ namespace UI.ViewModels
         public ICommand RejectTaskOffer { get; set; }
 
         public ICommand AcceptTaskOffer { get; set; }
+
+        //public bool IsNotAdmin { get; set; }
+
+        public bool IsVisible { get; set; }
 
     }
     public class TaskDetailsViewModel : PagingViewModelBase, ISelfValidatingViewModel
@@ -136,7 +140,10 @@ namespace UI.ViewModels
 
         public bool CanComment => IsValid();
 
+        public bool CommentAreaVisible => Context.Store.CurrentUser is not Admin;
+
         public bool CanRejectAllOffers => AbleToReject();
+
 
         public ICommand AddCommentCommand { get; set; }
 
@@ -151,6 +158,7 @@ namespace UI.ViewModels
 
         public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, IOfferService offerService, ICommentService commentService) : base(context)
         {
+            Rows = 1;
             _taskService = taskService;
             _offerService = offerService;
             _commentService = commentService;
@@ -221,13 +229,12 @@ namespace UI.ViewModels
                     PartnerName = entity.Offer.Partner.Name,
                     Description = entity.Offer.Description,
                     OfferName = entity.Offer.Name,
-                    //Image = entity.Offer.Image,
                     OfferPrice = entity.Offer.Price,
                     Color = color,
                     Status = status,
-                    IsPending = entity.OfferStatus == OfferStatus.PENDING,
                     TaskOfferId = entity.Id,
-                    TaskId = Task.Id
+                    TaskId = Task.Id,
+                    IsVisible = entity.OfferStatus == OfferStatus.PENDING && Context.Store.CurrentUser is Client
                 };
 
                 taskOfferCardModel.RejectTaskOffer = new RejectTaskOfferCommand(_taskService, taskOfferCardModel, this);

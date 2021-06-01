@@ -25,6 +25,8 @@ namespace UI.ViewModels
 
         public ICommand Delete { get; set; }
 
+        public IApplicationContext Context { get; set; }
+
     }
 
     public class AdminPartnersViewModel : PagingViewModelBase
@@ -69,7 +71,8 @@ namespace UI.ViewModels
                     Name = entity.Name,
                     PartnerType = entity.Type.ToString(),
                     Address = entity.Location.Street + " " + entity.Location.StreetNumber + ", " + entity.Location.City + ", " + entity.Location.Country,
-                    Route = $"PartnerOffers?partnerId={entity.Id}"
+                    Route = $"PartnerOffers?partnerId={entity.Id}",
+                    Context = Context
                 };
                 partnerModel.Delete = new DeletePartnerCommand(this, entity.Id, entity.Name, _modalService, _partnersService);
                 PartnerModels.Add(partnerModel);

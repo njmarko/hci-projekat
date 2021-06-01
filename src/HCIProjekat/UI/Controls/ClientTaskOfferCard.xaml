@@ -12,7 +12,6 @@
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
     <Grid>
-        <!-- Ova se kartica zeznula iz cista mira i nema sanse da mogu da je ispravim-->
             <materialDesign:Card UniformCornerRadius="20" Margin="10" Padding="5">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -95,7 +94,7 @@
                 </StackPanel>
                 
                 <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" MinHeight="37">
-                    <StackPanel Orientation="Horizontal" Visibility="{Binding IsPending, Converter={StaticResource b2vc}}">
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding IsVisible, Converter={StaticResource b2vc}}">
                         <Button Margin="20,0,0,10" Content="Accept" 
                                 Style="{DynamicResource MaterialDesignOutlinedButton}" 
                                 Foreground="Green" BorderBrush="Green"

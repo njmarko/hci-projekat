@@ -57,6 +57,9 @@
             <DataTemplate DataType="{x:Type vm:EventPlannerRequestsViewModel}">
                 <views:EventPlannerRequestsView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdminRequestsViewModel}">
+                <views:AdminRequestsView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

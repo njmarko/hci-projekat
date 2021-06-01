@@ -74,6 +74,7 @@ namespace UI.ViewModels
                     NavbarItems.Add(new NavbarItemModel { Name = "Partners", Route = "AdminPartners", IsSelected = currentVm is AdminPartnersViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                     NavbarItems.Add(new NavbarItemModel { Name = "Event planners", Route = "AdminEventPlanners", IsSelected = currentVm is AdminEventPlannersViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                     NavbarItems.Add(new NavbarItemModel { Name = "Clients", Route = "AdminClients", IsSelected = currentVm is AdminClientsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
+                    NavbarItems.Add(new NavbarItemModel { Name = "Requests", Route = "AdminRequests", IsSelected = currentVm is AdminRequestsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                 } 
                 else if (user is EventPlanner)
                 {

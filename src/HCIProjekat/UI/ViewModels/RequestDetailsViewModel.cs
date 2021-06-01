@@ -137,6 +137,10 @@ namespace UI.ViewModels
             {
                 BackRoute = "EventPlannerRequests";
             }
+            else
+            {
+                BackRoute = "AdminRequests";
+            }
             //UpdatePage(0);
         }
 

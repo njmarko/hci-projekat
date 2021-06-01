@@ -55,6 +55,26 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public Page<Request> GetAllRequests(RequestsPage page)
+        {
+            //throw new NotImplementedException();
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var query = page.Query.ToLower();
+            return context.Requests
+                          .Include(r => r.Client)
+                          .Include(r => r.EventPlanner)
+                          .Where(r => r.Active)
+                          .Where(r => page.Type == null || r.Type == page.Type)
+                          .Where(r => page.From == null || r.Date >= page.From)
+                          .Where(r => page.To == null || r.Date <= page.To)
+                          .Where(r => r.Name.ToLower().Contains(query)
+                          || r.Notes.ToLower().Contains(query)
+                          || r.Type.ToString().ToLower().Contains(query)
+                          || r.Theme.ToLower().Contains(query))
+                          .ToPage(page);
+        }
+
         public Request GetRequest(int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();
