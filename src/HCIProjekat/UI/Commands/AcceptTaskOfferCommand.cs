@@ -31,6 +31,11 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
+            var offers = _taskOfferService.GetAllTaskOffersForTask(_clientTaskOfferCardModel.TaskId);
+            //foreach (var offer in offers)
+            //   _taskDetailsViewModel.AddItem(offer);
+
+            _taskDetailsViewModel.AddItem(offers.Last());
             _taskOfferService.AcceptTaskOffer(_clientTaskOfferCardModel.TaskId, _clientTaskOfferCardModel.TaskOfferId);
             _taskDetailsViewModel.TaskId = _clientTaskOfferCardModel.TaskId;
             _taskDetailsViewModel.UpdatePage(0);

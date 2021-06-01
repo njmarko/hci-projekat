@@ -32,10 +32,11 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
-            var offer = _taskOfferService.RejectTaskOffer(_clientTaskOfferCardModel.TaskId, _clientTaskOfferCardModel.TaskOfferId);
+            var offer = _taskOfferService.Get(_clientTaskOfferCardModel.TaskOfferId);
+            _taskOfferService.RejectTaskOffer(_clientTaskOfferCardModel.TaskId, _clientTaskOfferCardModel.TaskOfferId);
+           
             _taskDetailsViewModel.TaskId = _clientTaskOfferCardModel.TaskId;
-            //if(_taskDetailsViewModel.TaskOfferModels.Where(tom=> tom.Status == "Rejected").Count() == _taskDetailsViewModel.TaskOfferModels.Count())
-            //    _
+            
             offer.OfferStatus = OfferStatus.PENDING;
             _taskDetailsViewModel.AddItem(offer);
             _taskDetailsViewModel.UpdatePage(0);

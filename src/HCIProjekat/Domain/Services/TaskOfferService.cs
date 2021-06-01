@@ -37,7 +37,10 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            return context.TaskOffers.Find(id);
+            return context.TaskOffers
+                .Include(to => to.Task)
+                .Where(to => to.Id == id)
+                .First();
         }
 
         public Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page)
@@ -56,10 +59,13 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
             
             context.TaskOffers.Update(offer);
-            var task = context.Tasks.Find(offer.Task.Id);
+            var task = context.Tasks
+                .Include(t => t.Offers)
+                .Where(t => t.Id == offer.Id)
+                .First();
             
             //var newStatus = offer.OfferStatus;
-            switch (offer.OfferStatus)
+            /*switch (offer.OfferStatus)
             {
                 case OfferStatus.PENDING:
                     task.TaskStatus = TaskStatus.SENT_TO_CLIENT;
@@ -72,6 +78,11 @@ namespace Domain.Services
                     break;
 
             }
+
+            if(offer.OfferStatus == OfferStatus.REJECTED)
+            {
+
+            }*/
 
 
             context.SaveChanges();
@@ -114,7 +125,7 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
-        public TaskOffer RejectTaskOffer(int taskId, int taskOfferId)
+        public void RejectTaskOffer(int taskId, int taskOfferId)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
@@ -132,7 +143,17 @@ namespace Domain.Services
                 task.TaskStatus = TaskStatus.REJECTED;
 
             context.SaveChanges();
-            return offer;
+            //return offer;
+        }
+
+        public List<TaskOffer> GetAllTaskOffersForTask(int taskId)
+        {
+            //throw new NotImplementedException();
+            using var context = _dbContextFactory.CreateDbContext();
+            return context.TaskOffers
+                .Include(to => to.Task)
+                .Where(to => to.Task.Id == taskId)
+                .ToList();
         }
     }
 }

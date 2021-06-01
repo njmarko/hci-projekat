@@ -13,9 +13,11 @@ namespace Domain.Services.Interfaces
     {
         Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page);
 
+        List<TaskOffer> GetAllTaskOffersForTask(int taskId);
+
         void RejectAllTaskOffers(int taskId);
 
-        TaskOffer RejectTaskOffer(int taskId, int taskOfferId);
+        void RejectTaskOffer(int taskId, int taskOfferId);
 
         void AcceptTaskOffer(int taskId, int taskOfferId);
     }
