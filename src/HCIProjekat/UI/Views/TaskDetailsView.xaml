@@ -71,6 +71,7 @@
                     Command="{Binding Reject}">
                 <TextBlock Text="Reject all offers" Foreground="White"></TextBlock>
             </Button>
+            <Button Margin="5,10,0,0" Content="Undo" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding Undo}"></Button>
         </StackPanel>
 
         <TabControl Grid.Row="2" Margin="0 5 0 0" Style="{DynamicResource MaterialDesignTabControl}" Background="#e8e8e8">

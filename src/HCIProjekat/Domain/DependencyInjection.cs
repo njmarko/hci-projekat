@@ -23,6 +23,7 @@ namespace Domain
             services.AddSingleton<IOfferService, OfferService>();
             services.AddSingleton<ICommentService, CommentService>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ITaskOfferService, TaskOfferService>();
             return services;
         }
     }

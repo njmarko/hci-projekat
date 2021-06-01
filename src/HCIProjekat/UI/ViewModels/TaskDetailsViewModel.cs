@@ -15,6 +15,7 @@ using System.Windows.Input;
 using UI.Commands;
 using Domain.Enums;
 using System.Globalization;
+using UI.Services.Interfaces;
 
 namespace UI.ViewModels
 {
@@ -39,11 +40,12 @@ namespace UI.ViewModels
         public bool IsVisible { get; set; }
 
     }
-    public class TaskDetailsViewModel : PagingViewModelBase, ISelfValidatingViewModel
+    public class TaskDetailsViewModel : UndoModelBase<TaskOffer>, ISelfValidatingViewModel
     {
         private readonly ITaskService _taskService;
-        private readonly IOfferService _offerService;
         private readonly ICommentService _commentService;
+        private readonly ITaskOfferService _taskOfferService;
+        private readonly IModalService _modalService;
 
         private int _taskId;
         public int TaskId
@@ -53,7 +55,7 @@ namespace UI.ViewModels
             {
                 _taskId = value;
                 OnPropertyChanged(nameof(TaskId));
-                LoadTask();
+                LoadTask(true);
             }
         }
 
@@ -154,15 +156,15 @@ namespace UI.ViewModels
 
         public ErrorMessageViewModel CommentError { get; private set; } = new ErrorMessageViewModel();
 
-        public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, IOfferService offerService, ICommentService commentService) : base(context)
+        public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, ICommentService commentService, IModalService modalService) : base(context, taskOfferService, modalService)
         {
             Rows = 1;
+            _modalService = modalService;
             _taskService = taskService;
-            _offerService = offerService;
+            _taskOfferService = taskOfferService;
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService);
-            Reject = new RejectAllTaskOffersCommand(this, taskService);
-            //Context.Store.CurrentUser = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Id = 1 };
+            Reject = new RejectAllTaskOffersCommand(this, taskOfferService);
             CommentAdded = false;
         }
         private bool AbleToReject()
@@ -171,7 +173,7 @@ namespace UI.ViewModels
         }
         
 
-        private void LoadTask()
+        private void LoadTask(bool updatePage)
         {
             Task = _taskService.GetTask(TaskId);
             switch (Task.TaskStatus)
@@ -192,13 +194,16 @@ namespace UI.ViewModels
 
             RequestDetailsRoute = $"RequestDetails?requestId={Task.Request.Id}";
             LoadComments();
-            UpdatePage(0);
+            if(updatePage)
+                UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
         {
+            //MessageBox.Show("UPDATE PAGE!");
+            LoadTask(false);
             TaskOfferModels.Clear();
-            var page = _offerService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber});
+            var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber});
             string status = "";
             string color = "";
             
@@ -235,8 +240,8 @@ namespace UI.ViewModels
                     IsVisible = entity.OfferStatus == OfferStatus.PENDING && Context.Store.CurrentUser is Client
                 };
 
-                taskOfferCardModel.RejectTaskOffer = new RejectTaskOfferCommand(_taskService, taskOfferCardModel, this);
-                taskOfferCardModel.AcceptTaskOffer = new AcceptTaskOfferCommand(_taskService, taskOfferCardModel, this);
+                taskOfferCardModel.RejectTaskOffer = new RejectTaskOfferCommand(_taskOfferService, taskOfferCardModel, this);
+                taskOfferCardModel.AcceptTaskOffer = new AcceptTaskOfferCommand(_taskOfferService, taskOfferCardModel, this);
 
                 TaskOfferModels.Add(taskOfferCardModel);
             }

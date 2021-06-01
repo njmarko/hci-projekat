@@ -11,7 +11,7 @@ namespace Domain.Services.Interfaces
 {
     public interface IOfferService : ICRUDService<Offer>
     {
-        Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page);
+        
 
         Page<Offer> GetOffersForPartner(int partnerId, OffersPage page);
 

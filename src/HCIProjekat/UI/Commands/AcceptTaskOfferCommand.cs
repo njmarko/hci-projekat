@@ -11,13 +11,13 @@ namespace UI.Commands
 {
     public class AcceptTaskOfferCommand : ICommand
     {
-        private readonly ITaskService _taskService;
+        private readonly ITaskOfferService _taskOfferService;
         private readonly ClientTaskOfferCardModel _clientTaskOfferCardModel;
         private readonly TaskDetailsViewModel _taskDetailsViewModel;
 
-        public AcceptTaskOfferCommand(ITaskService taskService, ClientTaskOfferCardModel clientTaskOfferCardModel, TaskDetailsViewModel taskDetailsViewModel)
+        public AcceptTaskOfferCommand(ITaskOfferService taskOfferService, ClientTaskOfferCardModel clientTaskOfferCardModel, TaskDetailsViewModel taskDetailsViewModel)
         {
-            _taskService = taskService;
+            _taskOfferService = taskOfferService;
             _clientTaskOfferCardModel = clientTaskOfferCardModel;
             _taskDetailsViewModel = taskDetailsViewModel;
         }
@@ -31,7 +31,7 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
-            _taskService.AcceptTaskOffer(_clientTaskOfferCardModel.TaskId, _clientTaskOfferCardModel.TaskOfferId);
+            _taskOfferService.AcceptTaskOffer(_clientTaskOfferCardModel.TaskId, _clientTaskOfferCardModel.TaskOfferId);
             _taskDetailsViewModel.TaskId = _clientTaskOfferCardModel.TaskId;
             _taskDetailsViewModel.UpdatePage(0);
         }

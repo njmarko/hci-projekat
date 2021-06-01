@@ -12,12 +12,12 @@ namespace UI.Commands
     public class RejectAllTaskOffersCommand : ICommand
     {
         private readonly TaskDetailsViewModel _taskDetailsViewModel;
-        private readonly ITaskService _taskService;
+        private readonly ITaskOfferService _taskOfferService;
 
-        public RejectAllTaskOffersCommand(TaskDetailsViewModel taskDetailsViewModel, ITaskService taskService)
+        public RejectAllTaskOffersCommand(TaskDetailsViewModel taskDetailsViewModel, ITaskOfferService taskOfferService)
         {
             _taskDetailsViewModel = taskDetailsViewModel;
-            _taskService = taskService;
+            _taskOfferService = taskOfferService;
             _taskDetailsViewModel.PropertyChanged += _taskDetails_PropertyChanged;
 
         }
@@ -42,7 +42,7 @@ namespace UI.Commands
         {
             //throw new NotImplementedException();
             int taskId = _taskDetailsViewModel.Task.Id;
-            _taskService.RejectAllTaskOffers(taskId);
+            _taskOfferService.RejectAllTaskOffers(taskId);
             _taskDetailsViewModel.UpdatePage(0);
             _taskDetailsViewModel.TaskId = taskId;
         }

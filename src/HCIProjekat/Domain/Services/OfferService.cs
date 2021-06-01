@@ -21,16 +21,7 @@ namespace Domain.Services
             _dbContextFactory = dbContextFactory;
         }
 
-        public Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page)
-        {
-            var context = _dbContextFactory.CreateDbContext();
-            return context.TaskOffers
-                          .Include(to => to.Offer)
-                          .Include(to => to.Offer.Partner)
-                          .Where(to => to.Active)
-                          .Where(o => o.Task.Id == taskId)
-                          .ToPage(page);
-        }
+        
       
        public Offer Create(Offer offer, int partnerId)
         {
