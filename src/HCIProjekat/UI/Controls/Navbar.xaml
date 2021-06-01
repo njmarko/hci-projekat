@@ -28,18 +28,18 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <RadioButton Content="{Binding Name}" GroupName="NavbarGroup" IsChecked="{Binding IsSelected}" Style="{DynamicResource MaterialDesignTabRadioButton}" Command="{Binding RouterPushCommand}" CommandParameter="{Binding Route}" />
+                    <RadioButton Cursor="Hand" Content="{Binding Name}" GroupName="NavbarGroup" IsChecked="{Binding IsSelected}" Style="{DynamicResource MaterialDesignTabRadioButton}" Command="{Binding RouterPushCommand}" CommandParameter="{Binding Route}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <Menu Grid.Row="0" Grid.Column="1" Margin="0 0 20 0" FlowDirection="RightToLeft" Style="{DynamicResource MaterialDesignMenu}">
-            <MenuItem Background="DarkGray" Header="{Binding Context.Store.CurrentUser.Username}">
+            <MenuItem Background="DarkGray" Header="{Binding Context.Store.CurrentUser.Username}" Cursor="Hand">
                 <MenuItem.Icon>
                     <materialDesign:PackIcon Kind="ArrowDownCircle" />
                 </MenuItem.Icon>
-                <MenuItem Header="Profile" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding UpdateProfile}"/>
-                <MenuItem Header="Change password" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding ChangePassword}"></MenuItem>
-                <MenuItem Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding Logout}"/>
+                <MenuItem Cursor="Hand" Header="Profile" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding UpdateProfile}"/>
+                <MenuItem Cursor="Hand" Header="Change password" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding ChangePassword}"></MenuItem>
+                <MenuItem Cursor="Hand" Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding Logout}"/>
             </MenuItem>
         </Menu>
     </Grid>

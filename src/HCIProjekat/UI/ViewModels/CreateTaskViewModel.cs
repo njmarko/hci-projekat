@@ -42,17 +42,20 @@ namespace UI.ViewModels
             set { _taskType = value; OnPropertyChanged(nameof(TaskTypeValue)); }
         }
 
+        public string HeadlineText { get; private set; } = "Create task";
+        public string ButtonText { get; private set; } = "Create";
+
         public ObservableCollection<ServiceTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel TaskTypeError { get; private set; } = new ErrorMessageViewModel();
 
         public ICommand CreateTask { get; private set; }
 
-        public CreateTaskViewModel(IApplicationContext context, ITaskService taskService, Request request) : base(context)
+        public CreateTaskViewModel(IApplicationContext context, ITaskService taskService, Request request, int taskId = -1) : base(context)
         {
             _taskService = taskService;
             Request = request;
-            CreateTask = new CreateTaskCommand(this, _taskService);
+            CreateTask = new CreateTaskCommand(this, _taskService, taskId);
 
             TaskTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             TaskTypeModels.Add(TaskTypeValue);
@@ -60,6 +63,17 @@ namespace UI.ViewModels
             TaskTypeModels.Add(new ServiceTypeModel { Name = "Music", Type = ServiceType.MUSIC });
             TaskTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
             TaskTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
+
+            if (taskId != -1)
+            {
+                var task = _taskService.GetTask(taskId);
+                Name = task.Name;
+                Description = task.Description;
+                TaskTypeValue = TaskTypeModels.First(t => t.Type != null && t.Type == task.TaskType);
+
+                HeadlineText = "Update task";
+                ButtonText = "Save";
+            } 
         }
 
         public bool IsValid()

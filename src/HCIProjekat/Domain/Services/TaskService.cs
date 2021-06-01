@@ -26,9 +26,9 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
             var task = context.Tasks
-                .Include(t => t.Offers)
-                .Where(t => t.Id == taskId)
-                .First();
+                              .Include(t => t.Offers)
+                              .Where(t => t.Id == taskId)
+                              .First();
 
             var offers = task.Offers;
             
@@ -51,6 +51,7 @@ namespace Domain.Services
             if (task.TaskType == ServiceType.LOCATION)
             {
                 var sameTask = context.Tasks
+                                      .Where(t => t.Active)
                                       .Where(t => t.Request.Id == requestId)
                                       .Where(t => t.TaskType == ServiceType.LOCATION)
                                       .Where(t => t.TaskStatus != TaskStatus.REJECTED)
@@ -73,9 +74,9 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Tasks
-                .Where(t => t.Id == taskId)
-                .Include(t => t.Request)
-                .First();
+                          .Where(t => t.Id == taskId)
+                          .Include(t => t.Request)
+                          .First();
         }
 
         public Page<Task> GetTasksForRequest(int requestId, TasksPageRequest page)
@@ -83,6 +84,7 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Tasks
+                          .Where(t => t.Active)
                           .Where(t => t.Request.Id == requestId)
                           .Where(t =>
                             t.Name.ToLower().Contains(page.Query.ToLower()) ||
@@ -100,6 +102,7 @@ namespace Domain.Services
 
             var query = searchQuery.ToLower();
             return context.Tasks
+                          .Where(t => t.Active)
                           .Where(t => t.Request.Id == requestId)
                           .Where(t => t.Name.ToLower().Contains(searchQuery)
                           || t.Description.ToLower().Contains(searchQuery)
@@ -111,6 +114,21 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
+            if (task.TaskType == ServiceType.LOCATION)
+            {
+                var sameTask = context.Tasks
+                                      .Where(t => t.Active)
+                                      .Where(t => t.Id != task.Id)
+                                      .Where(t => t.Request.Id == task.Request.Id)
+                                      .Where(t => t.TaskType == ServiceType.LOCATION)
+                                      .Where(t => t.TaskStatus != TaskStatus.REJECTED)
+                                      .FirstOrDefault();
+                if (sameTask != null)
+                {
+                    throw new DuplicateTaskException(ServiceType.LOCATION);
+                }
+            }
+
             context.Tasks.Update(task);
             context.SaveChanges();
             return task;
@@ -118,10 +136,11 @@ namespace Domain.Services
         public void RejectAllTaskOffers(int taskId)
         {
             using var context = _dbContextFactory.CreateDbContext();
+
             var task = context.Tasks
-                .Include(t => t.Offers)
-                .Where(t => t.Id == taskId)
-                .First();
+                              .Include(t => t.Offers)
+                              .Where(t => t.Id == taskId)
+                              .First();
             foreach (var offer in task.Offers)
                 offer.OfferStatus = OfferStatus.REJECTED;
             task.TaskStatus = TaskStatus.REJECTED;
@@ -131,20 +150,29 @@ namespace Domain.Services
         public void RejectTaskOffer(int taskId, int taskOfferId)
         {
             using var context = _dbContextFactory.CreateDbContext();
+
             var task = context.Tasks
-                .Include(t => t.Offers)
-                .Where(t => t.Id == taskId)
-                .First();
+                              .Include(t => t.Offers)
+                              .Where(t => t.Id == taskId)
+                              .First();
             
-           var offer = task     
-                .Offers
-                .Where(o => o.Id == taskOfferId)
-                .First();
+           var offer = task.Offers
+                           .Where(o => o.Id == taskOfferId)
+                           .First();
             
             offer.OfferStatus = OfferStatus.REJECTED;
             if (task.Offers.Where(offer => offer.OfferStatus == OfferStatus.REJECTED).Count() == task.Offers.Count())
                 task.TaskStatus = TaskStatus.REJECTED;
             
+            context.SaveChanges();
+        }
+
+        public void Delete(int taskId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var task = context.Tasks.Find(taskId);
+            task.Active = false;
             context.SaveChanges();
         }
     }
