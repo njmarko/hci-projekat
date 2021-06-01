@@ -25,6 +25,9 @@
     <Compile Update="Controls\Navbar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\NotificationMessage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\PartnerOfferCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +97,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Navbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\NotificationMessage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Pagination.xaml">

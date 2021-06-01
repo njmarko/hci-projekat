@@ -14,12 +14,17 @@ namespace UI.ViewModels
     {
         public int Id { get; set; }
         public string Message { get; set; }
+        public string TimeStamp { get; set; }
+        public bool IsRead { get; set; }
+        public bool IsSeen { get; set; }
+        public bool IsNew { get; set; }
     }
 
     public class NotificationViewModel : ViewModelBase
     {
         private readonly INotificationService _notificationService;
 
+        private bool? _markedAsSeen = null;
         private int _notificationCount = 0;
         public int NotificationCount
         {
@@ -34,15 +39,20 @@ namespace UI.ViewModels
             set
             {
                 _didOpenNotifications = value;
-                if (_didOpenNotifications && NotificationCount > 0)
+                if (_didOpenNotifications && NotificationCount > 0 && !_markedAsSeen.HasValue)
                 {
                     MarkAllAsSeen();
+                }
+                else if (!_didOpenNotifications && (_markedAsSeen.HasValue && _markedAsSeen.Value))
+                {
+                    UpdateNotifications(Context.Store.CurrentUser);
+                    _markedAsSeen = false;
                 }
                 OnPropertyChanged(nameof(DidOpenNotifications));
             }
         }
 
-        public ObservableCollection<Notification> Notifications { get; private set; } = new ObservableCollection<Notification>();
+        public ObservableCollection<NotificationModel> Notifications { get; private set; } = new ObservableCollection<NotificationModel>();
 
         public NotificationViewModel(IApplicationContext context, INotificationService notificationService) : base(context)
         {
@@ -75,14 +85,19 @@ namespace UI.ViewModels
             var model = new NotificationModel
             {
                 Id = notification.Id,
-                Message = notification.Message
+                Message = notification.Message,
+                TimeStamp = notification.TimeStamp.ToString("dd.MM.yyyy. HH:mm"),
+                IsSeen = notification.Seen,
+                IsRead = notification.Read,
+                IsNew = !notification.Seen,
             };
-            Notifications.Add(notification);
+            Notifications.Add(model);
         }
 
         private void MarkAllAsSeen()
         {
             _notificationService.Seen(Context.Store.CurrentUser.Id);
+            _markedAsSeen = true;
             //NotificationCount = 0;
         }
     }

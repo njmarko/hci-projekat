@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.Controls"
-             xmlns:entities="clr-namespace:Domain.Entities;assembly=Domain"
+             xmlns:vm="clr-namespace:UI.ViewModels"
+             xmlns:controls="clr-namespace:UI.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -44,15 +45,13 @@
                 </MenuItem.Header>
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}">
-                        <Setter Property="MinHeight" Value="50" />
-                        <Setter Property="Width" Value="200" />
+                        <Setter Property="Height" Value="80" />
+                        <Setter Property="Width" Value="300" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
                 <MenuItem.ItemTemplate>
-                    <DataTemplate DataType="{x:Type entities:Notification}">
-                        <StackPanel>
-                            <TextBlock HorizontalAlignment="Center" Text="{Binding Message}"/>
-                        </StackPanel>
+                    <DataTemplate DataType="{x:Type vm:NotificationModel}">
+                        <controls:NotificationMessage DataContext="{Binding}" />
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
