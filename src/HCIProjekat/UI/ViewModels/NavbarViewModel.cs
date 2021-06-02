@@ -27,7 +27,6 @@ namespace UI.ViewModels
     {
         private readonly IModalService _modalService;
         private readonly IUserService _userService;
-        private bool _didOpenNotifications;
 
         private bool _isVisible;
         public bool IsVisible
@@ -36,11 +35,18 @@ namespace UI.ViewModels
             set { _isVisible = value; OnPropertyChanged(nameof(IsVisible)); }
         }
 
-        private bool _notificationsOpen = false;
-        public bool NotificationsOpen
+        private bool _didOpenNotifications;
+        public bool DidOpenNotifications
         {
-            get { return _notificationsOpen; }
-            set { _notificationsOpen = value; if (_notificationsOpen) _didOpenNotifications = true; OnPropertyChanged(nameof(NotificationsOpen)); }
+            get { return _didOpenNotifications; }
+            set
+            {
+                _didOpenNotifications = value;
+                if (_didOpenNotifications == false)
+                {
+                    NotificationViewModel.Update();
+                }
+            }
         }
 
         public NotificationViewModel NotificationViewModel { get; private set; }
@@ -83,7 +89,6 @@ namespace UI.ViewModels
         private void UpdateNavbar(ViewModelBase currentVm)
         {
             IsVisible = (currentVm is not LoginViewModel) && (currentVm is not RegisterViewModel);
-            NotificationsOpen = currentVm is NotificationViewModel;
             if (IsVisible)
             {
                 NavbarItems.Clear();
@@ -104,15 +109,7 @@ namespace UI.ViewModels
                 {
                     NavbarItems.Add(new NavbarItemModel { Name = "Home", Route = "ClientRequests", IsSelected = currentVm is ClientRequestsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                 }
-                if (!NotificationsOpen && _didOpenNotifications)
-                {
-                    NotificationViewModel.Update();
-                }
-            } else
-            {
-                NotificationsOpen = false;
-                _didOpenNotifications = false;
-            }
+            } 
         }
     }
 }

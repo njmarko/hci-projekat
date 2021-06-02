@@ -29,6 +29,7 @@ namespace UI.ViewModels
         private readonly INotificationService _notificationService;
 
         private bool _isLoaded = true;
+        private bool _markedAsSeen = false;
         private int _notificationCount = 0;
         public int NotificationCount
         {
@@ -50,13 +51,22 @@ namespace UI.ViewModels
         {
             if (_isLoaded)
             {
-                MarkAllAsSeen();
-                UpdateNotifications(Context.Store.CurrentUser);
+                if (!_markedAsSeen)
+                {
+                    MarkAllAsSeen();
+                    UpdateNotifications(Context.Store.CurrentUser);
+                    _markedAsSeen = true;
+                }
             }
             else
             {
                 _isLoaded = false;
             }
+        }
+
+        public void OnNotificationRead()
+        {
+            UpdateNotifications(Context.Store.CurrentUser);
         }
 
         private void UpdateNotifications(User currentUser)
@@ -66,6 +76,7 @@ namespace UI.ViewModels
                 Notifications.Clear();
                 _isLoaded = true;
                 Refetch(currentUser);
+                _markedAsSeen = false;
             }
         }
 
@@ -102,7 +113,6 @@ namespace UI.ViewModels
         private void MarkAllAsSeen()
         {
             _notificationService.Seen(Context.Store.CurrentUser.Id);
-            NotificationCount = 0;
         }
     }
 }

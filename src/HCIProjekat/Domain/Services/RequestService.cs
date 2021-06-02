@@ -53,7 +53,7 @@ namespace Domain.Services
             // Notify all the event planners about the new request
             foreach (var planner in context.EventPlanners.Where(e => e.Active))
             {
-                var notification = new Notification { Message = $"New request has been made.", UserId = request.Client.Id, RequestId = request.Id };
+                var notification = new Notification { Message = $"New request has been made.", UserId = planner.Id, RequestId = request.Id };
                 _notificationService.Push(notification);
             }
 

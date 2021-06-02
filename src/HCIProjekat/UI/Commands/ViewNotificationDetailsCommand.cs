@@ -32,7 +32,7 @@ namespace UI.Commands
         public void Execute(object parameter)
         {
             var notification = _notificationService.ReadNotification(_notificationModel.Id);
-            _notificationVm.Update();
+            _notificationVm.OnNotificationRead();
             if (notification.TaskId != -1)
             {
                 _notificationVm.Context.Router.Push($"TaskDetails?taskId={notification.TaskId}");
