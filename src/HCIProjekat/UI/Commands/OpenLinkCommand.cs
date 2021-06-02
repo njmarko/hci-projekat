@@ -11,7 +11,22 @@ namespace UI.Commands
 {
     public class OpenLinkCommand : ICommand
     {
+        private string _host;
+        public string Host
+        {
+            get { return _host; }
+            set
+            {
+                _host = value;
+            }
+        }
         public event EventHandler CanExecuteChanged;
+
+
+        public OpenLinkCommand()
+        {
+            Host = "https://hci-help.herokuapp.com/#";
+        }
 
         public bool CanExecute(object parameter)
         {
@@ -24,7 +39,7 @@ namespace UI.Commands
             {
                 Process.Start(new ProcessStartInfo()
                 {
-                    FileName = stringParam,
+                    FileName = $"{Host}/{stringParam}",
                     UseShellExecute = true
                 });
             }
