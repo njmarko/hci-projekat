@@ -11,7 +11,7 @@ namespace Domain.Services.Interfaces
     {
         void Push(Notification notification);
         void Seen(int userId);
-        void ReadNotification(int notificationId);
+        Notification ReadNotification(int notificationId);
         List<Notification> Read(int userId);
     }
 }

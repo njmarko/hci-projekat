@@ -20,6 +20,8 @@ namespace UI.ViewModels
         public bool IsRead { get; set; }
         public bool IsSeen { get; set; }
         public bool IsNew { get; set; }
+
+        public ICommand ViewDetails { get; set; }
     }
 
     public class NotificationViewModel : ViewModelBase
@@ -63,11 +65,15 @@ namespace UI.ViewModels
             {
                 Notifications.Clear();
                 _isLoaded = true;
-                NotificationCount = 0;
-                var notifications = _notificationService.Read(currentUser.Id);
-                InsertNotifications(notifications);
-                NotificationCount = notifications.Count(n => !n.Seen);
+                Refetch(currentUser);
             }
+        }
+
+        public void Refetch(User currentUser)
+        {
+            var notifications = _notificationService.Read(currentUser.Id);
+            InsertNotifications(notifications);
+            NotificationCount = notifications.Count(n => !n.Seen);
         }
 
         private void InsertNotifications(IEnumerable<Notification> notifications)
@@ -89,6 +95,7 @@ namespace UI.ViewModels
                 IsRead = notification.Read && notification.Seen,
                 IsNew = !notification.Seen,
             };
+            model.ViewDetails = new ViewNotificationDetailsCommand(this, model, _notificationService);
             Notifications.Add(model);
         }
 

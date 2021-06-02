@@ -40,9 +40,16 @@ namespace Domain.Services
                                         .ToList();
         }
 
-        public void ReadNotification(int notificationId)
+        public Notification ReadNotification(int notificationId)
         {
-            throw new NotImplementedException();
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var notification = context.Notifications.Find(notificationId);
+            notification.Seen = true;
+            notification.Read = true;
+            context.SaveChanges();
+
+            return notification;
         }
 
         public void Seen(int userId)
