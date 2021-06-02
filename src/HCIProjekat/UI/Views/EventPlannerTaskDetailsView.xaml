@@ -13,8 +13,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
         xmlns:controls="clr-namespace:UI.Controls"
-        xmlns:util="clr-namespace:UI.Util"
-         Height="450" Width="800">
+        xmlns:util="clr-namespace:UI.Util">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
@@ -31,7 +30,7 @@
                     <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
                 </Button>
             </StackPanel>
-            <Grid>
+            <Grid Margin="10 10 10 0 ">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="14*"/>
@@ -45,7 +44,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
                 <Border Grid.Column="1"   Grid.Row="0" Background="{Binding Color}" 
                         CornerRadius="10" Padding="4" Margin="0"
-                        Width="70"
+                        MaxWidth="100"
                         HorizontalAlignment="Left">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
                                Foreground="White" FontWeight="Bold" Text="{Binding Status}">
@@ -56,7 +55,7 @@
 
             </Grid>
             <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>
-            <DockPanel MaxHeight="40">
+            <DockPanel MaxHeight="100" Margin="10 0 10 0">
                 <ScrollViewer>
                     <TextBlock Text="{Binding Task.Description}" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap"></TextBlock>
                 </ScrollViewer>
@@ -64,39 +63,13 @@
         </StackPanel>
         
         <TabControl Grid.Row="2" Margin="0 0 0 0" Style="{DynamicResource MaterialDesignTabControl}" Background="#e8e8e8">
-            <TabItem Header="Added Offers">
+            <TabItem Header="Added Offers" DataContext="{Binding AddedOffersVm}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ItemsControl ItemsSource="{Binding AddedTaskOfferModels}" Grid.Row="0">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <controls:EventPlannerTaskOfferCard />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
-                    <StackPanel Grid.Row="1">
-                        <controls:Pagination />
-                    </StackPanel>
-                </Grid>
-
-            </TabItem>
-
-            <TabItem Header="Available Offers">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <ItemsControl ItemsSource="{Binding AvailableTaskOfferModels}" Grid.Row="0">
+                    <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />

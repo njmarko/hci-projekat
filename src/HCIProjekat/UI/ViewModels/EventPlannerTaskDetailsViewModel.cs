@@ -1,4 +1,5 @@
-﻿using Domain.Services.Interfaces;
+﻿using Domain.Entities;
+using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,17 @@ namespace UI.ViewModels
         public BitmapImage Image { get; set; }
     }
 
-    public class EventPlannerTaskDetailsViewModel : PagingViewModelBase
+    public class EventPlannerTaskDetailsViewModel : ViewModelBase
     {
         private readonly ITaskService _taskService;
-        private readonly ITaskOfferService _taskOfferService;
+
+        public EventPlannerTaskOffersViewModel AddedOffersVm { get; set; }
 
         private int _taskId;
         public int TaskId
         {
             get { return _taskId; }
-            set { _taskId = value; }
+            set { _taskId = value; FetchTask(); }
         }
 
         private Task _task;
@@ -50,19 +52,21 @@ namespace UI.ViewModels
             set { _color = value; OnPropertyChanged(nameof(Color)); }
         }
 
+        public static string EventPlannerHome
+        {
+            get { return "EventPlannerHome"; }
+        }
+
         public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService) : base(context)
         {
             _taskService = taskService;
-            _taskOfferService = taskOfferService;
-        }
 
-        public override void UpdatePage(int pageNumber)
-        {
-            throw new NotImplementedException();
+            AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService);
         }
 
         private void FetchTask()
         {
+            AddedOffersVm.TaskId = _taskId;
             Task = _taskService.GetTask(TaskId);
             TaskDetails taskDetails = TaskColorAndStatus.GetTaskColorAndStatus(Task);
             Color = taskDetails.Color;
