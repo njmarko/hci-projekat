@@ -81,18 +81,18 @@ namespace UI.ViewModels
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
 
-            _offerService = offerService;
-            SearchQuery = string.Empty;
-            UpdatePage(0);
 
             AddOffer = new DelegateCommand(() => OpenOfferModal(1, -1));
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(() => ClearFilter());
 
             _modalService = modalService;
-            PartnerId = 1;
+            _offerService = offerService;
 
             Rows = 1;
+
+            SearchQuery = string.Empty;
+            UpdatePage(0);
         }
 
         private void ClearFilter()
