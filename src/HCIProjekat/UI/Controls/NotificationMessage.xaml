@@ -10,19 +10,23 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
-    <Grid Margin="0" Width="200" Height="50">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding TimeStamp}" Foreground="Gray" />
-        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Kind="CheckAll" Foreground="Gray" Visibility="{Binding IsRead, Converter={StaticResource b2vc}}" />
-        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Kind="NotificationsActive" Foreground="Gray" Visibility="{Binding IsNew, Converter={StaticResource b2vc}}" />
-        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Kind="Check" Foreground="Gray" Visibility="{Binding IsSeen, Converter={StaticResource b2vc}}" />
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Message}" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" />
-    </Grid>
+    <materialDesign:Card UniformCornerRadius="10" Margin="5" Padding="5" Cursor="Hand">
+        <Grid Width="400" Height="100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="{Binding TimeStamp}" Foreground="Gray" />
+            <materialDesign:PackIcon Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Kind="CheckAll" ToolTip="Read notification" Foreground="Gray" Visibility="{Binding IsRead, Converter={StaticResource b2vc}}" />
+            <materialDesign:PackIcon Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Kind="NotificationsActive" ToolTip="New notification" Foreground="Gray" Visibility="{Binding IsNew, Converter={StaticResource b2vc}}" />
+            <materialDesign:PackIcon Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Kind="Check" ToolTip="Seen notification" Foreground="Gray" Visibility="{Binding IsSeen, Converter={StaticResource b2vc}}" />
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Message}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" />
+            <Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" />
+        </Grid>
+    </materialDesign:Card>
 </UserControl>

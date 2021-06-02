@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UI.Commands;
 using UI.Context;
 
 namespace UI.ViewModels
@@ -24,7 +26,7 @@ namespace UI.ViewModels
     {
         private readonly INotificationService _notificationService;
 
-        private bool? _markedAsSeen = null;
+        private bool _isLoaded = true;
         private int _notificationCount = 0;
         public int NotificationCount
         {
@@ -32,26 +34,7 @@ namespace UI.ViewModels
             set { _notificationCount = value; OnPropertyChanged(nameof(NotificationCount)); }
         }
 
-        private bool _didOpenNotifications = false;
-        public bool DidOpenNotifications
-        {
-            get { return _didOpenNotifications; }
-            set
-            {
-                _didOpenNotifications = value;
-                if (_didOpenNotifications && NotificationCount > 0 && !_markedAsSeen.HasValue)
-                {
-                    MarkAllAsSeen();
-                }
-                else if (!_didOpenNotifications && (_markedAsSeen.HasValue && _markedAsSeen.Value))
-                {
-                    UpdateNotifications(Context.Store.CurrentUser);
-                    _markedAsSeen = false;
-                }
-                OnPropertyChanged(nameof(DidOpenNotifications));
-            }
-        }
-
+        public ICommand ViewNotifications { get; private set; }
         public ObservableCollection<NotificationModel> Notifications { get; private set; } = new ObservableCollection<NotificationModel>();
 
         public NotificationViewModel(IApplicationContext context, INotificationService notificationService) : base(context)
@@ -61,14 +44,29 @@ namespace UI.ViewModels
             context.Store.CurrentUserChanged += UpdateNotifications;
         }
 
+        public void Update()
+        {
+            if (_isLoaded)
+            {
+                MarkAllAsSeen();
+                UpdateNotifications(Context.Store.CurrentUser);
+            }
+            else
+            {
+                _isLoaded = false;
+            }
+        }
+
         private void UpdateNotifications(User currentUser)
         {
             if (currentUser != null)
             {
                 Notifications.Clear();
+                _isLoaded = true;
+                NotificationCount = 0;
                 var notifications = _notificationService.Read(currentUser.Id);
                 InsertNotifications(notifications);
-                NotificationCount = notifications.Count;
+                NotificationCount = notifications.Count(n => !n.Seen);
             }
         }
 
@@ -97,8 +95,7 @@ namespace UI.ViewModels
         private void MarkAllAsSeen()
         {
             _notificationService.Seen(Context.Store.CurrentUser.Id);
-            _markedAsSeen = true;
-            //NotificationCount = 0;
+            NotificationCount = 0;
         }
     }
 }
