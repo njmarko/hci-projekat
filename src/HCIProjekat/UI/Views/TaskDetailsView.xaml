@@ -44,7 +44,7 @@
                 
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
                 <Border Grid.Column="1"   Grid.Row="0" Background="{Binding Color}" 
-                        CornerRadius="10" Padding="4" Margin="0"
+                        CornerRadius="10" Padding="4" Margin="20 0"
                         Width="70"
                         HorizontalAlignment="Left">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 

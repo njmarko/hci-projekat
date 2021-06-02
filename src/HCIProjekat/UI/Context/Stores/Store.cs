@@ -17,10 +17,12 @@ namespace UI.Context.Stores
             set 
             { 
                 _currentUser = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentUser))); 
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentUser)));
+                CurrentUserChanged?.Invoke(_currentUser);
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event Action<User> CurrentUserChanged;
     }
 }

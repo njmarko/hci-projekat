@@ -19,6 +19,7 @@ namespace Domain.Persistence
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<TaskOffer> TaskOffers { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         int SaveChanges();
     }

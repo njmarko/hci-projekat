@@ -35,22 +35,40 @@ namespace UI.ViewModels
             set { _isVisible = value; OnPropertyChanged(nameof(IsVisible)); }
         }
 
+        private bool _didOpenNotifications;
+        public bool DidOpenNotifications
+        {
+            get { return _didOpenNotifications; }
+            set
+            {
+                _didOpenNotifications = value;
+                if (_didOpenNotifications == false)
+                {
+                    NotificationViewModel.Update();
+                }
+            }
+        }
+
+        public NotificationViewModel NotificationViewModel { get; private set; }
         public ICommand Logout { get; private set; }
         public ICommand UpdateProfile { get; private set; }
         public ICommand ChangePassword { get; private set; }
-
+        public ICommand OpenNotifications { get; private set; }
 
         public ObservableCollection<NavbarItemModel> NavbarItems { get; private set; } = new ObservableCollection<NavbarItemModel>();
 
-        public NavbarViewModel(IApplicationContext context, IModalService modalService, IUserService userService) : base(context)
+        public NavbarViewModel(IApplicationContext context, IModalService modalService, IUserService userService, NotificationViewModel notificationsVm) : base(context)
         {
             _modalService = modalService;
             _userService = userService;
-            Logout = new LogoutCommand(context);
-            UpdateProfile = new DelegateCommand(() => OpenUpdateProfileInfoModal());
-            ChangePassword = new DelegateCommand(() => OpenChangePasswordModal());
+            NotificationViewModel = notificationsVm;
 
-            context.Router.OnRouteChanged += UpdateNavbar;
+            Logout = new LogoutCommand(context);
+            UpdateProfile = new DelegateCommand(OpenUpdateProfileInfoModal);
+            ChangePassword = new DelegateCommand(OpenChangePasswordModal);
+            OpenNotifications = new DelegateCommand(OpenNotificationsView);
+
+            context.Router.RouteChanged += UpdateNavbar;
         }
 
         private void OpenChangePasswordModal()
@@ -62,6 +80,12 @@ namespace UI.ViewModels
         {
             _modalService.ShowModal<UpdateProfileInfoModal>(new UpdateProfileViewModel(Context, _userService));
         }
+
+        private void OpenNotificationsView()
+        {
+            Context.Router.Push("Notifications");
+        }
+
         private void UpdateNavbar(ViewModelBase currentVm)
         {
             IsVisible = (currentVm is not LoginViewModel) && (currentVm is not RegisterViewModel);
@@ -86,7 +110,7 @@ namespace UI.ViewModels
                 {
                     NavbarItems.Add(new NavbarItemModel { Name = "Home", Route = "ClientRequests", IsSelected = currentVm is ClientRequestsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                 }
-            }
+            } 
         }
     }
 }

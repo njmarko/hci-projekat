@@ -199,6 +199,28 @@ namespace Infrastructure.Persistence
             var admin = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now, Username = "vidojegavrilovic", Password = "test123" };
             context.Admins.Add(admin);
 
+            // Notifications
+            var n1 = new Notification { Message = "Notifikacija 1", UserId = 11, RequestId = 1 };
+            var n2 = new Notification { Message = "Notifikacija 2", UserId = 11, RequestId = 1 };
+            var n3 = new Notification { Message = "Notifikacija 3", UserId = 11, RequestId = 1 };
+            var n4 = new Notification { Message = "Notifikacija 4", UserId = 11, RequestId = 1 };
+            var n5 = new Notification { Message = "Notifikacija 5", UserId = 11, RequestId = 1 };
+            var n6 = new Notification { Message = "Notifikacija 6", UserId = 11, RequestId = 1 };
+            var n7 = new Notification { Message = "Notifikacija 7", UserId = 11, RequestId = 1 };
+            var n8 = new Notification { Message = "Notifikacija 8", UserId = 11, RequestId = 1 };
+            var n9 = new Notification { Message = "Notifikacija 9", UserId = 11, RequestId = 1 };
+            var n10 = new Notification { Message = "Notifikacija 10", UserId = 11, RequestId = 1 };
+            context.Notifications.Add(n1);
+            context.Notifications.Add(n2);
+            context.Notifications.Add(n3);
+            context.Notifications.Add(n4);
+            context.Notifications.Add(n5);
+            context.Notifications.Add(n6);
+            context.Notifications.Add(n7);
+            context.Notifications.Add(n8);
+            context.Notifications.Add(n9);
+            context.Notifications.Add(n10);
+
             context.SaveChanges();
         }
     }

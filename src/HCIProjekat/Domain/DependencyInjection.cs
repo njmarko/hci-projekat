@@ -24,6 +24,7 @@ namespace Domain
             services.AddSingleton<ICommentService, CommentService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<ITaskOfferService, TaskOfferService>();
+            services.AddSingleton<INotificationService, NotificationService>();
             return services;
         }
     }

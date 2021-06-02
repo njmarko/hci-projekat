@@ -16,7 +16,5 @@ namespace Domain.Services.Interfaces
         Task Update(Task task);
         void Delete(int taskId);
         List<Task> GetTasksForRequest(int requestId, string searchQuery);
-
-        
     }
 }

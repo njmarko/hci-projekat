@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.Controls"
+             xmlns:vm="clr-namespace:UI.ViewModels"
+             xmlns:controls="clr-namespace:UI.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -19,6 +21,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <ItemsControl Grid.Row="0" Grid.Column="0" ItemsSource="{Binding NavbarItems}">
             <ItemsControl.ItemsPanel>
@@ -32,13 +35,37 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Menu Grid.Row="0" Grid.Column="1" Margin="0 0 20 0" FlowDirection="RightToLeft" Style="{DynamicResource MaterialDesignMenu}">
+        <Menu Grid.Row="0" Grid.Column="1" Margin="0 0 20 0" Background="LightGray" Style="{DynamicResource MaterialDesignMenu}">
+            <MenuItem Cursor="Hand" IsSubmenuOpen="{Binding DidOpenNotifications}" ItemsSource="{Binding NotificationViewModel.Notifications}">
+                <MenuItem.Header>
+                    <TextBlock Text="{Binding NotificationViewModel.NotificationCount}" />
+                </MenuItem.Header>
+                <MenuItem.Icon>
+                    <materialDesign:PackIcon Kind="Notifications" Foreground="#0d62ff" />
+                </MenuItem.Icon>
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Height" Value="100" />
+                        <Setter Property="Width" Value="400" />
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="BorderBrush" Value="LightGray" />
+                        <Setter Property="Command" Value="{Binding ViewDetails}" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+                <MenuItem.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:NotificationModel}">
+                        <controls:NotificationMessage DataContext="{Binding}" />
+                    </DataTemplate>
+                </MenuItem.ItemTemplate>
+            </MenuItem>
+        </Menu>
+        <Menu Grid.Row="0" Grid.Column="2" Margin="0 0 20 0" FlowDirection="RightToLeft" Style="{DynamicResource MaterialDesignMenu}">
             <MenuItem Background="DarkGray" Header="{Binding Context.Store.CurrentUser.Username}" Cursor="Hand">
                 <MenuItem.Icon>
                     <materialDesign:PackIcon Kind="ArrowDownCircle" />
                 </MenuItem.Icon>
                 <MenuItem Cursor="Hand" Header="Profile" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding UpdateProfile}"/>
-                <MenuItem Cursor="Hand" Header="Change password" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding ChangePassword}"></MenuItem>
+                <MenuItem Cursor="Hand" Header="Change password" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding ChangePassword}" />
                 <MenuItem Cursor="Hand" Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding Logout}"/>
             </MenuItem>
         </Menu>

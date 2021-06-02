@@ -16,13 +16,13 @@ namespace Domain.Services
     public class TaskService : ITaskService
     {
         private readonly IApplicationDbContextFactory _dbContextFactory;
+        private readonly INotificationService _notificationService;
 
-        public TaskService(IApplicationDbContextFactory dbContextFactory)
+        public TaskService(IApplicationDbContextFactory dbContextFactory, INotificationService notificationService)
         {
             _dbContextFactory = dbContextFactory;
+            _notificationService = notificationService;
         }
-
-        
 
         public Task Create(Task task, int requestId)
         {
@@ -113,7 +113,6 @@ namespace Domain.Services
             context.SaveChanges();
             return task;
         }
-        
 
         public void Delete(int taskId)
         {
