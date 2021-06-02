@@ -72,9 +72,9 @@ namespace UI.ViewModels
         public ChangePasswordViewModel(IApplicationContext context, IUserService userService) : base(context)
         {
             ChangePassword = new ChangePasswordCommand(this, userService);
-            OldPassword = "";
-            NewPassword = "";
-            ConfirmPassword = "";
+            //OldPassword = "";
+            //NewPassword = "";
+            //ConfirmPassword = "";
         }
 
         public bool IsValid()
@@ -108,6 +108,8 @@ namespace UI.ViewModels
                 ConfirmPasswordError.ErrorMessage = null;
             }
 
+            if (string.IsNullOrEmpty(OldPassword) || string.IsNullOrEmpty(NewPassword) || string.IsNullOrEmpty(ConfirmPassword))
+                valid = false;
 
 
 
