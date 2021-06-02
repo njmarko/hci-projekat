@@ -73,7 +73,7 @@ namespace UI.ViewModels
         {
             var notifications = _notificationService.Read(currentUser.Id);
             InsertNotifications(notifications);
-            NotificationCount = notifications.Count(n => !n.Seen);
+            NotificationCount = notifications.Count(n => !n.Read);
         }
 
         private void InsertNotifications(IEnumerable<Notification> notifications)

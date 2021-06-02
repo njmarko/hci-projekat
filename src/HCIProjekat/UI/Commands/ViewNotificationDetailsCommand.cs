@@ -33,6 +33,14 @@ namespace UI.Commands
         {
             var notification = _notificationService.ReadNotification(_notificationModel.Id);
             _notificationVm.Update();
+            if (notification.TaskId != -1)
+            {
+                _notificationVm.Context.Router.Push($"TaskDetails?taskId={notification.TaskId}");
+            }
+            else if (notification.RequestId != -1)
+            {
+                _notificationVm.Context.Router.Push($"RequestDetails?requestId={notification.RequestId}");
+            }
         }
     }
 }
