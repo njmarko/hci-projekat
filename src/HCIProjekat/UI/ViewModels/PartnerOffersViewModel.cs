@@ -82,7 +82,7 @@ namespace UI.ViewModels
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
 
 
-            AddOffer = new DelegateCommand(() => OpenOfferModal(1, -1));
+            AddOffer = new DelegateCommand(() => OpenOfferModal(-1));
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(() => ClearFilter());
 
@@ -104,7 +104,7 @@ namespace UI.ViewModels
         public override void UpdatePage(int pageNumber)
         {
             OfferModels.Clear();
-            var page = _offerService.GetOffersForPartner(1, new OffersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery, OfferType = OfferTypeValue.Type });
+            var page = _offerService.GetOffersForPartner(PartnerId, new OffersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery, OfferType = OfferTypeValue.Type });
             foreach (var entity in page.Entities)
             {
                 OfferModels.Add(new PartnerOfferCardModel { Id = entity.Id, Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image), PartnerOffersVm = this });
@@ -112,9 +112,9 @@ namespace UI.ViewModels
             OnPageFetched(page);
         }
 
-        public void OpenOfferModal(int partnerId, int offerId)
+        public void OpenOfferModal(int offerId)
         {
-            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(this, Context, _offerService, _modalService, partnerId, offerId));
+            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(this, Context, _offerService, _modalService, PartnerId, offerId));
             if (ok)
             {
                 Context.Notifier.ShowInformation($"Offer successfully {((offerId != -1) ? "updated" : "created" )}");
