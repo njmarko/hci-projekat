@@ -1,4 +1,5 @@
-﻿using Domain.Pagination.Requests;
+﻿using Domain.Enums;
+using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,12 +36,19 @@ namespace UI.ViewModels
             }
         }
 
-        public ICommand Search { get; private set; }
+        private ServiceTypeModel _offerType;
+        public ServiceTypeModel OfferTypeValue
+        {
+            get { return _offerType; }
+            set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
+        }
 
+        public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
         public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService) : base(context)
         {
+
             _taskOfferService = taskOfferService;
 
             Search = new DelegateCommand(() => UpdatePage(0));
