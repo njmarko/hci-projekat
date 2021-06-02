@@ -52,6 +52,7 @@ namespace UI.Context.Routers
                 "RequestDetails" => GetRequestDetailsVm(),
                 "TaskDetails" => GetTaskDetailsVm(),
                 "PartnerOffers" => GetPartnerOffersVm(),
+                "EventPlannerTaskDetails" => GetEventPlannerTaskDetailsVm(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
             };
             OnRouteChanged?.Invoke(CurrentViewModel);
@@ -86,6 +87,13 @@ namespace UI.Context.Routers
         {
             var vm = _locator.Get<PartnerOffersViewModel>() as PartnerOffersViewModel;
             vm.PartnerId = GetRouteParameter<int>("partnerId");
+            return vm;
+        }
+
+        private ViewModelBase GetEventPlannerTaskDetailsVm()
+        {
+            var vm = _locator.Get<EventPlannerTaskDetailsViewModel>() as EventPlannerTaskDetailsViewModel;
+            vm.TaskId = GetRouteParameter<int>("taskId"); ;
             return vm;
         }
 
