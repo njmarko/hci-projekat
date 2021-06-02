@@ -69,9 +69,15 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public Request Get(int id)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Requests.Find(id);
+        }
+
         public Page<Request> GetAllRequests(RequestsPage page)
         {
-            //throw new NotImplementedException();
             using var context = _dbContextFactory.CreateDbContext();
 
             var query = page.Query.ToLower();
@@ -89,24 +95,15 @@ namespace Domain.Services
                           .ToPage(page);
         }
 
-        public Request GetRequest(int requestId)
-        {
-            using var context = _dbContextFactory.CreateDbContext();
-
-            return context.Requests.Find(requestId);
-        }
-
         public int GetRequestCost(int requestId)
         {
-            //throw new NotImplementedException();
             using var context = _dbContextFactory.CreateDbContext();
-            
+
             var request = context.Requests
-                .Include(r => r.Tasks)
-                .ThenInclude(t => t.Offers)
-                .ThenInclude(o => o.Offer)
-                .Where(r => r.Id == requestId)
-                .First();
+                                 .Include(r => r.Tasks)
+                                 .ThenInclude(t => t.Offers)
+                                 .ThenInclude(o => o.Offer)
+                                 .SingleOrDefault(r => r.Id == requestId);
             
             var acceptedTasks = request.Tasks
                 .Where(t => t.TaskStatus == TaskStatus.ACCEPTED);
@@ -117,17 +114,13 @@ namespace Domain.Services
                 var offers = task.Offers
                     .Where(o => o.OfferStatus == OfferStatus.ACCEPTED);
                 
-                if (offers.Count() != 0)
+                if (offers.Any())
                 {
                     var offer = offers.First();
                     cost += offer.Offer.Price;
 
                 }
-
-                
             }
-            
-            
             return cost;
             
         }

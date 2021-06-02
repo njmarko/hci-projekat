@@ -10,13 +10,13 @@ using UI.ViewModels;
 
 namespace UI.Commands
 {
-    public class UndoCommand<T> : ICommand where T : BaseEntity
+    public class RedoCommand<T> : ICommand where T : BaseEntity
     {
         public event EventHandler CanExecuteChanged;
         private UndoModelBase<T> _model;
         private Action _action;
 
-        public UndoCommand(UndoModelBase<T> model, Action action)
+        public RedoCommand(UndoModelBase<T> model, Action action)
         {
             _model = model;
             _action = action;
@@ -25,7 +25,7 @@ namespace UI.Commands
 
         private void _undoVm_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(UndoModelBase<T>.CanUndo))
+            if (e.PropertyName == nameof(UndoModelBase<T>.CanRedo))
             {
                 CanExecuteChanged?.Invoke(sender, e);
             }
@@ -33,7 +33,7 @@ namespace UI.Commands
 
         public bool CanExecute(object parameter)
         {
-            return _model.CanUndo;
+            return _model.CanRedo;
         }
 
         public void Execute(object parameter)

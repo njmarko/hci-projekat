@@ -16,15 +16,17 @@ namespace UI.Commands
     public class CreateRequestCommand : ICommand
     {
         private readonly CreateRequestViewModel _createRequestVm;
+        private readonly ClientRequestsViewModel _clientRequestsVm;
         private readonly IRequestService _requestService;
         private readonly IApplicationContext _context;
         private readonly int _requestId;
 
         public event EventHandler CanExecuteChanged;
 
-        public CreateRequestCommand(CreateRequestViewModel createRequestVm, IRequestService requestService, IApplicationContext context, int requestId)
+        public CreateRequestCommand(CreateRequestViewModel createRequestVm, ClientRequestsViewModel clientRequestsVm, IRequestService requestService, IApplicationContext context, int requestId)
         {
             _createRequestVm = createRequestVm;
+            _clientRequestsVm = clientRequestsVm;
             _requestService = requestService;
             _context = context;
             _requestId = requestId;
@@ -73,7 +75,9 @@ namespace UI.Commands
                 Notes = _createRequestVm.Notes,
                 Tasks = new List<Task>(),
             };
-            _requestService.Create(clientId, request);
+            var created = _requestService.Create(clientId, request);
+            created.Active = false;
+            _clientRequestsVm.AddItem(created);
             _context.Notifier.ShowSuccess($"Request '{request.Name}' has been created.");
             window.DialogResult = true;
             window.Close();
@@ -81,7 +85,8 @@ namespace UI.Commands
 
         private void Update(Window window)
         {
-            var request = _requestService.GetRequest(_requestId);
+            var request = _requestService.Get(_requestId);
+            _clientRequestsVm.AddItem(request);
             request.Name = _createRequestVm.Name;
             request.Type = _createRequestVm.RequestTypeValue.Type.Value;
             request.Budget = _createRequestVm.Budget;

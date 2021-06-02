@@ -110,7 +110,7 @@ namespace UI.ViewModels
 
         private void LoadRequest()
         {
-            Request = _requestService.GetRequest(RequestId);
+            Request = _requestService.Get(RequestId);
             CurrentCost = _requestService.GetRequestCost(RequestId);
             UpdatePage(0);
         }

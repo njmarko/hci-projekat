@@ -92,9 +92,9 @@ namespace UI.ViewModels
         public bool CanCreateRequest => IsValid();
         public ICommand CreateRequest { get; private set; }
 
-        public CreateRequestViewModel(IApplicationContext context, IRequestService requestService, int requestId = -1) : base(context)
+        public CreateRequestViewModel(ClientRequestsViewModel vm, IApplicationContext context, IRequestService requestService, int requestId = -1) : base(context)
         {
-            CreateRequest = new CreateRequestCommand(this, requestService, context, requestId);
+            CreateRequest = new CreateRequestCommand(this, vm, requestService, context, requestId);
 
             RequestTypeValue = new RequestTypeModel { Type = RequestType.BIRTHDAY, Name = "Birthday" };
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.ANNIVERSARY, Name = "Anniversary" });
@@ -107,7 +107,7 @@ namespace UI.ViewModels
 
             if (requestId != -1)
             {
-                Request request = requestService.GetRequest(requestId);
+                Request request = requestService.Get(requestId);
                 Name = request.Name;
                 Theme = request.Theme;
                 GuestNumber = request.GuestNumber;

@@ -9,19 +9,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IRequestService
+    public interface IRequestService : ICRUDService<Request>
     {
         Request Create(int clientId, Request request);
-
-        Request GetRequest(int requestId);
 
         Request Accept(int requestId, int eventPlannerId);
 
         Request Reject(int requestId, int eventPlannerId);
-
-        Request Update(Request request);
-
-        void Delete(int requestId);
 
         Page<Request> GetRequestInterestingForEventPlanner(int eventPlannerId, EventPlannerRequestsPage page);
 

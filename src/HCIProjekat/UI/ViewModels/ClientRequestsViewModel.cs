@@ -46,7 +46,7 @@ namespace UI.ViewModels
         public RequestType? Type { get; set; }
     }
 
-    public class ClientRequestsViewModel : PagingViewModelBase
+    public class ClientRequestsViewModel : UndoModelBase<Request>
     {
         private readonly DateTime _fromDateInitial = DateTime.Now.AddYears(-1);
         private readonly DateTime _toDateInitial = DateTime.Now.AddYears(1);
@@ -90,7 +90,7 @@ namespace UI.ViewModels
         public ICommand Clear { get; private set; }
         public ICommand ShowCreateRequestModal { get; private set; }
 
-        public ClientRequestsViewModel(IApplicationContext context, IClientService clientService, IRequestService requestService, IModalService modalService) : base(context)
+        public ClientRequestsViewModel(IApplicationContext context, IClientService clientService, IRequestService requestService, IModalService modalService) : base(context, requestService, modalService)
         {
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
@@ -154,7 +154,7 @@ namespace UI.ViewModels
 
         public void ShowRequestModal(int requestId = -1)
         {
-            if (_modalService.ShowModal<RequestModal>(new CreateRequestViewModel(Context, _requestService, requestId)))
+            if (_modalService.ShowModal<RequestModal>(new CreateRequestViewModel(this, Context, _requestService, requestId)))
             {
                 ClearFilters();
             }
