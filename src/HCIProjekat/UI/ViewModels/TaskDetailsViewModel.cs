@@ -192,7 +192,7 @@ namespace UI.ViewModels
             //MessageBox.Show("UPDATE PAGE!");
             LoadTask(false);
             TaskOfferModels.Clear();
-            var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber});
+            var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber, SearchQuery="" });
             string status = "";
             string color = "";
             

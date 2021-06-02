@@ -15,13 +15,13 @@ namespace UI.ViewModels
 {
     public class EventPlannerAvailableOffersViewModel : PagingViewModelBase
     {
-        private readonly ITaskOfferService _taskOfferService;
+        private readonly IOfferService _offerService;
 
         private int _taskId;
         public int TaskId
         {
             get { return _taskId; }
-            set { _taskId = value; }
+            set { _taskId = value; UpdatePage(0); }
         }
 
         private string _searchQuery;
@@ -38,27 +38,24 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
-        public EventPlannerAvailableOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService) : base(context)
+        public EventPlannerAvailableOffersViewModel(IApplicationContext context, IOfferService offerService) : base(context)
         {
-            _taskOfferService = taskOfferService;
+            _offerService = offerService;
 
             Search = new DelegateCommand(() => UpdatePage(0));
 
             SearchQuery = string.Empty;
             Rows = 1;
-
-            UpdatePage(0);
         }
 
 
         public override void UpdatePage(int pageNumber)
         {
             TaskOfferModels.Clear();
-            var page = _taskOfferService.GetOffersForTask(_taskId, new OffersForTaskPageRequest { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
+            var page = _offerService.GetAvailableOffersForTask(_taskId, new OffersForTaskPageRequest { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
             foreach (var entity in page.Entities)
             {
-                var offer = entity.Offer;
-                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = offer.Id, Name = offer.Name, Description = offer.Description, Image = ImageUtil.ConvertToImage(offer.Image) });
+                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = entity.Id, Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image) });
             }
             OnPageFetched(page);
         }

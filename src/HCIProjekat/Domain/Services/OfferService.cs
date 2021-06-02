@@ -49,6 +49,30 @@ namespace Domain.Services
                           .ToPage(page);
         }
 
+        public Page<Offer> GetAvailableOffersForTask(int taskId, OffersForTaskPageRequest page)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var searchQuery = page.SearchQuery.ToLower();
+            var task = context.Tasks.Where(t => t.Active)
+                                    .Where(t => t.Id == taskId)
+                                    .Include(t => t.Offers)
+                                    .First();
+
+            var offerIds = task.Offers.Select(to => to.Offer.Id);
+
+            return context.Offers
+                          .Where(o => o.Active)
+                          .Include(o => o.Partner)
+                          .Where(o => o.Partner.Active)
+                          .Where(o => o.OfferType == task.TaskType)
+                          .Where(o => !offerIds.Contains(o.Id))
+                          .Where(o => o.Name.ToLower().Contains(searchQuery) ||
+                                    o.Description.ToLower().Contains(searchQuery) ||
+                                    o.Price.ToString().Contains(searchQuery))
+                          .ToPage(page);
+        }
+
         public Offer Get(int offerId)
         {
             using var context = _dbContextFactory.CreateDbContext();

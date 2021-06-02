@@ -58,17 +58,19 @@ namespace UI.ViewModels
             get { return "EventPlannerHome"; }
         }
 
-        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService) : base(context)
+        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService) : base(context)
         {
             _taskService = taskService;
 
             AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService);
-            AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, taskOfferService);
+            AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, offerService);
         }
 
         private void FetchTask()
         {
             AddedOffersVm.TaskId = _taskId;
+            AvailableOffersVm.TaskId = _taskId;
+
             Task = _taskService.GetTask(TaskId);
             TaskDetails taskDetails = TaskColorAndStatus.GetTaskColorAndStatus(Task);
             Color = taskDetails.Color;

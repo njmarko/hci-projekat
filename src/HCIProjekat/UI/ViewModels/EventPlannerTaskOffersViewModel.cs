@@ -21,7 +21,7 @@ namespace UI.ViewModels
         public int TaskId
         {
             get { return _taskId; }
-            set { _taskId = value; }
+            set { _taskId = value; UpdatePage(0); }
         }
 
         private string _searchQuery;
@@ -47,8 +47,6 @@ namespace UI.ViewModels
 
             SearchQuery = string.Empty;
             Rows = 1;
-
-            UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)

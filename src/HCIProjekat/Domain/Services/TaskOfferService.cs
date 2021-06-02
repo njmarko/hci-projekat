@@ -45,12 +45,18 @@ namespace Domain.Services
 
         public Page<TaskOffer> GetOffersForTask(int taskId, OffersForTaskPageRequest page)
         {
-            var context = _dbContextFactory.CreateDbContext();
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var searchQuery = page.SearchQuery.ToLower();
+
             return context.TaskOffers
                           .Include(to => to.Offer)
                           .Include(to => to.Offer.Partner)
                           .Where(to => to.Active)
-                          .Where(o => o.Task.Id == taskId)
+                          .Where(to => to.Task.Id == taskId)
+                           .Where(to => to.Offer.Name.ToLower().Contains(searchQuery) ||
+                                    to.Offer.Description.ToLower().Contains(searchQuery) ||
+                                    to.Offer.Price.ToString().Contains(searchQuery))
                           .ToPage(page);
         }
 
