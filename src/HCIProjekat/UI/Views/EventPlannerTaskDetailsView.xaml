@@ -32,7 +32,8 @@
             </StackPanel>
             <Grid Margin="10 10 10 0 ">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="14*"/>
                 </Grid.ColumnDefinitions>
 
@@ -41,11 +42,11 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
-                <Border Grid.Column="1"   Grid.Row="0" Background="{Binding Color}" 
-                        CornerRadius="10" Padding="4" Margin="0"
+                <TextBlock Grid.Column="0" Grid.Row="0"  Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
+                <Border Grid.Column="1"  Grid.Row="0" Background="{Binding Color}" 
+                        CornerRadius="10" Padding="4" Margin="5 0 0 0"
                         MaxWidth="100"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Center">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
                                Foreground="White" FontWeight="Bold" Text="{Binding Status}">
                     </TextBlock>
@@ -61,9 +62,33 @@
                 </ScrollViewer>
             </DockPanel>
         </StackPanel>
-        
+
         <TabControl Grid.Row="2" Margin="0 0 0 0" Style="{DynamicResource MaterialDesignTabControl}" Background="#e8e8e8">
             <TabItem Header="Added Offers" DataContext="{Binding AddedOffersVm}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:EventPlannerTaskOfferCard />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <StackPanel Grid.Row="1">
+                        <controls:Pagination />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Available Offers" DataContext="{Binding AvailableOffersVm}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
@@ -89,6 +114,5 @@
 
             </TabItem>
         </TabControl>
-
     </Grid>
 </UserControl>

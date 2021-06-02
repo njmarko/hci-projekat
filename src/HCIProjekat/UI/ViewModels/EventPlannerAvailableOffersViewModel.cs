@@ -13,7 +13,7 @@ using UI.Util;
 
 namespace UI.ViewModels
 {
-    public class EventPlannerTaskOffersViewModel : PagingViewModelBase
+    public class EventPlannerAvailableOffersViewModel : PagingViewModelBase
     {
         private readonly ITaskOfferService _taskOfferService;
 
@@ -36,10 +36,9 @@ namespace UI.ViewModels
         }
 
         public ICommand Search { get; private set; }
-
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
-        public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService) : base(context)
+        public EventPlannerAvailableOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService) : base(context)
         {
             _taskOfferService = taskOfferService;
 
@@ -50,6 +49,7 @@ namespace UI.ViewModels
 
             UpdatePage(0);
         }
+
 
         public override void UpdatePage(int pageNumber)
         {

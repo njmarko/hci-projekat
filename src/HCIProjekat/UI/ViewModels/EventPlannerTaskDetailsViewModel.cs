@@ -23,6 +23,7 @@ namespace UI.ViewModels
         private readonly ITaskService _taskService;
 
         public EventPlannerTaskOffersViewModel AddedOffersVm { get; set; }
+        public EventPlannerAvailableOffersViewModel AvailableOffersVm { get; set; }
 
         private int _taskId;
         public int TaskId
@@ -62,6 +63,7 @@ namespace UI.ViewModels
             _taskService = taskService;
 
             AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService);
+            AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, taskOfferService);
         }
 
         private void FetchTask()
