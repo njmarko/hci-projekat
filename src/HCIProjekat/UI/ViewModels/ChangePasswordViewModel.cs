@@ -108,12 +108,12 @@ namespace UI.ViewModels
                 ConfirmPasswordError.ErrorMessage = null;
             }
 
-            if (string.IsNullOrEmpty(OldPassword) || string.IsNullOrEmpty(NewPassword) || string.IsNullOrEmpty(ConfirmPassword))
-                valid = false;
+            //if (string.IsNullOrEmpty(OldPassword) || string.IsNullOrEmpty(NewPassword) || string.IsNullOrEmpty(ConfirmPassword))
+            //    valid = false;
 
 
 
-            return valid;
+            return valid && AllDirty();
         }
     }
 }
