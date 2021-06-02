@@ -10,16 +10,18 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class CreateTaskViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class CreateTaskViewModel : ValidationModel<CreateTaskViewModel>
     {
         private readonly ITaskService _taskService;
         public Request Request { get; private set; }
 
         private string _name = string.Empty;
+        [ValidationField]
         public string Name
         {
             get { return _name; }
@@ -79,7 +81,7 @@ namespace UI.ViewModels
         public bool IsValid()
         {
             bool valid = true;
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name) && IsDirty(nameof(Name)))
             {
                 NameError.ErrorMessage = "Task name is required.";
                 valid = false;
@@ -89,7 +91,7 @@ namespace UI.ViewModels
                 NameError.ErrorMessage = null;
             }
             TaskTypeError.ErrorMessage = null;
-            return valid;
+            return valid && AllDirty();
         }
     }
 }

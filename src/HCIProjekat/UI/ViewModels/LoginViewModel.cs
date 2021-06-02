@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class LoginViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class LoginViewModel : ValidationModel<LoginViewModel>
     {
         private string _username;
+        [ValidationField]
         public string Username
         {
             get { return _username; }
@@ -21,6 +23,7 @@ namespace UI.ViewModels
         }
 
         private string _password;
+        [ValidationField]
         public string Password
         {
             get { return _password; }
@@ -42,7 +45,7 @@ namespace UI.ViewModels
         {
             bool valid = true;
             //Username
-            if (string.IsNullOrEmpty(Username))
+            if (string.IsNullOrEmpty(Username) && IsDirty(nameof(Username)))
             {
                 UsernameError.ErrorMessage = "Username cannot be empty.";
                 valid = false;
@@ -51,7 +54,7 @@ namespace UI.ViewModels
                 UsernameError.ErrorMessage = null;
             }
             //Password
-            if (string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(Password) && IsDirty(nameof(Password)))
             {
                 PasswordError.ErrorMessage = "Password cannot be empty.";
                 valid = false;
@@ -60,7 +63,7 @@ namespace UI.ViewModels
                 PasswordError.ErrorMessage = null;
             }
             LoginError.ErrorMessage = null;
-            return valid;
+            return valid && AllDirty();
         }
     }
 }

@@ -10,14 +10,16 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class CreateRequestViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class CreateRequestViewModel : ValidationModel<CreateRequestViewModel>
     {
         // Poperties
         private string _name = string.Empty;
+        [ValidationField]
         public string Name
         {
             get { return _name; }
@@ -32,6 +34,7 @@ namespace UI.ViewModels
         }
 
         private int _guestNumber = 0;
+        [ValidationField]
         public int GuestNumber
         {
             get { return _guestNumber; }
@@ -39,6 +42,7 @@ namespace UI.ViewModels
         }
 
         private string _theme = string.Empty;
+        [ValidationField]
         public string Theme
         {
             get { return _theme; }
@@ -46,6 +50,7 @@ namespace UI.ViewModels
         }
 
         private int _budget = 0;
+        [ValidationField]
         public int Budget
         {
             get { return _budget; }
@@ -119,7 +124,7 @@ namespace UI.ViewModels
             bool valid = true;
 
             //Name
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name) && IsDirty(nameof(Name)))
             {
                 NameError.ErrorMessage = "Name is required.";
                 valid = false;
@@ -129,7 +134,7 @@ namespace UI.ViewModels
                 NameError.ErrorMessage = null;
             }
             //Theme
-            if (string.IsNullOrEmpty(Theme))
+            if (string.IsNullOrEmpty(Theme) && IsDirty(nameof(Theme)))
             {
                 ThemeError.ErrorMessage = "Theme is required.";
                 valid = false;
@@ -139,7 +144,7 @@ namespace UI.ViewModels
                 ThemeError.ErrorMessage = null;
             }
             //Guest number
-            if (GuestNumber <= 0)
+            if (GuestNumber <= 0 && IsDirty(nameof(GuestNumber)))
             {
                 GuestNumberError.ErrorMessage = "Guest number must be a positive number.";
                 valid = false;
@@ -149,7 +154,7 @@ namespace UI.ViewModels
                 GuestNumberError.ErrorMessage = null;
             }
             //Budget
-            if (Budget <= 0)
+            if (Budget <= 0 && IsDirty(nameof(Budget)))
             {
                 BudgetError.ErrorMessage = "Budget must be a positive number.";
                 valid = false;
@@ -168,7 +173,7 @@ namespace UI.ViewModels
             {
                 RequestDateError.ErrorMessage = null;
             }
-            return valid;
+            return valid && AllDirty();
         }
     }
 }
