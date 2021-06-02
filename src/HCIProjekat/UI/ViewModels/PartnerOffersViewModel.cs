@@ -32,7 +32,7 @@ namespace UI.ViewModels
 
         public PartnerOfferCardModel()
         {
-            EditOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(PartnerOffersVm.PartnerId, Id));
+            EditOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(Id));
             DeleteOffer = new DelegateCommand(() => PartnerOffersVm.DeleteOffer(Id));
         }
 
