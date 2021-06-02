@@ -45,13 +45,13 @@ namespace UI.Context.Routers
                 "RegisterAdmin" => _locator.Get<RegisterAdminViewModel>(),
                 "RegisterPartner" => _locator.Get<RegisterPartnerViewModel>(),
                 "EventPlannerHome" => _locator.Get<EventPlannerHomeViewModel>(),
-                "PartnerOffers" => _locator.Get<PartnerOffersViewModel>(),
                 "EventPlannerRequests" => _locator.Get<EventPlannerRequestsViewModel>(),
                 "AdminRequests" => _locator.Get<AdminRequestsViewModel>(),
 
                 // With route parameters
                 "RequestDetails" => GetRequestDetailsVm(),
                 "TaskDetails" => GetTaskDetailsVm(),
+                "PartnerOffers" => GetPartnerOffersVm(),
                 _ => throw new Exception($"Undefined route '{route}'. No view model registered for the given route.")
             };
             RouteChanged?.Invoke(CurrentViewModel);
@@ -70,15 +70,22 @@ namespace UI.Context.Routers
         // TODO: Ovo najverovatnije ispaviti da se u view modelu hvata event kad se promeni route parametar, ali i ovo radi
         private ViewModelBase GetRequestDetailsVm()
         {
-            RequestDetailsViewModel vm = _locator.Get<RequestDetailsViewModel>() as RequestDetailsViewModel;
+            var vm = _locator.Get<RequestDetailsViewModel>() as RequestDetailsViewModel;
             vm.RequestId = GetRouteParameter<int>("requestId");
             return vm;
         }
 
         private ViewModelBase GetTaskDetailsVm()
         {
-            TaskDetailsViewModel vm = _locator.Get<TaskDetailsViewModel>() as TaskDetailsViewModel;
+            var vm = _locator.Get<TaskDetailsViewModel>() as TaskDetailsViewModel;
             vm.TaskId = GetRouteParameter<int>("taskId");
+            return vm;
+        }
+
+        private ViewModelBase GetPartnerOffersVm()
+        {
+            var vm = _locator.Get<PartnerOffersViewModel>() as PartnerOffersViewModel;
+            vm.PartnerId = GetRouteParameter<int>("partnerId");
             return vm;
         }
 

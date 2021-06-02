@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.Services.Interfaces;
 using UI.Util;
 using UI.ViewModels.Interfaces;
@@ -24,15 +26,16 @@ namespace UI.ViewModels
         public ServiceType? Type { get; set; }
     }
 
-    public class CreateOfferViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class CreateOfferViewModel : ValidationModel<CreateOfferViewModel>
     {
         private IOfferService _offerService;
 
         private byte[] _imageInBytes;
+        [ValidationField]
         public byte[] ImageInBytes
         {
             get { return _imageInBytes; }
-            set { _imageInBytes = value; }
+            set { _imageInBytes = value; OnPropertyChanged(nameof(ImageInBytes)); }
         }
 
         private BitmapImage _image;
@@ -43,6 +46,7 @@ namespace UI.ViewModels
         }
 
         private string _name;
+        [ValidationField]
         public string Name
         {
             get { return _name; }
@@ -50,6 +54,7 @@ namespace UI.ViewModels
         }
 
         private string _price;
+        [ValidationField]
         public string Price
         {
             get { return _price; }
@@ -64,6 +69,7 @@ namespace UI.ViewModels
         }
 
         private string _description;
+        [ValidationField]
         public string Description
         {
             get { return _description; }
@@ -127,7 +133,7 @@ namespace UI.ViewModels
         {
             bool valid = true;
             //Name
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name) && IsDirty(nameof(Name)))
             {
                 NameError.ErrorMessage = "Name is required.";
                 valid = false;
@@ -137,7 +143,7 @@ namespace UI.ViewModels
                 NameError.ErrorMessage = null;
             }
             //Description
-            if (string.IsNullOrEmpty(Description))
+            if (string.IsNullOrEmpty(Description) && IsDirty(nameof(Description)))
             {
                 DescriptionError.ErrorMessage = "Description is required.";
                 valid = false;
@@ -147,14 +153,14 @@ namespace UI.ViewModels
                 DescriptionError.ErrorMessage = null;
             }
             //Price
-            if (string.IsNullOrEmpty(Price))
+            if (string.IsNullOrEmpty(Price) && IsDirty(nameof(Price)))
             {
                 PriceError.ErrorMessage = "Price is required!";
                 valid = false;
             }
             else if (int.TryParse(Price, out int priceNumber))
             {
-                if (priceNumber <= 0)
+                if (priceNumber <= 0 && IsDirty(nameof(Price)))
                 {
                     PriceError.ErrorMessage = "Price must be greater than 0!";
                     valid = false;
@@ -164,13 +170,13 @@ namespace UI.ViewModels
                     PriceError.ErrorMessage = null;
                 }
             }
-            else
+            else if (IsDirty(nameof(Price)))
             {
                 PriceError.ErrorMessage = "Price must be number!";
                 valid = false;
             }
             //Image
-            if (ImageInBytes == null)
+            if (ImageInBytes == null && IsDirty(nameof(ImageInBytes)))
             {
                 ImageError.ErrorMessage = "Image is required.";
                 valid = false;
@@ -180,7 +186,7 @@ namespace UI.ViewModels
                 ImageError.ErrorMessage = null;
             }
 
-            return valid;
+            return valid && AllDirty();
         }
 
         private void ImageInput()

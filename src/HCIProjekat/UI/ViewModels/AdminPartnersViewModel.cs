@@ -23,6 +23,8 @@ namespace UI.ViewModels
 
         public string Route { get; set; }
 
+        public IApplicationContext Context { get; set; }
+
         public ICommand Delete { get; set; }
 
         public IApplicationContext Context { get; set; }

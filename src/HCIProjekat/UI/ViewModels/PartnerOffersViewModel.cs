@@ -32,7 +32,7 @@ namespace UI.ViewModels
 
         public PartnerOfferCardModel()
         {
-            EditOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(PartnerOffersVm.PartnerId, Id));
+            EditOffer = new DelegateCommand(() => PartnerOffersVm.OpenOfferModal(Id));
             DeleteOffer = new DelegateCommand(() => PartnerOffersVm.DeleteOffer(Id));
         }
 
@@ -62,10 +62,16 @@ namespace UI.ViewModels
             set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
         }
 
-        public int PartnerId { get; set; }
+        private int _partnerId;
+        public int PartnerId
+        { 
+            get { return _partnerId; }
+            set { _partnerId = value; UpdatePage(0);  }
+        }
 
-        public ICommand AddOffer { get; private set; }
+public ICommand AddOffer { get; private set; }
         public ICommand Search { get; private set; }
+        public ICommand Clear { get; private set; }
 
         public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
@@ -80,21 +86,30 @@ namespace UI.ViewModels
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
 
-            _offerService = offerService;
-            SearchQuery = string.Empty;
-            UpdatePage(0);
 
-            AddOffer = new DelegateCommand(() => OpenOfferModal(1, -1));
+            AddOffer = new DelegateCommand(() => OpenOfferModal(-1));
             Search = new DelegateCommand(() => UpdatePage(0));
+            Clear = new DelegateCommand(() => ClearFilter());
 
             _modalService = modalService;
-            PartnerId = 1;
+            _offerService = offerService;
+
+            Rows = 1;
+
+            SearchQuery = string.Empty;
+            UpdatePage(0);
+        }
+
+        private void ClearFilter()
+        {
+            OfferTypeValue = OfferTypeModels.First();
+            UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
         {
             OfferModels.Clear();
-            var page = _offerService.GetOffersForPartner(1, new OffersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery, OfferType = OfferTypeValue.Type });
+            var page = _offerService.GetOffersForPartner(PartnerId, new OffersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery, OfferType = OfferTypeValue.Type });
             foreach (var entity in page.Entities)
             {
                 OfferModels.Add(new PartnerOfferCardModel { Id = entity.Id, Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image), PartnerOffersVm = this });
@@ -102,9 +117,9 @@ namespace UI.ViewModels
             OnPageFetched(page);
         }
 
-        public void OpenOfferModal(int partnerId, int offerId)
+        public void OpenOfferModal(int offerId)
         {
-            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(this, Context, _offerService, _modalService, partnerId, offerId));
+            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(this, Context, _offerService, _modalService, PartnerId, offerId));
             if (ok)
             {
                 Context.Notifier.ShowInformation($"Offer successfully {((offerId != -1) ? "updated" : "created" )}");
