@@ -16,10 +16,12 @@ namespace Domain.Services
     public class TaskService : ITaskService
     {
         private readonly IApplicationDbContextFactory _dbContextFactory;
+        private readonly INotificationService _notificationService;
 
-        public TaskService(IApplicationDbContextFactory dbContextFactory)
+        public TaskService(IApplicationDbContextFactory dbContextFactory, INotificationService notificationService)
         {
             _dbContextFactory = dbContextFactory;
+            _notificationService = notificationService;
         }
 
         public void AcceptTaskOffer(int taskId, int taskOfferId)
@@ -27,8 +29,9 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
             var task = context.Tasks
                               .Include(t => t.Offers)
-                              .Where(t => t.Id == taskId)
-                              .First();
+                              .Include(t => t.Request)
+                              .ThenInclude(r => r.EventPlanner)
+                              .SingleOrDefault(t => t.Id == taskId);
 
             var offers = task.Offers;
             
@@ -42,6 +45,10 @@ namespace Domain.Services
             task.TaskStatus = TaskStatus.ACCEPTED;
 
             context.SaveChanges();
+
+            // Notify event planner that his task got accepted by the client
+            var notification = new Notification { Message = "Your task has been accepted.", TaskId = taskId, UserId = task.Request.EventPlanner.Id };
+            _notificationService.Push(notification);
         }
 
         public Task Create(Task task, int requestId)
@@ -139,12 +146,19 @@ namespace Domain.Services
 
             var task = context.Tasks
                               .Include(t => t.Offers)
-                              .Where(t => t.Id == taskId)
-                              .First();
+                              .Include(t => t.Request)
+                              .ThenInclude(r => r.EventPlanner)
+                              .SingleOrDefault(t => t.Id == taskId);
+
             foreach (var offer in task.Offers)
                 offer.OfferStatus = OfferStatus.REJECTED;
+
             task.TaskStatus = TaskStatus.REJECTED;
             context.SaveChanges();
+
+            // Notify event planner that his task got rejected by the client
+            var notification = new Notification { Message = "Your task has been rejected.", TaskId = taskId, UserId = task.Request.EventPlanner.Id };
+            _notificationService.Push(notification);
         }
 
         public void RejectTaskOffer(int taskId, int taskOfferId)
@@ -153,16 +167,20 @@ namespace Domain.Services
 
             var task = context.Tasks
                               .Include(t => t.Offers)
-                              .Where(t => t.Id == taskId)
-                              .First();
-            
-           var offer = task.Offers
-                           .Where(o => o.Id == taskOfferId)
-                           .First();
+                              .Include(t => t.Request)
+                              .ThenInclude(r => r.EventPlanner)
+                              .SingleOrDefault(t => t.Id == taskId);
+
+            var offer = context.TaskOffers.Find(taskOfferId);
             
             offer.OfferStatus = OfferStatus.REJECTED;
-            if (task.Offers.Where(offer => offer.OfferStatus == OfferStatus.REJECTED).Count() == task.Offers.Count())
+            if (task.Offers.Count(offer => offer.OfferStatus == OfferStatus.REJECTED) == task.Offers.Count)
+            {
                 task.TaskStatus = TaskStatus.REJECTED;
+                // Notify event planner that his task got rejected by the client
+                var notification = new Notification { Message = "Your task has been rejected.", TaskId = taskId, UserId = task.Request.EventPlanner.Id };
+                _notificationService.Push(notification);
+            }
             
             context.SaveChanges();
         }

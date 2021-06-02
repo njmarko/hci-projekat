@@ -35,18 +35,20 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Menu Grid.Row="0" Grid.Column="1" Margin="0 0 20 0" DataContext="{Binding NotificationViewModel}" Background="LightCyan" FlowDirection="RightToLeft" Style="{DynamicResource MaterialDesignMenu}">
+        <Menu Grid.Row="0" Grid.Column="1" Margin="0 0 20 0" DataContext="{Binding NotificationViewModel}" Background="LightGray" FlowDirection="RightToLeft" Style="{DynamicResource MaterialDesignMenu}">
             <MenuItem Cursor="Hand" IsSubmenuOpen="{Binding DidOpenNotifications}" ItemsSource="{Binding Notifications}">
                 <MenuItem.Icon>
-                    <materialDesign:PackIcon Kind="Notifications" Foreground="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                    <materialDesign:PackIcon Kind="Notifications" Foreground="#0d62ff" />
                 </MenuItem.Icon>
                 <MenuItem.Header>
                     <TextBlock Text="{Binding NotificationCount}" />
                 </MenuItem.Header>
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}">
-                        <Setter Property="Height" Value="80" />
+                        <Setter Property="Height" Value="100" />
                         <Setter Property="Width" Value="300" />
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="BorderBrush" Value="LightGray" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
                 <MenuItem.ItemTemplate>

@@ -87,8 +87,8 @@ namespace UI.ViewModels
                 Id = notification.Id,
                 Message = notification.Message,
                 TimeStamp = notification.TimeStamp.ToString("dd.MM.yyyy. HH:mm"),
-                IsSeen = notification.Seen,
-                IsRead = notification.Read,
+                IsSeen = notification.Seen && !notification.Read,
+                IsRead = notification.Read && notification.Seen,
                 IsNew = !notification.Seen,
             };
             Notifications.Add(model);

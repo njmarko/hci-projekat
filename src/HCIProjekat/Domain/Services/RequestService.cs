@@ -15,22 +15,28 @@ namespace Domain.Services
     public class RequestService : IRequestService
     {
         private readonly IApplicationDbContextFactory _dbContextFactory;
-
-        public RequestService(IApplicationDbContextFactory dbContextFactory)
+        private readonly INotificationService _notificationService;
+        public RequestService(IApplicationDbContextFactory dbContextFactory, INotificationService notificationService)
         {
             _dbContextFactory = dbContextFactory;
+            _notificationService = notificationService;
         }
 
         public Request Accept(int requestId, int eventPlannerId)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var request = context.Requests.Find(requestId);
+            var request = context.Requests.Include(r => r.Client).SingleOrDefault(r => r.Id == requestId);
             var eventPlanner = context.EventPlanners.Find(eventPlannerId);
             request.EventPlanner = eventPlanner;
 
             context.Requests.Update(request);
             context.SaveChanges();
+
+            // Notify a client that his request has been accepted
+            var notification = new Notification { Message = $"Your request has been accepted by {eventPlanner.FirstName} {eventPlanner.LastName}.", UserId = request.Client.Id, RequestId = requestId };
+            _notificationService.Push(notification);
+
             return request;
         }
 
@@ -43,6 +49,14 @@ namespace Domain.Services
 
             context.Requests.Add(request);
             context.SaveChanges();
+
+            // Notify all the event planners about the new request
+            foreach (var planner in context.EventPlanners.Where(e => e.Active))
+            {
+                var notification = new Notification { Message = $"New request has been made.", UserId = request.Client.Id, RequestId = request.Id };
+                _notificationService.Push(notification);
+            }
+
             return request;
         }
 
@@ -92,7 +106,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var request = context.Requests.Find(requestId);
+            var request = context.Requests.Include(r => r.Client).SingleOrDefault(r => r.Id == requestId);
             var eventPlanner = context.EventPlanners.Find(eventPlannerId);
             eventPlanner.AcceptedRequests.Remove(request);  // VAZNO: mora eksplicitno da se obrise iz ove kolekcije jer nama je sve virutal pa on nema pojma ko je vlasnik ove kolekcije
                                                             // u sustini ti kolekcije nam samo smetaju tako da ih komotno mozemo i obrisati posto svakako svugde filitrimamo odgovarajuci DbSet
@@ -100,6 +114,11 @@ namespace Domain.Services
             request.EventPlanner = null;
             context.Requests.Update(request);
             context.SaveChanges();
+
+            // Notify a client that his request has been canceled
+            var notification = new Notification { Message = $"Your request has been canceled by {eventPlanner.FirstName} {eventPlanner.LastName}.", UserId = request.Client.Id, RequestId = requestId };
+            _notificationService.Push(notification);
+
             return request;
         }
 
