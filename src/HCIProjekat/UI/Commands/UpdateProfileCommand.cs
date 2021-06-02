@@ -55,7 +55,7 @@ namespace UI.Commands
                 _updateProfileVm.LastName = user.LastName;
                 _updateProfileVm.DateOfBirth = user.DateOfBirth;
                 _updateProfileVm.Context.Notifier.ShowSuccess("Profile info successfully updated.");
-                //((Window)parameter).Close(); nesto ne moze, javlja null pointer exception
+                ((Window)parameter).Close();
 
 
             }

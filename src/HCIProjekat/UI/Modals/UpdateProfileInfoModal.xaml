@@ -75,6 +75,8 @@
                 <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
                         Content="Save changes" Margin="10 25 10 15" Foreground="White" 
                         Command="{Binding Update}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                        AncestorType={x:Type Window}}}"
                         />
                 
             </StackPanel>

@@ -9,12 +9,13 @@ using System.Windows;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.Services.Interfaces;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class UpdateProfileViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class UpdateProfileViewModel : ValidationModel<UpdateProfileViewModel>
     {
         private readonly IUserService _userService;
         public bool CanUpdate => IsValid();
@@ -36,6 +37,7 @@ namespace UI.ViewModels
 
         private string _firstName;
 
+        [ValidationField]
         public string FirstName
         {
             get { return _firstName; }
@@ -50,6 +52,7 @@ namespace UI.ViewModels
 
         private string _lastName;
 
+        [ValidationField]
         public string LastName
         {
             get { return _lastName; }
@@ -64,6 +67,7 @@ namespace UI.ViewModels
 
         private string _username;
 
+        [ValidationField]
         public string Username
         {
             get { return _username; }
@@ -78,6 +82,7 @@ namespace UI.ViewModels
 
         private DateTime _dateOfBirth;
 
+        [ValidationField]
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }
@@ -117,7 +122,7 @@ namespace UI.ViewModels
         {
             bool isValid = true;
 
-            if (string.IsNullOrEmpty(Username))
+            if (string.IsNullOrEmpty(Username) && IsDirty(nameof(Username)))
             {
                 UsernameError.ErrorMessage = "Username cannot be empty.";
                 isValid = false;
@@ -127,7 +132,7 @@ namespace UI.ViewModels
                 UsernameError.ErrorMessage = null;
             }
 
-            if (string.IsNullOrEmpty(LastName))
+            if (string.IsNullOrEmpty(LastName) && IsDirty(nameof(LastName)))
             {
                 LastNameError.ErrorMessage = "Last name cannot be empty.";
                 isValid = false;
@@ -137,7 +142,7 @@ namespace UI.ViewModels
                 LastNameError.ErrorMessage = null;
             }
 
-            if (string.IsNullOrEmpty(FirstName))
+            if (string.IsNullOrEmpty(FirstName) && IsDirty(nameof(FirstName)))
             {
                 FirstNameError.ErrorMessage = "First name cannot be empty.";
                 isValid = false;
@@ -155,7 +160,7 @@ namespace UI.ViewModels
             {
                 age--;
             }
-            if (age < 18)
+            if (age < 18 && IsDirty(nameof(DateOfBirth)))
             {
                 DateOfBirthError.ErrorMessage = $"Your age cannot be less than 18.";
                 isValid = false;

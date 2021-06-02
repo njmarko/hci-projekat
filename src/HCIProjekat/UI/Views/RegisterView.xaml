@@ -31,10 +31,16 @@
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter username" Margin="10 15 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding UsernameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <!--Password-->
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter password" Margin="10 15 10 0" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                <PasswordBox x:Name="PasswordPasswordBox" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
+                             materialDesign:HintAssist.Hint="Enter password"
+                             PasswordChanged="PasswordPasswordBox_PasswordChanged"
+                             Margin="10 15 10 0" ></PasswordBox>
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding PasswordError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <!--Confirm password-->
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Confirm password" Margin="10 15 10 0" Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" />
+                <PasswordBox x:Name="ConfirmPasswordPasswordBox" Style="{DynamicResource MaterialDesignFloatingHintPasswordBox}"
+                             materialDesign:HintAssist.Hint="Confirm password"
+                             Margin="10 15 10 0" 
+                             PasswordChanged="ConfirmPasswordPasswordBox_PasswordChanged"></PasswordBox>
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding ConfirmPasswordError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <!--Date of birth-->
                 <DatePicker Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Enter date of birth" IsTodayHighlighted="True" Margin="10 15 10 0" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />

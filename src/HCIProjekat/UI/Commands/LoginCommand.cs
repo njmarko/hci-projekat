@@ -10,6 +10,8 @@ using System.Windows.Input;
 using UI.Context;
 using UI.Context.Stores;
 using UI.ViewModels;
+using ToastNotifications.Messages;
+
 
 namespace UI.Commands
 {
@@ -47,7 +49,9 @@ namespace UI.Commands
             User user = _authService.Login(_loginVm.Username, _loginVm.Password);
             if (user == null)
             {
-                _loginVm.LoginError.ErrorMessage = "Invalid username and/or password.";
+                //_loginVm.LoginError.ErrorMessage = "Invalid username and/or password.";
+                _loginVm.Context.Notifier.ShowError("Invalid username and/or password.");
+
                 return;
             }
             _context.Store.CurrentUser = user;

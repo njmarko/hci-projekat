@@ -49,7 +49,7 @@ namespace UI.Commands
                 _changePasswordVM.NewPassword = "";
                 _changePasswordVM.ConfirmPassword = "";
                 _changePasswordVM.Context.Notifier.ShowSuccess("Password successfully changed.");
-                //((Window)parameter).Close(); nesto ne moze, javlja null pointer exception
+                ((Window)parameter).Close(); 
 
 
             }

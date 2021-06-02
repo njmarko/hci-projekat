@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class ChangePasswordViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class ChangePasswordViewModel : ValidationModel<ChangePasswordViewModel>
     {
 
 
@@ -19,6 +20,7 @@ namespace UI.ViewModels
 
         private string _oldPassword;
 
+        [ValidationField]
         public string OldPassword
         {
             get { return _oldPassword; }
@@ -32,6 +34,7 @@ namespace UI.ViewModels
 
         private string _newPassword;
 
+        [ValidationField]
         public string NewPassword
         {
             get { return _newPassword; }
@@ -45,6 +48,7 @@ namespace UI.ViewModels
 
         private string _confirmPassword;
 
+        [ValidationField]
         public string ConfirmPassword
         {
             get { return _confirmPassword; }
@@ -68,12 +72,15 @@ namespace UI.ViewModels
         public ChangePasswordViewModel(IApplicationContext context, IUserService userService) : base(context)
         {
             ChangePassword = new ChangePasswordCommand(this, userService);
+            OldPassword = "";
+            NewPassword = "";
+            ConfirmPassword = "";
         }
 
         public bool IsValid()
         {
             bool valid = true;
-            if (string.IsNullOrEmpty(OldPassword))
+            if (string.IsNullOrEmpty(OldPassword) && IsDirty(nameof(OldPassword)))
             {
                 OldPasswordError.ErrorMessage = "Old password cannot be empty.";
                 valid = false;
@@ -82,7 +89,7 @@ namespace UI.ViewModels
             {
                 OldPasswordError.ErrorMessage = null;
             }
-            if (string.IsNullOrEmpty(NewPassword))
+            if (string.IsNullOrEmpty(NewPassword) && IsDirty(nameof(NewPassword)))
             {
                 NewPasswordError.ErrorMessage = "New password cannot be empty.";
                 valid = false;
@@ -91,7 +98,7 @@ namespace UI.ViewModels
             {
                 NewPasswordError.ErrorMessage = null;
             }
-            if(string.IsNullOrEmpty(ConfirmPassword) || ConfirmPassword != NewPassword)
+            if(ConfirmPassword != NewPassword && IsDirty(nameof(ConfirmPassword)))
             {
                 ConfirmPasswordError.ErrorMessage = "Passwords don't match";
                 valid = false;
