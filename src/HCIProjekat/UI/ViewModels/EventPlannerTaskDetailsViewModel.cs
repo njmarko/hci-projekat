@@ -29,6 +29,8 @@ namespace UI.ViewModels
 
         public EventPlannerTaskOffersViewModel AddedOffersVm { get; set; }
         public EventPlannerAvailableOffersViewModel AvailableOffersVm { get; set; }
+        public EventPlannerCommentsViewModel EventPlannerCommentsVm { get; set; }
+
 
         private int _taskId;
         public int TaskId
@@ -63,12 +65,13 @@ namespace UI.ViewModels
             get { return "EventPlannerHome"; }
         }
 
-        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService, IModalService modalService) : base(context)
+        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService, IModalService modalService, ICommentService commentService) : base(context)
         {
             _taskService = taskService;
 
             AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService, modalService);
             AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, offerService, taskOfferService, modalService);
+            EventPlannerCommentsVm = new EventPlannerCommentsViewModel(context, commentService, modalService);
 
             AddedOffersVm.AvailableVm = AvailableOffersVm;
             AvailableOffersVm.AddedVm = AddedOffersVm;
@@ -78,6 +81,7 @@ namespace UI.ViewModels
         {
             AddedOffersVm.TaskId = _taskId;
             AvailableOffersVm.TaskId = _taskId;
+            EventPlannerCommentsVm.TaskId = _taskId;
 
             Task = _taskService.GetTask(TaskId);
             TaskDetails taskDetails = TaskColorAndStatus.GetTaskColorAndStatus(Task);

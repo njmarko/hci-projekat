@@ -138,7 +138,58 @@
                         <controls:Pagination />
                     </StackPanel>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Comments" DataContext="{Binding EventPlannerCommentsVm}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
+                    <ScrollViewer
+                        VerticalScrollBarVisibility="Auto" 
+                        Grid.Row="0"
+                        Style="{DynamicResource MaterialDesignScrollViewer}"
+                        util:ScrollToTheEnd.AutoScroll="{Binding CommentAdded}"
+                            x:Name="CommentScrollViewer">
+                        <ItemsControl ItemsSource="{Binding CommentModels}" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:Comment />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <Grid Grid.Row="1" Margin="0 20 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Padding="4"
+                               Width="300" Background="White" Grid.Column="1"  Margin="0 0 10 10">
+                            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                 materialDesign:HintAssist.Hint="Enter comment" 
+                                 Background="White"
+                                 TextWrapping="Wrap"
+                                 BorderThickness="0"
+                                 Padding="0 0 0 10"
+                                 >
+                                <TextBox.Text>
+                                    <Binding Path="CommentContent" UpdateSourceTrigger="PropertyChanged">
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Border>
+
+                        <Button Grid.Column="2"  Margin="0 0 0 10" Style="{DynamicResource MaterialDesignFlatAccentBgButton}"
+                            Foreground="White" Command="{Binding AddCommentCommand}"
+                         Content="Send"/>
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
