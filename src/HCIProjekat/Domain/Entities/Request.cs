@@ -18,8 +18,8 @@ namespace Domain.Entities
         public DateTime Date { get; set; }
         public string Notes { get; set; }
 
-        public virtual Client Client { get; set; }
-        public virtual EventPlanner EventPlanner { get; set; }
+        public Client Client { get; set; }
+        public EventPlanner EventPlanner { get; set; }
         public virtual IList<Task> Tasks { get; set; }
     }
 }

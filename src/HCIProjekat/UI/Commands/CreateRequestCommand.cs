@@ -96,7 +96,7 @@ namespace UI.Commands
             request.Date = _createRequestVm.RequestDate;
             request.Notes = _createRequestVm.Notes;
             _requestService.Update(request);
-            _context.Notifier.ShowSuccess($"Request '{request.Name}' has been updated.");
+            _context.Notifier.ShowInformation($"Request '{request.Name}' has been updated.");
             window.DialogResult = true;
             window.Close();
         }

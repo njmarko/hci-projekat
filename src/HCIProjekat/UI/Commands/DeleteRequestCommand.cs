@@ -37,6 +37,8 @@ namespace UI.Commands
         {
             if (_modalService.ShowConfirmationDialog($"Are you sure you want to delete request {_requestId}?"))
             {
+                var request = _requestService.Get(_requestId);
+                _clientRequestsVm.AddItem(request);
                 _requestService.Delete(_requestId);
                 _clientRequestsVm.UpdatePage(0);
                 _clientRequestsVm.Context.Notifier.ShowInformation($"Request {_requestId} has been deleted successfully.");

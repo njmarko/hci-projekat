@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
@@ -22,17 +23,11 @@ namespace UI.ViewModels
         public bool CanReject { get; set; }
         public new EventPlannerRequestsViewModel Vm { get; set; }
 
-        public ICommand Accept { get; private set; }
-        public ICommand Reject { get; private set; }
-
-        public EventPlannerRequestCardModel()
-        {
-            Accept = new DelegateCommand(() => Vm.AccepRequest(Id));
-            Reject = new DelegateCommand(() => Vm.RejectRequest(Id));
-        }
+        public ICommand Accept { get; set; }
+        public ICommand Reject { get; set; }
     }
 
-    public class EventPlannerRequestsViewModel : PagingViewModelBase
+    public class EventPlannerRequestsViewModel : UndoModelBase<Request>
     {
         private readonly DateTime _fromDateInitial = DateTime.Now.AddYears(-1);
         private readonly DateTime _toDateInitial = DateTime.Now.AddYears(1);
@@ -88,7 +83,7 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ICommand Clear { get; private set; }
 
-        public EventPlannerRequestsViewModel(IApplicationContext context, IRequestService requestService, IModalService modalService) : base(context)
+        public EventPlannerRequestsViewModel(IApplicationContext context, IRequestService requestService, IModalService modalService) : base(context, requestService, modalService)
         {
             _requestService = requestService;
             _modalService = modalService;
@@ -120,23 +115,26 @@ namespace UI.ViewModels
             var page = _requestService.GetRequestInterestingForEventPlanner(Context.Store.CurrentUser.Id, new EventPlannerRequestsPage { Page = pageNumber, Size = Size, Query = Query, Type = RequestTypeValue.Type, From = From, To = To, Mine = Mine, OnlyNew = OnlyNew });
             foreach (var entity in page.Entities)
             {
-                RequestModels.Add(new EventPlannerRequestCardModel 
-                { 
+                var model = new EventPlannerRequestCardModel
+                {
                     Id = entity.Id,
-                    Name = entity.Name, 
-                    Type = entity.Type.ToString(), 
-                    GuestNumber = entity.GuestNumber, 
-                    Budget = $"{entity.Budget} RSD", 
-                    BudgetFlexible = entity.BudgetFlexible, 
-                    Theme = entity.Theme, 
-                    Date = entity.Date.ToString("dd.MM.yyyy"), 
-                    Context = Context, 
+                    Name = entity.Name,
+                    Type = entity.Type.ToString(),
+                    GuestNumber = entity.GuestNumber,
+                    Budget = $"{entity.Budget} RSD",
+                    BudgetFlexible = entity.BudgetFlexible,
+                    Theme = entity.Theme,
+                    Date = entity.Date.ToString("dd.MM.yyyy"),
+                    Context = Context,
                     Route = $"RequestDetails?requestId={entity.Id}",
                     CanAccept = entity.EventPlanner == null,
                     IsMine = entity.EventPlanner != null && entity.EventPlanner.Id == Context.Store.CurrentUser.Id,
-                    CanReject = entity.EventPlanner != null && entity.EventPlanner.Id == Context.Store.CurrentUser.Id, // TODO: Mozda dodaj neku proveru kao da li je ostalo npr. minimum nedelju dana do datuma zahteva ili tako neko sranje
+                    CanReject = entity.EventPlanner != null && entity.EventPlanner.Id == Context.Store.CurrentUser.Id,
                     Vm = this,
-                });
+                };
+                model.Accept = new AcceptRequestCommand(this, _requestService, _modalService, entity.Id);
+                model.Reject = new RejectRequestCommand(this, _requestService, _modalService, entity.Id);
+                RequestModels.Add(model);
             }
             OnPageFetched(page);
         }
@@ -150,26 +148,6 @@ namespace UI.ViewModels
             OnlyNew = false;
             RequestTypeValue = _typeInitial;
             UpdatePage(0);
-        }
-
-        public void AccepRequest(int requestId)
-        {
-            if (_modalService.ShowConfirmationDialog($"Are you sure you want to accept request {requestId}?"))
-            {
-                _requestService.Accept(requestId, Context.Store.CurrentUser.Id);
-                Context.Notifier.ShowInformation($"Request {requestId} has been accepted.");
-                UpdatePage(0);
-            }
-        }
-
-        public void RejectRequest(int requestId)
-        {
-            if (_modalService.ShowConfirmationDialog($"Are you sure you want to reject request {requestId}?"))
-            {
-                _requestService.Reject(requestId, Context.Store.CurrentUser.Id);
-                Context.Notifier.ShowInformation($"Request {requestId} has been rejected.");
-                UpdatePage(0);
-            }
         }
     }
 }

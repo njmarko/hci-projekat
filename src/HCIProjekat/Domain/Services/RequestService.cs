@@ -157,9 +157,8 @@ namespace Domain.Services
 
             var request = context.Requests.Include(r => r.Client).SingleOrDefault(r => r.Id == requestId);
             var eventPlanner = context.EventPlanners.Find(eventPlannerId);
-            eventPlanner.AcceptedRequests.Remove(request);  // VAZNO: mora eksplicitno da se obrise iz ove kolekcije jer nama je sve virutal pa on nema pojma ko je vlasnik ove kolekcije
-                                                            // u sustini ti kolekcije nam samo smetaju tako da ih komotno mozemo i obrisati posto svakako svugde filitrimamo odgovarajuci DbSet
-                                                            // a mozemo i proglasiti da su ovi kolekcije mapirane na odgovarajuce pojedinacne elemente ako ne bismo koristili virutal za tu vezu na strani pojedinacnog elementa
+            //eventPlanner.AcceptedRequests.Remove(request);  
+
             request.EventPlanner = null;
             context.Requests.Update(request);
             context.SaveChanges();
@@ -175,7 +174,25 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            context.Requests.Update(request);
+            var req = context.Requests.Find(request.Id);
+            var planner = context.EventPlanners
+                                 .Include(e => e.AcceptedRequests)
+                                 .SingleOrDefault(e => e.AcceptedRequests.Contains(req));
+
+            if (planner != null && request.EventPlanner == null)
+            {
+                planner.AcceptedRequests.Remove(req);
+            }
+
+            req.Name = request.Name;
+            req.GuestNumber = request.GuestNumber;
+            req.Budget = request.Budget;
+            req.BudgetFlexible = request.BudgetFlexible;
+            req.Theme = request.Theme;
+            req.Notes = request.Notes;
+            req.Type = request.Type;
+            context.Requests.Update(req);
+
             context.SaveChanges();
             return request;
         }

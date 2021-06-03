@@ -11,12 +11,16 @@
              TextOptions.TextFormattingMode="Ideal" 
              TextOptions.TextRenderingMode="Auto"      
              xmlns:local="clr-namespace:UI"
-             controls:MyUserControlBehavior.WindowTitle="User home page"
+             controls:MyUserControlBehavior.WindowTitle="Event planner requests"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="Z" Command="{Binding Undo}" />
+        <KeyBinding Modifiers="Ctrl" Key="Y" Command="{Binding Redo}" />
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
