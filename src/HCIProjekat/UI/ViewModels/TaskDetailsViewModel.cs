@@ -40,7 +40,7 @@ namespace UI.ViewModels
         public bool IsVisible { get; set; }
 
     }
-    public class TaskDetailsViewModel : UndoModelBase<TaskOffer>, ISelfValidatingViewModel
+    public class TaskDetailsViewModel : UndoModelBase<TaskOffer>
     {
         private readonly ITaskService _taskService;
         private readonly ICommentService _commentService;
@@ -136,7 +136,7 @@ namespace UI.ViewModels
 
 
 
-        public bool CanComment => IsValid();
+        public bool CanComment => !string.IsNullOrEmpty(CommentContent);
 
         public bool CommentAreaVisible => Context.Store.CurrentUser is not Admin;
 
@@ -154,7 +154,6 @@ namespace UI.ViewModels
         public ObservableCollection<ClientTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<ClientTaskOfferCardModel>();
         public ObservableCollection<CommentViewModel> CommentModels { get; private set; } = new ObservableCollection<CommentViewModel>();
 
-        public ErrorMessageViewModel CommentError { get; private set; } = new ErrorMessageViewModel();
 
         public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, ICommentService commentService, IModalService modalService) : base(context, taskOfferService, modalService)
         {
@@ -163,7 +162,7 @@ namespace UI.ViewModels
             _taskService = taskService;
             _taskOfferService = taskOfferService;
             _commentService = commentService;
-            AddCommentCommand = new AddCommentCommand(this, commentService);
+            AddCommentCommand = new AddCommentCommand(this, commentService, modalService);
             Reject = new RejectAllTaskOffersCommand(this, taskOfferService);
             CommentAdded = false;
         }
@@ -189,7 +188,6 @@ namespace UI.ViewModels
 
         public override void UpdatePage(int pageNumber)
         {
-            //MessageBox.Show("UPDATE PAGE!");
             LoadTask(false);
             TaskOfferModels.Clear();
             var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber, SearchQuery="" });
@@ -239,26 +237,6 @@ namespace UI.ViewModels
 
         }
 
-        public bool IsValid()
-        {
-            bool valid = true;
-            if (string.IsNullOrEmpty(CommentContent))
-            {
-                valid = false;
-                CommentError.ErrorMessage = "Comment content cannot be empty.";
-            }
-            else
-            {
-                valid = true;
-                CommentError.ErrorMessage = null;
-
-            }
-
-
-            return valid;
-
-        }
-
         public void LoadComments()
         {
             CommentModels.Clear();
@@ -271,8 +249,6 @@ namespace UI.ViewModels
                 var user = Context.Store.CurrentUser;
 
                 if (user.Id == comment.Sender.Id || (Context.Store.CurrentUser is Admin && comment.Sender is EventPlanner)) {
-                //ovo je za sad hardkodovano, kada se poveze sa loginom vrsice se provjera
-                //if (1 == comment.Sender.Id) {
                     color = "#78cdff";
                     margin = "800,5,0,0";
                 }

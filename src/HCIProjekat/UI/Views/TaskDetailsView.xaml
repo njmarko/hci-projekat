@@ -31,9 +31,10 @@
                     <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
                 </Button>
             </StackPanel>
-            <Grid>
+            <Grid Margin="10 10 10 0 ">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="14*"/>
                 </Grid.ColumnDefinitions>
 
@@ -41,22 +42,22 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
-                <Border Grid.Column="1"   Grid.Row="0" Background="{Binding Color}" 
-                        CornerRadius="10" Padding="4" Margin="20 0"
-                        Width="70"
-                        HorizontalAlignment="Left">
+
+                <TextBlock Grid.Column="0" Grid.Row="0"  Text="{Binding Task.Name}" Style="{DynamicResource MaterialDesignHeadline4TextBlock}"></TextBlock>
+                <Border Grid.Column="1"  Grid.Row="0" Background="{Binding Color}" 
+                        CornerRadius="10" Padding="4" Margin="5 0 0 0"
+                        MaxWidth="100"
+                        HorizontalAlignment="Center">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
                                Foreground="White" FontWeight="Bold" Text="{Binding Status}">
                     </TextBlock>
                 </Border>
                 <TextBlock Margin="5 0 0 0" Text="{Binding Task.TaskType}" Grid.Column="0" Grid.Row="1"
                            Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Foreground="DarkGray"></TextBlock>
-                
+
             </Grid>
             <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>
-            <DockPanel MaxHeight="40">
+            <DockPanel MaxHeight="100" Margin="10 0 10 0">
                 <ScrollViewer>
                     <TextBlock Text="{Binding Task.Description}" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap"></TextBlock>
                 </ScrollViewer>
@@ -93,14 +94,13 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    
+
                     <StackPanel Grid.Row="1">
                         <controls:Pagination />
                     </StackPanel>
                 </Grid>
-                
+
             </TabItem>
-            
             <TabItem Header="Comments">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -108,50 +108,48 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                        <ScrollViewer
-                                     VerticalScrollBarVisibility="Auto" 
-                                      Grid.Row="0"
-                                      Style="{DynamicResource MaterialDesignScrollViewer}"
-                                      util:ScrollToTheEnd.AutoScroll="{Binding CommentAdded}"
+                    <ScrollViewer
+                        VerticalScrollBarVisibility="Auto" 
+                        Grid.Row="0"
+                        Style="{DynamicResource MaterialDesignScrollViewer}"
+                        util:ScrollToTheEnd.AutoScroll="{Binding CommentAdded}"
                             x:Name="CommentScrollViewer">
-                            <ItemsControl ItemsSource="{Binding CommentModels}" >
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <controls:Comment />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding CommentModels}" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:Comment />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
 
-                    <Grid Grid.Row="1" Visibility="{Binding CommentAreaVisible, Converter={StaticResource b2vc}}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
+                    <Grid Grid.Row="1" Margin="0 20 0 0" Visibility="{Binding CommentAreaVisible, Converter={StaticResource b2vc}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
-                                 materialDesign:HintAssist.Hint="Enter comment" Margin="10 20" Grid.Column="0"
+                        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Padding="4"
+                               Width="300" Background="White" Grid.Column="1"  Margin="0 0 10 10">
+                            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                 materialDesign:HintAssist.Hint="Enter comment" 
                                  Background="White"
-                                 Grid.Row="0">
-                            <TextBox.Text>
-                                <Binding Path="CommentContent" UpdateSourceTrigger="PropertyChanged">
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-                        
-                        <Button Content="Send" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Grid.Column="1" Grid.Row="0"
-                                Command="{Binding AddCommentCommand}"></Button>
-                        <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
-                                   Foreground="Red" DataContext="{Binding CommentError}" 
-                                   Text="{Binding ErrorMessage}" 
-                                   Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -10 0 0" 
-                                   FontSize="12"
-                                   Grid.Row="1"/>
+                                 TextWrapping="Wrap"
+                                 BorderThickness="0"
+                                 Padding="0 0 0 10"
+                                 >
+                                <TextBox.Text>
+                                    <Binding Path="CommentContent" UpdateSourceTrigger="PropertyChanged">
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Border>
 
+                        <Button Grid.Column="2"  Margin="0 0 0 10" Style="{DynamicResource MaterialDesignFlatAccentBgButton}"
+                            Foreground="White" Command="{Binding AddCommentCommand}"
+                         Content="Send"/>
                     </Grid>
                 </Grid>
             </TabItem>
