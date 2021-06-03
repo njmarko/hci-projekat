@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
@@ -27,5 +28,6 @@ namespace UI.ViewModels
             Yes = new YesCommand();
             No = new NoCommand();
         }
+
     }
 }

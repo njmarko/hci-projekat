@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.Modals"
         mc:Ignorable="d"
-        Title="ConfirmationModal" Height="200" Width="400"
+        Title="ConfirmationModal" Height="200"  Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         WindowStyle="SingleBorderWindow">
     <Grid>
         <StackPanel>
-            <TextBlock Margin="10 50 10 0"  HorizontalAlignment="Center">
+            <TextBlock Margin="10 50 10 0"  HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap">
                 <Run FontSize="15" FontWeight="Bold" Text="{Binding ConfirmMessage}"/>
             </TextBlock>
             <Grid>

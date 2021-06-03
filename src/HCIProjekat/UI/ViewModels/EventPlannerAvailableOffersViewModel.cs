@@ -74,7 +74,7 @@ namespace UI.ViewModels
             {
                 _taskOfferService.AddOfferForTask(_taskId, offerId);
                 UpdatePage(0);
-                Context.Notifier.ShowInformation("Offer successfully to the task.");
+                Context.Notifier.ShowInformation("Offer successfully added to the task.");
                 AddedVm.UpdatePage(0);
             }
         }
