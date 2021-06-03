@@ -1,4 +1,5 @@
-﻿using Domain.Services.Interfaces;
+﻿using Domain.Entities;
+using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,14 @@ namespace UI.Commands
             _notificationVm.OnNotificationRead();
             if (notification.TaskId != -1)
             {
-                _notificationVm.Context.Router.Push($"TaskDetails?taskId={notification.TaskId}");
+                if (_notificationVm.Context.Store.CurrentUser is Client)
+                {
+                    _notificationVm.Context.Router.Push($"TaskDetails?taskId={notification.TaskId}");
+                }
+                else
+                {
+                    _notificationVm.Context.Router.Push($"EventPlannerTaskDetails?taskId={notification.TaskId}");
+                }
             }
             else if (notification.RequestId != -1)
             {
