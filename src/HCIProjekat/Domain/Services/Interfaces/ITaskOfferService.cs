@@ -15,6 +15,10 @@ namespace Domain.Services.Interfaces
 
         List<TaskOffer> GetAllTaskOffersForTask(int taskId);
 
+        TaskOffer AddOfferForTask(int taskId, int offerId);
+
+        void RemoveOfferFromTask(int taskOfferId);
+
         void RejectAllTaskOffers(int taskId);
 
         void RejectTaskOffer(int taskId, int taskOfferId);

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Domain.Pagination.Requests
 {
     public class OffersForTaskPageRequest : PageRequest
-    {
-
-        //public string OfferName { get; set; }
+    { 
+        public string SearchQuery { get; set; }
     }
 }

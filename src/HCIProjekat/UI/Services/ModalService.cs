@@ -30,6 +30,9 @@ namespace UI.Services
             IModalWindow window = _serviceProvider.GetRequiredService<ConfirmationModal>();
             window.DataContext = vm;
             (window as Window).Owner = Application.Current.MainWindow;
+
+            (window as Window).Height = 200 + (message.Length / 50 + 1) * 10;
+
             return (bool) window.ShowDialog();
         }
 

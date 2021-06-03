@@ -25,6 +25,9 @@
     <Compile Update="Controls\EventPlannerTaskCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\EventPlannerTaskOfferCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Navbar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -56,6 +59,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\EventPlannerRequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EventPlannerTaskDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\LoginView.xaml.cs">
@@ -105,6 +111,9 @@
     <Page Update="Controls\EventPlannerTaskCard.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\EventPlannerTaskOfferCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Navbar.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -148,6 +157,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\EventPlannerRequestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EventPlannerTaskDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\LoginView.xaml">

@@ -26,7 +26,9 @@ namespace UI.ViewModels
         public bool CanSentToClient { get; set; }
         public bool CanEdit { get; set; }
         public bool CanDelete => CanToDo || CanInProgress || CanSentToClient;
+        public string Route { get; set; }
         public EventPlannerHomeViewModel Vm { get; set; }
+        public IApplicationContext Context { get; set; }
 
         public ICommand MoveToDo { get; private set; }
         public ICommand MoveInProgress { get; private set; }
@@ -142,6 +144,8 @@ namespace UI.ViewModels
                 CanInProgress = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.REJECTED,
                 CanSentToClient = task.TaskStatus == TaskStatus.IN_PROGRESS,
                 CanEdit = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.IN_PROGRESS,
+                Route = $"EventPlannerTaskDetails?taskId={task.Id}",
+                Context = Context,
                 Vm = this
             };
             taskModel.Delete = new DeleteTaskCommand(this, task.Id, _taskService, _modalService);

@@ -69,7 +69,7 @@ namespace UI.ViewModels
             set { _partnerId = value; UpdatePage(0);  }
         }
 
-public ICommand AddOffer { get; private set; }
+        public ICommand AddOffer { get; private set; }
         public ICommand Search { get; private set; }
         public ICommand Clear { get; private set; }
 

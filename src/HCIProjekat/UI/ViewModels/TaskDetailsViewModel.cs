@@ -176,21 +176,10 @@ namespace UI.ViewModels
         private void LoadTask(bool updatePage)
         {
             Task = _taskService.GetTask(TaskId);
-            switch (Task.TaskStatus)
-            {
-                case TaskStatus.SENT_TO_CLIENT:
-                    Color = "#fcc428";
-                    Status = "Pending";
-                    break;
-                case TaskStatus.REJECTED:
-                    Color = "#de1212";
-                    Status = "Rejected";
-                    break;
-                case TaskStatus.ACCEPTED:
-                    Color = "#088a35";
-                    Status = "Accepted";
-                    break;
-            }
+
+            TaskDetails taskDetails = TaskColorAndStatus.GetTaskColorAndStatus(Task);
+            Color = taskDetails.Color;
+            Status = taskDetails.Status;
 
             RequestDetailsRoute = $"RequestDetails?requestId={Task.Request.Id}";
             LoadComments();
@@ -203,7 +192,7 @@ namespace UI.ViewModels
             //MessageBox.Show("UPDATE PAGE!");
             LoadTask(false);
             TaskOfferModels.Clear();
-            var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber});
+            var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber, SearchQuery="" });
             string status = "";
             string color = "";
             

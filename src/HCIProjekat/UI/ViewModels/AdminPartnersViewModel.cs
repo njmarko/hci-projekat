@@ -26,7 +26,6 @@ namespace UI.ViewModels
         public IApplicationContext Context { get; set; }
 
         public ICommand Delete { get; set; }
-
     }
 
     public class AdminPartnersViewModel : PagingViewModelBase
