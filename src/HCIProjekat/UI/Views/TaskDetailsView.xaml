@@ -57,7 +57,7 @@
 
             </Grid>
             <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>
-            <DockPanel MaxHeight="100" Margin="10 0 10 0">
+            <DockPanel MaxHeight="60" Margin="10 0 10 0">
                 <ScrollViewer>
                     <TextBlock Text="{Binding Task.Description}" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap"></TextBlock>
                 </ScrollViewer>

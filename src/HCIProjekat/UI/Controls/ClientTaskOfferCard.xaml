@@ -11,11 +11,11 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
-    <Grid MinHeight="400" Height="400" MinWidth="250" MaxWidth="420">
+    <Grid MinHeight="300" Height="300" MinWidth="250" MaxWidth="420">
         <materialDesign:Card UniformCornerRadius="20" Margin="10">
             
             <StackPanel>
-                <Border CornerRadius="20,20,0,0" Height="200">
+                <Border CornerRadius="20,20,0,0" Height="150">
                     <Border.Background>
                         <ImageBrush ImageSource="https://i.redd.it/oo8hu88g5pg61.png" Stretch="UniformToFill"/>
                     </Border.Background>
@@ -45,7 +45,7 @@
                 </Grid>
                 
                 
-                <ScrollViewer Margin="15 10 15 0" Height="60">
+                <ScrollViewer Margin="15 10 15 0" Height="30">
                     <TextBlock
                      TextWrapping="Wrap"
                       Text="{Binding Description}"/>

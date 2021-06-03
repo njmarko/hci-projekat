@@ -34,19 +34,19 @@ namespace UI.Util
                 case TaskStatus.TO_DO:
                     return new TaskDetails
                     {
-                        Color = "#088a35",
+                        Color = "#0d62ff",
                         Status = "To do"
                     };
                 case TaskStatus.IN_PROGRESS:
                     return new TaskDetails
                     {
-                        Color = "#1a75ff",
+                        Color = "#0d62ff",
                         Status = "In progress"
                     }; ;
                 case TaskStatus.ACCEPTED:
                     return new TaskDetails
                     {
-                        Color = "#1a75ff",
+                        Color = "#088a35",
                         Status = "Accepted"
                     };
                 default:
