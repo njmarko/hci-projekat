@@ -39,6 +39,7 @@ namespace UI.ViewModels
         public LoginViewModel(IApplicationContext context, IAuthService authService) : base(context)
         {
             LoginCommand = new LoginCommand(this, authService, context);
+            HelpPage = "login";
         }
 
         public bool IsValid()

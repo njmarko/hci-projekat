@@ -77,6 +77,7 @@ namespace UI.ViewModels
         public RegisterViewModel(IApplicationContext context, IClientService clientService) : base(context)
         {
             RegisterCommand = new RegisterCommand(this, clientService, context.Router);
+            HelpPage = "register";
         }
 
         public bool IsValid()

@@ -14,9 +14,12 @@ namespace UI.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
         
+        public string HelpPage { get; set; }
+
         public ViewModelBase(IApplicationContext context)
         {
             Context = context;
+            HelpPage = "";
         }
 
         public void OnPropertyChanged(string propertyName)
