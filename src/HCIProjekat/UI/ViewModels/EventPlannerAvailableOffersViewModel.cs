@@ -50,7 +50,6 @@ namespace UI.ViewModels
             _modalService = modalService;
 
             Search = new DelegateCommand(() => UpdatePage(0));
-
             SearchQuery = string.Empty;
             Rows = 1;
         }

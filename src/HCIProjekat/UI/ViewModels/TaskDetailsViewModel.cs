@@ -45,7 +45,6 @@ namespace UI.ViewModels
         private readonly ITaskService _taskService;
         private readonly ICommentService _commentService;
         private readonly ITaskOfferService _taskOfferService;
-        private readonly IModalService _modalService;
 
         private int _taskId;
         public int TaskId
@@ -132,6 +131,17 @@ namespace UI.ViewModels
             }
         }
 
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged(nameof(SearchQuery));
+            }
+        }
+
         public bool IsPendingAndIsClient => Task.TaskStatus == TaskStatus.SENT_TO_CLIENT && Context.Store.CurrentUser is Client;
 
 
@@ -149,6 +159,8 @@ namespace UI.ViewModels
 
         public ICommand Reject { get; set; }
 
+        public ICommand Search { get; private set; }
+
 
 
         public ObservableCollection<ClientTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<ClientTaskOfferCardModel>();
@@ -158,13 +170,15 @@ namespace UI.ViewModels
         public TaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, ICommentService commentService, IModalService modalService) : base(context, taskOfferService, modalService)
         {
             Rows = 1;
-            _modalService = modalService;
             _taskService = taskService;
             _taskOfferService = taskOfferService;
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService, modalService);
             Reject = new RejectAllTaskOffersCommand(this, taskOfferService);
             CommentAdded = false;
+
+            Search = new DelegateCommand(() => UpdatePage(0));
+            SearchQuery = string.Empty;
         }
         private bool AbleToReject()
         {
@@ -190,7 +204,7 @@ namespace UI.ViewModels
         {
             LoadTask(false);
             TaskOfferModels.Clear();
-            var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber, SearchQuery="" });
+            var page = _taskOfferService.GetOffersForTask(_task.Id, new OffersForTaskPageRequest { Size = Size, Page = pageNumber, SearchQuery=SearchQuery });
             string status = "";
             string color = "";
             

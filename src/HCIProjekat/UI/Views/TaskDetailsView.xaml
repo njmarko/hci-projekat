@@ -79,10 +79,21 @@
             <TabItem Header="Offers">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="0">
+                    <Grid Grid.Row="0" Background="#e8e8e8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <!--Search block-->
+                        <TextBox Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search offers" Text="{Binding SearchQuery}" />
+                        <Button  Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
+                    </Grid>
+                    <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="1">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
@@ -95,7 +106,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <StackPanel Grid.Row="1">
+                    <StackPanel Grid.Row="2">
                         <controls:Pagination />
                     </StackPanel>
                 </Grid>

@@ -56,7 +56,8 @@ namespace Domain.Services
                           .Where(to => to.Task.Id == taskId)
                           .Where(to => to.Offer.Name.ToLower().Contains(searchQuery) ||
                                     to.Offer.Description.ToLower().Contains(searchQuery) ||
-                                    to.Offer.Price.ToString().Contains(searchQuery))
+                                    to.Offer.Price.ToString().Contains(searchQuery) || 
+                                    to.OfferStatus.ToString().ToLower().Contains(searchQuery))
                           .ToPage(page);
         }
 
