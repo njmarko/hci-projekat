@@ -4,8 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using UI.Commands;
 using UI.Context;
+using UI.Services.Interfaces;
 using UI.Util;
 
 namespace UI.ViewModels
@@ -16,6 +19,8 @@ namespace UI.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public BitmapImage Image { get; set; }
+        public string ButtonContent { get; set; }
+        public ICommand ButtonAction { get; set; }
     }
 
     public class EventPlannerTaskDetailsViewModel : ViewModelBase
@@ -58,12 +63,15 @@ namespace UI.ViewModels
             get { return "EventPlannerHome"; }
         }
 
-        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService) : base(context)
+        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService, IModalService modalService) : base(context)
         {
             _taskService = taskService;
 
-            AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService);
-            AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, offerService);
+            AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService, modalService);
+            AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, offerService, taskOfferService, modalService);
+
+            AddedOffersVm.AvailableVm = AvailableOffersVm;
+            AvailableOffersVm.AddedVm = AddedOffersVm;
         }
 
         private void FetchTask()

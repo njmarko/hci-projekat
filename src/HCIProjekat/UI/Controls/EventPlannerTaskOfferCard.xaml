@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:UI.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="420"
+             d:DesignHeight="370" d:DesignWidth="420"
            >
-    <Grid MinHeight="350" Height="350" MinWidth="250" MaxWidth="420">
+    <Grid MinHeight="370" Height="370" MinWidth="250" MaxWidth="420">
         <materialDesign:Card UniformCornerRadius="20" Margin="10" >
             <StackPanel>
                 <Border CornerRadius="20,20,0,0" Height="200">
@@ -21,11 +21,24 @@
                     <Run FontSize="22" FontWeight="Bold" Text="{Binding Name}"/>
                 </TextBlock>
 
-                <ScrollViewer Margin="15 10 15 0" Height="70">
+                <ScrollViewer Margin="15 10 15 0" Height="50">
                     <TextBlock
                      TextWrapping="Wrap"
                       Text="{Binding Description}"/>
                 </ScrollViewer>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button Grid.Column="0" FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}"
+                     Margin="10 10" Foreground="White" Command="{Binding ButtonAction}"
+                     Content="{Binding ButtonContent}"/>
+                </Grid>
             </StackPanel>
         </materialDesign:Card>
     </Grid>

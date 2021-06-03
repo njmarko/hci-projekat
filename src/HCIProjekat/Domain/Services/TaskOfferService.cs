@@ -54,7 +54,7 @@ namespace Domain.Services
                           .Include(to => to.Offer.Partner)
                           .Where(to => to.Active)
                           .Where(to => to.Task.Id == taskId)
-                           .Where(to => to.Offer.Name.ToLower().Contains(searchQuery) ||
+                          .Where(to => to.Offer.Name.ToLower().Contains(searchQuery) ||
                                     to.Offer.Description.ToLower().Contains(searchQuery) ||
                                     to.Offer.Price.ToString().Contains(searchQuery))
                           .ToPage(page);
@@ -160,6 +160,43 @@ namespace Domain.Services
                 .Include(to => to.Task)
                 .Where(to => to.Task.Id == taskId)
                 .ToList();
+        }
+
+        public TaskOffer AddOfferForTask(int taskId, int offerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var offer = context.Offers
+                               .Where(o => o.Active)
+                               .Where(o => o.Id == offerId)
+                               .First();
+
+            var task = context.Tasks
+                              .Where(t => t.Active)
+                              .Include(t => t.Offers)
+                              .Where(t => t.Id == taskId)
+                              .First();
+
+            var taskOffer = new TaskOffer { OfferStatus = OfferStatus.PENDING, Offer = offer, Task = task };
+            context.TaskOffers.Add(taskOffer);
+
+            context.SaveChanges();
+
+            return taskOffer;
+        }
+
+        public void RemoveOfferFromTask(int taskOfferId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var taskOffer = context.TaskOffers
+                                   .Where(to => to.Active)
+                                   .Where(to => to.Id == taskOfferId)
+                                   .First();
+
+            taskOffer.Active = false;
+
+            context.SaveChanges();
         }
     }
 }

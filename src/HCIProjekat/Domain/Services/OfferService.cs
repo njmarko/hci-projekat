@@ -57,9 +57,11 @@ namespace Domain.Services
             var task = context.Tasks.Where(t => t.Active)
                                     .Where(t => t.Id == taskId)
                                     .Include(t => t.Offers)
+                                    .ThenInclude(to => to.Offer)
                                     .First();
 
-            var offerIds = task.Offers.Select(to => to.Offer.Id);
+            var offerIds = task.Offers.Where(to => to.Active)
+                                      .Select(to => to.Offer.Id);
 
             return context.Offers
                           .Where(o => o.Active)

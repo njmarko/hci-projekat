@@ -8,8 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ToastNotifications.Messages;
 using UI.Commands;
 using UI.Context;
+using UI.Services.Interfaces;
 using UI.Util;
 
 namespace UI.ViewModels
@@ -17,6 +19,7 @@ namespace UI.ViewModels
     public class EventPlannerTaskOffersViewModel : PagingViewModelBase
     {
         private readonly ITaskOfferService _taskOfferService;
+        private readonly IModalService _modalService;
 
         private int _taskId;
         public int TaskId
@@ -43,13 +46,15 @@ namespace UI.ViewModels
             set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
         }
 
+        public EventPlannerAvailableOffersViewModel AvailableVm { get; set; }
         public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
-        public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService) : base(context)
+        public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService, IModalService modalService) : base(context)
         {
 
             _taskOfferService = taskOfferService;
+            _modalService = modalService;
 
             Search = new DelegateCommand(() => UpdatePage(0));
 
@@ -64,9 +69,21 @@ namespace UI.ViewModels
             foreach (var entity in page.Entities)
             {
                 var offer = entity.Offer;
-                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = offer.Id, Name = offer.Name, Description = offer.Description, Image = ImageUtil.ConvertToImage(offer.Image) });
+                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = offer.Id, Name = offer.Name, Description = offer.Description, Image = ImageUtil.ConvertToImage(offer.Image), ButtonContent="Remove", ButtonAction = new DelegateCommand(() => RemoveOfferFromTask(entity.Id)) });
             }
             OnPageFetched(page);
+        }
+
+        private void RemoveOfferFromTask(int offerId)
+        {
+            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to remove this offer from the task?");
+            if (ok)
+            {
+                _taskOfferService.RemoveOfferFromTask(offerId);
+                UpdatePage(0);
+                Context.Notifier.ShowInformation("Offer removed from the task.");
+                AvailableVm.UpdatePage(0);
+            }
         }
     }
 }
