@@ -105,6 +105,8 @@ namespace UI.ViewModels
             _typeInitial = new RequestTypeModel { Name = "All types" };
             _requestType = _typeInitial;
 
+            HelpPage = "client-home-page";
+
             RequestTypeModels.Add(_typeInitial);
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.ANNIVERSARY, Name = "Anniversary" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.BIRTHDAY, Name = "Birthday" });

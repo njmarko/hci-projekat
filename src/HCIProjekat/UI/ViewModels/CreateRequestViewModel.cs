@@ -71,6 +71,20 @@ namespace UI.ViewModels
             set { _requestDate = value; OnPropertyChanged(nameof(RequestDate)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
+
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set 
+            { 
+                _title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+
+
         private string _notes = string.Empty;
         public string Notes
         {
@@ -104,6 +118,7 @@ namespace UI.ViewModels
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.WEDDING, Name = "Wedding" });
 
             ButtonText = requestId == -1 ? "Create" : "Save";
+            Title = "Create request";
 
             if (requestId != -1)
             {
@@ -116,6 +131,7 @@ namespace UI.ViewModels
                 RequestDate = request.Date;
                 Notes = request.Notes;
                 RequestTypeValue = RequestTypeModels.First(t => t.Type != null && t.Type == request.Type);
+                Title = $"Edit {Name}";
             }
         }
 

@@ -21,7 +21,7 @@
     </Window.Resources>
     <Grid>
         <StackPanel>
-            <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Create request" Margin="0 10" />
+            <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="{Binding Title}" Margin="0 10" />
             <Rectangle Margin="10 0" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
             <!--Request name-->
             <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter request name" Margin="10 15 10 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
