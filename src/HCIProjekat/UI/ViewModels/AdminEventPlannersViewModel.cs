@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Modals;
 using UI.Services.Interfaces;
 
 namespace UI.ViewModels
@@ -54,6 +55,11 @@ namespace UI.ViewModels
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
+        }
+
+        private void OpenRegisterEventPlannerModal()
+        {
+            _modalService.ShowModal<AddEventPlannerModal>(new RegisterEventPlannerViewModel(Context, _eventPlannersService));
         }
 
         public override void UpdatePage(int pageNumber)

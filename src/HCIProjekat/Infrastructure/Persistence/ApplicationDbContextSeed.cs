@@ -196,8 +196,10 @@ namespace Infrastructure.Persistence
             context.Tasks.Add(t16);
             context.Tasks.Add(t17);
 
-            var admin = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now, Username = "vidojegavrilovic", Password = "test123" };
-            context.Admins.Add(admin);
+            var admin1 = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now, Username = "vidojegavrilovic", Password = "test123" };
+            var admin2 = new Admin { FirstName = "Djordje", LastName = "Vruci", DateOfBirth = DateTime.Now, Username = "a", Password = "a" };
+            context.Admins.Add(admin1);
+            context.Admins.Add(admin2);
 
             // Notifications
             var n1 = new Notification { Message = "Notifikacija 1", UserId = 11, RequestId = 1 };
