@@ -13,14 +13,14 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Register Event Planner" Height="572" Width="600" ResizeMode="NoResize"
+        Title="Register Event Planner" Height="572" Width="500" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         WindowStyle="SingleBorderWindow">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </Window.Resources>
-    <Grid VerticalAlignment="Center" MaxWidth="620">
-        <materialDesign:Card Height="auto" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Margin="100 0" Padding="5">
+    <Grid>
+        <materialDesign:Card Height="auto" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Padding="5">
             <StackPanel>
                 <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Register event planner" Margin="0 10" />
                 <!--First name-->
