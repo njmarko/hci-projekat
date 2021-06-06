@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Modals;
 using UI.Services.Interfaces;
 
 namespace UI.ViewModels
@@ -46,6 +47,8 @@ namespace UI.ViewModels
         }
 
         public ICommand SearchCommand { get; set; }
+
+        public ICommand AddPartner { get; private set; }
         public ObservableCollection<AdminPartnerCardModel> PartnerModels { get; private set; } = new ObservableCollection<AdminPartnerCardModel>();
 
         public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService, IModalService modalService) : base(context)
@@ -53,9 +56,14 @@ namespace UI.ViewModels
             _partnersService = partnersService;
             SearchQuery = string.Empty;
             SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            AddPartner = new DelegateCommand(OpenRegisterPartnerModal);
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
+        }
+        private void OpenRegisterPartnerModal()
+        {
+            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService));
         }
 
         public override void UpdatePage(int pageNumber)
