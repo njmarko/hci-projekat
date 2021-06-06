@@ -53,7 +53,6 @@ namespace UI.Commands
                 var registeredEventPlanner = _eventPlannerService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
                 // Just a message to show it works. Success message will be changed after the windows are connected it also redirects to event planners for now. This should be changed
                 // TODO: Change message displaying for successfull registration
-                //MessageBox.Show($"Event planner sucessfuly added, {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName}.");
                 _context.Notifier.ShowSuccess($"Event planner sucessfuly added, {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName}.");
                 _router.Push("AdminEventPlanners");
             }

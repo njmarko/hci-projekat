@@ -93,7 +93,7 @@ namespace UI.ViewModels
         public RegisterPartnerViewModel(IApplicationContext context, IPartnersService partnerService) : base(context)
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router);
+            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router, context);
 
             PartnerTypeModels.Add(_typeInitial);
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.ANIMATOR, Name = "Animator" });
