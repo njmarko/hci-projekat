@@ -45,6 +45,8 @@ namespace UI.ViewModels
         }
 
         public ICommand SearchCommand { get; set; }
+
+        public ICommand AddEventPlanner { get; private set; }
         public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
 
         public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, IModalService modalService) : base(context)
@@ -52,6 +54,7 @@ namespace UI.ViewModels
             _eventPlannersService = eventPlannersService;
             SearchQuery = string.Empty;
             SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            AddEventPlanner = new DelegateCommand(OpenRegisterEventPlannerModal);
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
