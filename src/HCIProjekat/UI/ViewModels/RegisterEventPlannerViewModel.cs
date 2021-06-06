@@ -77,7 +77,7 @@ namespace UI.ViewModels
         public RegisterEventPlannerViewModel(IApplicationContext context, IEventPlannersService eventPlannerService) : base(context)
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterEventPlannerCommand = new RegisterEventPlannerCommand(this, eventPlannerService, context.Router);
+            RegisterEventPlannerCommand = new RegisterEventPlannerCommand(this, eventPlannerService, context.Router, context);
         }
 
         public bool IsValid()
