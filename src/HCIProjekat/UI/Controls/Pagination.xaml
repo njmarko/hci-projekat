@@ -9,7 +9,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid HorizontalAlignment="Center" Name="Root">
+    <Grid HorizontalAlignment="Center" Name="Root" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -21,7 +21,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <RadioButton Margin="0" Padding="0" Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" Content="{Binding Page}" Command="{Binding ElementName=Root, Path=DataContext.UpdatePageCommand}" CommandParameter="{Binding Page}" IsChecked="{Binding IsChecked}" />
+                    <RadioButton Margin="0" Padding="0" Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" IsEnabled="{Binding IsEnabled}" Content="{Binding Text}" Command="{Binding ElementName=Root, Path=DataContext.UpdatePageCommand}" CommandParameter="{Binding Page}" IsChecked="{Binding IsChecked}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

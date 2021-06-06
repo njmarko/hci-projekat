@@ -9,8 +9,10 @@ namespace UI.ViewModels
 {
     public class PageModel
     {
+        public string Text { get; set; }
         public int Page { get; set; }
-        public bool IsChecked { get; set; }
+        public bool IsChecked { get; set; } = false;
+        public bool IsEnabled { get; set; } = true;
     }
 
     public class PaginationViewModel
@@ -28,10 +30,12 @@ namespace UI.ViewModels
             TotalElements = totalElements;
             PerPage = perPage;
             PageCount = pageCount;
-            for (int i = 0; i < PageCount; i++)
-            {
-                PageModels.Add(new PageModel { Page = i, IsChecked = page == i });
-            }
+
+            PageModels.Add(new PageModel { Text = "<<", Page = 0, IsEnabled = Page != 0 });
+            PageModels.Add(new PageModel { Text = $"<", Page = Page - 1, IsEnabled = Page != 0 });
+            PageModels.Add(new PageModel { Text = $"{Page + 1} / {PageCount}", Page = page, IsChecked = true } );
+            PageModels.Add(new PageModel { Text = $">", Page = Page + 1, IsEnabled = Page != PageCount - 1 });
+            PageModels.Add(new PageModel { Text = ">>", Page = -1, IsEnabled = Page != PageCount - 1 });
         }
     }
 }

@@ -70,9 +70,9 @@ namespace UI
                 ApplicationDbContextSeed.Seed(context);
             }
 
-            //var service = _host.Services.GetRequiredService<IAuthService>();
-            //var user = service.Login("peraperic1", "test12345");
-            //Console.WriteLine(user);
+            //var service = _host.Services.GetRequiredService<IRequestService>();
+            //var reqPage = service.GetAllRequests(new RequestsPage { Page = -1, Size = 8, Query = "" });
+            //Console.WriteLine(reqPage);
 
             Window window = new MainWindow(_host.Services.GetRequiredService<MainViewModel>());
             window.Show();
