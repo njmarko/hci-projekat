@@ -19,6 +19,10 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="update-profile">
+        </KeyBinding>
+    </Window.InputBindings>
     <Grid VerticalAlignment="Center" MaxWidth="620">
         <materialDesign:Card  materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Margin="100 0" Padding="5">
             <StackPanel>

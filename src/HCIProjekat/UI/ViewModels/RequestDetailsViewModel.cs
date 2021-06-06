@@ -113,6 +113,7 @@ namespace UI.ViewModels
             Request = _requestService.Get(RequestId);
             CurrentCost = _requestService.GetRequestCost(RequestId);
             UpdatePage(0);
+            HelpPage = "request-details";
         }
 
         public RequestDetailsViewModel(IApplicationContext context, IRequestService requestService, ITaskService taskService) : base(context)

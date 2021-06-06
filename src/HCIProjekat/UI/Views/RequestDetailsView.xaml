@@ -55,9 +55,9 @@
             </DockPanel>
         </StackPanel>
 
-            
-        
-            <Grid Margin="0 30 0 0" Grid.Row="1">
+
+
+        <Grid Margin="0 30 0 0" Grid.Row="1" Background="#e8e8e8">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
