@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Pagination;
 using Domain.Pagination.Requests;
 using System;
@@ -16,5 +17,8 @@ namespace Domain.Services.Interfaces
         Partner Create(Partner partner);
 
         public void Delete(int partnerId);
+
+        Partner Update(int partnerId, string name, PartnerType partnerType, string country, string city, string street, string streetNumber);
     }
 }
+
