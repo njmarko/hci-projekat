@@ -60,7 +60,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Width="300" Height="200" BorderThickness="1" Command="{Binding OnImageInput}" Margin="0 15 0 0 ">
+                <Button AllowDrop="True" x:Name="_imgDrop" Drop="OnImageDrop" DragOver="OnImageDrag" Width="300" Height="200" BorderThickness="1" Command="{Binding OnImageInput}" Margin="0 15 0 0 ">
                     <Button.Background>
                         <ImageBrush ImageSource="{Binding Image, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" />
                     </Button.Background>
