@@ -11,7 +11,7 @@ using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
 {
-    public class RegisterAdminViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class RegisterAdminViewModel : ValidationModel<RegisterAdminViewModel>
     {
         // Poperties
         private string _username;
@@ -78,7 +78,7 @@ namespace UI.ViewModels
             bool valid = true;
 
             //Username
-            if (string.IsNullOrEmpty(Username))
+            if (string.IsNullOrEmpty(Username) && IsDirty(nameof(Username)))
             {
                 UsernameError.ErrorMessage = "Username cannot be empty.";
                 valid = false;
@@ -88,7 +88,7 @@ namespace UI.ViewModels
                 UsernameError.ErrorMessage = null;
             }
             //First name
-            if (string.IsNullOrEmpty(FirstName))
+            if (string.IsNullOrEmpty(FirstName) && IsDirty(nameof(FirstName)))
             {
                 FirstNameError.ErrorMessage = "First name cannot be empty.";
                 valid = false;
@@ -98,7 +98,7 @@ namespace UI.ViewModels
                 FirstNameError.ErrorMessage = null;
             }
             //Last name
-            if (string.IsNullOrEmpty(LastName))
+            if (string.IsNullOrEmpty(LastName) && IsDirty(nameof(LastName)))
             {
                 LastNameError.ErrorMessage = "Last name cannot be empty.";
                 valid = false;
@@ -108,7 +108,7 @@ namespace UI.ViewModels
                 LastNameError.ErrorMessage = null;
             }
             //Password
-            if (string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(Password) && IsDirty(nameof(Password)))
             {
                 PasswordError.ErrorMessage = "Password cannot be empty.";
                 valid = false;
@@ -118,7 +118,7 @@ namespace UI.ViewModels
                 PasswordError.ErrorMessage = null;
             }
             //Confirm password
-            if (ConfirmPassword != Password)
+            if (ConfirmPassword != Password && IsDirty(nameof(ConfirmPassword)))
             {
                 ConfirmPasswordError.ErrorMessage = "Password and confirm password must match.";
                 valid = false;
@@ -134,7 +134,7 @@ namespace UI.ViewModels
             {
                 age--;
             }
-            if (age < 18)
+            if (age < 18 && IsDirty(nameof(DateOfBirth)))
             {
                 DateOfBirthError.ErrorMessage = "User must be at least 18 years old in order to be registered.";
                 valid = false;
@@ -143,7 +143,7 @@ namespace UI.ViewModels
             {
                 DateOfBirthError.ErrorMessage = null;
             }
-            return valid;
+            return valid && AllDirty();
         }
     }
 }
