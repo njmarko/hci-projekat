@@ -50,6 +50,7 @@ namespace UI.ViewModels
         private readonly IEventPlannersService _eventPlannersService;
         private readonly ITaskService _taskService;
         private readonly IModalService _modalService;
+        private readonly IDictionary<TaskStatus, ObservableCollection<TaskCardModel>> _taskCollections;
         public ObservableCollection<Request> ActiveRequests { get; private set; }
         public ObservableCollection<TaskCardModel> ToDo { get; private set; } = new ObservableCollection<TaskCardModel>(); 
         public ObservableCollection<TaskCardModel> InProgress { get; private set; } = new ObservableCollection<TaskCardModel>(); 
@@ -93,6 +94,15 @@ namespace UI.ViewModels
             {
                 CurrentRequest = ActiveRequests[0];
             }
+
+            _taskCollections = new Dictionary<TaskStatus, ObservableCollection<TaskCardModel>>()
+            {
+                [TaskStatus.TO_DO] = ToDo,
+                [TaskStatus.IN_PROGRESS] = InProgress,
+                [TaskStatus.SENT_TO_CLIENT] = SentToClient,
+                [TaskStatus.ACCEPTED] = Accepted,
+                [TaskStatus.REJECTED] = Rejected,
+            };
         }
 
         public void UpdateTaskStatus(int taskId, TaskStatus taskStatus)
@@ -101,11 +111,12 @@ namespace UI.ViewModels
             {
                 return;
             }
-            Task task = _taskService.GetTask(taskId);
+            var task = _taskService.GetTask(taskId);
+            var fromStatus = task.TaskStatus;
             task.TaskStatus = taskStatus;
             _taskService.Update(task);
+            MoveTask(taskId, fromStatus, taskStatus);
             Context.Notifier.ShowInformation($"Task {taskId}'s status has been updated to {taskStatus}.");
-            FetchTasksForSelectedRequest();
         }
 
         public void ShowCreateTask(int taskId = -1)
@@ -132,23 +143,16 @@ namespace UI.ViewModels
             }
         }
 
+        private void MoveTask(int tasksId, TaskStatus fromStatus, TaskStatus toStatus)
+        {
+            var taskModel = _taskCollections[fromStatus].FirstOrDefault(t => t.Id == tasksId);
+            _taskCollections[fromStatus].Remove(taskModel);
+            _taskCollections[toStatus].Add(taskModel);
+        }
+
         private void InsertTask(Task task)
         {
-            var taskModel = new TaskCardModel
-            {
-                Id = task.Id,
-                Name = task.Name,
-                Description = task.Description,
-                TaskType = task.TaskType.ToString().ToUpper()[0] + task.TaskType.ToString().ToLower()[1..],
-                CanToDo = task.TaskStatus == TaskStatus.IN_PROGRESS || task.TaskStatus == TaskStatus.REJECTED,
-                CanInProgress = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.REJECTED,
-                CanSentToClient = task.TaskStatus == TaskStatus.IN_PROGRESS,
-                CanEdit = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.IN_PROGRESS,
-                Route = $"EventPlannerTaskDetails?taskId={task.Id}",
-                Context = Context,
-                Vm = this
-            };
-            taskModel.Delete = new DeleteTaskCommand(this, task.Id, _taskService, _modalService);
+            var taskModel = Map(task);
             switch (task.TaskStatus)
             {
                 case TaskStatus.TO_DO:
@@ -167,6 +171,26 @@ namespace UI.ViewModels
                     Rejected.Add(taskModel);
                     break;
             }
+        }
+
+        private TaskCardModel Map(Task task)
+        {
+            var taskModel = new TaskCardModel
+            {
+                Id = task.Id,
+                Name = task.Name,
+                Description = task.Description,
+                TaskType = task.TaskType.ToString().ToUpper()[0] + task.TaskType.ToString().ToLower()[1..],
+                CanToDo = task.TaskStatus == TaskStatus.IN_PROGRESS || task.TaskStatus == TaskStatus.REJECTED,
+                CanInProgress = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.REJECTED,
+                CanSentToClient = task.TaskStatus == TaskStatus.IN_PROGRESS,
+                CanEdit = task.TaskStatus == TaskStatus.TO_DO || task.TaskStatus == TaskStatus.IN_PROGRESS,
+                Route = $"EventPlannerTaskDetails?taskId={task.Id}",
+                Context = Context,
+                Vm = this
+            };
+            taskModel.Delete = new DeleteTaskCommand(this, task.Id, _taskService, _modalService);
+            return taskModel;
         }
 
         private void ClearCollections()
