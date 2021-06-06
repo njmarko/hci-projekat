@@ -43,7 +43,10 @@ namespace UI.Commands
             //throw new NotImplementedException();
             int taskId = _taskDetailsViewModel.Task.Id;
             var offers = _taskOfferService.GetAllTaskOffersForTask(taskId);
-            _taskDetailsViewModel.AddItem(offers.Last());
+            if (offers.Count > 0)
+            {
+                _taskDetailsViewModel.AddItem(offers.Last());
+            }
             _taskOfferService.RejectAllTaskOffers(taskId);
             _taskDetailsViewModel.UpdatePage(0);
             _taskDetailsViewModel.TaskId = taskId;
