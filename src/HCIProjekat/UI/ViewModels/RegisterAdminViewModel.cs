@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
@@ -15,6 +16,7 @@ namespace UI.ViewModels
     {
         // Poperties
         private string _username;
+        [ValidationField]
         public string Username
         {
             get { return _username; }
@@ -22,6 +24,7 @@ namespace UI.ViewModels
         }
 
         private string _password;
+        [ValidationField]
         public string Password
         {
             get { return _password; }
@@ -29,6 +32,7 @@ namespace UI.ViewModels
         }
 
         private string _confirmPassword;
+        [ValidationField]
         public string ConfirmPassword
         {
             get { return _confirmPassword; }
@@ -36,6 +40,7 @@ namespace UI.ViewModels
         }
 
         private string _firstName;
+        [ValidationField]
         public string FirstName
         {
             get { return _firstName; }
@@ -43,6 +48,7 @@ namespace UI.ViewModels
         }
 
         private string _lastName;
+        [ValidationField]
         public string LastName
         {
             get { return _lastName; }
@@ -50,6 +56,7 @@ namespace UI.ViewModels
         }
 
         private DateTime _dateOfBirth = DateTime.Now;
+        [ValidationField]
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }

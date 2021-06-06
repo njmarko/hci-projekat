@@ -38,6 +38,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Modals\AddAdminModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\AddPartnerModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\AddEventPlannerModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\AdminClientsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,6 +89,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\AdminClientCard.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddAdminModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddPartnerModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddEventPlannerModal.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
