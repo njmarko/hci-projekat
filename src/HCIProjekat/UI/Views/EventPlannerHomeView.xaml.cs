@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UI.Controls;
+using UI.ViewModels;
 
 namespace UI.Views
 {
@@ -20,9 +22,49 @@ namespace UI.Views
     /// </summary>
     public partial class EventPlannerHomeView : UserControl
     {
+        private TaskCardModel _currentTask = null;
+
         public EventPlannerHomeView()
         {
             InitializeComponent();
         }
+
+        private void OnTaskMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var task = sender as EventPlannerTaskCard;
+           _currentTask = task.DataContext as TaskCardModel;
+            DragDrop.DoDragDrop(this, "nista", DragDropEffects.Move);
+        }
+
+        private void OnToDoTaskDrop(object sender, DragEventArgs e)
+        {
+            if (_currentTask == null)
+            {
+                return;
+            }
+            _currentTask.MoveToDo.Execute(null);
+            _currentTask = null;
+        }
+
+        private void OnInProgressTaskDrop(object sender, DragEventArgs e)
+        {
+            if (_currentTask == null)
+            {
+                return;
+            }
+            _currentTask.MoveInProgress.Execute(null);
+            _currentTask = null;
+        }
+
+        private void OnSentToClientTaskDrop(object sender, DragEventArgs e)
+        {
+            if (_currentTask == null)
+            {
+                return;
+            }
+            _currentTask.MoveSentToClient.Execute(null);
+            _currentTask = null;
+        }
+
     }
 }

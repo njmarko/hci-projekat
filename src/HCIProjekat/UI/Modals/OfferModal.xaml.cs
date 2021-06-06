@@ -46,7 +46,7 @@ namespace UI.Modals
                 {
                     dropEnabled = false;
                 }
-                elses
+                else
                 {
                     var imagePath = filenames[0];
                     // TODO: Dodati podrsku za sve moguce tipove za sliku
