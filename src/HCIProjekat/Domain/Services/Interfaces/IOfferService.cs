@@ -17,5 +17,7 @@ namespace Domain.Services.Interfaces
         Page<Offer> GetAvailableOffersForTask(int taskId, OffersForTaskPageRequest page);
 
         Offer Create(Offer offer, int partnerId);
+
+        SeatingLayout GetOfferSeatingLayout(int offerId);
     }
 }

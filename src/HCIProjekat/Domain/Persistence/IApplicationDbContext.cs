@@ -9,17 +9,21 @@ namespace Domain.Persistence
 {
     public interface IApplicationDbContext : IDisposable
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<EventPlanner> EventPlanners { get; set; }
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<Request> Requests { get; set; }
-        public DbSet<Partner> Partner { get; set; }
-        public DbSet<Offer> Offers { get; set; }
-        public DbSet<Task> Tasks { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<TaskOffer> TaskOffers { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<Client> Clients { get; set; }
+        DbSet<EventPlanner> EventPlanners { get; set; }
+        DbSet<Admin> Admins { get; set; }
+        DbSet<Request> Requests { get; set; }
+        DbSet<Partner> Partner { get; set; }
+        DbSet<Offer> Offers { get; set; }
+        DbSet<Task> Tasks { get; set; }
+        DbSet<Comment> Comments { get; set; }
+        DbSet<TaskOffer> TaskOffers { get; set; }
+        DbSet<Notification> Notifications { get; set; }
+        DbSet<SeatingLayout> SeatingLayouts { get; set; }
+        DbSet<Table> Tables { get; set; }
+        DbSet<Chair> Chairs { get; set; }
+
 
         int SaveChanges();
     }

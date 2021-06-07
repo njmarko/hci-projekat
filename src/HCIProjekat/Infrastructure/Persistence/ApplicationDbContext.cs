@@ -23,6 +23,9 @@ namespace Infrastructure.Persistence
         public DbSet<Comment> Comments { get; set; }
         public DbSet<TaskOffer> TaskOffers { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<SeatingLayout> SeatingLayouts { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<Chair> Chairs { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="OfferModal" Height="730" Width="500" ResizeMode="NoResize"
+        Title="OfferModal" Height="780" Width="500" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         WindowStyle="SingleBorderWindow">
     <Window.Resources>
@@ -30,6 +30,9 @@
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -15 10 0" FontSize="10" />
 
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding OfferTypeModels}" SelectedItem="{Binding OfferTypeValue}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Select offer type" Margin="10 15" />
+
+            <Button Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding ShowEditSeatingDialogModal}" Visibility="{Binding IsLocation, Converter={StaticResource b2vc}}" FontSize="14" Foreground="White" Margin="10 0" Width="180" HorizontalAlignment="Left" Content="Edit seating layout" />
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding LayoutError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
 
             <Grid>
                 <Grid.ColumnDefinitions>

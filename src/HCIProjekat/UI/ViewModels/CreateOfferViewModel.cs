@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Services.Interfaces;
 using Microsoft.Win32;
 using System;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using UI.Commands;
 using UI.Context;
 using UI.CustomAttributes;
+using UI.Modals;
 using UI.Services.Interfaces;
 using UI.Util;
 using UI.ViewModels.Interfaces;
@@ -28,7 +30,10 @@ namespace UI.ViewModels
 
     public class CreateOfferViewModel : ValidationModel<CreateOfferViewModel>
     {
-        private IOfferService _offerService;
+        private readonly IOfferService _offerService;
+        private readonly IModalService _modalService;
+        private readonly ISeatingLayoutService _seatingLayoutService;
+        private SeatingLayout _seatingLayout;
 
         private byte[] _imageInBytes;
         [ValidationField]
@@ -65,7 +70,7 @@ namespace UI.ViewModels
         public ServiceTypeModel OfferTypeValue
         {
             get { return _offerType; }
-            set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
+            set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); OnPropertyChanged(nameof(CanCreateOffer)); OnPropertyChanged(nameof(IsLocation)); }
         }
 
         private string _description;
@@ -78,10 +83,12 @@ namespace UI.ViewModels
 
         private int _offerId;
 
-        public String ButtonText
+        public string ButtonText
         {
             get { return (_offerId != -1) ? "Save" : "Create"; }
         }
+
+        public bool IsLocation => _offerType.Type.Value == ServiceType.LOCATION;
 
         public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
 
@@ -90,12 +97,19 @@ namespace UI.ViewModels
         public ErrorMessageViewModel PriceError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel DescriptionError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel ImageError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel LayoutError { get; private set; } = new ErrorMessageViewModel();
 
+        public ICommand ShowEditSeatingDialogModal { get; private set; }
         public ICommand OnImageInput { get; private set; }
         public ICommand CreateOfferCommand { get; private set; }
 
-        public CreateOfferViewModel(PartnerOffersViewModel partnerVm, IApplicationContext context, IOfferService offerService, IModalService modalService, int partnerId, int offerId) : base(context)
+        public CreateOfferViewModel(PartnerOffersViewModel partnerVm, IApplicationContext context, IOfferService offerService, ISeatingLayoutService seatingLayoutService, IModalService modalService, int partnerId, int offerId) : base(context)
         {
+            _offerService = offerService;
+            _modalService = modalService;
+            _seatingLayoutService = seatingLayoutService;
+            _offerId = offerId;
+
             OfferTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             OfferTypeModels.Add(OfferTypeValue);
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Catering", Type = ServiceType.CATERING });
@@ -103,17 +117,20 @@ namespace UI.ViewModels
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
 
-            Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
-
-            OnImageInput = new DelegateCommand(() => ImageInput());
-            CreateOfferCommand = new CreateOfferCommand(partnerVm, this, offerService, modalService, partnerId, offerId);
-
-            _offerService = offerService;
-            _offerId = offerId;
             if (offerId != -1)
             {
                 FetchOffer();
             }
+            else
+            {
+                _seatingLayout = new SeatingLayout();
+            }
+
+            Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
+
+            OnImageInput = new DelegateCommand(ImageInput);
+            CreateOfferCommand = new CreateOfferCommand(partnerVm, this, offerService, seatingLayoutService, modalService, partnerId, offerId, _seatingLayout);
+            ShowEditSeatingDialogModal = new DelegateCommand(ShowSeatingDialogModal);
         }
 
         private void FetchOffer()
@@ -126,7 +143,12 @@ namespace UI.ViewModels
             Description = offer.Description;
             Price = offer.Price.ToString();
             var enumName = offer.OfferType.ToString().First().ToString().ToUpper() + offer.OfferType.ToString().ToLower()[1..];
-            OfferTypeValue = OfferTypeModels.Where(o => o.Name == enumName).First();
+            OfferTypeValue = OfferTypeModels.Where(o => o.Type.HasValue && o.Type.Value == offer.OfferType).First();
+
+            if (offer.OfferType == ServiceType.LOCATION)
+            {
+                _seatingLayout = _offerService.GetOfferSeatingLayout(_offerId);
+            }
         }
 
         public bool IsValid()
@@ -185,8 +207,26 @@ namespace UI.ViewModels
             {
                 ImageError.ErrorMessage = null;
             }
+            //Seating layout
+            if (OfferTypeValue.Type.HasValue && OfferTypeValue.Type.Value == ServiceType.LOCATION && _seatingLayout == null)
+            {
+                LayoutError.ErrorMessage = "Seating layout is required for location offers.";
+                valid = false;
+            }
+            else
+            {
+                LayoutError.ErrorMessage = null;
+            }
 
             return valid && AllDirty();
+        }
+
+        private void ShowSeatingDialogModal()
+        {
+            if (_modalService.ShowModal<OfferSeatingLayoutModal>(new CreateOfferSeatingLayoutViewModel(this, Context, _seatingLayoutService, _seatingLayout)))
+            {
+
+            }
         }
 
         private void ImageInput()

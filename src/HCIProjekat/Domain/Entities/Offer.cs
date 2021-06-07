@@ -16,5 +16,6 @@ namespace Domain.Entities
         public ServiceType OfferType { get; set; }
 
         public virtual Partner Partner { get; set; }
+        public virtual SeatingLayout SeatingLayout { get; set; }
     }
 }

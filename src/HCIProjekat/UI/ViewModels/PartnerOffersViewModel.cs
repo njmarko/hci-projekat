@@ -41,7 +41,7 @@ namespace UI.ViewModels
     public class PartnerOffersViewModel : UndoModelBase<Offer>
     {
         private readonly IOfferService _offerService;
-
+        private readonly ISeatingLayoutService _seatingLayoutService;
         private readonly IModalService _modalService;
 
         private string _searchQuery;
@@ -76,7 +76,7 @@ namespace UI.ViewModels
         public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
 
-        public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService) : base(context, offerService, modalService)
+        public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, ISeatingLayoutService seatingLayoutService, IModalService modalService) : base(context, offerService, modalService)
         {
             OfferTypeValue = new ServiceTypeModel { Name = "All types", Type = null };
             OfferTypeModels.Add(OfferTypeValue);
@@ -93,6 +93,7 @@ namespace UI.ViewModels
 
             _modalService = modalService;
             _offerService = offerService;
+            _seatingLayoutService = seatingLayoutService;
 
             Rows = 1;
 
@@ -119,7 +120,7 @@ namespace UI.ViewModels
 
         public void OpenOfferModal(int offerId)
         {
-            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(this, Context, _offerService, _modalService, PartnerId, offerId));
+            var ok = _modalService.ShowModal<OfferModal>(new CreateOfferViewModel(this, Context, _offerService, _seatingLayoutService, _modalService, PartnerId, offerId));
             if (ok)
             {
                 Context.Notifier.ShowInformation($"Offer successfully {((offerId != -1) ? "updated" : "created" )}");

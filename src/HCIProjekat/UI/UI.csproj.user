@@ -10,6 +10,9 @@
     <Compile Update="Controls\AdminRequestCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\ChairIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\ClientTaskCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -37,10 +40,16 @@
     <Compile Update="Controls\PartnerOfferCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\TableIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Modals\CreateTaskModal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Modals\OfferModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\OfferSeatingLayoutModal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Modals\RequestModal.xaml.cs">
@@ -93,6 +102,9 @@
     <Page Update="Controls\AdminRequestCard.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\ChairIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\ClientRequestCard.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -126,6 +138,9 @@
     <Page Update="Controls\PartnerOfferCard.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\TableIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -142,6 +157,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modals\OfferModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\OfferSeatingLayoutModal.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modals\RequestModal.xaml">

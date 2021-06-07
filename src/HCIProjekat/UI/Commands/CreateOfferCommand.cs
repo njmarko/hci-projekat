@@ -19,21 +19,25 @@ namespace UI.Commands
         private readonly PartnerOffersViewModel _partnerVm;
         private readonly CreateOfferViewModel _createOfferVm;
         private readonly IOfferService _offerService;
+        private readonly ISeatingLayoutService _seatingLayoutService;
         private readonly IModalService _modalService;
 
         private int _offerId;
         private int _partnerId;
+        private SeatingLayout _seatingLayout;
 
         public event EventHandler CanExecuteChanged;
 
-        public CreateOfferCommand(PartnerOffersViewModel partnerVm, CreateOfferViewModel createOfferViewModel, IOfferService offerService, IModalService modalService, int partnerId, int offerId)
+        public CreateOfferCommand(PartnerOffersViewModel partnerVm, CreateOfferViewModel createOfferViewModel, IOfferService offerService, ISeatingLayoutService seatingLayoutService, IModalService modalService, int partnerId, int offerId, SeatingLayout seatingLayout)
         {
             _partnerVm = partnerVm;
             _createOfferVm = createOfferViewModel;
             _offerService = offerService;
+            _seatingLayoutService = seatingLayoutService;
             _modalService = modalService;
             _offerId = offerId;
             _partnerId = partnerId;
+            _seatingLayout = seatingLayout;
             _createOfferVm.PropertyChanged += _createOfferVm_PropertyChanged;
         }
 
@@ -97,6 +101,11 @@ namespace UI.Commands
                 Price = int.Parse(_createOfferVm.Price),
                 OfferType = (ServiceType)_createOfferVm.OfferTypeValue.Type
             }, _partnerId);
+            if (offer.OfferType == ServiceType.LOCATION)
+            {
+                _seatingLayout.OfferId = offer.Id;
+                _seatingLayoutService.Create(_seatingLayout);
+            }
 
             offer.Active = false;
             _partnerVm.AddItem(offer);

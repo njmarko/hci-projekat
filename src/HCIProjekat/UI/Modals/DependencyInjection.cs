@@ -20,6 +20,7 @@ namespace UI.Modals
             services.AddTransient<AddAdminModal>();
             services.AddTransient<AddEventPlannerModal>();
             services.AddTransient<AddPartnerModal>();
+            services.AddTransient<OfferSeatingLayoutModal>();
             return services;
         }
     }
