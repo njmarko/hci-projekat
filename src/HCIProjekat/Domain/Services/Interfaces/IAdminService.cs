@@ -14,5 +14,7 @@ namespace Domain.Services.Interfaces
         Admin Create(Admin admin);
 
         Page<Admin> GetAdmins(AdminsPage page);
+
+        public void Delete(int adminId);
     }
 }

@@ -28,12 +28,12 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Partner.FirstOrDefault(u => u.Name == partner.Name) != null)
+            if (context.Partners.FirstOrDefault(u => u.Name == partner.Name) != null)
             {
                 throw new PartnerAlreadyExistsException(partner.Name);
             }
 
-            context.Partner.Add(partner);
+            context.Partners.Add(partner);
             context.SaveChanges();
             return partner;
         }
@@ -42,7 +42,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var partner = context.Partner.Find(partnerId);
+            var partner = context.Partners.Find(partnerId);
             partner.Active = false;
             context.SaveChanges();
         }
@@ -51,7 +51,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            return context.Partner
+            return context.Partners
                           .Where(p => p.Active)
                           .Where(p => p.Name.ToLower().Contains(page.Query.ToLower())
                           || p.Location.City.ToLower().Contains(page.Query.ToLower())
@@ -66,7 +66,7 @@ namespace Domain.Services
         public Partner Update(int partnerId, string name, PartnerType partnerType, string country, string city, string street, string streetNumber)
         {
             using var context = _dbContextFactory.CreateDbContext();
-            var partner = context.Partner.Find(partnerId);
+            var partner = context.Partners.Find(partnerId);
             partner.Name = name;
             partner.Type = partnerType;
             partner.Location.Country = country;

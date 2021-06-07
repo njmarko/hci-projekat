@@ -26,7 +26,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var partner = context.Partner.Find(partnerId);
+            var partner = context.Partners.Find(partnerId);
             offer.Partner = partner;
             context.Offers.Add(offer);
             context.SaveChanges();

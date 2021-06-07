@@ -14,7 +14,7 @@ namespace Domain.Persistence
         DbSet<EventPlanner> EventPlanners { get; set; }
         DbSet<Admin> Admins { get; set; }
         DbSet<Request> Requests { get; set; }
-        DbSet<Partner> Partner { get; set; }
+        DbSet<Partner> Partners { get; set; }
         DbSet<Offer> Offers { get; set; }
         DbSet<Task> Tasks { get; set; }
         DbSet<Comment> Comments { get; set; }
