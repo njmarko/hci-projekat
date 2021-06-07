@@ -112,7 +112,7 @@ namespace UI.ViewModels
         public override void UpdatePage(int pageNumber)
         {
             EventPlannerModels.Clear();
-            var page = _eventPlannersService.GetEventPlanners(new EventPlannersPage { Page = pageNumber, Size = Size, Query = Query, BornAfter = BornAfter, BornBefore = BornBefore, HasActiveRequests = HasActiveRequests});
+            var page = _eventPlannersService.GetEventPlanners(new EventPlannersPage { Page = pageNumber, Size = Size, Query = Query, BornAfter = BornAfter, BornBefore = BornBefore, HasActiveRequests = HasActiveRequests });
             foreach (var entity in page.Entities)
             {
                 var eventPlannerModel = new AdminEventPlannerCardModel
