@@ -49,19 +49,33 @@ namespace UI.ViewModels
             return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
         }
 
-        public void AddTable(double xOffset, double yOffset)
+        public Table AddTable(double xOffset, double yOffset)
         {
-            SeatingLayout.Tables.Add(new Table { X = xOffset, Y = yOffset, Radius = 40, Label = "STO NAJJACI" });
+            var tableNum = SeatingLayout.Tables.Count + 1;
+            var table = new Table { X = xOffset, Y = yOffset, Radius = 40, Label = $"Table #{tableNum}" };
+            SeatingLayout.Tables.Add(table);
+            if (SeatingLayout.Id != 0)
+            {
+                _seatingLayoutService.AddTable(table, SeatingLayout.Id);
+            }
+            return table;
         }
 
-        public void AddChair(double xOffset, double yOffset)
+        public Chair AddChair(double xOffset, double yOffset)
         {
             var closestTable = ClosestTable(xOffset, yOffset);
             if (closestTable == null)
             {
-                return;
+                throw new Exception("No table present.");
             }
-            closestTable.Chairs.Add(new Chair { X = xOffset, Y = yOffset, Radius = 10, Label = "STOLICA NAJJACA" });
+            var chairNum = closestTable.Chairs.Count + 1;
+            var chair = new Chair { X = xOffset, Y = yOffset, Radius = 10, Label = $"Chair #{chairNum}" };
+            closestTable.Chairs.Add(chair);
+            if (SeatingLayout.Id != 0)
+            {
+                _seatingLayoutService.AddChair(chair, closestTable.Id);
+            }
+            return chair;
         }
     }
 }

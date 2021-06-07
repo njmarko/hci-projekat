@@ -11,8 +11,8 @@ namespace Domain.Services.Interfaces
     {
         SeatingLayout Create(SeatingLayout seatingLayout);
 
-        Table AddTable(Table table);
+        Table AddTable(Table table, int seatingLayoutId);
 
-        Chair AddChair(Chair chair);
+        Chair AddChair(Chair chair, int  tableId);
     }
 }
