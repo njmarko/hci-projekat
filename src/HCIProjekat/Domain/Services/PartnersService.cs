@@ -53,12 +53,13 @@ namespace Domain.Services
 
             return context.Partner
                           .Where(p => p.Active)
-                          .Where(p => p.Name.ToLower().Contains(page.SearchQuery.ToLower())
-                          || p.Location.City.ToLower().Contains(page.SearchQuery.ToLower())
-                          || p.Location.Country.ToLower().Contains(page.SearchQuery.ToLower())
-                          || p.Location.Street.ToLower().Contains(page.SearchQuery.ToLower())
-                          || p.Location.StreetNumber.ToLower().Contains(page.SearchQuery.ToLower())
+                          .Where(p => p.Name.ToLower().Contains(page.Query.ToLower())
+                          || p.Location.City.ToLower().Contains(page.Query.ToLower())
+                          || p.Location.Country.ToLower().Contains(page.Query.ToLower())
+                          || p.Location.Street.ToLower().Contains(page.Query.ToLower())
+                          || p.Location.StreetNumber.ToLower().Contains(page.Query.ToLower())
                           )
+                          .Where(p => p.Type == page.PartnerType || page.PartnerType == null)
                           .Include(c => c.Offers)
                           .ToPage(page);
         }

@@ -1,4 +1,5 @@
-﻿using Domain.Pagination.Requests;
+﻿using Domain.Enums;
+using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,38 +30,74 @@ namespace UI.ViewModels
         public ICommand Delete { get; set; }
     }
 
+
     public class AdminPartnersViewModel : PagingViewModelBase
     {
         private readonly IPartnersService _partnersService;
 
         private readonly IModalService _modalService;
 
-        private string _searchQuery;
-        public string SearchQuery
+        private readonly PartnerTypeModel _typeInitial;
+
+        private string _query;
+        public string Query
         {
-            get => _searchQuery;
+            get => _query;
             set
             {
-                _searchQuery = value;
-                OnPropertyChanged(nameof(SearchQuery));
+                _query = value;
+                OnPropertyChanged(nameof(Query));
             }
         }
 
-        public ICommand SearchCommand { get; set; }
+        private PartnerTypeModel _partnerType;
+        public PartnerTypeModel PartnerTypeValue
+        {
+            get { return _partnerType; }
+            set { _partnerType = value; OnPropertyChanged(nameof(PartnerTypeValue)); }
+        }
 
+        public ICommand Search { get; set; }
         public ICommand AddPartner { get; private set; }
+
+        public ICommand Clear { get; private set; }
         public ObservableCollection<AdminPartnerCardModel> PartnerModels { get; private set; } = new ObservableCollection<AdminPartnerCardModel>();
+
+        public ObservableCollection<PartnerTypeModel> PartnerTypeModels { get; private set; } = new ObservableCollection<PartnerTypeModel>();
 
         public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService, IModalService modalService) : base(context)
         {
             _partnersService = partnersService;
-            SearchQuery = string.Empty;
-            SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            Query = string.Empty;
+            Search = new DelegateCommand(() => UpdatePage(0));
+            Clear = new DelegateCommand(ClearFilters);
             AddPartner = new DelegateCommand(OpenRegisterPartnerModal);
+
             _modalService = modalService;
             Columns = 4;
+
+            _typeInitial = new PartnerTypeModel { Name = "All types" };
+            _partnerType = _typeInitial;
+
+            PartnerTypeModels.Add(_typeInitial);
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.ANIMATOR, Name = "Animator" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.BAKERY, Name = "Bakery" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.CAFFEE, Name = "Coffee" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.CONFECTIONERY, Name = "Confectionery" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.MUSIC, Name = "Music" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.PHOTOGRAPHY, Name = "Photography" });
+            PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.RESTAURANT, Name = "Restaurant" });
+
             UpdatePage(0);
         }
+
+        public void ClearFilters()
+        {
+            Query = string.Empty;
+            PartnerTypeValue = _typeInitial;
+            UpdatePage(0);
+        }
+
         private void OpenRegisterPartnerModal()
         {
             _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService));
@@ -69,7 +106,7 @@ namespace UI.ViewModels
         public override void UpdatePage(int pageNumber)
         {
             PartnerModels.Clear();
-            var page = _partnersService.GetPartners(new PartnersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
+            var page = _partnersService.GetPartners(new PartnersPage { Page = pageNumber, Size = Size, Query = Query, PartnerType = PartnerTypeValue.Type });
             foreach (var entity in page.Entities)
             {
 

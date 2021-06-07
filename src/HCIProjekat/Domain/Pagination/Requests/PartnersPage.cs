@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Domain.Pagination.Requests
 {
     public class PartnersPage : PageRequest
     {
-        public string SearchQuery { get; set; }
+        public string Query { get; set; }
+
+        public PartnerType? PartnerType { get; set; }
     }
 }
