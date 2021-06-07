@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Services.Interfaces;
 using Microsoft.Win32;
 using System;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using UI.Commands;
 using UI.Context;
 using UI.CustomAttributes;
+using UI.Modals;
 using UI.Services.Interfaces;
 using UI.Util;
 using UI.ViewModels.Interfaces;
@@ -28,7 +30,9 @@ namespace UI.ViewModels
 
     public class CreateOfferViewModel : ValidationModel<CreateOfferViewModel>
     {
-        private IOfferService _offerService;
+        private readonly IOfferService _offerService;
+        private readonly IModalService _modalService;
+        private SeatingLayout _seatingLayout;
 
         private byte[] _imageInBytes;
         [ValidationField]
@@ -65,7 +69,7 @@ namespace UI.ViewModels
         public ServiceTypeModel OfferTypeValue
         {
             get { return _offerType; }
-            set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); }
+            set { _offerType = value; OnPropertyChanged(nameof(OfferTypeValue)); OnPropertyChanged(nameof(CanCreateOffer)); OnPropertyChanged(nameof(IsLocation)); }
         }
 
         private string _description;
@@ -78,10 +82,12 @@ namespace UI.ViewModels
 
         private int _offerId;
 
-        public String ButtonText
+        public string ButtonText
         {
             get { return (_offerId != -1) ? "Save" : "Create"; }
         }
+
+        public bool IsLocation => _offerType.Type.Value == ServiceType.LOCATION;
 
         public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
 
@@ -90,7 +96,9 @@ namespace UI.ViewModels
         public ErrorMessageViewModel PriceError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel DescriptionError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel ImageError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel LayoutError { get; private set; } = new ErrorMessageViewModel();
 
+        public ICommand ShowEditSeatingDialogModal { get; private set; }
         public ICommand OnImageInput { get; private set; }
         public ICommand CreateOfferCommand { get; private set; }
 
@@ -105,10 +113,12 @@ namespace UI.ViewModels
 
             Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
 
-            OnImageInput = new DelegateCommand(() => ImageInput());
+            OnImageInput = new DelegateCommand(ImageInput);
             CreateOfferCommand = new CreateOfferCommand(partnerVm, this, offerService, modalService, partnerId, offerId);
+            ShowEditSeatingDialogModal = new DelegateCommand(ShowSeatingDialogModal);
 
             _offerService = offerService;
+            _modalService = modalService;
             _offerId = offerId;
             if (offerId != -1)
             {
@@ -127,6 +137,11 @@ namespace UI.ViewModels
             Price = offer.Price.ToString();
             var enumName = offer.OfferType.ToString().First().ToString().ToUpper() + offer.OfferType.ToString().ToLower()[1..];
             OfferTypeValue = OfferTypeModels.Where(o => o.Name == enumName).First();
+
+            if (offer.OfferType == ServiceType.LOCATION)
+            {
+                _seatingLayout = _offerService.GetOfferSeatingLayout(_offerId);
+            }
         }
 
         public bool IsValid()
@@ -185,8 +200,26 @@ namespace UI.ViewModels
             {
                 ImageError.ErrorMessage = null;
             }
+            //Seating layout
+            if (OfferTypeValue.Type.HasValue && OfferTypeValue.Type.Value == ServiceType.LOCATION && _seatingLayout == null)
+            {
+                LayoutError.ErrorMessage = "Seating layout is required for location offers.";
+                valid = false;
+            }
+            else
+            {
+                LayoutError.ErrorMessage = null;
+            }
 
             return valid && AllDirty();
+        }
+
+        private void ShowSeatingDialogModal()
+        {
+            if (_modalService.ShowModal<OfferSeatingLayoutModal>(null))
+            {
+
+            }
         }
 
         private void ImageInput()

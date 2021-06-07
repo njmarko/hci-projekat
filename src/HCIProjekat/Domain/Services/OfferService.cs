@@ -20,7 +20,6 @@ namespace Domain.Services
         {
             _dbContextFactory = dbContextFactory;
         }
-
         
       
        public Offer Create(Offer offer, int partnerId)
@@ -37,8 +36,8 @@ namespace Domain.Services
         public Page<Offer> GetOffersForPartner(int partnerId, OffersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
-            var searchQuery = page.SearchQuery.ToLower();
 
+            var searchQuery = page.SearchQuery.ToLower();
             return context.Offers
                           .Where(o => o.Active)
                           .Where(o => o.Partner.Id == partnerId)
@@ -97,10 +96,19 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
 
             var offer = context.Offers.Find(offerId);
-
             offer.Active = false;
 
             context.SaveChanges();
+        }
+
+        public SeatingLayout GetOfferSeatingLayout(int offerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.SeatingLayouts
+                          .Include(l => l.Tables)
+                          .ThenInclude(t => t.Chairs)
+                          .SingleOrDefault(l => l.OfferId == offerId);
         }
     }
 }
