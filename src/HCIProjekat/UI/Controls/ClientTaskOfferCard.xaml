@@ -17,7 +17,7 @@
             <StackPanel>
                 <Border CornerRadius="20,20,0,0" Height="150">
                     <Border.Background>
-                        <ImageBrush ImageSource="https://i.redd.it/oo8hu88g5pg61.png" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill"/>
                     </Border.Background>
                 </Border>
 

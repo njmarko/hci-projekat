@@ -101,6 +101,8 @@ namespace UI.ViewModels
             }
         }
 
+        public string TaskDetailsRoute { get; set; }
+
         public string BackRoute { get; private set; }
 
         public ObservableCollection<ClientTaskCardModel> TaskModels { get; private set; } = new ObservableCollection<ClientTaskCardModel>();
@@ -147,14 +149,17 @@ namespace UI.ViewModels
             if (Context.Store.CurrentUser is Client)
             {
                 BackRoute = "ClientRequests";
+                TaskDetailsRoute = "TaskDetails";
             }
             else if (Context.Store.CurrentUser is EventPlanner)
             {
                 BackRoute = "EventPlannerRequests";
+                TaskDetailsRoute = "EventPlannerTaskDetails";
             }
             else
             {
                 BackRoute = "AdminRequests";
+                TaskDetailsRoute = "TaskDetails";
             }
             //UpdatePage(0);
         }
@@ -193,7 +198,7 @@ namespace UI.ViewModels
                     TaskStatus = entity.TaskStatus,
                     IsPending = entity.TaskStatus == TaskStatus.SENT_TO_CLIENT,
                     Context = Context,
-                    Route = $"TaskDetails?taskId={entity.Id}"
+                    Route = $"{TaskDetailsRoute}?taskId={entity.Id}"
                 });
             }
             OnPageFetched(page);

@@ -179,7 +179,7 @@ namespace UI.ViewModels
 
             Search = new DelegateCommand(() => UpdatePage(0));
             SearchQuery = string.Empty;
-            HelpPage = "task-details";
+            HelpPage = "client-task-details";
         }
         private bool AbleToReject()
         {
@@ -239,7 +239,8 @@ namespace UI.ViewModels
                     Status = status,
                     TaskOfferId = entity.Id,
                     TaskId = Task.Id,
-                    IsVisible = entity.OfferStatus == OfferStatus.PENDING && Context.Store.CurrentUser is Client
+                    IsVisible = entity.OfferStatus == OfferStatus.PENDING && Context.Store.CurrentUser is Client,
+                    Image = "https://i.redd.it/oo8hu88g5pg61.png" //ovo ovdje treba ispraviti da se preuzima slika od ponude. treba ispraviti i gore u view modelu
                 };
 
                 taskOfferCardModel.RejectTaskOffer = new RejectTaskOfferCommand(_taskOfferService, taskOfferCardModel, this);

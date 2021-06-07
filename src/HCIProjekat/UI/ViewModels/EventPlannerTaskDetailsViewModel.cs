@@ -86,6 +86,7 @@ namespace UI.ViewModels
             AvailableOffersVm.AddedVm = AddedOffersVm;
 
             TabSelectedIndex = 0;
+            HelpPage = "event-planner-task-details";
         }
 
         private void FetchTask()
