@@ -43,5 +43,15 @@ namespace UI.Views
             _currentOffer.ButtonAction.Execute(null);
             _currentOffer = null;
         }
+
+        private void OnOfferRemoved(object sender, DragEventArgs e)
+        {
+            if (_currentOffer == null)
+            {
+                return;
+            }
+            _currentOffer.ButtonAction.Execute(null);
+            _currentOffer = null; 
+        }
     }
 }

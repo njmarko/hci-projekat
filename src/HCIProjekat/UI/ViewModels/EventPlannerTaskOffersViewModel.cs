@@ -81,7 +81,7 @@ namespace UI.ViewModels
             {
                 _taskOfferService.RemoveOfferFromTask(offerId);
                 UpdatePage(0);
-                Context.Notifier.ShowInformation("Offer removed from the task.");
+                Context.Notifier.ShowInformation("Offer succesfully removed from the task.");
                 AvailableVm.UpdatePage(0);
             }
         }

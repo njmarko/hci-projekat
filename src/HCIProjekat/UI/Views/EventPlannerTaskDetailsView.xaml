@@ -90,7 +90,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <controls:EventPlannerTaskOfferCard  />
+                                <controls:EventPlannerTaskOfferCard MouseDown="EventPlannerTaskOfferCard_MouseDown"  />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -100,7 +100,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Available Offers" DataContext="{Binding AvailableOffersVm}">
+            <TabItem Header="Available Offers" AllowDrop="True" Drop="OnOfferRemoved" DataContext="{Binding AvailableOffersVm}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
