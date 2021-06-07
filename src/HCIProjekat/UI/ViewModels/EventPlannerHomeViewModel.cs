@@ -90,6 +90,7 @@ namespace UI.ViewModels
             Search = new DelegateCommand(FetchTasksForSelectedRequest);
             ShowCreateTaskModal = new DelegateCommand(() => ShowCreateTask(-1));
             ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(Context.Store.CurrentUser.Id));
+            HelpPage = "event-planner-home-page";
             if (ActiveRequests.Count > 0)
             {
                 CurrentRequest = ActiveRequests[0];

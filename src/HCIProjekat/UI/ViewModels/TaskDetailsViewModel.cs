@@ -179,6 +179,7 @@ namespace UI.ViewModels
 
             Search = new DelegateCommand(() => UpdatePage(0));
             SearchQuery = string.Empty;
+            HelpPage = "task-details";
         }
         private bool AbleToReject()
         {
