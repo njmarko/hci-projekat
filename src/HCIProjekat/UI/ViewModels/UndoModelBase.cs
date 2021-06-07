@@ -39,7 +39,9 @@ namespace UI.ViewModels
         {
             var clonedItem = item.Clone();
             _undoItems.Push(clonedItem);
+            _redoItems.Clear();
             OnPropertyChanged(nameof(CanUndo));
+            OnPropertyChanged(nameof(CanRedo));
         }
 
         private void UndoAction()
