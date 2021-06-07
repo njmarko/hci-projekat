@@ -150,6 +150,9 @@
     <Page Update="Modals\UpdateProfileInfoModal.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\AdminAdminsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\AdminClientsView.xaml">
       <SubType>Designer</SubType>
     </Page>
