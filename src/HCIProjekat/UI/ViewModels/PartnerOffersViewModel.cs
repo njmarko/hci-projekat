@@ -27,6 +27,7 @@ namespace UI.ViewModels
         public BitmapImage Image { get; set; }
         public PartnerOffersViewModel PartnerOffersVm { get; set; }
 
+
         public ICommand EditOffer { get; private set; }
         public ICommand DeleteOffer { get; private set; }
 
@@ -43,6 +44,8 @@ namespace UI.ViewModels
         private readonly IOfferService _offerService;
 
         private readonly IModalService _modalService;
+
+        private readonly IPartnerService _partnerService;
 
         private string _searchQuery;
         public string SearchQuery
@@ -69,6 +72,20 @@ namespace UI.ViewModels
             set { _partnerId = value; UpdatePage(0);  }
         }
 
+
+        private Partner _partner;
+
+        public Partner Partner
+        {
+            get { return _partner; }
+            set 
+            { 
+                _partner = value;
+                OnPropertyChanged(nameof(Partner));
+            }
+        }
+
+
         public ICommand AddOffer { get; private set; }
         public ICommand Search { get; private set; }
         public ICommand Clear { get; private set; }
@@ -76,7 +93,7 @@ namespace UI.ViewModels
         public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
 
-        public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService) : base(context, offerService, modalService)
+        public PartnerOffersViewModel(IApplicationContext context, IOfferService offerService, IModalService modalService, IPartnerService partnerService) : base(context, offerService, modalService)
         {
             OfferTypeValue = new ServiceTypeModel { Name = "All types", Type = null };
             OfferTypeModels.Add(OfferTypeValue);
@@ -85,7 +102,7 @@ namespace UI.ViewModels
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Music", Type = ServiceType.MUSIC });
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
-
+            _partnerService = partnerService;
 
             AddOffer = new DelegateCommand(() => OpenOfferModal(-1));
             Search = new DelegateCommand(() => UpdatePage(0));
@@ -98,6 +115,8 @@ namespace UI.ViewModels
 
             SearchQuery = string.Empty;
             UpdatePage(0);
+
+            HelpPage = "partner-offers";
         }
 
         private void ClearFilter()
@@ -106,8 +125,14 @@ namespace UI.ViewModels
             UpdatePage(0);
         }
 
+        private void LoadPartner()
+        {
+            Partner = _partnerService.Get(PartnerId);
+        }
+
         public override void UpdatePage(int pageNumber)
         {
+            LoadPartner();
             OfferModels.Clear();
             var page = _offerService.GetOffersForPartner(PartnerId, new OffersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery, OfferType = OfferTypeValue.Type });
             foreach (var entity in page.Entities)

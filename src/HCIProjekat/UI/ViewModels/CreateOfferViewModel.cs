@@ -94,6 +94,8 @@ namespace UI.ViewModels
         public ICommand OnImageInput { get; private set; }
         public ICommand CreateOfferCommand { get; private set; }
 
+        public string Help { get; set; } = "add-partner-offer";
+
         public CreateOfferViewModel(PartnerOffersViewModel partnerVm, IApplicationContext context, IOfferService offerService, IModalService modalService, int partnerId, int offerId) : base(context)
         {
             OfferTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
@@ -113,6 +115,7 @@ namespace UI.ViewModels
             if (offerId != -1)
             {
                 FetchOffer();
+                Help = "edit-partner-offer";
             }
         }
 
