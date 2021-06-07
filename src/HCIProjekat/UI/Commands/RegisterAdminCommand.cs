@@ -51,7 +51,7 @@ namespace UI.Commands
             try
             {
                 var registerAdmin = _adminService.Create(new Admin { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
-                _context.Notifier.ShowSuccess($"Admin sucessfuly added, {registerAdmin.FirstName} {registerAdmin.LastName}.");
+                _context.Notifier.ShowSuccess($"Admin {registerAdmin.FirstName} {registerAdmin.LastName} sucessfuly added.");
                 _router.Push("AdminPartners");
             }
             catch (UsernameAlreadyExistsException exception)

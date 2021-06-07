@@ -55,7 +55,7 @@ namespace UI.Commands
                     Type = (Domain.Enums.PartnerType)_registerVm.PartnerTypeValue.Type,
                     Location = new Location { City = _registerVm.City, Country = _registerVm.Country, Street = _registerVm.Street, StreetNumber = _registerVm.StreetNumber }
                 });
-                _context.Notifier.ShowSuccess($"Partner sucessfuly added, {registerPartner.Name}.");
+                _context.Notifier.ShowSuccess($"Partner {registerPartner.Name} sucessfuly added.");
                 _router.Push("AdminPartners");
             }
             catch (PartnerAlreadyExistsException exception)
