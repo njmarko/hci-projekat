@@ -129,6 +129,15 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Modals\AddAdminModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddPartnerModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddEventPlannerModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Modals\CreateTaskModal.xaml">
       <SubType>Designer</SubType>
     </Page>

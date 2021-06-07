@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ToastNotifications.Messages;
+using UI.Context;
 using UI.Context.Routers;
 using UI.ViewModels;
 
@@ -18,14 +20,16 @@ namespace UI.Commands
         private readonly RegisterAdminViewModel _registerVm;
         private readonly IAdminService _adminService;
         private readonly IRouter _router;
+        private readonly IApplicationContext _context;
 
         public event EventHandler CanExecuteChanged;
 
-        public RegisterAdminCommand(RegisterAdminViewModel registerVm, IAdminService adminService, IRouter router)
+        public RegisterAdminCommand(RegisterAdminViewModel registerVm, IAdminService adminService, IRouter router, IApplicationContext context)
         {
             _registerVm = registerVm;
             _adminService = adminService;
             _router = router;
+            _context = context;
             _registerVm.PropertyChanged += _registerVm_PropertyChanged;
         }
 
@@ -47,9 +51,7 @@ namespace UI.Commands
             try
             {
                 var registerAdmin = _adminService.Create(new Admin { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
-                // Just a message to show it works. Success message will be changed after the windows are connected it also redirects to aprtners for now. This should be changed
-                // TODO: Change message displaying for successfull registration
-                MessageBox.Show($"Admin sucessfuly added, {registerAdmin.FirstName} {registerAdmin.LastName}.");
+                _context.Notifier.ShowSuccess($"Admin {registerAdmin.FirstName} {registerAdmin.LastName} sucessfuly added.");
                 _router.Push("AdminPartners");
             }
             catch (UsernameAlreadyExistsException exception)

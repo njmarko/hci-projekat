@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.CustomAttributes;
 using UI.ViewModels.Interfaces;
 
 namespace UI.ViewModels
@@ -21,12 +22,13 @@ namespace UI.ViewModels
         public PartnerType? Type { get; set; }
     }
 
-    public class RegisterPartnerViewModel : ViewModelBase, ISelfValidatingViewModel
+    public class RegisterPartnerViewModel : ValidationModel<RegisterPartnerViewModel>
     {
         private readonly PartnerTypeModel _typeInitial;
 
         // Poperties
         private string _name;
+        [ValidationField]
         public string Name
         {
             get { return _name; }
@@ -34,6 +36,7 @@ namespace UI.ViewModels
         }
 
         private PartnerTypeModel _partnerType;
+        [ValidationField]
         public PartnerTypeModel PartnerTypeValue
         {
             get { return _partnerType; }
@@ -41,6 +44,7 @@ namespace UI.ViewModels
         }
 
         private string _country;
+        [ValidationField]
         public string Country
         {
             get { return _country; }
@@ -48,6 +52,7 @@ namespace UI.ViewModels
         }
 
         private string _city;
+        [ValidationField]
         public string City
         {
             get { return _city; }
@@ -55,6 +60,7 @@ namespace UI.ViewModels
         }
 
         private string _street;
+        [ValidationField]
         public string Street
         {
             get { return _street; }
@@ -62,6 +68,7 @@ namespace UI.ViewModels
         }
 
         private string _streetNumber;
+        [ValidationField]
         public string StreetNumber
         {
             get { return _streetNumber; }
@@ -86,7 +93,7 @@ namespace UI.ViewModels
         public RegisterPartnerViewModel(IApplicationContext context, IPartnersService partnerService) : base(context)
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router);
+            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router, context);
 
             PartnerTypeModels.Add(_typeInitial);
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.ANIMATOR, Name = "Animator" });
@@ -103,7 +110,7 @@ namespace UI.ViewModels
             bool valid = true;
 
             //Name
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name) && IsDirty(nameof(Name)))
             {
                 NameError.ErrorMessage = "Name cannot be empty.";
                 valid = false;
@@ -113,7 +120,7 @@ namespace UI.ViewModels
                 NameError.ErrorMessage = null;
             }
             //Type
-            if (PartnerTypeValue == _typeInitial)
+            if (PartnerTypeValue == _typeInitial && IsDirty(nameof(PartnerTypeValue)))
             {
                 TypeError.ErrorMessage = "Type must be selected.";
                 valid = false;
@@ -123,7 +130,7 @@ namespace UI.ViewModels
                 TypeError.ErrorMessage = null;
             }
             //Country
-            if (string.IsNullOrEmpty(Country))
+            if (string.IsNullOrEmpty(Country) && IsDirty(nameof(Country)))
             {
                 CountryError.ErrorMessage = "Country cannot be empty.";
                 valid = false;
@@ -133,7 +140,7 @@ namespace UI.ViewModels
                 CountryError.ErrorMessage = null;
             }
             //City
-            if (string.IsNullOrEmpty(City))
+            if (string.IsNullOrEmpty(City) && IsDirty(nameof(City)))
             {
                 CityError.ErrorMessage = "City cannot be empty.";
                 valid = false;
@@ -143,7 +150,7 @@ namespace UI.ViewModels
                 CityError.ErrorMessage = null;
             }
             //Street
-            if (string.IsNullOrEmpty(Street))
+            if (string.IsNullOrEmpty(Street) && IsDirty(nameof(Street)))
             {
                 StreetError.ErrorMessage = "Street cannot be empty.";
                 valid = false;
@@ -153,7 +160,7 @@ namespace UI.ViewModels
                 StreetError.ErrorMessage = null;
             }
             //Street number
-            if (string.IsNullOrEmpty(StreetNumber))
+            if (string.IsNullOrEmpty(StreetNumber) && IsDirty(nameof(StreetNumber)))
             {
                 StreetNumberError.ErrorMessage = "Street number cannot be empty.";
                 valid = false;
@@ -162,7 +169,7 @@ namespace UI.ViewModels
             {
                 StreetNumberError.ErrorMessage = null;
             }
-            return valid;
+            return valid && AllDirty();
         }
     }
 }

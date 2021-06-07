@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ToastNotifications.Messages;
+using UI.Context;
 using UI.Context.Routers;
 using UI.ViewModels;
 
@@ -18,15 +20,17 @@ namespace UI.Commands
         private readonly RegisterEventPlannerViewModel _registerVm;
         private readonly IEventPlannersService _eventPlannerService;
         private readonly IRouter _router;
+        private readonly IApplicationContext _context;
 
         public event EventHandler CanExecuteChanged;
 
-        public RegisterEventPlannerCommand(RegisterEventPlannerViewModel registerVm, IEventPlannersService eventPlannerService, IRouter router)
+        public RegisterEventPlannerCommand(RegisterEventPlannerViewModel registerVm, IEventPlannersService eventPlannerService, IRouter router, IApplicationContext context)
         {
             _registerVm = registerVm;
             _eventPlannerService = eventPlannerService;
             _router = router;
             _registerVm.PropertyChanged += _registerVm_PropertyChanged;
+            _context = context;
         }
 
         private void _registerVm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -47,9 +51,7 @@ namespace UI.Commands
             try
             {
                 var registeredEventPlanner = _eventPlannerService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
-                // Just a message to show it works. Success message will be changed after the windows are connected it also redirects to event planners for now. This should be changed
-                // TODO: Change message displaying for successfull registration
-                MessageBox.Show($"Event planner sucessfuly added, {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName}.");
+                _context.Notifier.ShowSuccess($"Event planner {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName} sucessfuly added.");
                 _router.Push("AdminEventPlanners");
             }
             catch (UsernameAlreadyExistsException exception)

@@ -112,8 +112,7 @@ namespace UI.ViewModels
             FirstName = _user.FirstName;
             LastName = _user.LastName;
             DateOfBirth = _user.DateOfBirth;
-            Update = new UpdateProfileCommand(this, userService);
-        
+            Update = new UpdateProfileCommand(this, userService);    
         }
 
         public bool IsValid()
