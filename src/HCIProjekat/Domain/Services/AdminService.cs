@@ -37,6 +37,15 @@ namespace Domain.Services
 
         }
 
+        public void Delete(int adminId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var admin = context.Clients.Find(adminId);
+            admin.Active = false;
+            context.SaveChanges();
+        }
+
         public Page<Admin> GetAdmins(AdminsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
