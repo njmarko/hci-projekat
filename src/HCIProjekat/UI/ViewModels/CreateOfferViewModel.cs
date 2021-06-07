@@ -105,6 +105,11 @@ namespace UI.ViewModels
 
         public CreateOfferViewModel(PartnerOffersViewModel partnerVm, IApplicationContext context, IOfferService offerService, ISeatingLayoutService seatingLayoutService, IModalService modalService, int partnerId, int offerId) : base(context)
         {
+            _offerService = offerService;
+            _modalService = modalService;
+            _seatingLayoutService = seatingLayoutService;
+            _offerId = offerId;
+
             OfferTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             OfferTypeModels.Add(OfferTypeValue);
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Catering", Type = ServiceType.CATERING });
@@ -112,20 +117,20 @@ namespace UI.ViewModels
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Photography", Type = ServiceType.PHOTOGRAPHY });
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
 
-            Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
-
-            OnImageInput = new DelegateCommand(ImageInput);
-            CreateOfferCommand = new CreateOfferCommand(partnerVm, this, offerService, modalService, partnerId, offerId);
-            ShowEditSeatingDialogModal = new DelegateCommand(ShowSeatingDialogModal);
-
-            _offerService = offerService;
-            _modalService = modalService;
-            _seatingLayoutService = seatingLayoutService;
-            _offerId = offerId;
             if (offerId != -1)
             {
                 FetchOffer();
             }
+            else
+            {
+                _seatingLayout = new SeatingLayout();
+            }
+
+            Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
+
+            OnImageInput = new DelegateCommand(ImageInput);
+            CreateOfferCommand = new CreateOfferCommand(partnerVm, this, offerService, seatingLayoutService, modalService, partnerId, offerId, _seatingLayout);
+            ShowEditSeatingDialogModal = new DelegateCommand(ShowSeatingDialogModal);
         }
 
         private void FetchOffer()
@@ -138,7 +143,7 @@ namespace UI.ViewModels
             Description = offer.Description;
             Price = offer.Price.ToString();
             var enumName = offer.OfferType.ToString().First().ToString().ToUpper() + offer.OfferType.ToString().ToLower()[1..];
-            OfferTypeValue = OfferTypeModels.Where(o => o.Name == enumName).First();
+            OfferTypeValue = OfferTypeModels.Where(o => o.Type.HasValue && o.Type.Value == offer.OfferType).First();
 
             if (offer.OfferType == ServiceType.LOCATION)
             {

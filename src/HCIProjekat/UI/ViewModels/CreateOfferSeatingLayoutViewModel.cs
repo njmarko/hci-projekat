@@ -24,19 +24,14 @@ namespace UI.ViewModels
         {
             _createOfferVm = createOfferVm;
             _seatingLayoutService = seatingLayoutService;
-            SeatingLayout = seatingLayout ?? new SeatingLayout();
+            SeatingLayout = seatingLayout;
 
             SaveChanges = new DelegateCommand(SaveChangesImpl);
         }
 
         private void SaveChangesImpl()
         {
-            if (SeatingLayout.Id == 0)
-            {
-                var sl  = _seatingLayoutService.Create(SeatingLayout);
-                Console.WriteLine(sl);
-            } 
-            else
+            if (SeatingLayout.Id != 0)
             {
 
             }

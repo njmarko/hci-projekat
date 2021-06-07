@@ -100,7 +100,6 @@ namespace UI.Modals
 
         private void DrawLayout()
         {
-
             if (_vm.SeatingLayout != null)
             {
                 foreach (var table in _vm.SeatingLayout.Tables)
@@ -116,12 +115,18 @@ namespace UI.Modals
 
         private void DrawTable(Domain.Entities.Table table)
         {
-
+            var t = new Ellipse { Fill = Brushes.Blue, Width = 2 * TABLE_RADIUS, Height = 2 * TABLE_RADIUS, AllowDrop = false };
+            Canvas.SetLeft(t, table.X - TABLE_RADIUS);
+            Canvas.SetTop(t, table.Y - TABLE_RADIUS);
+            _mainCanvas.Children.Add(t);
         }
 
         private void DrawChair(Chair chair)
         {
-
+            var c = new Ellipse { Fill = Brushes.Red, Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false };
+            Canvas.SetLeft(c, chair.X - CHAIR_RADIUS);
+            Canvas.SetTop(c, chair.Y - CHAIR_RADIUS);
+            _mainCanvas.Children.Add(c);
         }
     }
 }

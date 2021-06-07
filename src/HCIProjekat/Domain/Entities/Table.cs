@@ -13,6 +13,6 @@ namespace Domain.Entities
         public double Y { get; set; }
         public double Radius { get; set; }
 
-        public IList<Chair> Chairs { get; set; } = new List<Chair>();
+        public virtual IList<Chair> Chairs { get; set; } = new List<Chair>();
     }
 }

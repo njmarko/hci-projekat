@@ -11,6 +11,6 @@ namespace Domain.Entities
         public int OfferId { get; set; }
 
         public virtual Offer Offer { get; set; }
-        public List<Table> Tables { get; set; } = new List<Table>();
+        public virtual IList<Table> Tables { get; set; } = new List<Table>();
     }
 }

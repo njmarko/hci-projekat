@@ -105,7 +105,10 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            return context.SeatingLayouts.SingleOrDefault(l => l.OfferId == offerId);
+            return context.SeatingLayouts
+                          .Include(l => l.Tables)
+                          .ThenInclude(t => t.Chairs)
+                          .SingleOrDefault(l => l.OfferId == offerId);
         }
     }
 }
