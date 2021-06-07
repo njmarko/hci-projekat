@@ -62,10 +62,9 @@ namespace Domain.Services
 
             return context.EventPlanners
                           .Where(c => c.Active)
-                          .Where(c => c.Username.ToLower().Contains(page.SearchQuery.ToLower())
-                          || c.FirstName.ToLower().Contains(page.SearchQuery.ToLower())
-                          || c.LastName.ToLower().Contains(page.SearchQuery.ToLower())
-                          || c.DateOfBirth.ToString().ToLower().Contains(page.SearchQuery.ToLower()))
+                          .Where(c => c.Username.ToLower().Contains(page.Query.ToLower())
+                          || c.FirstName.ToLower().Contains(page.Query.ToLower())
+                          || c.LastName.ToLower().Contains(page.Query.ToLower()))
                           .Include(c => c.AcceptedRequests)
                           .ToPage(page);
         }

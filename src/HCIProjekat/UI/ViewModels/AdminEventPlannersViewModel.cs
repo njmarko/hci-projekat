@@ -33,27 +33,61 @@ namespace UI.ViewModels
 
         private readonly IModalService _modalService;
 
-        private string _searchQuery;
-        public string SearchQuery
+        private readonly DateTime _bornBeforeInitial = DateTime.Now.AddYears(-1);
+        private readonly DateTime _bornAfterInitial = DateTime.Now.AddYears(1);
+
+        private string _query = string.Empty;
+        public string Query
         {
-            get => _searchQuery;
+            get => _query;
             set
             {
-                _searchQuery = value;
-                OnPropertyChanged(nameof(SearchQuery));
+                _query = value;
+                OnPropertyChanged(nameof(Query));
+            }
+        }
+
+        private DateTime _bornBefore;
+        public DateTime BornBefore
+        {
+            get { return _bornBefore; }
+            set { _bornBefore = value; OnPropertyChanged(nameof(BornBefore)); }
+        }
+
+        private DateTime _bornAfter;
+        public DateTime BornAfter
+        {
+            get { return _bornAfter; }
+            set { _bornAfter = value; OnPropertyChanged(nameof(BornAfter)); }
+        }
+
+        private bool _hasActiveRequests = false;
+        public bool HasActiveRequests
+        {
+            get => _hasActiveRequests;
+            set
+            {
+                _hasActiveRequests = value;
+                OnPropertyChanged(nameof(HasActiveRequests));
             }
         }
 
         public ICommand SearchCommand { get; set; }
 
         public ICommand AddEventPlanner { get; private set; }
+
+        public ICommand Clear { get; private set; }
+
         public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
 
         public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, IModalService modalService) : base(context)
         {
             _eventPlannersService = eventPlannersService;
-            SearchQuery = string.Empty;
+            Query = string.Empty;
             SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            Clear = new DelegateCommand(ClearFilters);
+            _bornBefore = _bornBeforeInitial;
+            _bornAfter = _bornAfterInitial;
             AddEventPlanner = new DelegateCommand(OpenRegisterEventPlannerModal);
             _modalService = modalService;
             Columns = 4;
@@ -65,13 +99,21 @@ namespace UI.ViewModels
             _modalService.ShowModal<AddEventPlannerModal>(new RegisterEventPlannerViewModel(Context, _eventPlannersService));
         }
 
+        public void ClearFilters()
+        {
+            BornAfter = _bornBeforeInitial;
+            BornBefore = _bornAfterInitial;
+            Query = string.Empty;
+            HasActiveRequests = false;
+            UpdatePage(0);
+        }
+
         public override void UpdatePage(int pageNumber)
         {
             EventPlannerModels.Clear();
-            var page = _eventPlannersService.GetEventPlanners(new EventPlannersPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
+            var page = _eventPlannersService.GetEventPlanners(new EventPlannersPage { Page = pageNumber, Size = Size, Query = Query, BornAfter = BornAfter, BornBefore = BornBefore, HasActiveRequests = HasActiveRequests});
             foreach (var entity in page.Entities)
             {
-
                 var eventPlannerModel = new AdminEventPlannerCardModel
                 {
                     Name = entity.FirstName + " " + entity.LastName,
