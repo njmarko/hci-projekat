@@ -47,6 +47,9 @@ namespace UI.ViewModels
         public string HeadlineText { get; private set; } = "Create task";
         public string ButtonText { get; private set; } = "Create";
 
+        public string Help { get; private set; } = "add-task";
+
+
         public ObservableCollection<ServiceTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel TaskTypeError { get; private set; } = new ErrorMessageViewModel();
@@ -73,8 +76,9 @@ namespace UI.ViewModels
                 Description = task.Description;
                 TaskTypeValue = TaskTypeModels.First(t => t.Type != null && t.Type == task.TaskType);
 
-                HeadlineText = "Update task";
+                HeadlineText = "Edit task";
                 ButtonText = "Save";
+                Help = "edit-task";
             } 
         }
 
