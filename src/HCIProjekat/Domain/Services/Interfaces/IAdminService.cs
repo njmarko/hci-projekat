@@ -13,6 +13,6 @@ namespace Domain.Services.Interfaces
     {
         Admin Create(Admin admin);
 
-        Page<Admin> GetClients(AdminsPage page);
+        Page<Admin> GetAdmins(AdminsPage page);
     }
 }

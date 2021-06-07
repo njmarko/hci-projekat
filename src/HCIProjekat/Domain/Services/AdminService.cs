@@ -37,7 +37,7 @@ namespace Domain.Services
 
         }
 
-        public Page<Admin> GetClients(AdminsPage page)
+        public Page<Admin> GetAdmins(AdminsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
