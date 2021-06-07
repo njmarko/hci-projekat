@@ -125,8 +125,8 @@ namespace UI.ViewModels
                 }
                 else if (user is EventPlanner)
                 {
-                    NavbarItems.Add(new NavbarItemModel { Name = "Home", Route = "EventPlannerHome", IsSelected = currentVm is EventPlannerHomeViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
-                    NavbarItems.Add(new NavbarItemModel { Name = "Partners", Route = "EventPlannerHome", IsSelected = false, RouterPushCommand = Context.Router.RouterPushCommand });
+                    NavbarItems.Add(new NavbarItemModel { Name = "Home", Route = "EventPlannerHome", IsSelected = currentVm is EventPlannerHomeViewModel, RouterPushCommand = Context.Router.RouterPushCommand });                  
+                    NavbarItems.Add(new NavbarItemModel { Name = "Partners", Route = "AdminPartners", IsSelected = currentVm is AdminPartnersViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                     NavbarItems.Add(new NavbarItemModel { Name = "Requests", Route = "EventPlannerRequests", IsSelected = currentVm is EventPlannerRequestsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                 }
                 else

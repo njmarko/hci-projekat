@@ -79,6 +79,7 @@ namespace Infrastructure.Persistence
             var ep7 = new EventPlanner { FirstName = "Pera7", LastName = "Peric7", Username = "peraperic7", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-70), AcceptedRequests = new List<Request>() };
             var ep8 = new EventPlanner { FirstName = "Pera8", LastName = "Peric8", Username = "peraperic8", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-80), AcceptedRequests = new List<Request>() };
             var ep9 = new EventPlanner { FirstName = "Pera9", LastName = "Peric9", Username = "peraperic9", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-90), AcceptedRequests = new List<Request>() };
+            var ep10 = new EventPlanner { FirstName = "Mića", LastName = "Živac", Username = "e", Password = "e", DateOfBirth = DateTime.Now.AddYears(-23), AcceptedRequests = new List<Request>() };
             ep1.AcceptedRequests.Add(r1);
             ep1.AcceptedRequests.Add(r2);
             ep1.AcceptedRequests.Add(r3);
@@ -97,6 +98,7 @@ namespace Infrastructure.Persistence
             context.EventPlanners.Add(ep7);
             context.EventPlanners.Add(ep8);
             context.EventPlanners.Add(ep9);
+            context.EventPlanners.Add(ep10);
 
             // Partners
             var par1 = new Partner { Name = "Pečenjara1", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
