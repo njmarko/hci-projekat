@@ -59,7 +59,7 @@ namespace Domain.Services
                           || p.Location.Street.ToLower().Contains(page.Query.ToLower())
                           || p.Location.StreetNumber.ToLower().Contains(page.Query.ToLower())
                           )
-                          .Where(p => p.Type == page.PartnerType || page.PartnerType.HasValue)
+                          .Where(p => p.Type == page.PartnerType || page.PartnerType == null)
                           .Include(c => c.Offers)
                           .ToPage(page);
         }
