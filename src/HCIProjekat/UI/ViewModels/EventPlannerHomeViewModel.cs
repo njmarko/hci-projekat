@@ -126,7 +126,7 @@ namespace UI.ViewModels
             if (ok)
             {
                 FetchTasksForSelectedRequest();
-                var message = taskId == -1 ? "New task has been create successfully." : $"Task {taskId} has been updated successfully.";
+                var message = taskId == -1 ? "New task has been created successfully." : $"Task {taskId} has been updated successfully.";
                 Context.Notifier.ShowInformation(message);
             }
         }
