@@ -31,34 +31,76 @@ namespace UI.ViewModels
 
         private readonly IModalService _modalService;
 
-        private string _searchQuery;
-        public string SearchQuery
+        private readonly DateTime _bornBeforeInitial = DateTime.Now.AddDays(1);
+        private readonly DateTime _bornAfterInitial = DateTime.Now.AddYears(-100);
+
+        private string _query;
+        public string Query
         {
-            get => _searchQuery;
+            get => _query;
             set
             {
-                _searchQuery = value;
-                OnPropertyChanged(nameof(SearchQuery));
+                _query = value;
+                OnPropertyChanged(nameof(Query));
             }
         }
 
-        public ICommand SearchCommand { get; set; }
+        private DateTime _bornBefore;
+        public DateTime BornBefore
+        {
+            get { return _bornBefore; }
+            set { _bornBefore = value; OnPropertyChanged(nameof(BornBefore)); }
+        }
+
+        private DateTime _bornAfter;
+        public DateTime BornAfter
+        {
+            get { return _bornAfter; }
+            set { _bornAfter = value; OnPropertyChanged(nameof(BornAfter)); }
+        }
+
+        private bool _hasActiveRequests = false;
+        public bool HasActiveRequests
+        {
+            get => _hasActiveRequests;
+            set
+            {
+                _hasActiveRequests = value;
+                OnPropertyChanged(nameof(HasActiveRequests));
+            }
+        }
+
+        public ICommand Search { get; set; }
+
+        public ICommand Clear { get; private set; }
         public ObservableCollection<AdminClientCardModel> ClientModels { get; private set; } = new ObservableCollection<AdminClientCardModel>();
 
         public AdminClientsViewModel(IApplicationContext context, IClientService clientService, IModalService modalService) : base(context)
         {
             _clientService = clientService;
-            SearchQuery = string.Empty;
-            SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            Query = string.Empty;
+            Search = new DelegateCommand(() => UpdatePage(0));
+            Clear = new DelegateCommand(ClearFilters);
+            _bornBefore = _bornBeforeInitial;
+            _bornAfter = _bornAfterInitial;
             _modalService = modalService;
             Columns = 4;
+            UpdatePage(0);
+        }
+
+        public void ClearFilters()
+        {
+            BornAfter = _bornAfterInitial;
+            BornBefore = _bornBeforeInitial;
+            Query = string.Empty;
+            HasActiveRequests = false;
             UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
         {
             ClientModels.Clear();
-            var page = _clientService.GetClients(new ClientsPage { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
+            var page = _clientService.GetClients(new ClientsPage { Page = pageNumber, Size = Size, Query = Query, BornAfter = BornAfter, BornBefore = BornBefore, HasActiveRequests = HasActiveRequests });
             foreach (var entity in page.Entities)
             {
 
