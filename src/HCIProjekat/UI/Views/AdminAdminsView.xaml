@@ -10,7 +10,7 @@
              TextElement.FontSize="14"
              TextOptions.TextFormattingMode="Ideal" 
              TextOptions.TextRenderingMode="Auto"   
-             controls:MyUserControlBehavior.WindowTitle="Clients view"
+             controls:MyUserControlBehavior.WindowTitle="Admins view"
              xmlns:local="clr-namespace:UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
