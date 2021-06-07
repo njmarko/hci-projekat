@@ -63,8 +63,8 @@
             </DockPanel>
         </StackPanel>
 
-        <TabControl Grid.Row="2" Margin="0 0 0 0" Style="{DynamicResource MaterialDesignTabControl}" Background="#e8e8e8">
-            <TabItem Header="Added Offers" AllowDrop="True" Drop="OnOfferAdded" DataContext="{Binding AddedOffersVm}">
+        <TabControl Grid.Row="2" Margin="0 0 0 0" SelectedIndex="{Binding TabSelectedIndex}" Style="{DynamicResource MaterialDesignTabControl}" Background="#e8e8e8">
+            <TabItem Header="Added Offers"  AllowDrop="True" PreviewDragOver="ShowAddedOffers" DataContext="{Binding AddedOffersVm}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -78,29 +78,31 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         <!--Search block-->
-                        <TextBox Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search offers" Text="{Binding SearchQuery}" />
+                        <TextBox  AllowDrop="False" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search offers" Text="{Binding SearchQuery}" />
                         <Button  Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
                         <Button  Grid.Column="2" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}"/>
                     </Grid>
-                    <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="1">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <controls:EventPlannerTaskOfferCard  />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" AllowDrop="{Binding AddedDrop}" Drop="OnOfferAdded" Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding TaskOfferModels}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:EventPlannerTaskOfferCard PreviewMouseDown="AddedSelected" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
 
                     <StackPanel Grid.Row="2">
                         <controls:Pagination />
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Available Offers" DataContext="{Binding AvailableOffersVm}">
+            <TabItem Header="Available Offers" AllowDrop="True" PreviewDragOver="ShowAvailableOffers" DataContext="{Binding AvailableOffersVm}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -117,22 +119,24 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         <!--Search block-->
-                        <TextBox Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search offers" Text="{Binding SearchQuery}" />
+                        <TextBox  AllowDrop="False" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search offers" Text="{Binding SearchQuery}" />
                         <Button  Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
                         <Button  Grid.Column="2" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}"/>
                     </Grid>
-                    <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="1">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <controls:EventPlannerTaskOfferCard MouseDown="EventPlannerTaskOfferCard_MouseDown" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" AllowDrop="{Binding AvailableDrop}" Drop="OnOfferRemoved"  Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding TaskOfferModels}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:EventPlannerTaskOfferCard PreviewMouseDown="AvailableSelected" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
 
                     <StackPanel Grid.Row="2">
                         <controls:Pagination />

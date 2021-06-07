@@ -39,6 +39,17 @@ namespace UI.ViewModels
             }
         }
 
+        private bool _availableDrop;
+        public bool AvailableDrop
+        {
+            get => _availableDrop;
+            set
+            {
+                _availableDrop = value;
+                OnPropertyChanged(nameof(AvailableDrop));
+            }
+        }
+
         public EventPlannerTaskOffersViewModel AddedVm { get; set; }
         public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
@@ -52,6 +63,8 @@ namespace UI.ViewModels
             Search = new DelegateCommand(() => UpdatePage(0));
             SearchQuery = string.Empty;
             Rows = 1;
+
+            AvailableDrop = false;
         }
 
 
