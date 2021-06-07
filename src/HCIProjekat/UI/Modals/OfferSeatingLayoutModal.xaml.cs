@@ -24,7 +24,7 @@ namespace UI.Modals
     {
         private readonly double TABLE_RADIUS = 40;
         private readonly double CHAIR_RADIUS = 10;
-        private readonly double TABLE_DISTANCE_TRESHOLD = 50;
+        private readonly double TABLE_DISTANCE_TRESHOLD = 100;
 
         private string _currentItem = null;
         private CreateOfferSeatingLayoutViewModel _vm;
@@ -65,6 +65,14 @@ namespace UI.Modals
             Canvas.SetLeft(item, xOffset);
             Canvas.SetTop(item, yOffset);
             _mainCanvas.Children.Add(item);
+            if (_currentItem == "Table")
+            {
+                _vm.AddTable(position.X, position.Y);
+            }
+            else
+            {
+                _vm.AddChair(position.X, position.Y);
+            } 
             _currentItem = null;
         }
 
@@ -75,10 +83,8 @@ namespace UI.Modals
                 return;
             }
             var position = e.GetPosition(_mainCanvas);
-            double xOffset = position.X - CHAIR_RADIUS;
-            double yOffset = position.Y - CHAIR_RADIUS;
-            var closestTable = _vm.ClosestTable(xOffset, yOffset);
-            if (closestTable == null || _vm.Distance(closestTable, xOffset, yOffset) > TABLE_DISTANCE_TRESHOLD)
+            var closestTable = _vm.ClosestTable(position.X, position.Y);
+            if (closestTable == null || _vm.Distance(closestTable, position.X, position.Y) > TABLE_DISTANCE_TRESHOLD)
             {
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;

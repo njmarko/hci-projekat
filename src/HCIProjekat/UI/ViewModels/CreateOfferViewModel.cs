@@ -32,6 +32,7 @@ namespace UI.ViewModels
     {
         private readonly IOfferService _offerService;
         private readonly IModalService _modalService;
+        private readonly ISeatingLayoutService _seatingLayoutService;
         private SeatingLayout _seatingLayout;
 
         private byte[] _imageInBytes;
@@ -102,7 +103,7 @@ namespace UI.ViewModels
         public ICommand OnImageInput { get; private set; }
         public ICommand CreateOfferCommand { get; private set; }
 
-        public CreateOfferViewModel(PartnerOffersViewModel partnerVm, IApplicationContext context, IOfferService offerService, IModalService modalService, int partnerId, int offerId) : base(context)
+        public CreateOfferViewModel(PartnerOffersViewModel partnerVm, IApplicationContext context, IOfferService offerService, ISeatingLayoutService seatingLayoutService, IModalService modalService, int partnerId, int offerId) : base(context)
         {
             OfferTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             OfferTypeModels.Add(OfferTypeValue);
@@ -119,6 +120,7 @@ namespace UI.ViewModels
 
             _offerService = offerService;
             _modalService = modalService;
+            _seatingLayoutService = seatingLayoutService;
             _offerId = offerId;
             if (offerId != -1)
             {
@@ -216,7 +218,7 @@ namespace UI.ViewModels
 
         private void ShowSeatingDialogModal()
         {
-            if (_modalService.ShowModal<OfferSeatingLayoutModal>(new CreateOfferSeatingLayoutViewModel(this, Context, _seatingLayout)))
+            if (_modalService.ShowModal<OfferSeatingLayoutModal>(new CreateOfferSeatingLayoutViewModel(this, Context, _seatingLayoutService, _seatingLayout)))
             {
 
             }

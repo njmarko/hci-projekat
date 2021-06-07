@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:UI.Modals"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="OfferSeatingLayoutModal" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveChanges}" />
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
