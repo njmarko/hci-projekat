@@ -4,9 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.Modals"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Window_Loaded"
         Title="OfferSeatingLayoutModal" Height="450" Width="800">
     <Grid>
-        <Label Content="OVO JE OFFER SEATING LAYOUT MODAL" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0">
+            <ListView SelectionMode="Single">
+                <ListViewItem Content="Table" PreviewMouseDown="InitItemDrop" />
+                <ListViewItem Content="Chair" PreviewMouseDown="InitItemDrop"/>
+            </ListView>
+        </DockPanel>
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+            <Canvas Grid.Column="1" AllowDrop="True" Drop="OnItemDrop" DragOver="OnChairDrag" SizeChanged="OnCanvasResized" x:Name="_mainCanvas">
+                <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="LightBlue" Canvas.Left="0" Canvas.Top="0" />
+            </Canvas>
+        </Border>
     </Grid>
 </Window>

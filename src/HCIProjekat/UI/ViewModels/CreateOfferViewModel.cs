@@ -216,7 +216,7 @@ namespace UI.ViewModels
 
         private void ShowSeatingDialogModal()
         {
-            if (_modalService.ShowModal<OfferSeatingLayoutModal>(null))
+            if (_modalService.ShowModal<OfferSeatingLayoutModal>(new CreateOfferSeatingLayoutViewModel(this, Context, _seatingLayout)))
             {
 
             }
