@@ -81,7 +81,7 @@ namespace UI.ViewModels
             OpenNotifications = new DelegateCommand(OpenNotificationsView);
             AddAdmin = new DelegateCommand(OpenRegisterAdminModal);
 
-            CanRegisterAdmin = Context.Store.CurrentUser is Admin ? true : false;
+            CanRegisterAdmin = Context.Store.CurrentUser is Admin;
 
 
             context.Router.RouteChanged += UpdateNavbar;
@@ -114,7 +114,7 @@ namespace UI.ViewModels
             {
                 NavbarItems.Clear();
                 User user = Context.Store.CurrentUser;
-                CanRegisterAdmin = user is Admin ? true : false;
+                CanRegisterAdmin = user is Admin;
                 if (user is Admin)
                 {
                     NavbarItems.Add(new NavbarItemModel { Name = "Partners", Route = "AdminPartners", IsSelected = currentVm is AdminPartnersViewModel, RouterPushCommand = Context.Router.RouterPushCommand });

@@ -54,6 +54,7 @@ namespace Infrastructure.Persistence
 
             var p1 = new Partner { Name = "Partner 1", Location = l1, Type = PartnerType.RESTAURANT };
             var p2 = new Partner { Name = "Partner 2", Location = l2, Type = PartnerType.RESTAURANT };
+            var p3 = new Partner { Name = "Partner 3", Location = l3, Type = PartnerType.RESTAURANT };
 
             context.Requests.Add(r1);
             context.Requests.Add(r2);
@@ -165,6 +166,7 @@ namespace Infrastructure.Persistence
 
             context.Partners.Add(p1);
             context.Partners.Add(p2);
+            context.Partners.Add(p3);
 
             var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", /*Image = "slika"*/ OfferType = t3.TaskType, Partner = p1 };
             var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", /*Image = "slika"*/ OfferType = t3.TaskType, Partner = p2 };
