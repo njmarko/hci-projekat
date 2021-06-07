@@ -13,15 +13,15 @@ namespace Infrastructure.Persistence
         public static void Seed(ApplicationDbContext context)
         {
             var c1 = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) };
-            var c2 = new Client { FirstName = "Dejan1", LastName = "Djordjevic1", Username = "dejandjordjevic1", Password = "test123", DateOfBirth = DateTime.Now.AddDays(1) };
-            var c3 = new Client { FirstName = "Dejan2", LastName = "Djordjevic2", Username = "dejandjordjevic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(2) };
-            var c4 = new Client { FirstName = "Dejan3", LastName = "Djordjevic3", Username = "dejandjordjevic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(3) };
-            var c5 = new Client { FirstName = "Dejan4", LastName = "Djordjevic4", Username = "dejandjordjevic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(4) };
-            var c6 = new Client { FirstName = "Dejan5", LastName = "Djordjevic5", Username = "dejandjordjevic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(5) };
-            var c7 = new Client { FirstName = "Dejan6", LastName = "Djordjevic6", Username = "dejandjordjevic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(6) };
-            var c8 = new Client { FirstName = "Dejan7", LastName = "Djordjevic7", Username = "dejandjordjevic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(7) };
-            var c9 = new Client { FirstName = "Dejan8", LastName = "Djordjevic8", Username = "dejandjordjevic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(8) };
-            var c10 = new Client { FirstName = "Dejan9", LastName = "Djordjevic9", Username = "dejandjordjevic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(9) };
+            var c2 = new Client { FirstName = "Dejan1", LastName = "Djordjevic1", Username = "dejandjordjevic1", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-1) };
+            var c3 = new Client { FirstName = "Dejan2", LastName = "Djordjevic2", Username = "dejandjordjevic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-2) };
+            var c4 = new Client { FirstName = "Dejan3", LastName = "Djordjevic3", Username = "dejandjordjevic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-3) };
+            var c5 = new Client { FirstName = "Dejan4", LastName = "Djordjevic4", Username = "dejandjordjevic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-4) };
+            var c6 = new Client { FirstName = "Dejan5", LastName = "Djordjevic5", Username = "dejandjordjevic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-5) };
+            var c7 = new Client { FirstName = "Dejan6", LastName = "Djordjevic6", Username = "dejandjordjevic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-6) };
+            var c8 = new Client { FirstName = "Dejan7", LastName = "Djordjevic7", Username = "dejandjordjevic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-7) };
+            var c9 = new Client { FirstName = "Dejan8", LastName = "Djordjevic8", Username = "dejandjordjevic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-8) };
+            var c10 = new Client { FirstName = "Dejan9", LastName = "Djordjevic9", Username = "dejandjordjevic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-9) };
             context.Clients.Add(c1);
             context.Clients.Add(c2);
             context.Clients.Add(c3);
@@ -71,14 +71,14 @@ namespace Infrastructure.Persistence
             context.Requests.Add(r14);
 
             var ep1 = new EventPlanner { FirstName = "Jakov", LastName = "Matic", Username = "jakovmatic", Password = "test123", DateOfBirth = DateTime.Now, AcceptedRequests = new List<Request>() };
-            var ep2 = new EventPlanner { FirstName = "Pera2", LastName = "Peric2", Username = "peraperic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(2), AcceptedRequests = new List<Request>() };
-            var ep3 = new EventPlanner { FirstName = "Pera3", LastName = "Peric3", Username = "peraperic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(3), AcceptedRequests = new List<Request>() };
-            var ep4 = new EventPlanner { FirstName = "Pera4", LastName = "Peric4", Username = "peraperic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(4), AcceptedRequests = new List<Request>() };
-            var ep5 = new EventPlanner { FirstName = "Pera5", LastName = "Peric5", Username = "peraperic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(5), AcceptedRequests = new List<Request>() };
-            var ep6 = new EventPlanner { FirstName = "Pera6", LastName = "Peric6", Username = "peraperic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(6), AcceptedRequests = new List<Request>() };
-            var ep7 = new EventPlanner { FirstName = "Pera7", LastName = "Peric7", Username = "peraperic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(7), AcceptedRequests = new List<Request>() };
-            var ep8 = new EventPlanner { FirstName = "Pera8", LastName = "Peric8", Username = "peraperic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(8), AcceptedRequests = new List<Request>() };
-            var ep9 = new EventPlanner { FirstName = "Pera9", LastName = "Peric9", Username = "peraperic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(9), AcceptedRequests = new List<Request>() };
+            var ep2 = new EventPlanner { FirstName = "Pera2", LastName = "Peric2", Username = "peraperic2", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), AcceptedRequests = new List<Request>() };
+            var ep3 = new EventPlanner { FirstName = "Pera3", LastName = "Peric3", Username = "peraperic3", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-30), AcceptedRequests = new List<Request>() };
+            var ep4 = new EventPlanner { FirstName = "Pera4", LastName = "Peric4", Username = "peraperic4", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), AcceptedRequests = new List<Request>() };
+            var ep5 = new EventPlanner { FirstName = "Pera5", LastName = "Peric5", Username = "peraperic5", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), AcceptedRequests = new List<Request>() };
+            var ep6 = new EventPlanner { FirstName = "Pera6", LastName = "Peric6", Username = "peraperic6", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-60), AcceptedRequests = new List<Request>() };
+            var ep7 = new EventPlanner { FirstName = "Pera7", LastName = "Peric7", Username = "peraperic7", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-70), AcceptedRequests = new List<Request>() };
+            var ep8 = new EventPlanner { FirstName = "Pera8", LastName = "Peric8", Username = "peraperic8", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-80), AcceptedRequests = new List<Request>() };
+            var ep9 = new EventPlanner { FirstName = "Pera9", LastName = "Peric9", Username = "peraperic9", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-90), AcceptedRequests = new List<Request>() };
             ep1.AcceptedRequests.Add(r1);
             ep1.AcceptedRequests.Add(r2);
             ep1.AcceptedRequests.Add(r3);
@@ -196,8 +196,8 @@ namespace Infrastructure.Persistence
             context.Tasks.Add(t16);
             context.Tasks.Add(t17);
 
-            var admin1 = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now, Username = "vidojegavrilovic", Password = "test123" };
-            var admin2 = new Admin { FirstName = "Djordje", LastName = "Vruci", DateOfBirth = DateTime.Now, Username = "a", Password = "a" };
+            var admin1 = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now.AddYears(-45), Username = "vidojegavrilovic", Password = "test123" };
+            var admin2 = new Admin { FirstName = "Djordje", LastName = "Vruci", DateOfBirth = DateTime.Now.AddYears(-30), Username = "a", Password = "a" };
             context.Admins.Add(admin1);
             context.Admins.Add(admin2);
 
