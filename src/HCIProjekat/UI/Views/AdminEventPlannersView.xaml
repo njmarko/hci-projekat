@@ -24,33 +24,45 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="White" Margin="10">
-            <Grid FocusManager.FocusedElement="{Binding ElementName=SearchTextBox}">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="auto" MinWidth="160" />
-                    <ColumnDefinition Width="auto" MinWidth="169.427" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
                 <!--Search and filter block-->
-                <TextBox Grid.Row="0" Grid.Column="0" Margin="10,10,10,10" Name="SearchTextBox"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search event planners">
-                    <TextBox.Text>
-                        <Binding Path="Query" UpdateSourceTrigger="PropertyChanged">
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <Button Grid.Row="0" Grid.Column="1" Margin="50,15,10,14" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding SearchCommand}"/>
-                <Button Grid.Row="0" Grid.Column="2" Margin="10,15,10,14" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add event planner" Command="{Binding AddEventPlanner}" />
-                <CheckBox Grid.Row="0" Grid.Column="3" Margin="10,10,10,10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Row="0" Grid.Column="0" Margin="10,10,10,10" Name="SearchTextBox"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search event planners" Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}"/>
+                    <Button Grid.Row="0" Grid.Column="2" Margin="10,15,10,14" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add event planner" Command="{Binding AddEventPlanner}" />
+                    <CheckBox Grid.Row="0" Grid.Column="3" Margin="5,10,10,10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
+                </Grid>
                 <!--Filter block-->
-                <UniformGrid Grid.Column="0" Rows="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}" Grid.ColumnSpan="2" Margin="0,61,160,0">
-                    <DatePicker Margin="10 10 10 10" SelectedDate="{Binding BornAfter, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select born after date" />
-                    <DatePicker Margin="10 10 10 10" SelectedDate="{Binding BornBefore, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select born before date" />
-                    <CheckBox Grid.Row="0" Grid.Column="3" Margin="10,10,10,10" Content="Has active requests" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="HasActiveRequestsCB" IsChecked="{Binding HasActiveRequests, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignAccentCheckBox}"  />
-                </UniformGrid>
+                <Grid Grid.Row="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <UniformGrid Grid.Row="0" Grid.Column="0" Rows="1">
+                        <DatePicker Margin="10 10 10 10" SelectedDate="{Binding BornAfter, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select born after date" />
+                        <DatePicker Margin="10 10 10 10" SelectedDate="{Binding BornBefore, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select born before date" />
+                        <CheckBox Grid.Row="0" Grid.Column="3" Margin="5,10,10,10" Content="Has active requests" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="HasActiveRequestsCB" IsChecked="{Binding HasActiveRequests, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignAccentCheckBox}"  />
+                    </UniformGrid>
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" />
+                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" />
+                </Grid>
             </Grid>
         </Grid>
         <ItemsControl Grid.Row="1" ItemsSource="{Binding EventPlannerModels}">

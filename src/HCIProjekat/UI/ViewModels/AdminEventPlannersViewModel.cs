@@ -72,11 +72,12 @@ namespace UI.ViewModels
             }
         }
 
-        public ICommand SearchCommand { get; set; }
+        public ICommand Search { get; set; }
 
         public ICommand AddEventPlanner { get; private set; }
 
         public ICommand Clear { get; private set; }
+
 
         public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
 
@@ -84,7 +85,7 @@ namespace UI.ViewModels
         {
             _eventPlannersService = eventPlannersService;
             Query = string.Empty;
-            SearchCommand = new DelegateCommand(() => UpdatePage(0));
+            Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
             _bornBefore = _bornBeforeInitial;
             _bornAfter = _bornAfterInitial;
@@ -101,8 +102,8 @@ namespace UI.ViewModels
 
         public void ClearFilters()
         {
-            BornAfter = _bornBeforeInitial;
-            BornBefore = _bornAfterInitial;
+            BornAfter = _bornAfterInitial;
+            BornBefore = _bornBeforeInitial;
             Query = string.Empty;
             HasActiveRequests = false;
             UpdatePage(0);
