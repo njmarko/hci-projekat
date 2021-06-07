@@ -33,7 +33,8 @@ namespace UI.ViewModels
 
             PageModels.Add(new PageModel { Text = "<<", Page = 0, IsEnabled = Page != 0 });
             PageModels.Add(new PageModel { Text = $"<", Page = Page - 1, IsEnabled = Page != 0 });
-            PageModels.Add(new PageModel { Text = $"{Page + 1} / {PageCount}", Page = page, IsChecked = true } );
+            var currentPage = PageCount == 0 ? 0 : Page + 1;
+            PageModels.Add(new PageModel { Text = $"{currentPage} / {PageCount}", Page = page, IsChecked = true } );
             PageModels.Add(new PageModel { Text = $">", Page = Page + 1, IsEnabled = Page != PageCount - 1 });
             PageModels.Add(new PageModel { Text = ">>", Page = -1, IsEnabled = Page != PageCount - 1 });
         }

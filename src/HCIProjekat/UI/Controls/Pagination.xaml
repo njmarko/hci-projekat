@@ -21,7 +21,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <RadioButton Margin="0" Padding="0" Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" IsEnabled="{Binding IsEnabled}" Content="{Binding Text}" Command="{Binding ElementName=Root, Path=DataContext.UpdatePageCommand}" CommandParameter="{Binding Page}" IsChecked="{Binding IsChecked}" />
+                    <RadioButton GroupName="paginationGroup" Margin="0" Padding="0" Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" IsEnabled="{Binding IsEnabled}" Content="{Binding Text}" Command="{Binding ElementName=Root, Path=DataContext.UpdatePageCommand}" CommandParameter="{Binding Page}" IsChecked="{Binding IsChecked}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

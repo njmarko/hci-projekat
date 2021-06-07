@@ -64,7 +64,7 @@
         </StackPanel>
 
         <TabControl Grid.Row="2" Margin="0 0 0 0" Style="{DynamicResource MaterialDesignTabControl}" Background="#e8e8e8">
-            <TabItem Header="Added Offers" DataContext="{Binding AddedOffersVm}">
+            <TabItem Header="Added Offers" AllowDrop="True" Drop="OnOfferAdded" DataContext="{Binding AddedOffersVm}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -90,7 +90,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <controls:EventPlannerTaskOfferCard />
+                                <controls:EventPlannerTaskOfferCard  />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -129,7 +129,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <controls:EventPlannerTaskOfferCard />
+                                <controls:EventPlannerTaskOfferCard MouseDown="EventPlannerTaskOfferCard_MouseDown" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
