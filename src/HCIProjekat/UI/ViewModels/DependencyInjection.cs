@@ -28,6 +28,7 @@ namespace UI.ViewModels
             services.AddTransient<EventPlannerRequestsViewModel>();
             services.AddTransient<AdminRequestsViewModel>();
             services.AddTransient<EventPlannerTaskDetailsViewModel>();
+            services.AddTransient<AdminAdminsViewModel>();
 
             services.AddSingleton<NotificationViewModel>();
             services.AddSingleton<NavbarViewModel>();
