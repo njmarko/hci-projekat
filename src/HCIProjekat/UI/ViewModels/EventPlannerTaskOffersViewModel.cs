@@ -39,6 +39,17 @@ namespace UI.ViewModels
             }
         }
 
+        private bool _addedDrop;
+        public bool AddedDrop
+        {
+            get => _addedDrop;
+            set
+            {
+                _addedDrop = value;
+                OnPropertyChanged(nameof(AddedDrop));
+            }
+        }
+
         private ServiceTypeModel _offerType;
         public ServiceTypeModel OfferTypeValue
         {
@@ -60,6 +71,8 @@ namespace UI.ViewModels
 
             SearchQuery = string.Empty;
             Rows = 1;
+
+            AddedDrop = false;
         }
 
         public override void UpdatePage(int pageNumber)

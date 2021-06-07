@@ -27,11 +27,48 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        private void EventPlannerTaskOfferCard_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ShowAvailableOffers(object sender, DragEventArgs e)
         {
+            if (e.Effects.HasFlag(DragDropEffects.Move))
+            {
+                return;
+            }
+
+            var vm = DataContext as EventPlannerTaskDetailsViewModel;
+            vm.TabSelectedIndex = 1;
+        }
+
+        private void ShowAddedOffers(object sender, DragEventArgs e)
+        {
+            if (e.Effects.HasFlag(DragDropEffects.Copy))
+            {
+                return;
+            }
+
+            var vm = DataContext as EventPlannerTaskDetailsViewModel;
+            vm.TabSelectedIndex = 0;
+        }
+
+        private void AvailableSelected(object sender, MouseButtonEventArgs e)
+        {
+            var vm = DataContext as EventPlannerTaskDetailsViewModel;
+            vm.AddedOffersVm.AddedDrop = true;
+            vm.AvailableOffersVm.AvailableDrop = false;
+
             var fe = sender as FrameworkElement;
             _currentOffer = fe.DataContext as EventPlannerTaskOfferCardModel;
             DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
+        }
+
+        private void AddedSelected(object sender, MouseButtonEventArgs e)
+        {
+            var vm = DataContext as EventPlannerTaskDetailsViewModel;
+            vm.AddedOffersVm.AddedDrop = false;
+            vm.AvailableOffersVm.AvailableDrop = true;
+
+            var fe = sender as FrameworkElement;
+            _currentOffer = fe.DataContext as EventPlannerTaskOfferCardModel;
+            DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Copy);
         }
 
         private void OnOfferAdded(object sender, DragEventArgs e)
@@ -53,5 +90,6 @@ namespace UI.Views
             _currentOffer.ButtonAction.Execute(null);
             _currentOffer = null; 
         }
+
     }
 }

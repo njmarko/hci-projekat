@@ -60,6 +60,15 @@ namespace UI.ViewModels
             set { _color = value; OnPropertyChanged(nameof(Color)); }
         }
 
+
+        private int _tabSelectedIndex;
+        public int TabSelectedIndex
+        {
+            get { return _tabSelectedIndex; }
+            set { _tabSelectedIndex = value; OnPropertyChanged(nameof(TabSelectedIndex)); }
+        }
+
+
         public static string EventPlannerHome
         {
             get { return "EventPlannerHome"; }
@@ -75,6 +84,8 @@ namespace UI.ViewModels
 
             AddedOffersVm.AvailableVm = AvailableOffersVm;
             AvailableOffersVm.AddedVm = AddedOffersVm;
+
+            TabSelectedIndex = 0;
         }
 
         private void FetchTask()
