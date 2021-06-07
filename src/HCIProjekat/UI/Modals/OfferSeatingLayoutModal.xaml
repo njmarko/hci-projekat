@@ -32,7 +32,7 @@
         </DockPanel>
         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
             <Canvas Grid.Column="1" AllowDrop="True" Drop="OnItemDrop" DragOver="OnChairDrag" SizeChanged="OnCanvasResized" x:Name="_mainCanvas">
-                <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="LightBlue" Canvas.Left="0" Canvas.Top="0" />
+                <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
             </Canvas>
         </Border>
     </Grid>

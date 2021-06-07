@@ -69,7 +69,7 @@ namespace UI.ViewModels
                 throw new Exception("No table present.");
             }
             var chairNum = closestTable.Chairs.Count + 1;
-            var chair = new Chair { X = xOffset, Y = yOffset, Radius = 10, Label = $"Chair #{chairNum}" };
+            var chair = new Chair { X = xOffset, Y = yOffset, Radius = 10, Label = $"{chairNum}" };
             closestTable.Chairs.Add(chair);
             if (SeatingLayout.Id != 0)
             {

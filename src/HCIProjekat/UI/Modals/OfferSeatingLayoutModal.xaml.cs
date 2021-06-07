@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UI.Controls;
 using UI.Modals.Interfaces;
 using UI.ViewModels;
 
@@ -66,10 +67,10 @@ namespace UI.Modals
                 saved = _vm.AddChair(position.X, position.Y);
             }
             var label = saved.Label;
-            var item = _currentItem switch
+            UserControl item = _currentItem switch
             {
-                "Table" => new Ellipse { Fill = Brushes.Blue, Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label},
-                "Chair" => new Ellipse { Fill = Brushes.Red, Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label },
+                "Table" => new TableIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved },
+                "Chair" => new ChairIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved },
                 _ => throw new Exception("Invalid item type"),
             };
             Canvas.SetLeft(item, xOffset);
@@ -117,7 +118,7 @@ namespace UI.Modals
 
         private void DrawTable(Domain.Entities.Table table)
         {
-            var t = new Ellipse { Fill = Brushes.Blue, Width = 2 * TABLE_RADIUS, Height = 2 * TABLE_RADIUS, AllowDrop = false, ToolTip = table.Label };
+            var t = new TableIcon { Width = 2 * TABLE_RADIUS, Height = 2 * TABLE_RADIUS, AllowDrop = false, ToolTip = table.Label, DataContext = table };
             Canvas.SetLeft(t, table.X - TABLE_RADIUS);
             Canvas.SetTop(t, table.Y - TABLE_RADIUS);
             _mainCanvas.Children.Add(t);
@@ -125,7 +126,7 @@ namespace UI.Modals
 
         private void DrawChair(Chair chair)
         {
-            var c = new Ellipse { Fill = Brushes.Red, Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false, ToolTip = chair.Label };
+            var c = new ChairIcon { Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false, ToolTip = chair.Label, DataContext = chair };
             Canvas.SetLeft(c, chair.X - CHAIR_RADIUS);
             Canvas.SetTop(c, chair.Y - CHAIR_RADIUS);
             _mainCanvas.Children.Add(c);
