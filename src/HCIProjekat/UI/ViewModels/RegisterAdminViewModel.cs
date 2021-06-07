@@ -77,7 +77,7 @@ namespace UI.ViewModels
         public RegisterAdminViewModel(IApplicationContext context, IAdminService adminService) : base(context)
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterAdminCommand = new RegisterAdminCommand(this, adminService, context.Router);
+            RegisterAdminCommand = new RegisterAdminCommand(this, adminService, context.Router, context);
         }
 
         public bool IsValid()
