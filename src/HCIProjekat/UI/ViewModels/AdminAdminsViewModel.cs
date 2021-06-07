@@ -19,8 +19,6 @@ namespace UI.ViewModels
         public string Name { get; set; }
         public string Username { get; set; }
         public string DateOfBirth { get; set; }
-        public int ActiveRequests { get; set; }
-        public int CompletedRequests { get; set; }
         public ICommand Delete { get; set; }
 
     }
