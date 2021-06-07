@@ -84,6 +84,22 @@ namespace UI.ViewModels
             }
         }
 
+        private string _help;
+
+        public string Help
+        {
+            get 
+            { 
+                return _help; 
+            }
+            set 
+            { 
+                _help = value;
+                OnPropertyChanged(nameof(Help));
+            }
+        }
+
+
 
         private string _notes = string.Empty;
         public string Notes
@@ -119,6 +135,7 @@ namespace UI.ViewModels
 
             ButtonText = requestId == -1 ? "Create" : "Save";
             Title = "Create request";
+            Help = "create-request";
 
             if (requestId != -1)
             {
@@ -132,6 +149,7 @@ namespace UI.ViewModels
                 Notes = request.Notes;
                 RequestTypeValue = RequestTypeModels.First(t => t.Type != null && t.Type == request.Type);
                 Title = $"Edit {Name}";
+                Help = "edit-requests";
             }
         }
 
