@@ -148,7 +148,7 @@ namespace UI.ViewModels
         {
             var taskModel = _taskCollections[fromStatus].FirstOrDefault(t => t.Id == tasksId);
             _taskCollections[fromStatus].Remove(taskModel);
-            _taskCollections[toStatus].Add(taskModel);
+            _taskCollections[toStatus].Add(Map(_taskService.GetTask(tasksId)));
         }
 
         private void InsertTask(Task task)
