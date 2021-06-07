@@ -41,7 +41,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var admin = context.Clients.Find(adminId);
+            var admin = context.Admins.Find(adminId);
             admin.Active = false;
             context.SaveChanges();
         }

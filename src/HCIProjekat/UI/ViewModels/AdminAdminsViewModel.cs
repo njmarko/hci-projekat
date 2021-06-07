@@ -1,4 +1,5 @@
-﻿using Domain.Pagination.Requests;
+﻿using Domain.Entities;
+using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
@@ -19,6 +21,8 @@ namespace UI.ViewModels
         public string Name { get; set; }
         public string Username { get; set; }
         public string DateOfBirth { get; set; }
+
+        public Visibility Deletable { get; set; }
         public ICommand Delete { get; set; }
 
     }
@@ -89,14 +93,14 @@ namespace UI.ViewModels
             var page = _adminService.GetAdmins(new AdminsPage { Page = pageNumber, Size = Size, Query = Query, BornAfter = BornAfter, BornBefore = BornBefore });
             foreach (var entity in page.Entities)
             {
-
                 var adminModel = new AdminAdminsCardModel
                 {
                     Name = entity.FirstName + " " + entity.LastName,
                     Username = entity.Username,
                     DateOfBirth = entity.DateOfBirth.ToShortDateString(),
+                    Deletable = (entity is not SuperAdmin && entity.Id != Context.Store.CurrentUser.Id && Context.Store.CurrentUser is SuperAdmin) ? Visibility.Visible : Visibility.Hidden,
                 };
-                //adminModel.Delete = new DeleteClientCommand(this, entity.Id, entity.Username, _modalService, _adminService);
+                adminModel.Delete = new DeleteAdminCommand(this, entity.Id, entity.Username, _modalService, _adminService);
                 AdminModels.Add(adminModel);
             }
             OnPageFetched(page);

@@ -112,16 +112,16 @@ namespace Infrastructure.Persistence
             var par9 = new Partner { Name = "Pečenjara9", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
             var par10 = new Partner { Name = "Pečenjara10", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
 
-            context.Partner.Add(par1);
-            context.Partner.Add(par2);
-            context.Partner.Add(par3);
-            context.Partner.Add(par4);
-            context.Partner.Add(par5);
-            context.Partner.Add(par6);
-            context.Partner.Add(par7);
-            context.Partner.Add(par8);
-            context.Partner.Add(par9);
-            context.Partner.Add(par10);
+            context.Partners.Add(par1);
+            context.Partners.Add(par2);
+            context.Partners.Add(par3);
+            context.Partners.Add(par4);
+            context.Partners.Add(par5);
+            context.Partners.Add(par6);
+            context.Partners.Add(par7);
+            context.Partners.Add(par8);
+            context.Partners.Add(par9);
+            context.Partners.Add(par10);
 
             // Tasks
             var t1 = new Task { Name = "Task1", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
@@ -163,8 +163,8 @@ namespace Infrastructure.Persistence
             var com9 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:56", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 9", Sender = ep1, Task = t1 };
             var com10 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:57", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 10", Sender = ep1, Task = t1 };
 
-            context.Partner.Add(p1);
-            context.Partner.Add(p2);
+            context.Partners.Add(p1);
+            context.Partners.Add(p2);
 
             var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", /*Image = "slika"*/ OfferType = t3.TaskType, Partner = p1 };
             var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", /*Image = "slika"*/ OfferType = t3.TaskType, Partner = p2 };
@@ -199,9 +199,9 @@ namespace Infrastructure.Persistence
             context.Tasks.Add(t17);
 
             var admin1 = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now.AddYears(-45), Username = "vidojegavrilovic", Password = "test123" };
-            var admin2 = new Admin { FirstName = "Djordje", LastName = "Vruci", DateOfBirth = DateTime.Now.AddYears(-30), Username = "a", Password = "a" };
+            var admin2 = new SuperAdmin { FirstName = "Djordje", LastName = "Vruci", DateOfBirth = DateTime.Now.AddYears(-30), Username = "a", Password = "a" };
             context.Admins.Add(admin1);
-            context.Admins.Add(admin2);
+            context.SuperAdmins.Add(admin2);
 
             // Notifications
             var n1 = new Notification { Message = "Notifikacija 1", UserId = 11, RequestId = 1 };
