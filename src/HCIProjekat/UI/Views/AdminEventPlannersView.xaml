@@ -38,7 +38,7 @@
                 <!--Search and filter block-->
                 <TextBox Grid.Row="0" Grid.Column="0" Margin="10,10,10,10" Name="SearchTextBox"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search event planners">
                     <TextBox.Text>
-                        <Binding Path="SearchQuery" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="Query" UpdateSourceTrigger="PropertyChanged">
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
@@ -47,9 +47,9 @@
                 <CheckBox Grid.Row="0" Grid.Column="3" Margin="10,10,10,10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
                 <!--Filter block-->
                 <UniformGrid Grid.Column="0" Rows="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}" Grid.ColumnSpan="2" Margin="0,61,160,0">
-                    <TextBox Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search status" />
-                    <TextBox Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search something elese" />
-                    <TextBox Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Another search" />
+                    <DatePicker Margin="10 10 10 10" SelectedDate="{Binding BornAfter, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select born after date" />
+                    <DatePicker Margin="10 10 10 10" SelectedDate="{Binding BornBefore, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select born before date" />
+                    <CheckBox Grid.Row="0" Grid.Column="3" Margin="10,10,10,10" Content="Has active requests" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="HasActiveRequestsCB" IsChecked="{Binding HasActiveRequests, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignAccentCheckBox}"  />
                 </UniformGrid>
             </Grid>
         </Grid>

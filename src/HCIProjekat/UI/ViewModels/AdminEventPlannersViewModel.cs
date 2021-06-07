@@ -33,8 +33,8 @@ namespace UI.ViewModels
 
         private readonly IModalService _modalService;
 
-        private readonly DateTime _bornBeforeInitial = DateTime.Now.AddYears(-1);
-        private readonly DateTime _bornAfterInitial = DateTime.Now.AddYears(1);
+        private readonly DateTime _bornBeforeInitial = DateTime.Now.AddDays(1);
+        private readonly DateTime _bornAfterInitial = DateTime.Now.AddYears(-100);
 
         private string _query = string.Empty;
         public string Query

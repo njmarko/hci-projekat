@@ -65,8 +65,8 @@ namespace Domain.Services
                           .Where(c => c.Username.ToLower().Contains(page.Query.ToLower())
                           || c.FirstName.ToLower().Contains(page.Query.ToLower())
                           || c.LastName.ToLower().Contains(page.Query.ToLower()))
-                          .Where(c => c.DateOfBirth < page.BornBefore)
-                          .Where(c => c.DateOfBirth > page.BornAfter)
+                          .Where(c => c.DateOfBirth <= page.BornBefore)
+                          .Where(c => c.DateOfBirth >= page.BornAfter)
                           .Where(c => (c.AcceptedRequests.Count() > 0) || !page.HasActiveRequests)
                           .Include(c => c.AcceptedRequests)
                           .ToPage(page);
