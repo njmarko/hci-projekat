@@ -19,6 +19,9 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="{Binding Help}"></KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <StackPanel>
             <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="{Binding Title}" Margin="0 10" />
