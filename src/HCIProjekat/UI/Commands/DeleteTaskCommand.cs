@@ -35,8 +35,10 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
-            if (_modalService.ShowConfirmationDialog($"Are you sure you wan to delete task {_taskId}?"))
+            var task = _taskService.Get(_taskId);
+            if (_modalService.ShowConfirmationDialog($"Are you sure you wan to delete task {task.Name}?"))
             {
+                _eventPlannerHomeVm.AddItem(task);
                 _taskService.Delete(_taskId);
                 _eventPlannerHomeVm.FetchTasksForSelectedRequest();
                 _eventPlannerHomeVm.Context.Notifier.ShowInformation($"Task {_taskId} has been deleted successfully.");

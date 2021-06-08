@@ -49,7 +49,7 @@ namespace Domain.Services
             return task;
         }
 
-        public Task GetTask(int taskId)
+        public Task Get(int taskId)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
