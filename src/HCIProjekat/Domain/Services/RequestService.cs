@@ -258,5 +258,16 @@ namespace Domain.Services
             request.Guests.Remove(guest);
             context.SaveChanges();
         }
+
+        public Guest SetGuestChair(int guestId, int chairId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var guest = context.Guests.Find(guestId);
+            guest.ChairId = chairId;
+            context.SaveChanges();
+
+            return guest;
+        }
     }
 }

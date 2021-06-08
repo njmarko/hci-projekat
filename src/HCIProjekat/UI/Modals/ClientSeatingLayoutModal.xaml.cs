@@ -27,6 +27,7 @@ namespace UI.Modals
         private readonly double CHAIR_RADIUS = 10;
         private readonly double CHAIR_DISTANCE_THRESHOLD = 50;
 
+        private GuestModel _currentGuest;
         private ClientSeatingLayoutViewModel _vm;
 
         public ClientSeatingLayoutModal()
@@ -71,10 +72,50 @@ namespace UI.Modals
 
         private void DrawChair(Chair chair)
         {
-            var c = new ChairIcon { Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false, ToolTip = chair.Label, DataContext = chair };
+            var c = new ChairIcon { Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = true, ToolTip = chair.Label, DataContext = chair };
             Canvas.SetLeft(c, chair.X - CHAIR_RADIUS);
             Canvas.SetTop(c, chair.Y - CHAIR_RADIUS);
             _mainCanvas.Children.Add(c);
+        }
+
+        private void InitGuestDrag(object sender, MouseButtonEventArgs e)
+        {
+            var frameworkElement = sender as FrameworkElement;
+            _currentGuest = frameworkElement.DataContext as GuestModel;
+            DragDrop.DoDragDrop(frameworkElement, _currentGuest.Name, DragDropEffects.Copy);
+        }
+
+        private void OnGuestDrop(object sender, DragEventArgs e)
+        {
+            if (_currentGuest == null)
+            {
+                return;
+            }
+            var position = e.GetPosition(_mainCanvas);
+            var closestChair = _vm.ClosestChair(position.X, position.Y);
+            var guestModel = _vm.DropGuest(_currentGuest.Id, position.X, position.Y);
+            var guest = new GuestIcon { Width = 25, Height = 25, AllowDrop = false, ToolTip = $"{_currentGuest.Name}", DataContext = guestModel };
+            Canvas.SetLeft(guest, closestChair.X - 12.5);
+            Canvas.SetTop(guest, closestChair.Y - 12.5);
+            _mainCanvas.Children.Add(guest);
+            _currentGuest = null;
+        }
+
+        private void OnGuestDrag(object sender, DragEventArgs e)
+        {
+            var position = e.GetPosition(_mainCanvas);
+            if (_vm.SeatingLayout == null)
+            {
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+                return;
+            }
+            var chair = _vm.ClosestChair(position.X, position.Y);
+            if (chair == null || _vm.Distance(chair, position.X, position.Y) > CHAIR_DISTANCE_THRESHOLD)
+            {
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+            }
         }
     }
 }

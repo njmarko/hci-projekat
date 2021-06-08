@@ -11,6 +11,5 @@ namespace Domain.Entities
         public string Name { get; set; }
 
         public int ChairId { get; set; }
-        public virtual Chair Chair { get; set; }
     }
 }

@@ -31,6 +31,9 @@
     <Compile Update="Controls\EventPlannerTaskOfferCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\GuestIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Navbar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -127,6 +130,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\EventPlannerTaskOfferCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GuestIcon.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Navbar.xaml">

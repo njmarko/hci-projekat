@@ -32,5 +32,7 @@ namespace Domain.Services.Interfaces
         Guest AddGuest(Guest guest, int requestId);
 
         void RemoveGuest(int requestId, int guestId);
+
+        Guest SetGuestChair(int guestId, int chairId);
     }
 }

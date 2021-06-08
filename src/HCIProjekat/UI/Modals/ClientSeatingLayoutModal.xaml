@@ -42,7 +42,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" Style="{DynamicResource MaterialDesignBody2TextBlock}" />
+                                <TextBlock PreviewMouseDown="InitGuestDrag" VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" Style="{DynamicResource MaterialDesignBody2TextBlock}" />
                                 <Button Grid.Column="1" Width="30" Height="30" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" Command="{Binding RemoveGuest}" ToolTip="Remove guest from guest list">
                                     <materialDesign:PackIcon Kind="PeopleMinus" />
                                 </Button>
@@ -63,10 +63,12 @@
                 </Button>
             </Grid>
         </Grid>
-        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
-            <Canvas Grid.Column="1" AllowDrop="True" SizeChanged="OnCanvasResized" x:Name="_mainCanvas">
-                <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
-            </Canvas>
-        </Border>
+        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Border BorderBrush="Black" Width="2000" Height="2000" BorderThickness="2">
+                <Canvas Grid.Column="1" AllowDrop="True" SizeChanged="OnCanvasResized" x:Name="_mainCanvas" Drop="OnGuestDrop" DragOver="OnGuestDrag">
+                    <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
+                </Canvas>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </Window>

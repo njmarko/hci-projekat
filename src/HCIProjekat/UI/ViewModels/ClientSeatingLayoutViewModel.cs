@@ -61,16 +61,66 @@ namespace UI.ViewModels
             _requestId = requestId;
 
             _request = _requestService.GetWithGuests(_requestId);
-            SeatingLayout = _requestService.GetSeatingLayout(_requestId);
+            SeatingLayout = _requestService.GetSeatingLayout(_requestId) ?? CreateDebugSeatingLayout();
 
             AddGuest = new AddGuestCommand(this, _requestService, _requestId);
             UpdateGuestSearch();
         }
 
+        private SeatingLayout CreateDebugSeatingLayout()
+        {
+            return new SeatingLayout
+            {
+                Tables = new List<Table>()
+                {
+                    new Table()
+                    {
+                        Id = 1,
+                        Label = "Table #1",
+                        X = 70,
+                        Y = 70,
+                        Radius = 40,
+                        Chairs = new List<Chair>()
+                        {
+                            new Chair() {Id = 1, X = 10, Y = 10, Label = "1"},
+                            new Chair() {Id = 2, X = 10, Y = 90, Label = "2"},
+                            new Chair() {Id = 3, X = 180, Y = 10, Label = "3"},
+                        }
+                    }
+                }
+            };
+        }
+
+        public GuestModel DropGuest(int guestId, double x, double y)
+        {
+            var guest = _request.Guests.SingleOrDefault(g => g.Id == guestId);
+            var chair = ClosestChair(x, y);
+            guest.ChairId = chair.Id;
+            _requestService.SetGuestChair(guestId, chair.Id);
+            UpdateGuestSearch();
+            return Map(guest);
+        }
+
+        public double Distance(ILayoutItem chair, double x, double y)
+        {
+            double xDiff = chair.X - x;
+            double yDiff = chair.Y - y;
+            return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+        }
+
+        public Chair ClosestChair(double x, double y)
+        {
+            var chair = SeatingLayout.Tables.SelectMany(t => t.Chairs).Where(c =>
+            {
+                return _request.Guests.FirstOrDefault(g => g.ChairId == c.Id) == null;
+            }).OrderBy(c => Distance(c, x, y)).FirstOrDefault();
+            return chair;
+        }
+
         public void UpdateGuestSearch()
         {
             Guests.Clear();
-            foreach (var guest in _request.Guests.Where(g => g.Name.ToLower().Contains(GuestSearch.ToLower())).Select(g => Map(g)))
+            foreach (var guest in _request.Guests.Where(g => g.Name.ToLower().Contains(GuestSearch.ToLower()) && g.ChairId == 0).Select(g => Map(g)))
             {
                 Guests.Add(guest);
             }
