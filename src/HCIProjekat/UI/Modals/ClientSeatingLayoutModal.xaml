@@ -23,14 +23,17 @@
         <Grid Grid.Column="0" MinWidth="200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <!--Search box-->
             <TextBox Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search guests" />
+            <!--Number of added guests-->
+            <TextBlock Grid.Row="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding GuestNumberText}" />
             <!--List view-->
-            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                <ListView Grid.Row="1" Style="{DynamicResource MaterialDesignCardsListBox}" SelectionMode="Single" ItemsSource="{Binding Guests}">
+            <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                <ListView Style="{DynamicResource MaterialDesignCardsListBox}" SelectionMode="Single" ItemsSource="{Binding Guests}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="5">
@@ -48,7 +51,7 @@
                 </ListView>
             </ScrollViewer>
             <!--Add guest-->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />

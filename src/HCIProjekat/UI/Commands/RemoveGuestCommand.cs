@@ -37,6 +37,7 @@ namespace UI.Commands
             var guest = _vm.Guests.SingleOrDefault(g => g.Id == _guestId);
             _requestService.RemoveGuest(_requestId, _guestId);
             _vm.Guests.Remove(guest);
+            _vm.GuestCount--;
         }
     }
 }

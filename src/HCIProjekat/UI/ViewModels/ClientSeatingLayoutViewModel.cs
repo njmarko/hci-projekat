@@ -34,8 +34,15 @@ namespace UI.ViewModels
             get { return _guestName; }
             set { _guestName = value; OnPropertyChanged(nameof(GuestName)); OnPropertyChanged(nameof(CanAddGuest)); }
         }
+        public int _guestCount = 0;
+        public int GuestCount
+        {
+            get { return _guestCount; }
+            set { _guestCount = value; OnPropertyChanged(nameof(GuestCount)); OnPropertyChanged(nameof(GuestNumberText)); OnPropertyChanged(nameof(CanAddGuest)); }
+        }
 
-        public bool CanAddGuest => !string.IsNullOrEmpty(GuestName);
+        public string GuestNumberText => $"Added guests: {GuestCount} / {_request.GuestNumber}";
+        public bool CanAddGuest => !string.IsNullOrEmpty(GuestName) && GuestCount != _request.GuestNumber;
 
         public SeatingLayout SeatingLayout { get; private set; }
         public ObservableCollection<GuestModel> Guests { get; private set; }

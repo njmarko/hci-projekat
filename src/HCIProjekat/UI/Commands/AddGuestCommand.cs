@@ -45,6 +45,7 @@ namespace UI.Commands
             var guest = new Guest { Name = _vm.GuestName };
             _requestService.AddGuest(guest, _requestId);
             _vm.Guests.Add(_vm.Map(guest));
+            _vm.GuestCount++;
             _vm.GuestName = "";
         }
     }
