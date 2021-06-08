@@ -22,14 +22,16 @@ namespace UI.Commands
         private readonly IRouter _router;
         private readonly IApplicationContext _context;
         public event EventHandler CanExecuteChanged;
+        private readonly int _partnerId;
 
-        public RegisterPartnerCommand(RegisterPartnerViewModel registerVm, IPartnersService partnerService, IRouter router, IApplicationContext context)
+        public RegisterPartnerCommand(RegisterPartnerViewModel registerVm, IPartnersService partnerService, IRouter router, IApplicationContext context, int partnerId)
         {
             _registerVm = registerVm;
             _partnerService = partnerService;
             _router = router;
             _registerVm.PropertyChanged += _registerVm_PropertyChanged;
             _context = context;
+            _partnerId = partnerId;
         }
 
         private void _registerVm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -49,19 +51,38 @@ namespace UI.Commands
         {
             try
             {
-                var registerPartner = _partnerService.Create(new Partner
+                if (_partnerId == -1)
                 {
-                    Name = _registerVm.Name,
-                    Type = (Domain.Enums.PartnerType)_registerVm.PartnerTypeValue.Type,
-                    Location = new Location { City = _registerVm.City, Country = _registerVm.Country, Street = _registerVm.Street, StreetNumber = _registerVm.StreetNumber }
-                });
-                _context.Notifier.ShowSuccess($"Partner {registerPartner.Name} sucessfuly added.");
-                _router.Push("AdminPartners");
+                    Create();
+                }
+                else
+                {
+                    Update();
+                    //((Window)parameter).Close();
+                }
             }
             catch (PartnerAlreadyExistsException exception)
             {
                 _registerVm.NameError.ErrorMessage = exception.Message;
             }
+        }
+
+        private void Create()
+        {
+            var registerPartner = _partnerService.Create(new Partner
+            {
+                Name = _registerVm.Name,
+                Type = (Domain.Enums.PartnerType)_registerVm.PartnerTypeValue.Type,
+                Location = new Location { City = _registerVm.City, Country = _registerVm.Country, Street = _registerVm.Street, StreetNumber = _registerVm.StreetNumber }
+            });
+            _context.Notifier.ShowSuccess($"Partner {registerPartner.Name} sucessfuly added.");
+            _router.Push("AdminPartners");
+        }
+
+        private void Update()
+        {
+            var updatedPartner = _partnerService.Update(_partnerId, _registerVm.Name, _registerVm.PartnerTypeValue.Type.Value, _registerVm.Country, _registerVm.City, _registerVm.Street, _registerVm.StreetNumber);
+            _context.Notifier.ShowSuccess($"Partner {updatedPartner.Name} sucessfuly added.");
         }
     }
 }

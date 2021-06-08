@@ -47,6 +47,15 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public Partner GetPartner(int partnerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Partners
+                          .Where(p => p.Id == partnerId)
+                          .First();
+        }
+
         public Page<Partner> GetPartners(PartnersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
