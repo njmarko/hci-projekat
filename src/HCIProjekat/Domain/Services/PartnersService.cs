@@ -75,6 +75,12 @@ namespace Domain.Services
         public Partner Update(int partnerId, string name, PartnerType partnerType, string country, string city, string street, string streetNumber)
         {
             using var context = _dbContextFactory.CreateDbContext();
+
+            if (context.Partners.FirstOrDefault(u => u.Name == name) != null)
+            {
+                throw new PartnerAlreadyExistsException(name);
+            }
+
             var partner = context.Partners.Find(partnerId);
             partner.Name = name;
             partner.Type = partnerType;
