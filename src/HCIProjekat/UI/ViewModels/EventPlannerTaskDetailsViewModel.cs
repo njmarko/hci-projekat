@@ -61,7 +61,7 @@ namespace UI.ViewModels
         }
 
 
-        private int _tabSelectedIndex;
+        private int _tabSelectedIndex = 0;
         public int TabSelectedIndex
         {
             get { return _tabSelectedIndex; }
@@ -74,6 +74,8 @@ namespace UI.ViewModels
             get { return "EventPlannerHome"; }
         }
 
+        public ICommand ChangeTabCommand { get; private set; }
+
         public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService, IModalService modalService, ICommentService commentService) : base(context)
         {
             _taskService = taskService;
@@ -85,8 +87,15 @@ namespace UI.ViewModels
             AddedOffersVm.AvailableVm = AvailableOffersVm;
             AvailableOffersVm.AddedVm = AddedOffersVm;
 
-            TabSelectedIndex = 0;
+            ChangeTabCommand = new DelegateCommand(ChangeTab);
+
+            //TabSelectedIndex = 0;
             HelpPage = "event-planner-task-details";
+        }
+
+        private void ChangeTab()
+        {
+            TabSelectedIndex = (TabSelectedIndex + 1) % 3;
         }
 
         private void FetchTask()

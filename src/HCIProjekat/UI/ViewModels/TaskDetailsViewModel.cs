@@ -144,6 +144,19 @@ namespace UI.ViewModels
             }
         }
 
+        private int _tabIndex = 0;
+
+        public int TabIndex
+        {
+            get { return _tabIndex; }
+            set 
+            { 
+                _tabIndex = value;
+                OnPropertyChanged(nameof(TabIndex));
+            }
+        }
+
+
         public bool IsPendingAndIsClient => Task.TaskStatus == TaskStatus.SENT_TO_CLIENT && Context.Store.CurrentUser is Client;
 
         public bool IsClient => Context.Store.CurrentUser is Client;
@@ -164,6 +177,8 @@ namespace UI.ViewModels
 
         public ICommand Search { get; private set; }
 
+        public ICommand ChangeTabCommand { get; private set; }
+
 
 
         public ObservableCollection<ClientTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<ClientTaskOfferCardModel>();
@@ -178,12 +193,20 @@ namespace UI.ViewModels
             _commentService = commentService;
             AddCommentCommand = new AddCommentCommand(this, commentService, modalService);
             Reject = new RejectAllTaskOffersCommand(this, taskOfferService);
+            ChangeTabCommand = new DelegateCommand(ChangeTab);
             CommentAdded = false;
 
             Search = new DelegateCommand(() => UpdatePage(0));
             SearchQuery = string.Empty;
             HelpPage = "client-task-details";
+            
         }
+
+        private void ChangeTab()
+        {
+            TabIndex = (TabIndex + 1) % 2;
+        }
+
         private bool AbleToReject()
         {
             return Task.TaskStatus == TaskStatus.SENT_TO_CLIENT;

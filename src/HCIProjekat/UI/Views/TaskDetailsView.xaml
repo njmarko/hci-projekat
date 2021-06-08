@@ -18,6 +18,9 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding ChangeTabCommand}"></KeyBinding>
+    </UserControl.InputBindings>
     <Grid Margin="20,20,20,0" FocusManager.FocusedElement="{Binding ElementName=FirstField}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -63,7 +66,10 @@
             </DockPanel>
         </StackPanel>
         
-        <TabControl Grid.Row="1" Margin="0 0 0 0" Style="{DynamicResource MaterialDesignTabControl}" Background="#e8e8e8">
+        <TabControl Grid.Row="1" Margin="0 0 0 0" 
+                    Style="{DynamicResource MaterialDesignTabControl}" 
+                    Background="#e8e8e8"
+                    SelectedIndex="{Binding TabIndex}">
             <TabItem Header="Offers">
                 <Grid>
                     <Grid.RowDefinitions>
