@@ -43,10 +43,10 @@ namespace Infrastructure.Persistence
             var r8 = new Request { Name = "Request 8", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
             var r9 = new Request { Name = "Request 9", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now, GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
             var r10 = new Request { Name = "Request 10", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(7), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r11 = new Request { Name = "Request 11", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(6), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r12 = new Request { Name = "Request 12", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(-5), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r13 = new Request { Name = "Request 13", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(-4), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
-            var r14 = new Request { Name = "Request 14", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(13), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r11 = new Request { Name = "Request 11", Budget = 1000, BudgetFlexible = true, Client = c2, Date = DateTime.Now.AddDays(6), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r12 = new Request { Name = "Request 12", Budget = 1000, BudgetFlexible = true, Client = c3, Date = DateTime.Now.AddDays(-5), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r13 = new Request { Name = "Request 13", Budget = 1000, BudgetFlexible = true, Client = c4, Date = DateTime.Now.AddDays(-4), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
+            var r14 = new Request { Name = "Request 14", Budget = 1000, BudgetFlexible = true, Client = c5, Date = DateTime.Now.AddDays(13), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
 
             var l1 = new Location { StreetNumber = "301", Street = "Ulica1", City = "Novi Sad", Country = "Srbija" };
             var l2 = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" };
