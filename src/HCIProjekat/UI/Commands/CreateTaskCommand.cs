@@ -56,9 +56,9 @@ namespace UI.Commands
                 else
                 {
                     Update();
+                    (parameter as Window).DialogResult = true;
+                    (parameter as Window).Close();
                 }
-                (parameter as Window).DialogResult = true;
-                (parameter as Window).Close();
             }
             catch (DuplicateTaskException exception)
             {
@@ -81,6 +81,7 @@ namespace UI.Commands
             task.Active = false;
             _vm.AddItem(task);
             _vm.ToDo.Add(_vm.Map(task));
+            _createTaskVm.ResetFields();
             _vm.ToDoAdded = true;
             _vm.Context.Notifier.ShowInformation("New task has been added successfully.");
             _vm.ToDoAdded = false;

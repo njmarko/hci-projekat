@@ -84,6 +84,15 @@ namespace UI.ViewModels
             } 
         }
 
+        public void ResetFields()
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+            TaskTypeValue = TaskTypeModels.First();
+            ResetDirtyValues();
+            IsValid();
+        }
+
         public bool IsValid()
         {
             bool valid = true;
