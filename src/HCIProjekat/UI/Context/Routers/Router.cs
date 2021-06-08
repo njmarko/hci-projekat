@@ -48,6 +48,7 @@ namespace UI.Context.Routers
                 "EventPlannerRequests" => _locator.Get<EventPlannerRequestsViewModel>(),
                 "AdminRequests" => _locator.Get<AdminRequestsViewModel>(),
                 "AdminAdmins" => _locator.Get<AdminAdminsViewModel>(),
+                "Demo" => _locator.Get<DemoViewModel>(),
 
                 // With route parameters
                 "RequestDetails" => GetRequestDetailsVm(),

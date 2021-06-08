@@ -57,6 +57,9 @@
             <DataTemplate DataType="{x:Type vm:AdminAdminsViewModel}">
                 <views:AdminAdminsView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DemoViewModel}">
+                <views:DemoView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
