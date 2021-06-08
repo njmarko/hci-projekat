@@ -3,10 +3,12 @@ using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ToastNotifications.Messages;
 using UI.Commands;
 using UI.Context;
 
@@ -152,6 +154,25 @@ namespace UI.ViewModels
                 ChairId = guest.ChairId,
                 RemoveGuest = new RemoveGuestCommand(this, _requestService, _requestId, guest.Id)
             };
+        }
+
+        public void InsertGuestsFromFile(string filename)
+        {
+            var tempGuests = File.ReadLines(filename).Where(line => !string.IsNullOrWhiteSpace(line)).Select(line => new Guest { Name = line });
+            if ((tempGuests.Count() > (_request.GuestNumber - GuestCount)) || (GuestCount >= _request.GuestNumber))
+            {
+                Context.Notifier.ShowError("Number of guests to be inserted is larger than the capacity.");
+            } 
+            else
+            {
+               foreach (var guest in tempGuests)
+                {
+                    _requestService.AddGuest(guest, _requestId);
+                    InsertGuest(guest);
+                    UpdateGuestSearch();
+                    GuestCount++;
+                }
+            }
         }
     }
 }

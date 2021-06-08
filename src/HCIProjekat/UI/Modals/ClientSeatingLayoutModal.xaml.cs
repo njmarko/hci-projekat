@@ -146,7 +146,25 @@ namespace UI.Modals
         {
             if (_currentGuestIcon == null)
             {
-                // TODO: Ubaci proveru ako je fajl
+                if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+                {
+                    var filenames = e.Data.GetData(DataFormats.FileDrop) as string[];
+                    if (filenames.Length > 1)
+                    {
+                        e.Effects = DragDropEffects.None;
+                        e.Handled = true;
+                    } 
+                    else
+                    {
+                        var filename = filenames[0];
+                        if (System.IO.Path.GetExtension(filename).ToLowerInvariant() != ".txt")
+                        {
+                            e.Effects = DragDropEffects.None;
+                            e.Handled = true;
+                        }
+                    }
+                    return;
+                }
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;
                 return;
@@ -157,6 +175,11 @@ namespace UI.Modals
         {
             if (_currentGuestIcon == null)
             {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+                {
+                    var filename = (e.Data.GetData(DataFormats.FileDrop) as string[])[0];
+                    _vm.InsertGuestsFromFile(filename);
+                }
                 return;
             }
             _mainCanvas.Children.Remove(_currentGuestIcon);
