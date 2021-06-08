@@ -94,7 +94,7 @@ namespace UI.ViewModels
         public GuestModel DropGuest(int guestId, double x, double y)
         {
             var guest = _request.Guests.SingleOrDefault(g => g.Id == guestId);
-            var chair = ClosestChair(x, y);
+            var chair = ClosestChair(x, y, guestId);
             guest.ChairId = chair.Id;
             _requestService.SetGuestChair(guestId, chair.Id);
             UpdateGuestSearch();
@@ -116,11 +116,11 @@ namespace UI.ViewModels
             return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
         }
 
-        public Chair ClosestChair(double x, double y)
+        public Chair ClosestChair(double x, double y, int guestId = -1)
         {
             var chair = SeatingLayout.Tables.SelectMany(t => t.Chairs).Where(c =>
             {
-                return _request.Guests.FirstOrDefault(g => g.ChairId == c.Id) == null;
+                return _request.Guests.FirstOrDefault(g => g.ChairId == c.Id && guestId != -1 && g.Id != guestId) == null;
             }).OrderBy(c => Distance(c, x, y)).FirstOrDefault();
             return chair;
         }

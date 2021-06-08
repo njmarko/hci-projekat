@@ -88,19 +88,31 @@ namespace UI.Modals
 
         private void OnGuestDrop(object sender, DragEventArgs e)
         {
-            if (_currentGuest == null)
+            if (_currentGuest == null && _currentGuestIcon == null)
             {
                 return;
             }
             var position = e.GetPosition(_mainCanvas);
             var closestChair = _vm.ClosestChair(position.X, position.Y);
-            var guestModel = _vm.DropGuest(_currentGuest.Id, position.X, position.Y);
-            var guest = new GuestIcon { Width = 25, Height = 25, AllowDrop = false, ToolTip = $"{_currentGuest.Name}", DataContext = guestModel };
-            guest.PreviewMouseDown += Guest_PreviewMouseDown;
+            GuestIcon guest = null;
+            if (_currentGuest != null)
+            {
+                var guestModel = _vm.DropGuest(_currentGuest.Id, position.X, position.Y);
+                guest = new GuestIcon { Width = 25, Height = 25, AllowDrop = false, ToolTip = $"{_currentGuest.Name}", DataContext = guestModel };
+                guest.PreviewMouseDown += Guest_PreviewMouseDown;
+                _currentGuest = null;
+            }
+            else
+            {
+                _mainCanvas.Children.Remove(_currentGuestIcon);
+                var guestModel = _vm.DropGuest((_currentGuestIcon.DataContext as GuestModel).Id, position.X, position.Y);
+                guest = new GuestIcon { Width = 25, Height = 25, AllowDrop = false, ToolTip = $"{guestModel.Name}", DataContext = guestModel };
+                guest.PreviewMouseDown += Guest_PreviewMouseDown;
+                _currentGuestIcon = null;
+            }
             Canvas.SetLeft(guest, closestChair.X - 12.5);
             Canvas.SetTop(guest, closestChair.Y - 12.5);
             _mainCanvas.Children.Add(guest);
-            _currentGuest = null;
         }
 
         private void Guest_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -119,7 +131,15 @@ namespace UI.Modals
                 e.Handled = true;
                 return;
             }
-            var chair = _vm.ClosestChair(position.X, position.Y);
+            var id = -1;
+            if (_currentGuest != null)
+            {
+                id = _currentGuest.Id;
+            } else if (_currentGuestIcon != null)
+            {
+                id = (_currentGuestIcon.DataContext as GuestModel).Id;
+            }
+            var chair = _vm.ClosestChair(position.X, position.Y, id);
             if (chair == null || _vm.Distance(chair, position.X, position.Y) > CHAIR_DISTANCE_THRESHOLD)
             {
                 e.Effects = DragDropEffects.None;
