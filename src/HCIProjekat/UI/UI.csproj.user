@@ -43,6 +43,9 @@
     <Compile Update="Controls\TableIcon.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Modals\ClientSeatingLayoutModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Modals\CreateTaskModal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -151,6 +154,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modals\AddEventPlannerModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\ClientSeatingLayoutModal.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modals\CreateTaskModal.xaml">

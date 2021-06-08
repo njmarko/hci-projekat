@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using ToastNotifications.Messages;
 using UI.Commands;
 using UI.Context;
 using UI.CustomAttributes;
@@ -225,7 +226,7 @@ namespace UI.ViewModels
         {
             if (_modalService.ShowModal<OfferSeatingLayoutModal>(new CreateOfferSeatingLayoutViewModel(this, Context, _seatingLayoutService, _seatingLayout)))
             {
-
+                Context.Notifier.ShowInformation("Seating layout has been updated.");
             }
         }
 

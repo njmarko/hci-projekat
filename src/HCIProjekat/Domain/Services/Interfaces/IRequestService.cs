@@ -22,5 +22,6 @@ namespace Domain.Services.Interfaces
         Page<Request> GetAllRequests(RequestsPage page);
 
         int GetRequestCost(int requestId);
+        bool IsLocationAccepted(int requestId);
     }
 }

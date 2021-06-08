@@ -151,6 +151,15 @@ namespace Domain.Services
             return requests.Include(r => r.EventPlanner).ToPage(page);
         }
 
+        public bool IsLocationAccepted(int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var task = context.Tasks
+                              .FirstOrDefault(t => t.Request.Id == requestId && t.TaskType == ServiceType.LOCATION && t.TaskStatus == TaskStatus.ACCEPTED);
+            return task != null;
+        }
+
         public Request Reject(int requestId, int eventPlannerId)
         {
             using var context = _dbContextFactory.CreateDbContext();
