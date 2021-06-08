@@ -26,7 +26,7 @@
 
         <StackPanel Orientation="Vertical" Background="#e8e8e8" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding EventPlannerHome}">
+                <Button Command="{Binding Context.Router.RouterPushCommand}" Foreground="White" CommandParameter="{Binding EventPlannerHome}">
                     <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
                 </Button>
             </StackPanel>

@@ -26,7 +26,7 @@
 
         <StackPanel Orientation="Vertical" Background="#e8e8e8" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding RequestDetailsRoute}">
+                <Button Command="{Binding Context.Router.RouterPushCommand}" Foreground="White" CommandParameter="{Binding RequestDetailsRoute}">
                     <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
                 </Button>
             </StackPanel>
@@ -92,6 +92,7 @@
                         </Button>
                         <Button Grid.Column="3" Visibility="{Binding IsClient, Converter={StaticResource b2vc}}"  
                                 Margin="10 10 10 10" 
+                                Foreground="White"
                                 Content="Undo" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
                                 Command="{Binding Undo}"></Button>
                         
