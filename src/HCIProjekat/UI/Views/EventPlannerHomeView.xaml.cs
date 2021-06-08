@@ -29,10 +29,36 @@ namespace UI.Views
             InitializeComponent();
         }
 
-        private void OnTaskMouseDown(object sender, MouseButtonEventArgs e)
+        private void ToDoSelected(object sender, MouseButtonEventArgs e)
         {
+            var vm = DataContext as EventPlannerHomeViewModel;
+            vm.AllowInProgressDrop = true;
+            vm.AllowToDoDrop = false;
+
             var task = sender as EventPlannerTaskCard;
-           _currentTask = task.DataContext as TaskCardModel;
+            _currentTask = task.DataContext as TaskCardModel;
+            DragDrop.DoDragDrop(this, "nista", DragDropEffects.Move);
+        }
+
+        private void InProgressSelected(object sender, MouseButtonEventArgs e)
+        {
+            var vm = DataContext as EventPlannerHomeViewModel;
+            vm.AllowInProgressDrop = false;
+            vm.AllowToDoDrop = true;
+
+            var task = sender as EventPlannerTaskCard;
+            _currentTask = task.DataContext as TaskCardModel;
+            DragDrop.DoDragDrop(this, "nista", DragDropEffects.Move);
+        }
+
+        private void RejectedSelected(object sender, MouseButtonEventArgs e)
+        {
+            var vm = DataContext as EventPlannerHomeViewModel;
+            vm.AllowInProgressDrop = false;
+            vm.AllowToDoDrop = true;
+
+            var task = sender as EventPlannerTaskCard;
+            _currentTask = task.DataContext as TaskCardModel;
             DragDrop.DoDragDrop(this, "nista", DragDropEffects.Move);
         }
 
