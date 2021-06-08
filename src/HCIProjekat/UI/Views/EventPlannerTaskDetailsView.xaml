@@ -17,7 +17,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
-    <Grid Margin="20,20,20,0">
+    <Grid Margin="20,20,20,0" FocusManager.FocusedElement="{Binding ElementName=FirstField}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -79,7 +79,7 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         <!--Search block-->
-                        <TextBox  AllowDrop="False" Grid.Column="0" Margin="10 10 10 10"  Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search offers" Text="{Binding SearchQuery}" />
+                        <TextBox  AllowDrop="False" Grid.Column="0" Margin="10 10 10 10" Name="FirstField" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search offers" Text="{Binding SearchQuery}" />
                         <Button  Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
                         <Button  Grid.Column="2" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}"/>
                         <Button  Grid.Column="3" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Redo" Command="{Binding Undo}"/>
