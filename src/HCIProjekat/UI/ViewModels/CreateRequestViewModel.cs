@@ -33,9 +33,9 @@ namespace UI.ViewModels
             set { _requestType = value; OnPropertyChanged(nameof(RequestTypeValue)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private int _guestNumber = 0;
+        private string _guestNumber = "0";
         [ValidationField]
-        public int GuestNumber
+        public string GuestNumber
         {
             get { return _guestNumber; }
             set { _guestNumber = value; OnPropertyChanged(nameof(GuestNumber)); OnPropertyChanged(nameof(CanCreateRequest)); }
@@ -49,9 +49,9 @@ namespace UI.ViewModels
             set { _theme = value; OnPropertyChanged(nameof(Theme)); OnPropertyChanged(nameof(CanCreateRequest)); }
         }
 
-        private int _budget = 0;
+        private string _budget = "0";
         [ValidationField]
-        public int Budget
+        public string Budget
         {
             get { return _budget; }
             set { _budget = value; OnPropertyChanged(nameof(Budget)); OnPropertyChanged(nameof(CanCreateRequest)); }
@@ -142,9 +142,9 @@ namespace UI.ViewModels
                 Request request = requestService.Get(requestId);
                 Name = request.Name;
                 Theme = request.Theme;
-                GuestNumber = request.GuestNumber;
+                GuestNumber = request.GuestNumber.ToString();
                 BudgetFlexible = request.BudgetFlexible;
-                Budget = request.Budget;
+                Budget = request.Budget.ToString();
                 RequestDate = request.Date;
                 Notes = request.Notes;
                 RequestTypeValue = RequestTypeModels.First(t => t.Type != null && t.Type == request.Type);
@@ -177,26 +177,62 @@ namespace UI.ViewModels
             {
                 ThemeError.ErrorMessage = null;
             }
+
+
             //Guest number
-            if (GuestNumber <= 0 && IsDirty(nameof(GuestNumber)))
+            if (string.IsNullOrEmpty(GuestNumber) && IsDirty(nameof(GuestNumber)))
             {
-                GuestNumberError.ErrorMessage = "Guest number must be a positive number.";
+                GuestNumberError.ErrorMessage = "Guest number is required!";
                 valid = false;
-            } 
-            else
-            {
-                GuestNumberError.ErrorMessage = null;
             }
+            else if (int.TryParse(GuestNumber, out int guestNum))
+            {
+                if (guestNum <= 0 && IsDirty(nameof(GuestNumber)))
+                {
+                    GuestNumberError.ErrorMessage = "Guest number must be greater than 0!";
+                    valid = false;
+                }
+                else
+                {
+                    GuestNumberError.ErrorMessage = null;
+                }
+            }
+            else if (IsDirty(nameof(GuestNumber)))
+            {
+                GuestNumberError.ErrorMessage = "Guest number must be number!";
+                valid = false;
+            }
+
+
+
             //Budget
-            if (Budget <= 0 && IsDirty(nameof(Budget)))
+            if (string.IsNullOrEmpty(Budget) && IsDirty(nameof(Budget)))
             {
-                BudgetError.ErrorMessage = "Budget must be a positive number.";
+                BudgetError.ErrorMessage = "Budget is required!";
                 valid = false;
-            } 
-            else
-            {
-                BudgetError.ErrorMessage = null;
             }
+            else if (int.TryParse(Budget, out int budgetNumber))
+            {
+                if (budgetNumber <= 0 && IsDirty(nameof(Budget)))
+                {
+                    BudgetError.ErrorMessage = "Budget number must be greater than 0!";
+                    valid = false;
+                }
+                else
+                {
+                    BudgetError.ErrorMessage = null;
+                }
+            }
+            else if (IsDirty(nameof(Budget)))
+            {
+                BudgetError.ErrorMessage = "Budget must be number!";
+                valid = false;
+            }
+
+
+
+
+
             //Request date
             if (RequestDate <= DateTime.Today)
             {

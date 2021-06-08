@@ -67,9 +67,9 @@ namespace UI.Commands
             {
                 Name = _createRequestVm.Name,
                 Type = _createRequestVm.RequestTypeValue.Type.Value,
-                Budget = _createRequestVm.Budget,
+                Budget = int.Parse(_createRequestVm.Budget),
                 BudgetFlexible = _createRequestVm.BudgetFlexible,
-                GuestNumber = _createRequestVm.GuestNumber,
+                GuestNumber = int.Parse(_createRequestVm.GuestNumber),
                 Theme = _createRequestVm.Theme,
                 Date = _createRequestVm.RequestDate,
                 Notes = _createRequestVm.Notes,
@@ -89,9 +89,9 @@ namespace UI.Commands
             _clientRequestsVm.AddItem(request);
             request.Name = _createRequestVm.Name;
             request.Type = _createRequestVm.RequestTypeValue.Type.Value;
-            request.Budget = _createRequestVm.Budget;
+            request.Budget = int.Parse(_createRequestVm.Budget);
             request.BudgetFlexible = _createRequestVm.BudgetFlexible;
-            request.GuestNumber = _createRequestVm.GuestNumber;
+            request.GuestNumber = int.Parse(_createRequestVm.GuestNumber);
             request.Theme = _createRequestVm.Theme;
             request.Date = _createRequestVm.RequestDate;
             request.Notes = _createRequestVm.Notes;
