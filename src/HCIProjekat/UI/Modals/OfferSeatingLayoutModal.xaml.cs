@@ -26,9 +26,11 @@ namespace UI.Modals
         private readonly double TABLE_RADIUS = 40;
         private readonly double CHAIR_RADIUS = 10;
         private readonly double TABLE_DISTANCE_TRESHOLD = 100;
-
-        private string _currentItem = null;
         private CreateOfferSeatingLayoutViewModel _vm;
+
+        public string CurrentItem { get; set; } = null;
+        public ChairIcon SelectedChair { get; set; } = null;
+        public TableIcon SelectedTable { get; set; } = null;
 
         public OfferSeatingLayoutModal()
         {
@@ -47,18 +49,50 @@ namespace UI.Modals
             DrawLayout();
         }
 
+        private void OnSelectedDrop(DragEventArgs e)
+        {
+            var context = (SelectedTable != null ? SelectedTable.DataContext : SelectedChair.DataContext) as ILayoutItem;
+            var position = e.GetPosition(_mainCanvas);
+            var radius = context.Radius;
+            var xOffset = position.X - radius;
+            var yOffset = position.Y - radius;
+
+            if (SelectedTable != null)
+            {
+                _vm.UpdateTable(context.X, context.Y, xOffset, yOffset);
+            }
+            else
+            {
+                _vm.UpdateChair(context.X, context.Y, xOffset, yOffset);
+            }
+
+            context.X = xOffset;
+            context.Y = yOffset;
+
+            UserControl item = SelectedTable != null ? SelectedTable : SelectedChair;
+            Canvas.SetLeft(item, xOffset);
+            Canvas.SetTop(item, yOffset);
+        }
+
         private void OnItemDrop(object sender, DragEventArgs e)
         {
-            if (_currentItem == null)
+            if (CurrentItem == null && SelectedChair == null && SelectedTable == null)
             {
                 return;
             }
+
+            if (SelectedTable != null || SelectedChair != null)
+            {
+                OnSelectedDrop(e);
+                return;
+            }
+
             var position = e.GetPosition(_mainCanvas);
-            var radius = _currentItem == "Table" ? TABLE_RADIUS : CHAIR_RADIUS;
-            double xOffset = position.X - radius;
-            double yOffset = position.Y - radius;
+            var radius = CurrentItem == "Table" ? TABLE_RADIUS : CHAIR_RADIUS;
+            var xOffset = position.X - radius;
+            var yOffset = position.Y - radius;
             ILayoutItem saved;
-            if (_currentItem == "Table")
+            if (CurrentItem == "Table")
             {
                 saved = _vm.AddTable(position.X, position.Y);
             }
@@ -67,21 +101,21 @@ namespace UI.Modals
                 saved = _vm.AddChair(position.X, position.Y);
             }
             var label = saved.Label;
-            UserControl item = _currentItem switch
+            UserControl item = CurrentItem switch
             {
-                "Table" => new TableIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved },
-                "Chair" => new ChairIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved },
+                "Table" => new TableIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved, SeatingLayoutModal = this },
+                "Chair" => new ChairIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved, SeatingLayoutModal = this },
                 _ => throw new Exception("Invalid item type"),
             };
             Canvas.SetLeft(item, xOffset);
             Canvas.SetTop(item, yOffset);
             _mainCanvas.Children.Add(item);
-            _currentItem = null;
+            CurrentItem = null;
         }
 
         private void OnChairDrag(object sender, DragEventArgs e)
         {
-            if (_currentItem != "Chair")
+            if (CurrentItem != "Chair")
             {
                 return;
             }
@@ -96,8 +130,11 @@ namespace UI.Modals
 
         private void InitItemDrop(object sender, MouseButtonEventArgs e)
         {
+            SelectedChair = null;
+            SelectedTable = null;
+
             var item = sender as ListViewItem;
-            _currentItem = item.Content.ToString();
+            CurrentItem = item.Content.ToString();
             DragDrop.DoDragDrop(item, "nesto", DragDropEffects.Copy);
         }
 

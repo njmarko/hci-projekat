@@ -13,6 +13,14 @@ namespace Domain.Services.Interfaces
 
         Table AddTable(Table table, int seatingLayoutId);
 
+        void RemoveTable(Table table, int seatingLayoutId);
+
         Chair AddChair(Chair chair, int  tableId);
+
+        void RemoveChair(Chair chair, int tableId);
+
+        void UpdateTable(Table table);
+
+        void UpdateChair(Chair chair);
     }
 }

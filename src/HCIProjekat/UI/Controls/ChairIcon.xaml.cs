@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UI.Modals;
+using UI.ViewModels;
 
 namespace UI.Controls
 {
@@ -20,6 +22,8 @@ namespace UI.Controls
     /// </summary>
     public partial class ChairIcon : UserControl
     {
+        public OfferSeatingLayoutModal SeatingLayoutModal { get; set; }
+
         public ChairIcon()
         {
             InitializeComponent();
@@ -27,6 +31,10 @@ namespace UI.Controls
 
         private void ChairSelected(object sender, MouseButtonEventArgs e)
         {
+            SeatingLayoutModal.SelectedChair = this;
+            SeatingLayoutModal.SelectedTable = null;
+            SeatingLayoutModal.CurrentItem = null;
+
             var fe = sender as FrameworkElement;
             DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
         }

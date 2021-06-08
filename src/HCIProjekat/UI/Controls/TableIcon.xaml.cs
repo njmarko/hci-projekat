@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UI.Modals;
 
 namespace UI.Controls
 {
@@ -20,6 +21,8 @@ namespace UI.Controls
     /// </summary>
     public partial class TableIcon : UserControl
     {
+        public OfferSeatingLayoutModal SeatingLayoutModal { get; set; }
+
         public TableIcon()
         {
             InitializeComponent();
@@ -27,6 +30,10 @@ namespace UI.Controls
 
         private void TableSelected(object sender, MouseButtonEventArgs e)
         {
+            SeatingLayoutModal.SelectedChair = null;
+            SeatingLayoutModal.SelectedTable = this;
+            SeatingLayoutModal.CurrentItem = null;
+
             var fe = sender as FrameworkElement;
             DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
         }
