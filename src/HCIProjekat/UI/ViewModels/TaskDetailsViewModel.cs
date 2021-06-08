@@ -67,6 +67,7 @@ namespace UI.ViewModels
             set
             {
                 _task = value;
+                OnPropertyChanged(nameof(IsClient));
                 OnPropertyChanged(nameof(IsPendingAndIsClient));
                 OnPropertyChanged(nameof(Task));
             }
@@ -144,6 +145,7 @@ namespace UI.ViewModels
 
         public bool IsPendingAndIsClient => Task.TaskStatus == TaskStatus.SENT_TO_CLIENT && Context.Store.CurrentUser is Client;
 
+        public bool IsClient => Context.Store.CurrentUser is Client;
 
 
         public bool CanComment => !string.IsNullOrEmpty(CommentContent);

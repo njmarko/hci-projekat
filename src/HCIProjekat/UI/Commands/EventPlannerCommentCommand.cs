@@ -44,9 +44,6 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
-            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to send this comment?");
-            if (ok)
-            {
                 var comment = new Comment
                 {
                     Content = _plannerVm.CommentContent,
@@ -57,8 +54,6 @@ namespace UI.Commands
                 _plannerVm.LoadComments();
                 _plannerVm.CommentContent = "";
                 _plannerVm.CommentAdded = true;
-                _plannerVm.Context.Notifier.ShowInformation("Comment successfully sent.");
-            }
         }
     }
 }
