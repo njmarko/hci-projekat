@@ -45,6 +45,12 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public Client Get(int id)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            return context.Clients.Find(id);
+        }
+
         public Page<Client> GetClients(ClientsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -79,5 +85,14 @@ namespace Domain.Services
                           .ToPage(page);
         }
 
+        public Client Update(Client client)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.Clients.Update(client);
+            context.SaveChanges();
+
+            return client;
+        }
     }
 }

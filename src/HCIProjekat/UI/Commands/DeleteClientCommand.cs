@@ -39,6 +39,10 @@ namespace UI.Commands
         {
             if (_modalService.ShowConfirmationDialog($"Are you sure you want to delete client {_clientUsername}?"))
             {
+                // undo redo
+                var client = _clientService.Get(_clientId);
+                _adminClientsViewModel.AddItem(client);
+
                 _clientService.Delete(_clientId);
                 _adminClientsViewModel.UpdatePage(0);
                 _adminClientsViewModel.Context.Notifier.ShowInformation($"Client {_clientUsername} has been deleted successfully.");

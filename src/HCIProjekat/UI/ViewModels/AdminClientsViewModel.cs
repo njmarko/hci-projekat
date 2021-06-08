@@ -1,4 +1,5 @@
-﻿using Domain.Pagination.Requests;
+﻿using Domain.Entities;
+using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace UI.ViewModels
 
     }
 
-    public class AdminClientsViewModel : PagingViewModelBase
+    public class AdminClientsViewModel : UndoModelBase<Client>
     {
         private readonly IClientService _clientService;
 
@@ -75,7 +76,7 @@ namespace UI.ViewModels
         public ICommand Clear { get; private set; }
         public ObservableCollection<AdminClientCardModel> ClientModels { get; private set; } = new ObservableCollection<AdminClientCardModel>();
 
-        public AdminClientsViewModel(IApplicationContext context, IClientService clientService, IModalService modalService) : base(context)
+        public AdminClientsViewModel(IApplicationContext context, IClientService clientService, IModalService modalService) : base(context, clientService, modalService)
         {
             _clientService = clientService;
             Query = string.Empty;
