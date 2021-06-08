@@ -219,22 +219,23 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var offer = context.TaskOffers
-                               .Include(to => to.Offer)
-                               .ThenInclude(o => o.SeatingLayout)
-                               .Where(to => to.Offer.OfferType == ServiceType.LOCATION)
-                               .Where(to => to.OfferStatus == OfferStatus.ACCEPTED)
-                               .SingleOrDefault(to => to.Task.Request.Id == requestId);
-            if (offer == null)
-            {
-                return null;
-            }
+            //var offer = context.TaskOffers
+            //                   .Include(to => to.Offer)
+            //                   .ThenInclude(o => o.SeatingLayout)
+            //                   .Where(to => to.Offer.OfferType == ServiceType.LOCATION)
+            //                   .Where(to => to.OfferStatus == OfferStatus.ACCEPTED)
+            //                   .SingleOrDefault(to => to.Task.Request.Id == requestId);
+            //if (offer == null)
+            //{
+            //    return null;
+            //}
 
-            var layout = context.SeatingLayouts
-                                .Include(l => l.Tables)
-                                .ThenInclude(t => t.Chairs)
-                                .SingleOrDefault(l => l.Id == offer.Offer.SeatingLayout.Id);
-            return layout;
+            //var layout = context.SeatingLayouts
+            //                    .Include(l => l.Tables)
+            //                    .ThenInclude(t => t.Chairs)
+            //                    .SingleOrDefault(l => l.Id == offer.Offer.SeatingLayout.Id);
+            var request = context.Requests.Include(r => r.SeatingLayout).ThenInclude(l => l.Tables).ThenInclude(t => t.Chairs).SingleOrDefault(r => r.Id == requestId);
+            return request.SeatingLayout;
         }
 
         public Guest AddGuest(Guest guest, int requestId)
