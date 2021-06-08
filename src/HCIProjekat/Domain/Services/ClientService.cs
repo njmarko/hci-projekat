@@ -26,7 +26,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Users.FirstOrDefault(u => u.Username == client.Username) != null)
+            if (context.Users.FirstOrDefault(u => u.Username == client.Username && u.Active) != null)
             {
                 throw new UsernameAlreadyExistsException(client.Username);
             }

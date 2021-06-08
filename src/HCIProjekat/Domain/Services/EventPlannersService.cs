@@ -27,9 +27,9 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Users.FirstOrDefault(u => u.Username == eventPlanner.Username) != null)
+            if (context.Users.FirstOrDefault(u => u.Username == eventPlanner.Username && u.Active) != null)
             {
-                throw new PartnerAlreadyExistsException(eventPlanner.Username);
+                throw new UsernameAlreadyExistsException(eventPlanner.Username);
             }
 
             context.EventPlanners.Add(eventPlanner);
@@ -46,13 +46,19 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public EventPlanner Get(int id)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            return context.EventPlanners.Find(id);
+        }
+
         public List<Request> GetActiveRequests(int eventPlannerId)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
             return context.Requests
                           .Where(r => r.Active)
-                          .Where(r => r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId)    // TODO: Ubaci logiku za to da li je zahtev vec obradjen kad stavimo to u model
+                          .Where(r => r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId && r.Date > DateTime.Now)
                           .ToList();
         }
 
@@ -70,6 +76,16 @@ namespace Domain.Services
                           .Where(c => (c.AcceptedRequests.Count() > 0) || !page.HasActiveRequests)
                           .Include(c => c.AcceptedRequests)
                           .ToPage(page);
+        }
+
+        public EventPlanner Update(EventPlanner eventPlanner)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.EventPlanners.Update(eventPlanner);
+            context.SaveChanges();
+
+            return eventPlanner;
         }
     }
 }

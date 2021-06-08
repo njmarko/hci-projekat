@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IEventPlannersService
+    public interface IEventPlannersService : ICRUDService<EventPlanner>
     {
         Page<EventPlanner> GetEventPlanners(EventPlannersPage page);
 

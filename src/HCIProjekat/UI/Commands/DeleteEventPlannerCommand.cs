@@ -40,6 +40,10 @@ namespace UI.Commands
         {
             if (_modalService.ShowConfirmationDialog($"Are you sure you want to delete event planner {_eventPlannerUsername}?"))
             {
+                // undo redo
+                var eventPlanner = _eventPlannerService.Get(_eventPlannerId);
+                _adminEventPlannersViewModel.AddItem(eventPlanner);
+
                 _eventPlannerService.Delete(_eventPlannerId);
                 _adminEventPlannersViewModel.UpdatePage(0);
                 _adminEventPlannersViewModel.Context.Notifier.ShowInformation($"Event planner {_eventPlannerUsername} has been deleted successfully.");

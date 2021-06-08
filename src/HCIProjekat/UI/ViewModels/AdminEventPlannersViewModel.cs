@@ -1,4 +1,5 @@
-﻿using Domain.Pagination.Requests;
+﻿using Domain.Entities;
+using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace UI.ViewModels
 
     }
 
-    public class AdminEventPlannersViewModel : PagingViewModelBase
+    public class AdminEventPlannersViewModel : UndoModelBase<EventPlanner>
     {
         private readonly IEventPlannersService _eventPlannersService;
 
@@ -81,7 +82,7 @@ namespace UI.ViewModels
 
         public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
 
-        public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, IModalService modalService) : base(context)
+        public AdminEventPlannersViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, IModalService modalService) : base(context, eventPlannersService, modalService)
         {
             _eventPlannersService = eventPlannersService;
             Query = string.Empty;
@@ -98,7 +99,7 @@ namespace UI.ViewModels
 
         private void OpenRegisterEventPlannerModal()
         {
-            _modalService.ShowModal<AddEventPlannerModal>(new RegisterEventPlannerViewModel(Context, _eventPlannersService));
+            _modalService.ShowModal<AddEventPlannerModal>(new RegisterEventPlannerViewModel(Context, _eventPlannersService, this));
         }
 
         public void ClearFilters()
