@@ -46,13 +46,7 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
-            var ok = _modalService.ShowModal<CreateTaskModal>(new CreateTaskViewModel(_vm.Context, _taskService, _vm.CurrentRequest, _taskId));
-            if (ok)
-            {
-                _vm.FetchTasksForSelectedRequest();
-                var message = _taskId == -1 ? "New task has been created successfully." : $"Task has been updated successfully.";
-                _vm.Context.Notifier.ShowInformation(message);
-            }
+            _modalService.ShowModal<CreateTaskModal>(new CreateTaskViewModel(_vm, _vm.Context, _taskService, _vm.CurrentRequest, _taskId));
         }
     }
 }

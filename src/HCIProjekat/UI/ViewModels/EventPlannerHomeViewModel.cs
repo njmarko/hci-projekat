@@ -233,7 +233,7 @@ namespace UI.ViewModels
             }
         }
 
-        private TaskCardModel Map(Task task)
+        public TaskCardModel Map(Task task)
         {
             var taskModel = new TaskCardModel
             {

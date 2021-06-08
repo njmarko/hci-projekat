@@ -17,6 +17,7 @@ namespace UI.ViewModels
 {
     public class CreateTaskViewModel : ValidationModel<CreateTaskViewModel>
     {
+        private readonly EventPlannerHomeViewModel _vm;
         private readonly ITaskService _taskService;
         public Request Request { get; private set; }
 
@@ -56,11 +57,12 @@ namespace UI.ViewModels
 
         public ICommand CreateTask { get; private set; }
 
-        public CreateTaskViewModel(IApplicationContext context, ITaskService taskService, Request request, int taskId = -1) : base(context)
+        public CreateTaskViewModel(EventPlannerHomeViewModel vm, IApplicationContext context, ITaskService taskService, Request request, int taskId = -1) : base(context)
         {
+            _vm = vm;
             _taskService = taskService;
             Request = request;
-            CreateTask = new CreateTaskCommand(this, _taskService, taskId);
+            CreateTask = new CreateTaskCommand(this, _vm, _taskService, taskId);
 
             TaskTypeValue = new ServiceTypeModel { Name = "Location", Type = ServiceType.LOCATION };
             TaskTypeModels.Add(TaskTypeValue);
