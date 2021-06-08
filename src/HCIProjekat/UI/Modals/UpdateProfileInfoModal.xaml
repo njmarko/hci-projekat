@@ -31,7 +31,7 @@
                
                 
                 <!--First name-->
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
                          materialDesign:HintAssist.Hint="Enter first name" Name="FirstField"
                          Margin="10 15 10 0">
                     <TextBox.Text>
@@ -46,7 +46,7 @@
                            Margin="10 0 10 0" FontSize="10" />
                 
                 <!--Last name-->
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
                          materialDesign:HintAssist.Hint="Enter last name" Margin="10 15 10 0" 
                          Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
@@ -55,7 +55,7 @@
                            Margin="10 0 10 0" FontSize="10" />
                 
                <!--Username-->
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
                          materialDesign:HintAssist.Hint="Enter username" 
                          Margin="10 15 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 

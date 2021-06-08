@@ -27,7 +27,7 @@
             <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="{Binding Title}" Margin="0 10" />
             <Rectangle Margin="10 0" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
             <!--Request name-->
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Name="FirstField" materialDesign:HintAssist.Hint="Enter request name" Margin="10 15 10 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Name="FirstField" materialDesign:HintAssist.Hint="Enter request name" Margin="10 15 10 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
             <!--Request type-->
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding RequestTypeModels}" SelectedItem="{Binding RequestTypeValue}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Select request type" Margin="10 15" />
@@ -35,7 +35,7 @@
             <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter guest number" Margin="10 15 10 0" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding GuestNumberError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
             <!--Enter theme-->
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter theme" Margin="10 15 10 0" Text="{Binding Theme, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter theme" Margin="10 15 10 0" Text="{Binding Theme, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding ThemeError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
             <!--Budget-->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
@@ -48,7 +48,7 @@
             <DatePicker Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select date" IsTodayHighlighted="True" Margin="10 15 10 0" SelectedDate="{Binding RequestDate, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding RequestDateError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
             <!--Additional notes-->
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter additional notes" Margin="10 15 10 10" TextWrapping="Wrap" MaxHeight="100" VerticalScrollBarVisibility="Auto"/>
+            <TextBox MaxLength="150" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter additional notes" Margin="10 15 10 10" TextWrapping="Wrap" MaxHeight="100" VerticalScrollBarVisibility="Auto"/>
             <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding CreateRequest}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
                         AncestorType={x:Type Window}}}" Content="{Binding ButtonText}" Margin="10 30" Foreground="White" FocusManager.FocusedElement="{Binding ElementName=FirstField}"/>

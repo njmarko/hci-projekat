@@ -51,6 +51,7 @@
 
 
             <TextBox BorderThickness="1"
+                     MaxLength="150"
                     Height="100"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"
