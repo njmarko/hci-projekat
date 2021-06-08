@@ -24,5 +24,11 @@ namespace UI.Controls
         {
             InitializeComponent();
         }
+
+        private void ChairSelected(object sender, MouseButtonEventArgs e)
+        {
+            var fe = sender as FrameworkElement;
+            DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
+        }
     }
 }
