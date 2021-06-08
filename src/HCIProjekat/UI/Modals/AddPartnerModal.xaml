@@ -20,7 +20,7 @@
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </Window.Resources>
     <Window.InputBindings>
-        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="add-partner"></KeyBinding>
+        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="{Binding Help}"></KeyBinding>
     </Window.InputBindings>
     <Grid >
         <materialDesign:Card Height="auto" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Padding="5">

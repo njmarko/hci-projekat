@@ -75,7 +75,7 @@ namespace UI.ViewModels
             set { _streetNumber = value; OnPropertyChanged(nameof(StreetNumber)); OnPropertyChanged(nameof(CanRegister)); }
         }
 
-
+        public string Help { get; set; } = "add-partner";
 
         // Error message view models
         public ErrorMessageViewModel NameError { get; private set; } = new ErrorMessageViewModel();
@@ -97,7 +97,7 @@ namespace UI.ViewModels
 
         public string HeadlineText
         {
-            get { return (_partnerId != -1) ? "Edit partner" : "Register partner"; }
+            get { return (_partnerId != -1) ? "Edit partner" : "Add partner"; }
 
         }
         public string ButtonText
@@ -130,6 +130,7 @@ namespace UI.ViewModels
                 City = partner.Location.City;
                 Street = partner.Location.Street;
                 StreetNumber = partner.Location.StreetNumber;
+                Help = "edit-partner";
 
             }
         }
