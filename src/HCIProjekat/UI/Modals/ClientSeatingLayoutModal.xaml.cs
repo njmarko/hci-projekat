@@ -24,5 +24,11 @@ namespace UI.Modals
         {
             InitializeComponent();
         }
+
+        private void OnCanvasResized(object sender, SizeChangedEventArgs e)
+        {
+            _mainContainter.Width = e.NewSize.Width;
+            _mainContainter.Height = e.NewSize.Height;
+        }
     }
 }

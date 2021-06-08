@@ -16,6 +16,50 @@
         mc:Ignorable="d"
         Title="ClientSeatingLayoutModal" Height="450" Width="800">
     <Grid>
-        <Label>OVO JE MODAL ZA KLIJENTA DA MENJA SEATING LAYOUT!!!</Label>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" MinWidth="160">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <!--Search box-->
+            <TextBox Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search guests" />
+            <!--List view-->
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                <ListView Grid.Row="1" Style="{DynamicResource MaterialDesignCardsListBox}">
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                </ListView>
+            </ScrollViewer>
+            <!--Add guest-->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter guest name" />
+                <Button Grid.Column="1" Width="40" Height="40" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White">
+                    <materialDesign:PackIcon Kind="PeopleAdd" />
+                </Button>
+            </Grid>
+        </Grid>
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+            <Canvas Grid.Column="1" AllowDrop="True" SizeChanged="OnCanvasResized" x:Name="_mainCanvas">
+                <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
+            </Canvas>
+        </Border>
     </Grid>
 </Window>
