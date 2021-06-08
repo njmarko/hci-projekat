@@ -76,14 +76,14 @@ namespace UI.Commands
                 Type = (Domain.Enums.PartnerType)_registerVm.PartnerTypeValue.Type,
                 Location = new Location { City = _registerVm.City, Country = _registerVm.Country, Street = _registerVm.Street, StreetNumber = _registerVm.StreetNumber }
             });
-            _context.Notifier.ShowSuccess($"Partner {registerPartner.Name} sucessfuly added.");
+            _context.Notifier.ShowInformation($"Partner {registerPartner.Name} sucessfuly added.");
             _router.Push("AdminPartners");
         }
 
         private void Update()
         {
             var updatedPartner = _partnerService.Update(_partnerId, _registerVm.Name, _registerVm.PartnerTypeValue.Type.Value, _registerVm.Country, _registerVm.City, _registerVm.Street, _registerVm.StreetNumber);
-            _context.Notifier.ShowSuccess($"Partner {updatedPartner.Name} information sucessfuly updated.");
+            _context.Notifier.ShowInformation($"Partner {updatedPartner.Name} information sucessfuly updated.");
             _router.Push("AdminPartners");
         }
     }

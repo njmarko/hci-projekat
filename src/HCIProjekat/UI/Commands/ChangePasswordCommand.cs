@@ -48,7 +48,7 @@ namespace UI.Commands
                 _changePasswordVM.OldPassword = "";
                 _changePasswordVM.NewPassword = "";
                 _changePasswordVM.ConfirmPassword = "";
-                _changePasswordVM.Context.Notifier.ShowSuccess("Password successfully changed.");
+                _changePasswordVM.Context.Notifier.ShowInformation("Password successfully changed.");
                 ((Window)parameter).Close(); 
 
 
