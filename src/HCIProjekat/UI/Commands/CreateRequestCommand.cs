@@ -78,7 +78,7 @@ namespace UI.Commands
             var created = _requestService.Create(clientId, request);
             created.Active = false;
             _clientRequestsVm.AddItem(created);
-            _context.Notifier.ShowSuccess($"Request '{request.Name}' has been created.");
+            _context.Notifier.ShowInformation($"Request '{request.Name}' has been created.");
             window.DialogResult = true;
             window.Close();
         }

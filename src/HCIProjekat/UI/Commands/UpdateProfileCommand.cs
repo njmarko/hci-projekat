@@ -54,7 +54,7 @@ namespace UI.Commands
                 _updateProfileVm.FirstName = user.FirstName;
                 _updateProfileVm.LastName = user.LastName;
                 _updateProfileVm.DateOfBirth = user.DateOfBirth;
-                _updateProfileVm.Context.Notifier.ShowSuccess("Profile info successfully updated.");
+                _updateProfileVm.Context.Notifier.ShowInformation("Profile info successfully updated.");
                 ((Window)parameter).Close();
 
 
