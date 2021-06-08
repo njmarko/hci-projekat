@@ -79,6 +79,20 @@ namespace UI.ViewModels
             set { _searchQuery = value; OnPropertyChanged(nameof(SearchQuery)); }
         }
 
+        private bool _allowToDoDrop;
+        public bool AllowToDoDrop
+        {
+            get { return _allowToDoDrop; }
+            set { _allowToDoDrop = value; OnPropertyChanged(nameof(AllowToDoDrop)); }
+        }
+
+        private bool _allowInProgressDrop;
+        public bool AllowInProgressDrop
+        {
+            get { return _allowInProgressDrop; }
+            set { _allowInProgressDrop = value; OnPropertyChanged(nameof(AllowInProgressDrop)); }
+        }
+
         public ICommand Search { get; private set; }
         public ICommand ShowCreateTaskModal { get; private set; }
 
@@ -104,6 +118,9 @@ namespace UI.ViewModels
                 [TaskStatus.ACCEPTED] = Accepted,
                 [TaskStatus.REJECTED] = Rejected,
             };
+
+            AllowToDoDrop = false;
+            AllowInProgressDrop = false;
         }
 
         public void UpdateTaskStatus(int taskId, TaskStatus taskStatus)
