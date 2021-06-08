@@ -209,6 +209,7 @@ namespace Domain.Services
             req.Theme = request.Theme;
             req.Notes = request.Notes;
             req.Type = request.Type;
+            req.Active = request.Active;
             context.Requests.Update(req);
 
             context.SaveChanges();
