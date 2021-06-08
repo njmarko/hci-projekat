@@ -93,6 +93,7 @@ namespace UI.ViewModels
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
+            HelpPage = "admin-event-planners";
         }
 
         private void OpenRegisterEventPlannerModal()

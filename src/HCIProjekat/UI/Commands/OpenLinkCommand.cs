@@ -26,6 +26,7 @@ namespace UI.Commands
         public OpenLinkCommand()
         {
             Host = "https://hci-help.herokuapp.com/#";
+           //Host = "http://localhost:8080/#";
         }
 
         public bool CanExecute(object parameter)
