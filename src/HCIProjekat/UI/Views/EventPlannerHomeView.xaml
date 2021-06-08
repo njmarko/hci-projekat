@@ -13,7 +13,7 @@
              TextOptions.TextRenderingMode="Auto"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -29,7 +29,7 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Row="0" Grid.Column="0" Margin="10 10 5 10" ItemsSource="{Binding ActiveRequests}" SelectedItem="{Binding CurrentRequest}" DisplayMemberPath="Name" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Select request" />
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="5 10 5 10" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search tasks" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5 10 5 10" Name="FirstField" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search tasks" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.Row="0" Grid.Column="2" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
             <Button Grid.Row="0" Grid.Column="3" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add task" Command="{Binding ShowCreateTaskModal}" />
         </Grid>
