@@ -51,6 +51,7 @@ namespace UI.ViewModels
         private readonly ITaskService _taskService;
         private readonly IModalService _modalService;
         private readonly IDictionary<TaskStatus, ObservableCollection<TaskCardModel>> _taskCollections;
+        private readonly IDictionary<TaskStatus, string> _taskStatusMessages;
         public ObservableCollection<Request> ActiveRequests { get; private set; }
         public ObservableCollection<TaskCardModel> ToDo { get; private set; } = new ObservableCollection<TaskCardModel>(); 
         public ObservableCollection<TaskCardModel> InProgress { get; private set; } = new ObservableCollection<TaskCardModel>(); 
@@ -93,6 +94,25 @@ namespace UI.ViewModels
             set { _allowInProgressDrop = value; OnPropertyChanged(nameof(AllowInProgressDrop)); }
         }
 
+        private bool _toDoAdded = false;
+        public bool ToDoAdded
+        {
+            get { return _toDoAdded; }
+            set { _toDoAdded = value; OnPropertyChanged(nameof(ToDoAdded)); }
+        }
+        private bool _inProgressAdded = false;
+        public bool InProgressAdded
+        {
+            get { return _inProgressAdded; }
+            set { _inProgressAdded = value; OnPropertyChanged(nameof(InProgressAdded)); }
+        }
+        private bool _sentToClientAdded = false;
+        public bool SentToClientAdded
+        {
+            get { return _sentToClientAdded; }
+            set { _sentToClientAdded = value; OnPropertyChanged(nameof(SentToClientAdded)); }
+        }
+
         public ICommand Search { get; private set; }
         public ICommand ShowCreateTaskModal { get; private set; }
 
@@ -119,6 +139,15 @@ namespace UI.ViewModels
                 [TaskStatus.REJECTED] = Rejected,
             };
 
+            _taskStatusMessages = new Dictionary<TaskStatus, string>()
+            {
+                [TaskStatus.TO_DO] = "To do",
+                [TaskStatus.IN_PROGRESS] = "In progress",
+                [TaskStatus.SENT_TO_CLIENT] = "Sent to client",
+                [TaskStatus.ACCEPTED] = "Accepted",
+                [TaskStatus.REJECTED] = "Rejected",
+            };
+
             AllowToDoDrop = false;
             AllowInProgressDrop = false;
         }
@@ -134,7 +163,25 @@ namespace UI.ViewModels
             task.TaskStatus = taskStatus;
             _taskService.Update(task);
             MoveTask(taskId, fromStatus, taskStatus);
-            Context.Notifier.ShowInformation($"Task {taskId}'s status has been updated to {taskStatus}.");
+            SetScrollerEnd(taskStatus, true);
+            Context.Notifier.ShowInformation($"Task {task.Name}'s status has been updated to {_taskStatusMessages[taskStatus]}.");
+            SetScrollerEnd(taskStatus, false);
+        }
+
+        private void SetScrollerEnd(TaskStatus taskStatus, bool value)
+        {
+            if (taskStatus == TaskStatus.TO_DO)
+            {
+                ToDoAdded = value;
+            }
+            if (taskStatus == TaskStatus.IN_PROGRESS)
+            {
+                InProgressAdded = value;
+            }
+            if (taskStatus == TaskStatus.SENT_TO_CLIENT)
+            {
+                SentToClientAdded = value;
+            }
         }
 
         public void ShowCreateTask(int taskId = -1)
@@ -153,6 +200,9 @@ namespace UI.ViewModels
             if (_currentRequest != null)
             {
                 ClearCollections();
+                ToDoAdded = false;
+                InProgressAdded = false;
+                SentToClientAdded = false;
                 var tasks = _taskService.GetTasksForRequest(_currentRequest.Id, SearchQuery);
                 foreach (var task in tasks)
                 {

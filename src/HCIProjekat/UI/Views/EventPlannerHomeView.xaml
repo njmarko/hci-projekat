@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:UI.Controls"
+             xmlns:util="clr-namespace:UI.Util"
              xmlns:local="clr-namespace:UI.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -62,7 +63,7 @@
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">Client accepted</TextBlock>
             </Border>
             <!--To do tasks-->
-            <ScrollViewer Grid.Row="1" Grid.Column="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="{Binding AllowToDoDrop}" Drop="OnToDoTaskDrop">
+            <ScrollViewer util:ScrollToTheEnd.AutoScroll="{Binding ToDoAdded}" Grid.Row="1" Grid.Column="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="{Binding AllowToDoDrop}" Drop="OnToDoTaskDrop">
                 <ItemsControl ItemsSource="{Binding ToDo}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -77,7 +78,7 @@
                 </ItemsControl>
             </ScrollViewer>
             <!--In progress tasks-->
-            <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="{Binding AllowInProgressDrop}" Drop="OnInProgressTaskDrop">
+            <ScrollViewer util:ScrollToTheEnd.AutoScroll="{Binding InProgressAdded}" Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="{Binding AllowInProgressDrop}" Drop="OnInProgressTaskDrop">
                 <ItemsControl ItemsSource="{Binding InProgress}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -92,7 +93,7 @@
                 </ItemsControl>
             </ScrollViewer>
             <!--Sent to client tasks-->
-            <ScrollViewer Grid.Row="1" Grid.Column="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="True" Drop="OnSentToClientTaskDrop">
+            <ScrollViewer util:ScrollToTheEnd.AutoScroll="{Binding SentToClientAdded}" Grid.Row="1" Grid.Column="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="True" Drop="OnSentToClientTaskDrop">
                 <ItemsControl ItemsSource="{Binding SentToClient}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
