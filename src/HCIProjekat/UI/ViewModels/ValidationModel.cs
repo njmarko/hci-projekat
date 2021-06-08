@@ -45,7 +45,7 @@ namespace UI.ViewModels
 
         protected void ResetDirtyValues()
         {
-            foreach(var key in _dirtyValues.Keys)
+            foreach (var key in _dirtyValues.Keys)
             {
                 _dirtyValues[key] = false;
             }
