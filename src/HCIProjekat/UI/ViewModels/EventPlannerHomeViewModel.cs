@@ -156,11 +156,11 @@ namespace UI.ViewModels
 
         public void UpdateTaskStatus(int taskId, TaskStatus taskStatus)
         {
-            if ((taskStatus == TaskStatus.SENT_TO_CLIENT) && !_modalService.ShowConfirmationDialog($"Are you sure you want to send task {taskId} to the client for a review?"))
+            var task = _taskService.Get(taskId);
+            if ((taskStatus == TaskStatus.SENT_TO_CLIENT) && !_modalService.ShowConfirmationDialog($"Are you sure you want to send task {task.Name} to the client for a review?"))
             {
                 return;
             }
-            var task = _taskService.Get(taskId);
             AddItem(task);
             var fromStatus = task.TaskStatus;
             task.TaskStatus = taskStatus;
