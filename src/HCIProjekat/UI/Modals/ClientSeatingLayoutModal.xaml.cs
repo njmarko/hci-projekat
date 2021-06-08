@@ -28,6 +28,7 @@ namespace UI.Modals
         private readonly double CHAIR_DISTANCE_THRESHOLD = 50;
 
         private GuestModel _currentGuest;
+        private GuestIcon _currentGuestIcon;
         private ClientSeatingLayoutViewModel _vm;
 
         public ClientSeatingLayoutModal()
@@ -95,10 +96,18 @@ namespace UI.Modals
             var closestChair = _vm.ClosestChair(position.X, position.Y);
             var guestModel = _vm.DropGuest(_currentGuest.Id, position.X, position.Y);
             var guest = new GuestIcon { Width = 25, Height = 25, AllowDrop = false, ToolTip = $"{_currentGuest.Name}", DataContext = guestModel };
+            guest.PreviewMouseDown += Guest_PreviewMouseDown;
             Canvas.SetLeft(guest, closestChair.X - 12.5);
             Canvas.SetTop(guest, closestChair.Y - 12.5);
             _mainCanvas.Children.Add(guest);
             _currentGuest = null;
+        }
+
+        private void Guest_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _currentGuestIcon = sender as GuestIcon;
+            var name = (_currentGuestIcon.DataContext as GuestModel).Name;
+            DragDrop.DoDragDrop(_currentGuestIcon, name, DragDropEffects.Copy);
         }
 
         private void OnGuestDrag(object sender, DragEventArgs e)
@@ -116,6 +125,28 @@ namespace UI.Modals
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;
             }
+        }
+
+        private void OnItemDragList(object sender, DragEventArgs e)
+        {
+            if (_currentGuestIcon == null)
+            {
+                // TODO: Ubaci proveru ako je fajl
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void OnListItemDrop(object sender, DragEventArgs e)
+        {
+            if (_currentGuestIcon == null)
+            {
+                return;
+            }
+            _mainCanvas.Children.Remove(_currentGuestIcon);
+            _vm.FreeChair((_currentGuestIcon.DataContext as GuestModel).Id);
+            _currentGuestIcon = null;
         }
     }
 }

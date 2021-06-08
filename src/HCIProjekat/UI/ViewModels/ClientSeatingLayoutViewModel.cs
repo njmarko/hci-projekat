@@ -101,6 +101,14 @@ namespace UI.ViewModels
             return Map(guest);
         }
 
+        public void FreeChair(int guestId)
+        {
+            var guest = _request.Guests.SingleOrDefault(g => g.Id == guestId);
+            guest.ChairId = 0;
+            _requestService.SetGuestChair(guestId, 0);
+            UpdateGuestSearch();
+        }
+
         public double Distance(ILayoutItem chair, double x, double y)
         {
             double xDiff = chair.X - x;
