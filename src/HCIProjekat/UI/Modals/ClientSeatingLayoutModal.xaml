@@ -28,7 +28,7 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <!--Search box-->
-            <TextBox Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search guests" />
+            <TextBox Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search guests" Text="{Binding GuestSearch, UpdateSourceTrigger=PropertyChanged}" />
             <!--Number of added guests-->
             <TextBlock Grid.Row="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding GuestNumberText}" />
             <!--List view-->

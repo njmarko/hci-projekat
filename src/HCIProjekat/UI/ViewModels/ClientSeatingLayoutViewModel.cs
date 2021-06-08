@@ -28,6 +28,12 @@ namespace UI.ViewModels
 
         private readonly Request _request;
 
+        private string _guestSearch = "";
+        public string GuestSearch
+        {
+            get { return _guestSearch; }
+            set { _guestSearch = value; OnPropertyChanged(nameof(GuestSearch)); UpdateGuestSearch(); }
+        }
         private string _guestName = "";
         public string GuestName
         {
@@ -45,7 +51,7 @@ namespace UI.ViewModels
         public bool CanAddGuest => !string.IsNullOrEmpty(GuestName) && GuestCount != _request.GuestNumber;
 
         public SeatingLayout SeatingLayout { get; private set; }
-        public ObservableCollection<GuestModel> Guests { get; private set; }
+        public ObservableCollection<GuestModel> Guests { get; private set; } = new ObservableCollection<GuestModel>();
 
         public ICommand AddGuest { get; private set; }
 
@@ -57,8 +63,27 @@ namespace UI.ViewModels
             _request = _requestService.GetWithGuests(_requestId);
             SeatingLayout = _requestService.GetSeatingLayout(_requestId);
 
-            Guests = new ObservableCollection<GuestModel>(_request.Guests.Select(g => Map(g)));
             AddGuest = new AddGuestCommand(this, _requestService, _requestId);
+            UpdateGuestSearch();
+        }
+
+        public void UpdateGuestSearch()
+        {
+            Guests.Clear();
+            foreach (var guest in _request.Guests.Where(g => g.Name.ToLower().Contains(GuestSearch.ToLower())).Select(g => Map(g)))
+            {
+                Guests.Add(guest);
+            }
+        }
+
+        public void InsertGuest(Guest guest)
+        {
+            _request.Guests.Add(guest);
+        }
+
+        public void RemoveGuest(int guestId)
+        {
+            _request.Guests.Remove(_request.Guests.SingleOrDefault(g => g.Id == guestId));
         }
 
         public GuestModel Map(Guest guest)
