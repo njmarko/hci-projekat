@@ -99,29 +99,70 @@ namespace Domain.Services
 
         public void AcceptTaskOffer(int taskId, int taskOfferId)
         {
-            using var context = _dbContextFactory.CreateDbContext();
-            var task = context.Tasks
-                              .Include(t => t.Offers)
-                              .Include(t => t.Request)
-                              .ThenInclude(r => r.EventPlanner)
-                              .SingleOrDefault(t => t.Id == taskId);
-
-            var offers = task.Offers;
-
-            foreach (var offer in offers)
+            var offerId = 0;
+            using (var context = _dbContextFactory.CreateDbContext())
             {
-                if (offer.Id == taskOfferId)
-                    offer.OfferStatus = OfferStatus.ACCEPTED;
-                else
-                    offer.OfferStatus = OfferStatus.REJECTED;
+                var task = context.Tasks
+                                  .Include(t => t.Offers)
+                                  .ThenInclude(to => to.Offer)
+                                  .Include(t => t.Request)
+                                  .ThenInclude(r => r.EventPlanner)
+                                  .SingleOrDefault(t => t.Id == taskId);
+
+                foreach (var offer in task.Offers)
+                {
+                    if (offer.Id == taskOfferId)
+                    {
+                        offer.OfferStatus = OfferStatus.ACCEPTED;
+                        offerId = offer.Offer.Id;
+                    }
+                    else
+                    {
+                        offer.OfferStatus = OfferStatus.REJECTED;
+                    }
+                }
+                task.TaskStatus = TaskStatus.ACCEPTED;
+
+                // Notify event planner that his task got accepted by the client
+                var notification = new Notification { Message = "Your task has been accepted.", TaskId = taskId, UserId = task.Request.EventPlanner.Id };
+                _notificationService.Push(notification);
+
+                context.SaveChanges();
             }
-            task.TaskStatus = TaskStatus.ACCEPTED;
 
-            // Notify event planner that his task got accepted by the client
-            var notification = new Notification { Message = "Your task has been accepted.", TaskId = taskId, UserId = task.Request.EventPlanner.Id };
-            _notificationService.Push(notification);
 
-            context.SaveChanges();
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                var task = context.Tasks
+                                  .Include(t => t.Request)
+                                  .ThenInclude(r => r.SeatingLayout)
+                                  .SingleOrDefault(t => t.Id == taskId);
+
+                if (task.TaskType == ServiceType.LOCATION)
+                {
+                    var layout = context.SeatingLayouts
+                                        .Include(l => l.Tables)
+                                        .ThenInclude(t => t.Chairs)
+                                        .SingleOrDefault(l => l.OfferId == offerId);
+                                        
+                    var request = task.Request;
+                    layout = layout.Clone();
+                    layout.Id = 0;
+                    layout.OfferId = 0;
+                    layout.Offer = null;
+                    foreach (var table in layout.Tables)
+                    {
+                        table.Id = 0;
+                        foreach (var chair in table.Chairs)
+                        {
+                            chair.Id = 0;
+                        }
+                    }
+                    request.SeatingLayout = layout;
+                    context.SeatingLayouts.Add(layout);
+                }
+                context.SaveChanges();
+            }
         }
         public void RejectAllTaskOffers(int taskId)
         {

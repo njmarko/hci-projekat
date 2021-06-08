@@ -95,6 +95,15 @@ namespace Domain.Services
                           .ToPage(page);
         }
 
+        public Request GetWithGuests(int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Requests
+                          .Include(r => r.Guests)
+                          .SingleOrDefault(r => r.Id == requestId);
+        }
+
         public int GetRequestCost(int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -151,6 +160,15 @@ namespace Domain.Services
             return requests.Include(r => r.EventPlanner).ToPage(page);
         }
 
+        public bool IsLocationAccepted(int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var task = context.Tasks
+                              .FirstOrDefault(t => t.Request.Id == requestId && t.TaskType == ServiceType.LOCATION && t.TaskStatus == TaskStatus.ACCEPTED);
+            return task != null;
+        }
+
         public Request Reject(int requestId, int eventPlannerId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -195,6 +213,61 @@ namespace Domain.Services
 
             context.SaveChanges();
             return request;
+        }
+
+        public SeatingLayout GetSeatingLayout(int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            //var offer = context.TaskOffers
+            //                   .Include(to => to.Offer)
+            //                   .ThenInclude(o => o.SeatingLayout)
+            //                   .Where(to => to.Offer.OfferType == ServiceType.LOCATION)
+            //                   .Where(to => to.OfferStatus == OfferStatus.ACCEPTED)
+            //                   .SingleOrDefault(to => to.Task.Request.Id == requestId);
+            //if (offer == null)
+            //{
+            //    return null;
+            //}
+
+            //var layout = context.SeatingLayouts
+            //                    .Include(l => l.Tables)
+            //                    .ThenInclude(t => t.Chairs)
+            //                    .SingleOrDefault(l => l.Id == offer.Offer.SeatingLayout.Id);
+            var request = context.Requests.Include(r => r.SeatingLayout).ThenInclude(l => l.Tables).ThenInclude(t => t.Chairs).SingleOrDefault(r => r.Id == requestId);
+            return request.SeatingLayout;
+        }
+
+        public Guest AddGuest(Guest guest, int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Requests.Include(r => r.Guests).SingleOrDefault(r => r.Id == requestId);
+            request.Guests.Add(guest);
+            context.SaveChanges();
+
+            return guest;
+        }
+
+        public void RemoveGuest(int requestId, int guestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Requests.Include(r => r.Guests).SingleOrDefault(r => r.Id == requestId);
+            var guest = context.Guests.Find(guestId);
+            request.Guests.Remove(guest);
+            context.SaveChanges();
+        }
+
+        public Guest SetGuestChair(int guestId, int chairId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var guest = context.Guests.Find(guestId);
+            guest.ChairId = chairId;
+            context.SaveChanges();
+
+            return guest;
         }
     }
 }

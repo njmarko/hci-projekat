@@ -28,6 +28,7 @@ namespace Infrastructure.Persistence
         public DbSet<SeatingLayout> SeatingLayouts { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Chair> Chairs { get; set; }
+        public DbSet<Guest> Guests { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

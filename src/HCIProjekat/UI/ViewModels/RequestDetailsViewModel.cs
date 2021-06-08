@@ -10,6 +10,8 @@ using System.Text;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Modals;
+using UI.Services.Interfaces;
 using UI.ViewModels.CardViewModels;
 
 namespace UI.ViewModels
@@ -32,6 +34,7 @@ namespace UI.ViewModels
     {
         private readonly IRequestService _requestService;
         private readonly ITaskService _taskService;
+        private readonly IModalService _modalService;
         private readonly TaskTypeModel _typeInitial;
         private readonly TaskStatusModel _statusInitial;
 
@@ -101,12 +104,18 @@ namespace UI.ViewModels
             }
         }
 
+        private bool _canEditSeatingLayout;
+        public bool CanEditSeatingLayout
+        {
+            get { return _canEditSeatingLayout; }
+            set { _canEditSeatingLayout = value; OnPropertyChanged(nameof(CanEditSeatingLayout)); }
+        }
         public string TaskDetailsRoute { get; set; }
-
         public string BackRoute { get; private set; }
 
         public ObservableCollection<ClientTaskCardModel> TaskModels { get; private set; } = new ObservableCollection<ClientTaskCardModel>();
         public ICommand Search { get; private set; }
+        public ICommand ShowSeatingModal { get; private set; }
         public ObservableCollection<TaskTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<TaskTypeModel>();
         public ObservableCollection<TaskStatusModel> TaskStatusModels { get; private set; } = new ObservableCollection<TaskStatusModel>();
 
@@ -114,19 +123,21 @@ namespace UI.ViewModels
         {
             Request = _requestService.Get(RequestId);
             CurrentCost = _requestService.GetRequestCost(RequestId);
+            CanEditSeatingLayout = _requestService.IsLocationAccepted(RequestId);
             UpdatePage(0);
             HelpPage = "request-details";
         }
 
-        public RequestDetailsViewModel(IApplicationContext context, IRequestService requestService, ITaskService taskService) : base(context)
+        public RequestDetailsViewModel(IApplicationContext context, IRequestService requestService, ITaskService taskService, IModalService modalService) : base(context)
         {
             Search = new DelegateCommand(() => UpdatePage(0));
-            Rows = 2;
+            ShowSeatingModal = new DelegateCommand(ShowClientSeatingLayoutModal);
+            Rows = 1;
             Columns = 4;
             Query = "";
             _requestService = requestService;
             _taskService = taskService;
-            //_request = _requestService.GetRequest(1);
+            _modalService = modalService;
             
             _typeInitial = new TaskTypeModel { Name = "All types" };
             _taskType = _typeInitial;
@@ -162,6 +173,14 @@ namespace UI.ViewModels
                 TaskDetailsRoute = "TaskDetails";
             }
             //UpdatePage(0);
+        }
+
+        private void ShowClientSeatingLayoutModal()
+        {
+            if (_modalService.ShowModal<ClientSeatingLayoutModal>(new ClientSeatingLayoutViewModel(Context, _requestService, RequestId)))
+            {
+
+            }
         }
 
         public override void UpdatePage(int pageNumber)
