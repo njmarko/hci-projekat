@@ -8,8 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ToastNotifications.Messages;
 using UI.Commands;
 using UI.Context;
+using UI.Context.Routers;
 using UI.Modals;
 using UI.Services.Interfaces;
 
@@ -28,6 +30,9 @@ namespace UI.ViewModels
         public IApplicationContext Context { get; set; }
 
         public ICommand Delete { get; set; }
+
+        public ICommand Edit { get; set; }
+
     }
 
 
@@ -38,6 +43,8 @@ namespace UI.ViewModels
         private readonly IModalService _modalService;
 
         private readonly PartnerTypeModel _typeInitial;
+
+        private readonly IRouter _router;
 
         private string _query;
         public string Query
@@ -65,9 +72,10 @@ namespace UI.ViewModels
 
         public ObservableCollection<PartnerTypeModel> PartnerTypeModels { get; private set; } = new ObservableCollection<PartnerTypeModel>();
 
-        public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService, IModalService modalService) : base(context)
+        public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService, IModalService modalService, IRouter router) : base(context)
         {
             _partnersService = partnersService;
+            _router = router;
             Query = string.Empty;
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
@@ -103,6 +111,11 @@ namespace UI.ViewModels
             _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService));
         }
 
+        public void ShowEditPartner(int partnerId = -1)
+        {
+            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, partnerId));
+        }
+
         public override void UpdatePage(int pageNumber)
         {
             PartnerModels.Clear();
@@ -119,6 +132,8 @@ namespace UI.ViewModels
                     Context = Context
                 };
                 partnerModel.Delete = new DeletePartnerCommand(this, entity.Id, entity.Name, _modalService, _partnersService);
+                //partnerModel.Edit = new RegisterPartnerCommand(new RegisterPartnerViewModel(Context, _partnersService, entity.Id), _partnersService, _router, Context, entity.Id);
+                partnerModel.Edit = new DelegateCommand(() => ShowEditPartner(entity.Id));
                 PartnerModels.Add(partnerModel);
             }
             OnPageFetched(page);

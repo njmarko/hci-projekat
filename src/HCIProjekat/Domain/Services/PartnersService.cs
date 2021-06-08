@@ -47,6 +47,15 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public Partner GetPartner(int partnerId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Partners
+                          .Where(p => p.Id == partnerId)
+                          .First();
+        }
+
         public Page<Partner> GetPartners(PartnersPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -66,6 +75,12 @@ namespace Domain.Services
         public Partner Update(int partnerId, string name, PartnerType partnerType, string country, string city, string street, string streetNumber)
         {
             using var context = _dbContextFactory.CreateDbContext();
+
+            if (context.Partners.FirstOrDefault(u => u.Name == name) != null)
+            {
+                throw new PartnerAlreadyExistsException(name);
+            }
+
             var partner = context.Partners.Find(partnerId);
             partner.Name = name;
             partner.Type = partnerType;

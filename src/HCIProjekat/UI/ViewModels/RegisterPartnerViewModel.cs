@@ -90,10 +90,27 @@ namespace UI.ViewModels
         public bool CanRegister => IsValid();
         public ICommand RegisterPartnerCommand { get; private set; }
 
-        public RegisterPartnerViewModel(IApplicationContext context, IPartnersService partnerService) : base(context)
+
+
+        private int _partnerId;
+
+
+        public string HeadlineText
+        {
+            get { return (_partnerId != -1) ? "Edit partner" : "Register partner"; }
+
+        }
+        public string ButtonText
+        {
+            get { return (_partnerId != -1) ? "Save" : "Register"; }
+        }
+
+        public RegisterPartnerViewModel(IApplicationContext context, IPartnersService partnerService, int partnerId = -1) : base(context)
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router, context);
+            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router, context, partnerId);
+
+            _partnerId = partnerId;
 
             PartnerTypeModels.Add(_typeInitial);
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.ANIMATOR, Name = "Animator" });
@@ -103,6 +120,18 @@ namespace UI.ViewModels
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.MUSIC, Name = "Music" });
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.PHOTOGRAPHY, Name = "Photography" });
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.RESTAURANT, Name = "Restaurant" });
+
+            if (partnerId != -1)
+            {
+                var partner = partnerService.GetPartner(partnerId);
+                Name = partner.Name;
+                PartnerTypeValue = PartnerTypeModels.First(t => t?.Type != null && t?.Type == partner?.Type);
+                Country = partner.Location.Country;
+                City = partner.Location.City;
+                Street = partner.Location.Street;
+                StreetNumber = partner.Location.StreetNumber;
+
+            }
         }
 
         public bool IsValid()

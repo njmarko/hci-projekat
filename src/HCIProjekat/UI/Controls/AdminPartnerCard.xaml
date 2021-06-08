@@ -30,6 +30,9 @@
                     <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete partner" Command="{Binding Delete}">
                         <materialDesign:PackIcon Kind="Delete" />
                     </Button>
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Edit partner" Command="{Binding Edit}">
+                        <materialDesign:PackIcon Kind="Edit" />
+                    </Button>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>

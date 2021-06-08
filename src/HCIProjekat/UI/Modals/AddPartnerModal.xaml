@@ -25,7 +25,7 @@
     <Grid >
         <materialDesign:Card Height="auto" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Padding="5">
             <StackPanel>
-                <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Add partner" Margin="0 10" />
+                <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="{Binding HeadlineText}" Margin="0 10" />
                 <!--Name-->
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter name" Margin="10 15 10 0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
@@ -44,7 +44,10 @@
                 <!--Street Number-->
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Street number" Margin="10 15 10 0" Text="{Binding StreetNumber, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding StreetNumberError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
-                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Register" Margin="10 25 10 15" Foreground="White" Command="{Binding RegisterPartnerCommand}" />
+                
+                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding RegisterPartnerCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}" Content="{Binding ButtonText}" Margin="10 15" Foreground="White" />
             </StackPanel>
         </materialDesign:Card>
     </Grid>

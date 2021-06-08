@@ -19,6 +19,8 @@ namespace Domain.Services.Interfaces
         public void Delete(int partnerId);
 
         Partner Update(int partnerId, string name, PartnerType partnerType, string country, string city, string street, string streetNumber);
+
+        Partner GetPartner(int partnerId);
     }
 }
 
