@@ -79,7 +79,6 @@ namespace UI.ViewModels
                         Label = "Table #1",
                         X = 70,
                         Y = 70,
-                        Radius = 40,
                         Chairs = new List<Chair>()
                         {
                             new Chair() {Id = 1, X = 10, Y = 10, Label = "1"},

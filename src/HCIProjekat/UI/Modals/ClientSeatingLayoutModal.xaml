@@ -65,8 +65,8 @@
         </Grid>
         <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Border BorderBrush="Black" Width="2000" Height="2000" BorderThickness="2">
-                <Canvas Grid.Column="1" AllowDrop="True" SizeChanged="OnCanvasResized" x:Name="_mainCanvas" Drop="OnGuestDrop" DragOver="OnGuestDrag">
-                    <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
+                <Canvas Grid.Column="1" AllowDrop="True" x:Name="_mainCanvas" Drop="OnGuestDrop" DragOver="OnGuestDrag">
+                    <Rectangle Width="2000" Height="2000" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
                 </Canvas>
             </Border>
         </ScrollViewer>

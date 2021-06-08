@@ -24,7 +24,8 @@ namespace UI.Modals
     public partial class ClientSeatingLayoutModal : Window, IModalWindow
     {
         private readonly double TABLE_RADIUS = 40;
-        private readonly double CHAIR_RADIUS = 10;
+        private readonly double CHAIR_RADIUS = 15;
+        private readonly double GUEST_RADIUS = 15;
         private readonly double CHAIR_DISTANCE_THRESHOLD = 50;
 
         private GuestModel _currentGuest;
@@ -34,12 +35,6 @@ namespace UI.Modals
         public ClientSeatingLayoutModal()
         {
             InitializeComponent();
-        }
-
-        private void OnCanvasResized(object sender, SizeChangedEventArgs e)
-        {
-            _mainContainter.Width = e.NewSize.Width;
-            _mainContainter.Height = e.NewSize.Height;
         }
 
         private void DrawLayout()
@@ -98,7 +93,7 @@ namespace UI.Modals
             if (_currentGuest != null)
             {
                 var guestModel = _vm.DropGuest(_currentGuest.Id, position.X, position.Y);
-                guest = new GuestIcon { Width = 25, Height = 25, AllowDrop = false, ToolTip = $"{_currentGuest.Name}", DataContext = guestModel };
+                guest = new GuestIcon { Width = 2 * GUEST_RADIUS, Height = 2 * GUEST_RADIUS, AllowDrop = false, ToolTip = $"{_currentGuest.Name}", DataContext = guestModel };
                 guest.PreviewMouseDown += Guest_PreviewMouseDown;
                 _currentGuest = null;
             }
@@ -106,12 +101,12 @@ namespace UI.Modals
             {
                 _mainCanvas.Children.Remove(_currentGuestIcon);
                 var guestModel = _vm.DropGuest((_currentGuestIcon.DataContext as GuestModel).Id, position.X, position.Y);
-                guest = new GuestIcon { Width = 25, Height = 25, AllowDrop = false, ToolTip = $"{guestModel.Name}", DataContext = guestModel };
+                guest = new GuestIcon { Width = 2 * GUEST_RADIUS, Height = 2 * GUEST_RADIUS, AllowDrop = false, ToolTip = $"{guestModel.Name}", DataContext = guestModel };
                 guest.PreviewMouseDown += Guest_PreviewMouseDown;
                 _currentGuestIcon = null;
             }
-            Canvas.SetLeft(guest, closestChair.X - 12.5);
-            Canvas.SetTop(guest, closestChair.Y - 12.5);
+            Canvas.SetLeft(guest, closestChair.X - GUEST_RADIUS);
+            Canvas.SetTop(guest, closestChair.Y - GUEST_RADIUS);
             _mainCanvas.Children.Add(guest);
         }
 
