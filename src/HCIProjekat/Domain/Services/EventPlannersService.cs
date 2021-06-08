@@ -27,9 +27,9 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Users.FirstOrDefault(u => u.Username == eventPlanner.Username) != null)
+            if (context.Users.FirstOrDefault(u => u.Username == eventPlanner.Username && u.Active) != null)
             {
-                throw new PartnerAlreadyExistsException(eventPlanner.Username);
+                throw new UsernameAlreadyExistsException(eventPlanner.Username);
             }
 
             context.EventPlanners.Add(eventPlanner);

@@ -14,6 +14,8 @@ namespace UI.ViewModels
 {
     public class RegisterEventPlannerViewModel : ValidationModel<RegisterEventPlannerViewModel>
     {
+        private readonly AdminEventPlannersViewModel _adminEventPlannersVm;
+
         // Poperties
         private string _username;
         [ValidationField]
@@ -74,10 +76,11 @@ namespace UI.ViewModels
         public bool CanRegister => IsValid();
         public ICommand RegisterEventPlannerCommand { get; private set; }
 
-        public RegisterEventPlannerViewModel(IApplicationContext context, IEventPlannersService eventPlannerService) : base(context)
+        public RegisterEventPlannerViewModel(IApplicationContext context, IEventPlannersService eventPlannerService, AdminEventPlannersViewModel adminEventPlannersVm) : base(context)
         {
+            _adminEventPlannersVm = adminEventPlannersVm;
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterEventPlannerCommand = new RegisterEventPlannerCommand(this, eventPlannerService, context.Router, context);
+            RegisterEventPlannerCommand = new RegisterEventPlannerCommand(this, eventPlannerService, context.Router, context, adminEventPlannersVm);
         }
 
         public void ResetFields()

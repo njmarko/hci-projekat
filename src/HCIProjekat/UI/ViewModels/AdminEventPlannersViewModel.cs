@@ -99,7 +99,7 @@ namespace UI.ViewModels
 
         private void OpenRegisterEventPlannerModal()
         {
-            _modalService.ShowModal<AddEventPlannerModal>(new RegisterEventPlannerViewModel(Context, _eventPlannersService));
+            _modalService.ShowModal<AddEventPlannerModal>(new RegisterEventPlannerViewModel(Context, _eventPlannersService, this));
         }
 
         public void ClearFilters()

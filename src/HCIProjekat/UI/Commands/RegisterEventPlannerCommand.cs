@@ -21,16 +21,18 @@ namespace UI.Commands
         private readonly IEventPlannersService _eventPlannerService;
         private readonly IRouter _router;
         private readonly IApplicationContext _context;
+        private readonly AdminEventPlannersViewModel _adminEventPlannersVm;
 
         public event EventHandler CanExecuteChanged;
 
-        public RegisterEventPlannerCommand(RegisterEventPlannerViewModel registerVm, IEventPlannersService eventPlannerService, IRouter router, IApplicationContext context)
+        public RegisterEventPlannerCommand(RegisterEventPlannerViewModel registerVm, IEventPlannersService eventPlannerService, IRouter router, IApplicationContext context, AdminEventPlannersViewModel adminEventPlannersVm)
         {
             _registerVm = registerVm;
             _eventPlannerService = eventPlannerService;
             _router = router;
             _registerVm.PropertyChanged += _registerVm_PropertyChanged;
             _context = context;
+            _adminEventPlannersVm = adminEventPlannersVm;
         }
 
         private void _registerVm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -51,8 +53,12 @@ namespace UI.Commands
             try
             {
                 var registeredEventPlanner = _eventPlannerService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
+                // undo redo
+                registeredEventPlanner.Active = false;
+                _adminEventPlannersVm.AddItem(registeredEventPlanner);
+
                 _context.Notifier.ShowInformation($"Event planner {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName} sucessfuly added.");
-                _router.Push("AdminEventPlanners");
+                _adminEventPlannersVm.UpdatePage(0);
                 _registerVm.ResetFields();
             }
             catch (UsernameAlreadyExistsException exception)
