@@ -69,23 +69,41 @@ namespace UI.ViewModels
         public void UpdateChair(double xOffset, double yOffset, double newXOffset, double newYOffset)
         {
             var closestTable = ClosestTable(xOffset, yOffset);
+            var newClosestTable = ClosestTable(newXOffset, newYOffset);
             if (closestTable == null)
             {
                 throw new Exception("No table present.");
             }
 
             var chair = closestTable.Chairs.Where(c => c.X == xOffset && c.Y == yOffset).FirstOrDefault();
-            closestTable.Chairs.Remove(chair);
             chair.X = newXOffset;
             chair.Y = newYOffset;
 
-            var newClosestTable = ClosestTable(newXOffset, newYOffset);
+            if (closestTable == newClosestTable)
+            {
+                return;
+            }
+
+            closestTable.Chairs.Remove(chair);
             newClosestTable.Chairs.Add(chair);
+
+            UpdateChairIndexes(closestTable);
+            UpdateChairIndexes(newClosestTable);
 
             if (SeatingLayout.Id != 0)
             {
                 _seatingLayoutService.UpdateChair(chair);
                 _seatingLayoutService.UpdateTable(newClosestTable);
+            }
+        }
+
+        private void UpdateChairIndexes(Table table)
+        {
+            var startingIndex = 1;
+            foreach (Chair chair in table.Chairs)
+            {
+                chair.Label = $"{startingIndex++}";
+                _seatingLayoutService.UpdateChair(chair);
             }
         }
 

@@ -59,19 +59,22 @@ namespace UI.Modals
 
             if (SelectedTable != null)
             {
-                _vm.UpdateTable(context.X, context.Y, xOffset, yOffset);
+                _vm.UpdateTable(context.X, context.Y, position.X, position.Y);
             }
             else
             {
-                _vm.UpdateChair(context.X, context.Y, xOffset, yOffset);
+                _vm.UpdateChair(context.X, context.Y, position.X, position.Y);
             }
 
-            context.X = xOffset;
-            context.Y = yOffset;
+            context.X = position.X;
+            context.Y = position.Y;
 
             UserControl item = SelectedTable != null ? SelectedTable : SelectedChair;
             Canvas.SetLeft(item, xOffset);
             Canvas.SetTop(item, yOffset);
+
+            _mainCanvas.Children.RemoveRange(1, _mainCanvas.Children.Count - 1);
+            DrawLayout();
         }
 
         private void OnItemDrop(object sender, DragEventArgs e)
@@ -110,7 +113,6 @@ namespace UI.Modals
             Canvas.SetLeft(item, xOffset);
             Canvas.SetTop(item, yOffset);
             _mainCanvas.Children.Add(item);
-            CurrentItem = null;
         }
 
         private void OnChairDrag(object sender, DragEventArgs e)
@@ -155,7 +157,7 @@ namespace UI.Modals
 
         private void DrawTable(Domain.Entities.Table table)
         {
-            var t = new TableIcon { Width = 2 * TABLE_RADIUS, Height = 2 * TABLE_RADIUS, AllowDrop = false, ToolTip = table.Label, DataContext = table };
+            var t = new TableIcon { Width = 2 * TABLE_RADIUS, Height = 2 * TABLE_RADIUS, AllowDrop = false, ToolTip = table.Label, DataContext = table, SeatingLayoutModal = this };
             Canvas.SetLeft(t, table.X - TABLE_RADIUS);
             Canvas.SetTop(t, table.Y - TABLE_RADIUS);
             _mainCanvas.Children.Add(t);
@@ -163,7 +165,7 @@ namespace UI.Modals
 
         private void DrawChair(Chair chair)
         {
-            var c = new ChairIcon { Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false, ToolTip = chair.Label, DataContext = chair };
+            var c = new ChairIcon { Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false, ToolTip = chair.Label, DataContext = chair, SeatingLayoutModal = this };
             Canvas.SetLeft(c, chair.X - CHAIR_RADIUS);
             Canvas.SetTop(c, chair.Y - CHAIR_RADIUS);
             _mainCanvas.Children.Add(c);
