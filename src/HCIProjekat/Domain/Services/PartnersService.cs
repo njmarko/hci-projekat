@@ -76,7 +76,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Partners.FirstOrDefault(u => u.Name == name) != null)
+            if (context.Partners.FirstOrDefault(u => u.Name == name && u.Id != partnerId) != null)
             {
                 throw new PartnerAlreadyExistsException(name);
             }
