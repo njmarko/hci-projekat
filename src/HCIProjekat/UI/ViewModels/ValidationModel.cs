@@ -43,6 +43,14 @@ namespace UI.ViewModels
             base.OnPropertyChanged(propertyName);
         }
 
+        protected void ResetDirtyValues()
+        {
+            foreach(var key in _dirtyValues.Keys)
+            {
+                _dirtyValues[key] = false;
+            }
+        }
+
         protected bool IsDirty(string propertyName)
         {
             return _dirtyValues[propertyName];

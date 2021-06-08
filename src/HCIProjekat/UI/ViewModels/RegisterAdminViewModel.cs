@@ -80,6 +80,18 @@ namespace UI.ViewModels
             RegisterAdminCommand = new RegisterAdminCommand(this, adminService, context.Router, context);
         }
 
+        public void ResetFields()
+        {
+            Username = null;
+            Password = null;
+            ConfirmPassword = null;
+            FirstName = null;
+            LastName = null;
+            DateOfBirth = DateTime.Now;
+            ResetDirtyValues();
+            IsValid();
+        }
+
         public bool IsValid()
         {
             bool valid = true;
