@@ -25,7 +25,6 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
 
@@ -53,11 +52,13 @@
                     <TextBlock  Text="{Binding Request.Notes}" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextWrapping="Wrap"></TextBlock>
                 </ScrollViewer>
             </DockPanel>
+            <Separator Style="{DynamicResource MaterialDesignDarkSeparator}"/>    
         </StackPanel>
 
 
 
-        <Grid Margin="0 30 0 0" Grid.Row="1" Background="#e8e8e8">
+        <Border Margin="0 0 0 0" Grid.Row="1" Background="#e8e8e8">
+            <Grid Margin="10 0 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -87,16 +88,10 @@
                 <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="{Binding Request.BudgetFlexible}" IsHitTestVisible="False"></CheckBox>
                 <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Request.Date}" FontSize="16"></TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding CurrentCost}" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"></TextBlock>
+            </Grid>
+        </Border>
 
-        </Grid>
-        
-        
-        
-            <Separator Style="{DynamicResource MaterialDesignDarkSeparator}" Grid.Row="2"/>
-        
-        
-        
-            <Grid Background="#e8e8e8" Margin="0" Grid.Row="3">
+        <Grid Background="#e8e8e8" Margin="0 -2 0 0" Grid.Row="2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -141,7 +136,7 @@
             
         
         
-            <ItemsControl ItemsSource="{Binding TaskModels}" Grid.Row="4">
+            <ItemsControl ItemsSource="{Binding TaskModels}" Grid.Row="3">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
@@ -154,7 +149,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>

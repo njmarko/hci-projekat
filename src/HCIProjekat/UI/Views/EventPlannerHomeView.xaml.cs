@@ -54,7 +54,7 @@ namespace UI.Views
         private void RejectedSelected(object sender, MouseButtonEventArgs e)
         {
             var vm = DataContext as EventPlannerHomeViewModel;
-            vm.AllowInProgressDrop = true;
+            vm.AllowInProgressDrop = false;
             vm.AllowToDoDrop = true;
 
             var task = sender as EventPlannerTaskCard;
