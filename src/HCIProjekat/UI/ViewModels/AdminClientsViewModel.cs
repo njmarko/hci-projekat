@@ -109,8 +109,8 @@ namespace UI.ViewModels
                     Name = entity.FirstName + " " + entity.LastName,
                     Username = entity.Username,
                     DateOfBirth = entity.DateOfBirth.ToShortDateString(),
-                    ActiveRequests = entity.MyRequests.Count(),
-                    CompletedRequests = 150
+                    ActiveRequests = entity.MyRequests.Count(r => r.Date < DateTime.Now),
+                    CompletedRequests = entity.MyRequests.Count(r => r.Date >= DateTime.Now),
                 };
                 clientModel.Delete = new DeleteClientCommand(this, entity.Id, entity.Username, _modalService, _clientService);
                 ClientModels.Add(clientModel);

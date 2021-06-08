@@ -121,8 +121,8 @@ namespace UI.ViewModels
                     Name = entity.FirstName + " " + entity.LastName,
                     Username = entity.Username,
                     DateOfBirth = entity.DateOfBirth.ToShortDateString(),
-                    ActiveRequests = entity.AcceptedRequests.Count,
-                    CompletedRequests = 150
+                    ActiveRequests = entity.AcceptedRequests.Count(r => r.Date < DateTime.Now),
+                    CompletedRequests = entity.AcceptedRequests.Count(r => r.Date >= DateTime.Now),
                 };
                 eventPlannerModel.Delete = new DeleteEventPlannerCommand(this, entity.Id, entity.Username, _modalService, _eventPlannersService);
                 EventPlannerModels.Add(eventPlannerModel);
