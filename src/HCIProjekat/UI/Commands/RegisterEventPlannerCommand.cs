@@ -53,6 +53,7 @@ namespace UI.Commands
                 var registeredEventPlanner = _eventPlannerService.Create(new EventPlanner { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
                 _context.Notifier.ShowInformation($"Event planner {registeredEventPlanner.FirstName} {registeredEventPlanner.LastName} sucessfuly added.");
                 _router.Push("AdminEventPlanners");
+                _registerVm.ResetFields();
             }
             catch (UsernameAlreadyExistsException exception)
             {
