@@ -78,7 +78,8 @@ namespace UI.Views
 
 		private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			e.CanExecute = (mePlayer != null) && (mePlayer.Source != null);
+			bool res = (mePlayer != null) && (mePlayer.Source != null) && !mediaPlayerIsPlaying;
+			e.CanExecute = res;
 		}
 
 		private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
