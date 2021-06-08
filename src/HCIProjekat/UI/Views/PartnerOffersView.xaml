@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Background="#e8e8e8" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="AdminPartners">
+                <Button Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="AdminPartners" Foreground="White">
                     <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
                 </Button>
             </StackPanel>

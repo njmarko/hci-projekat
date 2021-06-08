@@ -20,7 +20,7 @@ namespace UI.ViewModels
         private readonly IOfferService _offerService;
         private readonly ITaskOfferService _taskOfferService;
         private readonly IModalService _modalService;
-        private readonly EventPlannerTaskDetailsViewModel _taskVm;
+        public EventPlannerTaskDetailsViewModel TaskVm { get; private set; }
 
         private int _taskId;
         public int TaskId
@@ -60,7 +60,7 @@ namespace UI.ViewModels
             _offerService = offerService;
             _taskOfferService = taskOfferService;
             _modalService = modalService;
-            _taskVm = taskVm;
+            TaskVm = taskVm;
 
             Search = new DelegateCommand(() => UpdatePage(0));
             SearchQuery = string.Empty;
@@ -76,7 +76,7 @@ namespace UI.ViewModels
             var page = _offerService.GetAvailableOffersForTask(_taskId, new OffersForTaskPageRequest { Page = pageNumber, Size = Size, SearchQuery = SearchQuery });
             foreach (var entity in page.Entities)
             {
-                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = entity.Id, Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image), ButtonContent = "Add", ButtonAction = new DelegateCommand(() => AddOfferForTask(entity.Id)) });
+                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = entity.Id, Name = entity.Name, Description = entity.Description, Image = ImageUtil.ConvertToImage(entity.Image), IconKind = "Add", ToolTip = "Add this offer to the task's offers", ButtonAction = new DelegateCommand(() => AddOfferForTask(entity.Id)) });
             }
             OnPageFetched(page);
         }
@@ -86,14 +86,17 @@ namespace UI.ViewModels
             var ok = _modalService.ShowConfirmationDialog("Are you sure you want to add this offer to task?");
             if (ok)
             {
-                _taskOfferService.AddOfferForTask(_taskId, offerId);
+                var taskOffer = _taskOfferService.AddOfferForTask(_taskId, offerId);
+                var toSave = _taskOfferService.Get(taskOffer.Id);
+                toSave.Active = false;
+                TaskVm.AddItem(toSave);
                 UpdatePage(0);
                 Context.Notifier.ShowInformation("Offer successfully added to the task.");
                 AddedVm.UpdatePage(0);
             }
             else
             {
-                _taskVm.TabSelectedIndex = 1;
+                TaskVm.TabSelectedIndex = 1;
             }
         }
     }

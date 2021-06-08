@@ -20,7 +20,7 @@ namespace UI.ViewModels
     {
         private readonly ITaskOfferService _taskOfferService;
         private readonly IModalService _modalService;
-        private readonly EventPlannerTaskDetailsViewModel _taskVm;
+        public EventPlannerTaskDetailsViewModel TaskVm { get; private set; }
 
         private int _taskId;
         public int TaskId
@@ -66,7 +66,7 @@ namespace UI.ViewModels
         {
             _taskOfferService = taskOfferService;
             _modalService = modalService;
-            _taskVm = taskVm;
+            TaskVm = taskVm;
 
             Search = new DelegateCommand(() => UpdatePage(0));
 
@@ -83,7 +83,7 @@ namespace UI.ViewModels
             foreach (var entity in page.Entities)
             {
                 var offer = entity.Offer;
-                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = offer.Id, Name = offer.Name, Description = offer.Description, Image = ImageUtil.ConvertToImage(offer.Image), ButtonContent="Remove", ButtonAction = new DelegateCommand(() => RemoveOfferFromTask(entity.Id)) });
+                TaskOfferModels.Add(new EventPlannerTaskOfferCardModel { Id = offer.Id, Name = offer.Name, Description = offer.Description, Image = ImageUtil.ConvertToImage(offer.Image), IconKind = "Delete", ToolTip = "Remove from taks's added offers", ButtonAction = new DelegateCommand(() => RemoveOfferFromTask(entity.Id)) });
             }
             OnPageFetched(page);
         }
@@ -93,14 +93,16 @@ namespace UI.ViewModels
             var ok = _modalService.ShowConfirmationDialog("Are you sure you want to remove this offer from the task?");
             if (ok)
             {
-                _taskOfferService.RemoveOfferFromTask(offerId);
+                var taskOffer = _taskOfferService.RemoveOfferFromTask(offerId);
+                taskOffer.Active = true;
+                TaskVm.AddItem(taskOffer);
                 UpdatePage(0);
                 Context.Notifier.ShowInformation("Offer succesfully removed from the task.");
                 AvailableVm.UpdatePage(0);
             }
             else
             {
-                _taskVm.TabSelectedIndex = 0;
+                TaskVm.TabSelectedIndex = 0;
             }
         }
     }
