@@ -23,13 +23,13 @@
         <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="{Binding Help}"></KeyBinding>
     </Window.InputBindings>
     <Grid>
-        <StackPanel>
+        <StackPanel FocusManager.FocusedElement="{Binding ElementName=FirstField}">
 
             <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Offer" Margin="0 10" />
 
             <Rectangle Grid.Column="1" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" Margin="10 10"/>
 
-            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" MaxLength="30" materialDesign:HintAssist.Hint="Enter name" Margin="10 15" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Name="FirstField" MaxLength="30" materialDesign:HintAssist.Hint="Enter name" Margin="10 15" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -15 10 0" FontSize="10" />
 
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding OfferTypeModels}" SelectedItem="{Binding OfferTypeValue}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Select offer type" Margin="10 15" />
@@ -82,7 +82,7 @@
 
                 <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding CreateOfferCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
-                           AncestorType={x:Type Window}}}" Content="{Binding ButtonText}" Margin="10 15" Foreground="White" />
+                           AncestorType={x:Type Window}}}" Content="{Binding ButtonText}" Margin="10 15" Foreground="White" FocusManager.FocusedElement="{Binding ElementName=FirstField}"/>
             </Grid>
 
         </StackPanel>
