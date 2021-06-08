@@ -39,6 +39,10 @@ namespace UI.Commands
         {
             if (_modalService.ShowConfirmationDialog($"Are you sure you want to delete partner {_partnerName}?"))
             {
+                // undo redo
+                var partner = _partnerService.Get(_partnerId);
+                _adminPartnersVm.AddItem(partner);
+
                 _partnerService.Delete(_partnerId);
                 _adminPartnersVm.UpdatePage(0);
                 _adminPartnersVm.Context.Notifier.ShowInformation($"Partner {_partnerName} has been deleted successfully.");

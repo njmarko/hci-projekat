@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IPartnersService
+    public interface IPartnersService : ICRUDService<Partner>
     {
         Page<Partner> GetPartners(PartnersPage page);
 

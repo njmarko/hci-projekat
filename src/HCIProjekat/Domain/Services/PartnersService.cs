@@ -47,6 +47,12 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public Partner Get(int id)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            return context.Partners.Find(id);
+        }
+
         public Partner GetPartner(int partnerId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -92,5 +98,14 @@ namespace Domain.Services
             return partner;
         }
 
+        public Partner Update(Partner partner)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.Partners.Update(partner);
+            context.SaveChanges();
+
+            return partner;
+        }
     }
 }
