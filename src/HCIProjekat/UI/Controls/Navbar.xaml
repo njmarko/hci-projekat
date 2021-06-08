@@ -39,7 +39,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Grid.Row="0" Grid.Column="1" Margin="0 0 20 0" Content="Register Admin" Command="{Binding AddAdmin}" Visibility="{Binding CanRegisterAdmin, Converter={StaticResource b2vc}}"  Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" />
         <Menu Grid.Row="0" Grid.Column="2" Margin="0 0 20 0" Background="LightGray" Style="{DynamicResource MaterialDesignMenu}">
             <MenuItem Cursor="Hand" IsSubmenuOpen="{Binding DidOpenNotifications}" ItemsSource="{Binding NotificationViewModel.Notifications}">
                 <MenuItem.Header>

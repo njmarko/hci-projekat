@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using UI.Commands;
 using UI.Context;
+using UI.Modals;
 using UI.Services.Interfaces;
 
 namespace UI.ViewModels
@@ -63,6 +64,7 @@ namespace UI.ViewModels
 
         public ICommand Search { get; set; }
 
+        public ICommand AddAdmin { get; private set; }
         public ICommand Clear { get; private set; }
         public ObservableCollection<AdminAdminsCardModel> AdminModels { get; private set; } = new ObservableCollection<AdminAdminsCardModel>();
 
@@ -74,9 +76,15 @@ namespace UI.ViewModels
             Clear = new DelegateCommand(ClearFilters);
             _bornBefore = _bornBeforeInitial;
             _bornAfter = _bornAfterInitial;
+            AddAdmin = new DelegateCommand(OpenRegisterAdminModal);
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
+        }
+
+        private void OpenRegisterAdminModal()
+        {
+            _modalService.ShowModal<AddAdminModal>(new RegisterAdminViewModel(Context, _adminService));
         }
 
         public void ClearFilters()
