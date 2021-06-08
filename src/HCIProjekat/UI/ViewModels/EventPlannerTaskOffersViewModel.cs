@@ -93,7 +93,9 @@ namespace UI.ViewModels
             var ok = _modalService.ShowConfirmationDialog("Are you sure you want to remove this offer from the task?");
             if (ok)
             {
-                _taskOfferService.RemoveOfferFromTask(offerId);
+                var taskOffer = _taskOfferService.RemoveOfferFromTask(offerId);
+                taskOffer.Active = true;
+                TaskVm.AddItem(taskOffer);
                 UpdatePage(0);
                 Context.Notifier.ShowInformation("Offer succesfully removed from the task.");
                 AvailableVm.UpdatePage(0);

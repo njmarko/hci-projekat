@@ -87,8 +87,9 @@ namespace UI.ViewModels
             if (ok)
             {
                 var taskOffer = _taskOfferService.AddOfferForTask(_taskId, offerId);
-                taskOffer.Active = false;
-                TaskVm.AddItem(taskOffer);
+                var toSave = _taskOfferService.Get(taskOffer.Id);
+                toSave.Active = false;
+                TaskVm.AddItem(toSave);
                 UpdatePage(0);
                 Context.Notifier.ShowInformation("Offer successfully added to the task.");
                 AddedVm.UpdatePage(0);

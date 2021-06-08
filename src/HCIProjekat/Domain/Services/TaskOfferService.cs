@@ -220,7 +220,7 @@ namespace Domain.Services
             return taskOffer;
         }
 
-        public void RemoveOfferFromTask(int taskOfferId)
+        public TaskOffer RemoveOfferFromTask(int taskOfferId)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
@@ -230,8 +230,8 @@ namespace Domain.Services
                                    .First();
 
             taskOffer.Active = false;
-
             context.SaveChanges();
+            return taskOffer;
         }
     }
 }
