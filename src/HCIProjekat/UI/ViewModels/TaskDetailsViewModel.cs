@@ -192,7 +192,7 @@ namespace UI.ViewModels
 
         private void LoadTask(bool updatePage)
         {
-            Task = _taskService.GetTask(TaskId);
+            Task = _taskService.Get(TaskId);
 
             TaskDetails taskDetails = TaskColorAndStatus.GetTaskColorAndStatus(Task);
             Color = taskDetails.Color;

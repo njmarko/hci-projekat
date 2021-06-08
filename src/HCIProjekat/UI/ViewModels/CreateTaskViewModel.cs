@@ -71,7 +71,7 @@ namespace UI.ViewModels
 
             if (taskId != -1)
             {
-                var task = _taskService.GetTask(taskId);
+                var task = _taskService.Get(taskId);
                 Name = task.Name;
                 Description = task.Description;
                 TaskTypeValue = TaskTypeModels.First(t => t.Type != null && t.Type == task.TaskType);

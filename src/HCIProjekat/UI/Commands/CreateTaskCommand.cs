@@ -79,7 +79,7 @@ namespace UI.Commands
 
         private void Update()
         {
-            var task = _taskService.GetTask(_taskId);
+            var task = _taskService.Get(_taskId);
             task.Name = _createTaskVm.Name;
             task.Description = _createTaskVm.Description;
             task.TaskType = _createTaskVm.TaskTypeValue.Type.Value;

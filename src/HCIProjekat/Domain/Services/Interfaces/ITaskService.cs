@@ -8,13 +8,11 @@ using System.Text;
 
 namespace Domain.Services.Interfaces
 {
-    public interface ITaskService
+    public interface ITaskService : ICRUDService<Task>
     {
         Page<Task> GetTasksForRequest(int requestId, TasksPageRequest pageRequest);
         Task Create(Task task, int requestId);
-        Task GetTask(int taskId);
-        Task Update(Task task);
-        void Delete(int taskId);
+        Task Get(int taskId);
         List<Task> GetTasksForRequest(int requestId, string searchQuery);
     }
 }

@@ -95,7 +95,7 @@ namespace UI.ViewModels
             AvailableOffersVm.TaskId = _taskId;
             EventPlannerCommentsVm.TaskId = _taskId;
 
-            Task = _taskService.GetTask(TaskId);
+            Task = _taskService.Get(TaskId);
             TaskDetails taskDetails = TaskColorAndStatus.GetTaskColorAndStatus(Task);
             Color = taskDetails.Color;
             Status = taskDetails.Status;

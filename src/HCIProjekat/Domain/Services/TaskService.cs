@@ -49,7 +49,7 @@ namespace Domain.Services
             return task;
         }
 
-        public Task GetTask(int taskId)
+        public Task Get(int taskId)
         {
             using var context = _dbContextFactory.CreateDbContext();
 
@@ -107,12 +107,6 @@ namespace Domain.Services
                 {
                     throw new DuplicateTaskException(ServiceType.LOCATION);
                 }
-            }
-
-            if (task.TaskStatus == TaskStatus.SENT_TO_CLIENT)
-            {
-                var client = context.Clients.SingleOrDefault(c => c.MyRequests.Contains(task.Request));
-                _notificationService.Push(new Notification { Message = "You have a new task to review.", RequestId = task.Request.Id, TaskId = task.Id, UserId = client.Id });
             }
 
             context.Tasks.Update(task);

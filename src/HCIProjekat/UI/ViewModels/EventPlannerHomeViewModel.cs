@@ -44,7 +44,7 @@ namespace UI.ViewModels
         }
     }
 
-    public class EventPlannerHomeViewModel : ViewModelBase
+    public class EventPlannerHomeViewModel : UndoModelBase<Task>
     {
         private readonly IEventPlannersService _eventPlannersService;
         private readonly ITaskService _taskService;
@@ -118,7 +118,7 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ICommand ShowCreateTaskModal { get; private set; }
 
-        public EventPlannerHomeViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, ITaskService taskService, IModalService modalService) : base(context)
+        public EventPlannerHomeViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, ITaskService taskService, IModalService modalService) : base(context, taskService, modalService)
         {
             _eventPlannersService = eventPlannersService;
             _taskService = taskService;
@@ -160,7 +160,8 @@ namespace UI.ViewModels
             {
                 return;
             }
-            var task = _taskService.GetTask(taskId);
+            var task = _taskService.Get(taskId);
+            AddItem(task);
             var fromStatus = task.TaskStatus;
             task.TaskStatus = taskStatus;
             _taskService.Update(task);
@@ -206,7 +207,7 @@ namespace UI.ViewModels
         {
             var taskModel = _taskCollections[fromStatus].FirstOrDefault(t => t.Id == tasksId);
             _taskCollections[fromStatus].Remove(taskModel);
-            _taskCollections[toStatus].Add(Map(_taskService.GetTask(tasksId)));
+            _taskCollections[toStatus].Add(Map(_taskService.Get(tasksId)));
         }
 
         private void InsertTask(Task task)
@@ -260,6 +261,11 @@ namespace UI.ViewModels
             SentToClient.Clear();
             Accepted.Clear();
             Rejected.Clear();
+        }
+
+        public override void UpdatePage(int pageNumber)
+        {
+            FetchTasksForSelectedRequest();
         }
     }
 }
