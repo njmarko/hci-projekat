@@ -90,8 +90,8 @@
         </Grid>
         <Separator Style="{DynamicResource MaterialDesignDarkSeparator}" Grid.Row="2"/>
         <Grid Background="#e8e8e8" Margin="0" Grid.Row="3">
-                <Grid>s
-                    <Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />

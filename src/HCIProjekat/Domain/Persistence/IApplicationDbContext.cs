@@ -23,6 +23,7 @@ namespace Domain.Persistence
         DbSet<SeatingLayout> SeatingLayouts { get; set; }
         DbSet<Table> Tables { get; set; }
         DbSet<Chair> Chairs { get; set; }
+        DbSet<Guest> Guests { get; set; }
 
 
         int SaveChanges();

@@ -95,6 +95,15 @@ namespace Domain.Services
                           .ToPage(page);
         }
 
+        public Request GetWithGuests(int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            return context.Requests
+                          .Include(r => r.Guests)
+                          .SingleOrDefault(r => r.Id == requestId);
+        }
+
         public int GetRequestCost(int requestId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -204,6 +213,28 @@ namespace Domain.Services
 
             context.SaveChanges();
             return request;
+        }
+
+        public SeatingLayout GetSeatingLayout(int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var offer = context.TaskOffers
+                               .Include(to => to.Offer)
+                               .ThenInclude(o => o.SeatingLayout)
+                               .Where(to => to.Offer.OfferType == ServiceType.LOCATION)
+                               .Where(to => to.OfferStatus == OfferStatus.ACCEPTED)
+                               .SingleOrDefault(to => to.Task.Request.Id == requestId);
+            if (offer == null)
+            {
+                return null;
+            }
+
+            var layout = context.SeatingLayouts
+                                .Include(l => l.Tables)
+                                .ThenInclude(t => t.Chairs)
+                                .SingleOrDefault(l => l.Id == offer.Offer.SeatingLayout.Id);
+            return layout;
         }
     }
 }

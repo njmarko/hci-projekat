@@ -173,7 +173,7 @@ namespace UI.ViewModels
 
         private void ShowClientSeatingLayoutModal()
         {
-            if (_modalService.ShowModal<ClientSeatingLayoutModal>(null))
+            if (_modalService.ShowModal<ClientSeatingLayoutModal>(new ClientSeatingLayoutViewModel(Context, _requestService, RequestId)))
             {
 
             }
