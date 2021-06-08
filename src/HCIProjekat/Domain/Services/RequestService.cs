@@ -236,5 +236,26 @@ namespace Domain.Services
                                 .SingleOrDefault(l => l.Id == offer.Offer.SeatingLayout.Id);
             return layout;
         }
+
+        public Guest AddGuest(Guest guest, int requestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Requests.Include(r => r.Guests).SingleOrDefault(r => r.Id == requestId);
+            request.Guests.Add(guest);
+            context.SaveChanges();
+
+            return guest;
+        }
+
+        public void RemoveGuest(int requestId, int guestId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var request = context.Requests.Include(r => r.Guests).SingleOrDefault(r => r.Id == requestId);
+            var guest = context.Guests.Find(guestId);
+            request.Guests.Remove(guest);
+            context.SaveChanges();
+        }
     }
 }

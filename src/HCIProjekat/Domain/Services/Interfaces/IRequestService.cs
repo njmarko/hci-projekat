@@ -28,5 +28,9 @@ namespace Domain.Services.Interfaces
         bool IsLocationAccepted(int requestId);
 
         SeatingLayout GetSeatingLayout(int requestId);
+
+        Guest AddGuest(Guest guest, int requestId);
+
+        void RemoveGuest(int requestId, int guestId);
     }
 }

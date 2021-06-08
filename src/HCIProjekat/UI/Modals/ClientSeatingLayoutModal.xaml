@@ -20,7 +20,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" MinWidth="160">
+        <Grid Grid.Column="0" MinWidth="200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -30,18 +30,21 @@
             <TextBox Grid.Row="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search guests" />
             <!--List view-->
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                <ListView Grid.Row="1" Style="{DynamicResource MaterialDesignCardsListBox}">
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
-                    <ListViewItem Content="pera peric" Style="{DynamicResource MaterialDesignChoiceChipAccentListBoxItem}" />
+                <ListView Grid.Row="1" Style="{DynamicResource MaterialDesignCardsListBox}" SelectionMode="Single" ItemsSource="{Binding Guests}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="{Binding Name}" Style="{DynamicResource MaterialDesignBody2TextBlock}" />
+                                <Button Grid.Column="1" Width="30" Height="30" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" Command="{Binding RemoveGuest}" ToolTip="Remove guest from guest list">
+                                    <materialDesign:PackIcon Kind="PeopleMinus" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </ScrollViewer>
             <!--Add guest-->
@@ -50,8 +53,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter guest name" />
-                <Button Grid.Column="1" Width="40" Height="40" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White">
+                <TextBox MaxLength="30" Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter guest name" Text="{Binding GuestName, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="1" Width="40" Height="40" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" Command="{Binding AddGuest}" ToolTip="Add new guest to the guest list">
                     <materialDesign:PackIcon Kind="PeopleAdd" />
                 </Button>
             </Grid>
