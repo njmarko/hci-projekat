@@ -46,6 +46,12 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public EventPlanner Get(int id)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            return context.EventPlanners.Find(id);
+        }
+
         public List<Request> GetActiveRequests(int eventPlannerId)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -70,6 +76,16 @@ namespace Domain.Services
                           .Where(c => (c.AcceptedRequests.Count() > 0) || !page.HasActiveRequests)
                           .Include(c => c.AcceptedRequests)
                           .ToPage(page);
+        }
+
+        public EventPlanner Update(EventPlanner eventPlanner)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.EventPlanners.Update(eventPlanner);
+            context.SaveChanges();
+
+            return eventPlanner;
         }
     }
 }
