@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IClientService
+    public interface IClientService : ICRUDService<Client>
     {
         Client Create(Client client);
 
