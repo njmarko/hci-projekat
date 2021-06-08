@@ -33,7 +33,7 @@ namespace UI.ViewModels
         public ICommand MoveToDo { get; private set; }
         public ICommand MoveInProgress { get; private set; }
         public ICommand MoveSentToClient { get; private set; }
-        public ICommand Edit { get; private set; }
+        public ICommand Edit { get; set; }
         public ICommand Delete { get; set; }
 
         public TaskCardModel()
@@ -41,7 +41,6 @@ namespace UI.ViewModels
             MoveToDo = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.TO_DO));
             MoveInProgress = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.IN_PROGRESS));
             MoveSentToClient = new DelegateCommand(() => Vm.UpdateTaskStatus(Id, TaskStatus.SENT_TO_CLIENT));
-            Edit = new DelegateCommand(() => Vm.ShowCreateTask(Id));
         }
     }
 
@@ -68,6 +67,7 @@ namespace UI.ViewModels
                 if (_currentRequest != value)
                 {
                     _currentRequest = value;
+                    OnPropertyChanged(nameof(CanAddTask));
                     FetchTasksForSelectedRequest();
                 }
             }
@@ -113,6 +113,8 @@ namespace UI.ViewModels
             set { _sentToClientAdded = value; OnPropertyChanged(nameof(SentToClientAdded)); }
         }
 
+        public bool CanAddTask => CurrentRequest != null;
+
         public ICommand Search { get; private set; }
         public ICommand ShowCreateTaskModal { get; private set; }
 
@@ -122,7 +124,7 @@ namespace UI.ViewModels
             _taskService = taskService;
             _modalService = modalService;
             Search = new DelegateCommand(FetchTasksForSelectedRequest);
-            ShowCreateTaskModal = new DelegateCommand(() => ShowCreateTask(-1));
+            ShowCreateTaskModal = new ShowCreateTaskModal(this, _taskService, _modalService, -1);
             ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(Context.Store.CurrentUser.Id));
             HelpPage = "event-planner-home-page";
             if (ActiveRequests.Count > 0)
@@ -181,17 +183,6 @@ namespace UI.ViewModels
             if (taskStatus == TaskStatus.SENT_TO_CLIENT)
             {
                 SentToClientAdded = value;
-            }
-        }
-
-        public void ShowCreateTask(int taskId = -1)
-        {
-            var ok = _modalService.ShowModal<CreateTaskModal>(new CreateTaskViewModel(Context, _taskService, CurrentRequest, taskId));
-            if (ok)
-            {
-                FetchTasksForSelectedRequest();
-                var message = taskId == -1 ? "New task has been created successfully." : $"Task {taskId} has been updated successfully.";
-                Context.Notifier.ShowInformation(message);
             }
         }
 
@@ -257,6 +248,7 @@ namespace UI.ViewModels
                 Context = Context,
                 Vm = this
             };
+            taskModel.Edit = new ShowCreateTaskModal(this, _taskService, _modalService, task.Id);
             taskModel.Delete = new DeleteTaskCommand(this, task.Id, _taskService, _modalService);
             return taskModel;
         }
