@@ -112,12 +112,12 @@ namespace UI.ViewModels
 
         private void OpenRegisterPartnerModal()
         {
-            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService));
+            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, this));
         }
 
         public void ShowEditPartner(int partnerId = -1)
         {
-            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, partnerId));
+            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, this, partnerId));
         }
 
         public override void UpdatePage(int pageNumber)
