@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Pagination.Requests;
 using Domain.Services.Interfaces;
 using System;
@@ -95,7 +96,10 @@ namespace UI.ViewModels
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.MUSIC, Name = "Music" });
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.PHOTOGRAPHY, Name = "Photography" });
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.RESTAURANT, Name = "Restaurant" });
-            HelpPage = "partners";
+            if (Context.Store.CurrentUser is EventPlanner)
+                HelpPage = "partners?admin=no";
+            else
+                HelpPage = "partners?admin=yes";
             UpdatePage(0);
         }
 

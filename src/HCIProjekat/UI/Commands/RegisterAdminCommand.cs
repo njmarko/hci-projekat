@@ -53,6 +53,7 @@ namespace UI.Commands
                 var registerAdmin = _adminService.Create(new Admin { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
                 _context.Notifier.ShowInformation($"Admin {registerAdmin.FirstName} {registerAdmin.LastName} sucessfuly added.");
                 _router.Push("AdminAdmins");
+                _registerVm.ResetFields();
             }
             catch (UsernameAlreadyExistsException exception)
             {

@@ -78,6 +78,7 @@ namespace UI.Commands
             });
             _context.Notifier.ShowInformation($"Partner {registerPartner.Name} sucessfuly added.");
             _router.Push("AdminPartners");
+            _registerVm.ResetFields();
         }
 
         private void Update()
