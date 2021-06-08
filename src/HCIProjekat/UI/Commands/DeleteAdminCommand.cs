@@ -39,6 +39,8 @@ namespace UI.Commands
         {
             if (_modalService.ShowConfirmationDialog($"Are you sure you want to delete admin {_adminUsername}?"))
             {
+                var admin = _adminService.Get(_adminId);
+                _adminAdminsViewModel.AddItem(admin);
                 _adminService.Delete(_adminId);
                 _adminAdminsViewModel.UpdatePage(0);
                 _adminAdminsViewModel.Context.Notifier.ShowInformation($"Admin {_adminUsername} has been deleted successfully.");

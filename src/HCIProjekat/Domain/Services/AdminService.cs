@@ -46,6 +46,12 @@ namespace Domain.Services
             context.SaveChanges();
         }
 
+        public Admin Get(int id)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            return context.Admins.Find(id);
+        }
+
         public Page<Admin> GetAdmins(AdminsPage page)
         {
             using var context = _dbContextFactory.CreateDbContext();
@@ -58,6 +64,16 @@ namespace Domain.Services
                           .Where(c => c.DateOfBirth <= page.BornBefore || !page.BornBefore.HasValue)
                           .Where(c => c.DateOfBirth >= page.BornAfter || !page.BornAfter.HasValue)
                           .ToPage(page);
+        }
+
+        public Admin Update(Admin admin)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.Admins.Update(admin);
+            context.SaveChanges();
+
+            return admin;
         }
     }
 }

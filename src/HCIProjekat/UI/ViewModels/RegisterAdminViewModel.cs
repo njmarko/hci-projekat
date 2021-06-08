@@ -14,6 +14,8 @@ namespace UI.ViewModels
 {
     public class RegisterAdminViewModel : ValidationModel<RegisterAdminViewModel>
     {
+        private readonly AdminAdminsViewModel _adminAdminsVm;
+
         // Poperties
         private string _username;
         [ValidationField]
@@ -74,10 +76,12 @@ namespace UI.ViewModels
         public bool CanRegister => IsValid();
         public ICommand RegisterAdminCommand { get; private set; }
 
-        public RegisterAdminViewModel(IApplicationContext context, IAdminService adminService) : base(context)
+        public RegisterAdminViewModel(IApplicationContext context, IAdminService adminService, AdminAdminsViewModel adminAdminsVm) : base(context)
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterAdminCommand = new RegisterAdminCommand(this, adminService, context.Router, context);
+            _adminAdminsVm = adminAdminsVm;
+            RegisterAdminCommand = new RegisterAdminCommand(this, adminService, context.Router, context, adminAdminsVm);
+
         }
 
         public void ResetFields()

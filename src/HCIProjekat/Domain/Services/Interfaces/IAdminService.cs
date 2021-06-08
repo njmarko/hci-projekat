@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IAdminService
+    public interface IAdminService : ICRUDService<Admin>
     {
         Admin Create(Admin admin);
 
         Page<Admin> GetAdmins(AdminsPage page);
 
-        public void Delete(int adminId);
+
     }
 }

@@ -28,7 +28,7 @@ namespace UI.ViewModels
 
     }
 
-    public class AdminAdminsViewModel : PagingViewModelBase
+    public class AdminAdminsViewModel : UndoModelBase<Admin>
     {
         private readonly IAdminService _adminService;
 
@@ -68,7 +68,7 @@ namespace UI.ViewModels
         public ICommand Clear { get; private set; }
         public ObservableCollection<AdminAdminsCardModel> AdminModels { get; private set; } = new ObservableCollection<AdminAdminsCardModel>();
 
-        public AdminAdminsViewModel(IApplicationContext context, IAdminService adminService, IModalService modalService) : base(context)
+        public AdminAdminsViewModel(IApplicationContext context, IAdminService adminService, IModalService modalService) : base(context, adminService, modalService)
         {
             _adminService = adminService;
             Query = string.Empty;
@@ -84,7 +84,7 @@ namespace UI.ViewModels
 
         private void OpenRegisterAdminModal()
         {
-            _modalService.ShowModal<AddAdminModal>(new RegisterAdminViewModel(Context, _adminService));
+            _modalService.ShowModal<AddAdminModal>(new RegisterAdminViewModel(Context, _adminService, this));
         }
 
         public void ClearFilters()

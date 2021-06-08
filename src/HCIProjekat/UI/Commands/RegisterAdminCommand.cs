@@ -21,16 +21,18 @@ namespace UI.Commands
         private readonly IAdminService _adminService;
         private readonly IRouter _router;
         private readonly IApplicationContext _context;
+        private readonly AdminAdminsViewModel _adminAdminsVm;
 
         public event EventHandler CanExecuteChanged;
 
-        public RegisterAdminCommand(RegisterAdminViewModel registerVm, IAdminService adminService, IRouter router, IApplicationContext context)
+        public RegisterAdminCommand(RegisterAdminViewModel registerVm, IAdminService adminService, IRouter router, IApplicationContext context, AdminAdminsViewModel adminAdminsVm)
         {
             _registerVm = registerVm;
             _adminService = adminService;
             _router = router;
             _context = context;
             _registerVm.PropertyChanged += _registerVm_PropertyChanged;
+            _adminAdminsVm = adminAdminsVm;
         }
 
         private void _registerVm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -52,8 +54,10 @@ namespace UI.Commands
             {
                 var registerAdmin = _adminService.Create(new Admin { FirstName = _registerVm.FirstName, LastName = _registerVm.LastName, Password = _registerVm.Password, Username = _registerVm.Username, DateOfBirth = _registerVm.DateOfBirth });
                 _context.Notifier.ShowInformation($"Admin {registerAdmin.FirstName} {registerAdmin.LastName} sucessfuly added.");
-                _router.Push("AdminAdmins");
+                registerAdmin.Active = false;
+                _adminAdminsVm.AddItem(registerAdmin);
                 _registerVm.ResetFields();
+                _adminAdminsVm.UpdatePage(0);
             }
             catch (UsernameAlreadyExistsException exception)
             {
