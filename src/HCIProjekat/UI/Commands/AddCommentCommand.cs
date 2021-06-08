@@ -45,9 +45,6 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
-            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to send this comment?");
-            if (ok)
-            {
                 var comment = new Comment
                 {
                     Content = _taskDetailsVm.CommentContent,
@@ -58,8 +55,6 @@ namespace UI.Commands
                 _taskDetailsVm.LoadComments();
                 _taskDetailsVm.CommentContent = "";
                 _taskDetailsVm.CommentAdded = true;
-                _taskDetailsVm.Context.Notifier.ShowInformation("Comment successfully sent.");
-            }
         }
     }
 }

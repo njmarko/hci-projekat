@@ -16,6 +16,7 @@ using UI.Commands;
 using Domain.Enums;
 using System.Globalization;
 using UI.Services.Interfaces;
+using System.Windows.Media.Imaging;
 
 namespace UI.ViewModels
 {
@@ -24,7 +25,7 @@ namespace UI.ViewModels
         public string PartnerName { get; set; }
         public string OfferName { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public BitmapImage Image { get; set; }
         public int OfferPrice { get; set; }
         public string Status { get; set; }
         public string Color { get; set; }
@@ -67,6 +68,7 @@ namespace UI.ViewModels
             set
             {
                 _task = value;
+                OnPropertyChanged(nameof(IsClient));
                 OnPropertyChanged(nameof(IsPendingAndIsClient));
                 OnPropertyChanged(nameof(Task));
             }
@@ -144,6 +146,7 @@ namespace UI.ViewModels
 
         public bool IsPendingAndIsClient => Task.TaskStatus == TaskStatus.SENT_TO_CLIENT && Context.Store.CurrentUser is Client;
 
+        public bool IsClient => Context.Store.CurrentUser is Client;
 
 
         public bool CanComment => !string.IsNullOrEmpty(CommentContent);
@@ -228,6 +231,9 @@ namespace UI.ViewModels
                         break;
 
                 }
+                var img = entity.Offer.Image == null ? 
+                    new BitmapImage(new Uri(@"https://i.redd.it/oo8hu88g5pg61.png", UriKind.Absolute)) : 
+                    ImageUtil.ConvertToImage(entity.Offer.Image);
 
                 var taskOfferCardModel = new ClientTaskOfferCardModel
                 {
@@ -240,7 +246,8 @@ namespace UI.ViewModels
                     TaskOfferId = entity.Id,
                     TaskId = Task.Id,
                     IsVisible = entity.OfferStatus == OfferStatus.PENDING && Context.Store.CurrentUser is Client,
-                    Image = "https://i.redd.it/oo8hu88g5pg61.png" //ovo ovdje treba ispraviti da se preuzima slika od ponude. treba ispraviti i gore u view modelu
+                    //Image = "https://i.redd.it/oo8hu88g5pg61.png" //ovo ovdje treba ispraviti da se preuzima slika od ponude. treba ispraviti i gore u view modelu
+                    Image = img
                 };
 
                 taskOfferCardModel.RejectTaskOffer = new RejectTaskOfferCommand(_taskOfferService, taskOfferCardModel, this);
