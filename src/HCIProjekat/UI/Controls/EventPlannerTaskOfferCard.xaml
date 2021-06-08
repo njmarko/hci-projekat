@@ -30,14 +30,12 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
 
-                    <Button Grid.Column="0" FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}"
-                     Margin="10 10" Foreground="White" Command="{Binding ButtonAction}"
-                     Content="{Binding ButtonContent}"/>
+                    <Button Width="35" Height="35" Grid.Column="0" FontSize="14" ToolTip="{Binding ToolTip}" Style="{DynamicResource MaterialDesignFloatingActionButton}" Margin="10 10" Foreground="White" Command="{Binding ButtonAction}">
+                        <materialDesign:PackIcon Kind="{Binding IconKind}" />
+                    </Button>
                 </Grid>
             </StackPanel>
         </materialDesign:Card>

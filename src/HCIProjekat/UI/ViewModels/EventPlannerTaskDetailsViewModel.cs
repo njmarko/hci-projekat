@@ -19,11 +19,12 @@ namespace UI.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public BitmapImage Image { get; set; }
-        public string ButtonContent { get; set; }
+        public string IconKind { get; set; }
+        public string ToolTip { get; set; }
         public ICommand ButtonAction { get; set; }
     }
 
-    public class EventPlannerTaskDetailsViewModel : ViewModelBase
+    public class EventPlannerTaskDetailsViewModel : UndoModelBase<TaskOffer>
     {
         private readonly ITaskService _taskService;
 
@@ -74,7 +75,7 @@ namespace UI.ViewModels
             get { return "EventPlannerHome"; }
         }
 
-        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService, IModalService modalService, ICommentService commentService) : base(context)
+        public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService, IModalService modalService, ICommentService commentService) : base(context, taskOfferService, modalService)
         {
             _taskService = taskService;
 
@@ -99,6 +100,12 @@ namespace UI.ViewModels
             TaskDetails taskDetails = TaskColorAndStatus.GetTaskColorAndStatus(Task);
             Color = taskDetails.Color;
             Status = taskDetails.Status;
+        }
+
+        public override void UpdatePage(int pageNumber)
+        {
+            AddedOffersVm.UpdatePage(pageNumber);
+            AvailableOffersVm.UpdatePage(pageNumber);
         }
     }
 }

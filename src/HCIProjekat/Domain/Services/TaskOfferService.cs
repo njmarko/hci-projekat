@@ -66,32 +66,6 @@ namespace Domain.Services
             using var context = _dbContextFactory.CreateDbContext();
             
             context.TaskOffers.Update(offer);
-            var task = context.Tasks
-                              .Include(t => t.Offers)
-                              .Where(t => t.Id == offer.Id)
-                              .First();
-            
-            //var newStatus = offer.OfferStatus;
-            /*switch (offer.OfferStatus)
-            {
-                case OfferStatus.PENDING:
-                    task.TaskStatus = TaskStatus.SENT_TO_CLIENT;
-                    break;
-                case OfferStatus.ACCEPTED:
-                    task.TaskStatus = TaskStatus.ACCEPTED;
-                    break;
-                case OfferStatus.REJECTED:
-                    task.TaskStatus = TaskStatus.REJECTED;
-                    break;
-
-            }
-
-            if(offer.OfferStatus == OfferStatus.REJECTED)
-            {
-
-            }*/
-
-
             context.SaveChanges();
 
             return offer;
