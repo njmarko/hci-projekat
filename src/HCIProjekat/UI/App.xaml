@@ -33,15 +33,6 @@
             <DataTemplate DataType="{x:Type vm:AdminPartnersViewModel}">
                 <views:AdminPartnersView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:RegisterEventPlannerViewModel}">
-                <views:RegisterEventPlannerView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:RegisterAdminViewModel}">
-                <views:RegisterAdminView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:RegisterPartnerViewModel}">
-                <views:RegisterPartnerView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:RequestDetailsViewModel}">
                 <views:RequestDetailsView/>
             </DataTemplate>
