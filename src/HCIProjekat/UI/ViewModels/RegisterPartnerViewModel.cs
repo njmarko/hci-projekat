@@ -26,6 +26,8 @@ namespace UI.ViewModels
     {
         private readonly PartnerTypeModel _typeInitial;
 
+        private readonly AdminPartnersViewModel _adminPartnersVm;
+
         // Poperties
         private string _name;
         [ValidationField]
@@ -105,10 +107,11 @@ namespace UI.ViewModels
             get { return (_partnerId != -1) ? "Save" : "Register"; }
         }
 
-        public RegisterPartnerViewModel(IApplicationContext context, IPartnersService partnerService, int partnerId = -1) : base(context)
+        public RegisterPartnerViewModel(IApplicationContext context, IPartnersService partnerService, AdminPartnersViewModel adminPartnersVm, int partnerId = -1) : base(context)
         {
+            _adminPartnersVm = adminPartnersVm;
             //DateOfBirth = new DateTime(1990, 01, 01);
-            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router, context, partnerId);
+            RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router, context, partnerId, adminPartnersVm);
 
             _partnerId = partnerId;
 

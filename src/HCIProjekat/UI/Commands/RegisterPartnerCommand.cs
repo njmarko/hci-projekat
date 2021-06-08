@@ -23,8 +23,9 @@ namespace UI.Commands
         private readonly IApplicationContext _context;
         public event EventHandler CanExecuteChanged;
         private readonly int _partnerId;
+        private readonly AdminPartnersViewModel _adminPartnersVm;
 
-        public RegisterPartnerCommand(RegisterPartnerViewModel registerVm, IPartnersService partnerService, IRouter router, IApplicationContext context, int partnerId)
+        public RegisterPartnerCommand(RegisterPartnerViewModel registerVm, IPartnersService partnerService, IRouter router, IApplicationContext context, int partnerId, AdminPartnersViewModel adminPartnersVm)
         {
             _registerVm = registerVm;
             _partnerService = partnerService;
@@ -32,6 +33,7 @@ namespace UI.Commands
             _registerVm.PropertyChanged += _registerVm_PropertyChanged;
             _context = context;
             _partnerId = partnerId;
+            _adminPartnersVm = adminPartnersVm;
         }
 
         private void _registerVm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -76,16 +78,24 @@ namespace UI.Commands
                 Type = (Domain.Enums.PartnerType)_registerVm.PartnerTypeValue.Type,
                 Location = new Location { City = _registerVm.City, Country = _registerVm.Country, Street = _registerVm.Street, StreetNumber = _registerVm.StreetNumber }
             });
+            // undo redo
+            registerPartner.Active = false;
+            _adminPartnersVm.AddItem(registerPartner);
+
             _context.Notifier.ShowInformation($"Partner {registerPartner.Name} sucessfuly added.");
-            _router.Push("AdminPartners");
+            _adminPartnersVm.UpdatePage(0);
             _registerVm.ResetFields();
         }
 
         private void Update()
         {
+            // undo redo
+            var partner = _partnerService.Get(_partnerId);
+            _adminPartnersVm.AddItem(partner);
+
             var updatedPartner = _partnerService.Update(_partnerId, _registerVm.Name, _registerVm.PartnerTypeValue.Type.Value, _registerVm.Country, _registerVm.City, _registerVm.Street, _registerVm.StreetNumber);
             _context.Notifier.ShowInformation($"Partner {updatedPartner.Name} information sucessfuly updated.");
-            _router.Push("AdminPartners");
+            _adminPartnersVm.UpdatePage(0);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace UI.ViewModels
     }
 
 
-    public class AdminPartnersViewModel : PagingViewModelBase
+    public class AdminPartnersViewModel : UndoModelBase<Partner>
     {
         private readonly IPartnersService _partnersService;
 
@@ -73,7 +73,7 @@ namespace UI.ViewModels
 
         public ObservableCollection<PartnerTypeModel> PartnerTypeModels { get; private set; } = new ObservableCollection<PartnerTypeModel>();
 
-        public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService, IModalService modalService, IRouter router) : base(context)
+        public AdminPartnersViewModel(IApplicationContext context, IPartnersService partnersService, IModalService modalService, IRouter router) : base(context, partnersService, modalService)
         {
             _partnersService = partnersService;
             _router = router;
@@ -112,12 +112,12 @@ namespace UI.ViewModels
 
         private void OpenRegisterPartnerModal()
         {
-            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService));
+            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, this));
         }
 
         public void ShowEditPartner(int partnerId = -1)
         {
-            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, partnerId));
+            _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, this, partnerId));
         }
 
         public override void UpdatePage(int pageNumber)
