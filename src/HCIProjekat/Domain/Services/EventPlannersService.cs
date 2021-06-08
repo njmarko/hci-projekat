@@ -58,7 +58,7 @@ namespace Domain.Services
 
             return context.Requests
                           .Where(r => r.Active)
-                          .Where(r => r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId)    // TODO: Ubaci logiku za to da li je zahtev vec obradjen kad stavimo to u model
+                          .Where(r => r.EventPlanner != null && r.EventPlanner.Id == eventPlannerId && r.Date > DateTime.Now)
                           .ToList();
         }
 

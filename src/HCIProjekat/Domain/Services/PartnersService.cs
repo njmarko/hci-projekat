@@ -28,7 +28,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Partners.FirstOrDefault(u => u.Name == partner.Name) != null)
+            if (context.Partners.FirstOrDefault(u => u.Name == partner.Name && u.Active) != null)
             {
                 throw new PartnerAlreadyExistsException(partner.Name);
             }
@@ -82,7 +82,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            if (context.Partners.FirstOrDefault(u => u.Name == name && u.Id != partnerId) != null)
+            if (context.Partners.FirstOrDefault(u => u.Name == name && u.Id != partnerId && u.Active) != null)
             {
                 throw new PartnerAlreadyExistsException(name);
             }
