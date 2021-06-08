@@ -134,7 +134,17 @@ namespace UI.ViewModels
 
             }
         }
-
+        public void ResetFields()
+        {
+            Name = null;
+            PartnerTypeValue = _typeInitial;
+            Country = null;
+            City = null;
+            Street = null;
+            StreetNumber = null;
+            ResetDirtyValues();
+            IsValid();
+        }
         public bool IsValid()
         {
             bool valid = true;

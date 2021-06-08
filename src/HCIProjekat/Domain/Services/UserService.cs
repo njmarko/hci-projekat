@@ -40,6 +40,10 @@ namespace Domain.Services
         public User Update(int userId, string username, string firstName, string lastName, DateTime dateOfBirth)
         {
             using var context = _dbContextFactory.CreateDbContext();
+            if (context.Users.FirstOrDefault(u => u.Username == username && u.Id != userId) != null)
+            {
+                throw new UsernameAlreadyExistsException(username);
+            }
             var user = context.Users.Find(userId);
             user.Username = username;
             user.FirstName = firstName;
