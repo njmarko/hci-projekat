@@ -58,7 +58,8 @@ namespace UI.Commands
                 else
                 {
                     Update();
-                    //((Window)parameter).Close();
+                    (parameter as Window).DialogResult = true;
+                    (parameter as Window).Close();
                 }
             }
             catch (PartnerAlreadyExistsException exception)
@@ -82,7 +83,8 @@ namespace UI.Commands
         private void Update()
         {
             var updatedPartner = _partnerService.Update(_partnerId, _registerVm.Name, _registerVm.PartnerTypeValue.Type.Value, _registerVm.Country, _registerVm.City, _registerVm.Street, _registerVm.StreetNumber);
-            _context.Notifier.ShowSuccess($"Partner {updatedPartner.Name} sucessfuly added.");
+            _context.Notifier.ShowSuccess($"Partner {updatedPartner.Name} information sucessfuly updated.");
+            _router.Push("AdminPartners");
         }
     }
 }

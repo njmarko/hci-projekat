@@ -111,7 +111,7 @@ namespace UI.ViewModels
             _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService));
         }
 
-        public void ShowCreatePartner(int partnerId = -1)
+        public void ShowEditPartner(int partnerId = -1)
         {
             _modalService.ShowModal<AddPartnerModal>(new RegisterPartnerViewModel(Context, _partnersService, partnerId));
         }
@@ -133,7 +133,7 @@ namespace UI.ViewModels
                 };
                 partnerModel.Delete = new DeletePartnerCommand(this, entity.Id, entity.Name, _modalService, _partnersService);
                 //partnerModel.Edit = new RegisterPartnerCommand(new RegisterPartnerViewModel(Context, _partnersService, entity.Id), _partnersService, _router, Context, entity.Id);
-                partnerModel.Edit = new DelegateCommand(() => this.ShowCreatePartner(entity.Id));
+                partnerModel.Edit = new DelegateCommand(() => ShowEditPartner(entity.Id));
                 PartnerModels.Add(partnerModel);
             }
             OnPageFetched(page);

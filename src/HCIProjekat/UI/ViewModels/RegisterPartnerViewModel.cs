@@ -90,13 +90,27 @@ namespace UI.ViewModels
         public bool CanRegister => IsValid();
         public ICommand RegisterPartnerCommand { get; private set; }
 
-        public string HeadlineText { get; private set; } = "Register partner";
-        public string ButtonText { get; private set; } = "Register";
+
+
+        private int _partnerId;
+
+
+        public string HeadlineText
+        {
+            get { return (_partnerId != -1) ? "Edit partner" : "Register partner"; }
+
+        }
+        public string ButtonText
+        {
+            get { return (_partnerId != -1) ? "Save" : "Register"; }
+        }
 
         public RegisterPartnerViewModel(IApplicationContext context, IPartnersService partnerService, int partnerId = -1) : base(context)
         {
             //DateOfBirth = new DateTime(1990, 01, 01);
             RegisterPartnerCommand = new RegisterPartnerCommand(this, partnerService, context.Router, context, partnerId);
+
+            _partnerId = partnerId;
 
             PartnerTypeModels.Add(_typeInitial);
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.ANIMATOR, Name = "Animator" });
@@ -117,8 +131,6 @@ namespace UI.ViewModels
                 Street = partner.Location.Street;
                 StreetNumber = partner.Location.StreetNumber;
 
-                HeadlineText = "Edit partner";
-                ButtonText = "Save";
             }
         }
 
