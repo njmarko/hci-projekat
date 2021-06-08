@@ -115,7 +115,7 @@ namespace UI.Modals
 
         private void OnChairDrag(object sender, DragEventArgs e)
         {
-            if (CurrentItem != "Chair")
+            if (CurrentItem != "Chair" && SelectedChair == null)
             {
                 return;
             }

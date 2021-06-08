@@ -75,11 +75,17 @@ namespace UI.ViewModels
             }
 
             var chair = closestTable.Chairs.Where(c => c.X == xOffset && c.Y == yOffset).FirstOrDefault();
+            closestTable.Chairs.Remove(chair);
             chair.X = newXOffset;
             chair.Y = newYOffset;
+
+            var newClosestTable = ClosestTable(newXOffset, newYOffset);
+            newClosestTable.Chairs.Add(chair);
+
             if (SeatingLayout.Id != 0)
             {
                 _seatingLayoutService.UpdateChair(chair);
+                _seatingLayoutService.UpdateTable(newClosestTable);
             }
         }
 
