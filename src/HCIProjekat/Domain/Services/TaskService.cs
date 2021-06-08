@@ -109,6 +109,12 @@ namespace Domain.Services
                 }
             }
 
+            if (task.TaskStatus == TaskStatus.SENT_TO_CLIENT)
+            {
+                var client = context.Clients.SingleOrDefault(c => c.MyRequests.Contains(task.Request));
+                _notificationService.Push(new Notification { Message = "You have a new task to review.", RequestId = task.Request.Id, TaskId = task.Id, UserId = client.Id });
+            }
+
             context.Tasks.Update(task);
             context.SaveChanges();
             return task;
