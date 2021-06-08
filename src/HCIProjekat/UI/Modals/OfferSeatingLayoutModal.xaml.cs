@@ -28,9 +28,22 @@ namespace UI.Modals
         private readonly double TABLE_DISTANCE_TRESHOLD = 100;
         private CreateOfferSeatingLayoutViewModel _vm;
 
-        public string CurrentItem { get; set; } = null;
-        public ChairIcon SelectedChair { get; set; } = null;
-        public TableIcon SelectedTable { get; set; } = null;
+        private TableIcon _selectedTable;
+        private ChairIcon _selectedChair;
+        private string _currentItem;
+
+        public string CurrentItem {
+            get { return _currentItem; }
+            set { _currentItem = value; _vm.DeletableItemSelected = value == null; } 
+        }
+        public ChairIcon SelectedChair {
+            get { return _selectedChair; }
+            set { _selectedChair = value; _vm.DeletableItemSelected = value != null; } 
+        }
+        public TableIcon SelectedTable {
+            get { return _selectedTable; }
+            set { _selectedTable = value; _vm.DeletableItemSelected = value != null; } 
+        }
 
         public OfferSeatingLayoutModal()
         {
@@ -73,6 +86,11 @@ namespace UI.Modals
             Canvas.SetLeft(item, xOffset);
             Canvas.SetTop(item, yOffset);
 
+            RedrawCanvas();
+        }
+
+        private void RedrawCanvas()
+        {
             _mainCanvas.Children.RemoveRange(1, _mainCanvas.Children.Count - 1);
             DrawLayout();
         }
@@ -169,6 +187,26 @@ namespace UI.Modals
             Canvas.SetLeft(c, chair.X - CHAIR_RADIUS);
             Canvas.SetTop(c, chair.Y - CHAIR_RADIUS);
             _mainCanvas.Children.Add(c);
+        }
+
+        private void DeleteItem(object sender, DragEventArgs e)
+        {
+            if (SelectedChair == null && SelectedTable == null)
+            {
+                return;
+            }
+
+            var context = (SelectedTable != null ? SelectedTable.DataContext : SelectedChair.DataContext) as ILayoutItem;
+            if (SelectedTable != null)
+            {
+                _vm.RemoveTable(context.X, context.Y);
+            }
+            else
+            {
+                _vm.RemoveChair(context.X, context.Y);
+            }
+
+            RedrawCanvas();
         }
     }
 }

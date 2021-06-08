@@ -15,6 +15,13 @@ namespace UI.ViewModels
     {
         private readonly CreateOfferViewModel _createOfferVm;
         private readonly ISeatingLayoutService _seatingLayoutService;
+
+        private bool _deletableItemSelected;
+        public bool DeletableItemSelected
+        {
+            get { return _deletableItemSelected; }
+            set { _deletableItemSelected = value; OnPropertyChanged(nameof(DeletableItemSelected)); }
+        }
         
         public SeatingLayout SeatingLayout { get; private set; }
 
@@ -107,6 +114,16 @@ namespace UI.ViewModels
             }
         }
 
+        private void UpdateTableIndexes()
+        {
+            var startingIndex = 1;
+            foreach(Table table in SeatingLayout.Tables)
+            {
+                table.Label = $"Table #{startingIndex++}";
+                _seatingLayoutService.UpdateTable(table);
+            }
+        }
+
         public void RemoveTable(double xOffset, double yOffset)
         {
             var table = SeatingLayout.Tables.Where(t => t.X == xOffset && t.Y == yOffset).FirstOrDefault();
@@ -115,6 +132,8 @@ namespace UI.ViewModels
             {
                 _seatingLayoutService.RemoveTable(table, SeatingLayout.Id);
             }
+
+            UpdateTableIndexes();
         }
 
         public Table AddTable(double xOffset, double yOffset)
@@ -143,6 +162,8 @@ namespace UI.ViewModels
             {
                 _seatingLayoutService.RemoveChair(chair, SeatingLayout.Id);
             }
+
+            UpdateChairIndexes(closestTable);
         }
 
         public Chair AddChair(double xOffset, double yOffset)

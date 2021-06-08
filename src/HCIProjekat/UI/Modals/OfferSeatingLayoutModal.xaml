@@ -36,7 +36,7 @@
                     <ListViewItem Content="Chair" PreviewMouseDown="InitItemDrop" Style="{DynamicResource MaterialDesignFilterChipAccentListBoxItem}"/>
                 </ListView>
 
-                <materialDesign:PackIcon Margin="0 0 0 -20" Width="50" Height="100" Kind="Delete" Grid.Row="1" HorizontalAlignment="Center"/>
+                <materialDesign:PackIcon Margin="0 0 0 -20" Width="50" Height="100" Kind="Delete" AllowDrop="{Binding DeletableItemSelected}" PreviewDrop="DeleteItem" Grid.Row="1" HorizontalAlignment="Center"/>
             </Grid>
         </DockPanel>
         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
