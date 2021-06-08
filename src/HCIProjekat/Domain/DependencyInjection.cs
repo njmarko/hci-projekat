@@ -26,6 +26,7 @@ namespace Domain
             services.AddSingleton<ITaskOfferService, TaskOfferService>();
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<ISeatingLayoutService, SeatingLayoutService>();
+            services.AddSingleton<IPartnerService, PartnerService>();
             return services;
         }
     }

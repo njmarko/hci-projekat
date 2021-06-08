@@ -87,7 +87,7 @@ namespace UI.ViewModels
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.MUSIC, Name = "Music" });
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.PHOTOGRAPHY, Name = "Photography" });
             PartnerTypeModels.Add(new PartnerTypeModel { Type = PartnerType.RESTAURANT, Name = "Restaurant" });
-
+            HelpPage = "event-planner-partners";
             UpdatePage(0);
         }
 

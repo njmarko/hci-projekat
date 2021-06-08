@@ -103,7 +103,7 @@ namespace UI.ViewModels
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.GRADUATION, Name = "Graduation" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.PARTY, Name = "Party" });
             RequestTypeModels.Add(new RequestTypeModel { Type = RequestType.WEDDING, Name = "Wedding" });
-
+            HelpPage = "event-planner-requests";
             Rows = 2;
             Columns = 4;
             UpdatePage(0);
