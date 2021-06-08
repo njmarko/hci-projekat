@@ -129,7 +129,7 @@ namespace UI.ViewModels
                     Route = $"RequestDetails?requestId={entity.Id}",
                     CanAccept = entity.EventPlanner == null,
                     IsMine = entity.EventPlanner != null && entity.EventPlanner.Id == Context.Store.CurrentUser.Id,
-                    CanReject = entity.EventPlanner != null && entity.EventPlanner.Id == Context.Store.CurrentUser.Id,
+                    CanReject = entity.EventPlanner != null && entity.EventPlanner.Id == Context.Store.CurrentUser.Id && (entity.Date - DateTime.Now).TotalDays > 7,
                     Vm = this,
                 };
                 model.Accept = new AcceptRequestCommand(this, _requestService, _modalService, entity.Id);
