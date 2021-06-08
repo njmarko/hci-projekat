@@ -49,6 +49,10 @@ namespace UI.Modals
                         DrawChair(chair);
                     }
                 }
+                foreach (var guest in _vm.RequestGuests.Select(g => _vm.Map(g)))
+                {
+                    DrawGuests(guest);
+                }
             }
         }
 
@@ -74,6 +78,18 @@ namespace UI.Modals
             _mainCanvas.Children.Add(c);
         }
 
+        private void DrawGuests(GuestModel guest)
+        {
+            var chair = _vm.GetChairForGuests(guest.Id);
+            if (chair != null)
+            {
+                var g = new GuestIcon { Width = 2 * GUEST_RADIUS, Height = 2 * GUEST_RADIUS, AllowDrop = false, ToolTip = $"{chair.Label}: {guest.Name}", DataContext = guest };
+                Canvas.SetLeft(g, chair.X - GUEST_RADIUS);
+                Canvas.SetTop(g, chair.Y - GUEST_RADIUS);
+                _mainCanvas.Children.Add(g);
+            }
+        }
+
         private void InitGuestDrag(object sender, MouseButtonEventArgs e)
         {
             var frameworkElement = sender as FrameworkElement;
@@ -93,7 +109,7 @@ namespace UI.Modals
             if (_currentGuest != null)
             {
                 var guestModel = _vm.DropGuest(_currentGuest.Id, position.X, position.Y);
-                guest = new GuestIcon { Width = 2 * GUEST_RADIUS, Height = 2 * GUEST_RADIUS, AllowDrop = false, ToolTip = $"{_currentGuest.Name}", DataContext = guestModel };
+                guest = new GuestIcon { Width = 2 * GUEST_RADIUS, Height = 2 * GUEST_RADIUS, AllowDrop = false, ToolTip = $"{closestChair.Label}: {_currentGuest.Name}", DataContext = guestModel };
                 guest.PreviewMouseDown += Guest_PreviewMouseDown;
                 _currentGuest = null;
             }
@@ -101,7 +117,7 @@ namespace UI.Modals
             {
                 _mainCanvas.Children.Remove(_currentGuestIcon);
                 var guestModel = _vm.DropGuest((_currentGuestIcon.DataContext as GuestModel).Id, position.X, position.Y);
-                guest = new GuestIcon { Width = 2 * GUEST_RADIUS, Height = 2 * GUEST_RADIUS, AllowDrop = false, ToolTip = $"{guestModel.Name}", DataContext = guestModel };
+                guest = new GuestIcon { Width = 2 * GUEST_RADIUS, Height = 2 * GUEST_RADIUS, AllowDrop = false, ToolTip = $"{closestChair.Label}: {guestModel.Name}", DataContext = guestModel };
                 guest.PreviewMouseDown += Guest_PreviewMouseDown;
                 _currentGuestIcon = null;
             }

@@ -53,6 +53,7 @@ namespace UI.ViewModels
         public bool CanAddGuest => !string.IsNullOrEmpty(GuestName) && GuestCount != _request.GuestNumber;
 
         public SeatingLayout SeatingLayout { get; private set; }
+        public IList<Guest> RequestGuests => _request.Guests;
         public ObservableCollection<GuestModel> Guests { get; private set; } = new ObservableCollection<GuestModel>();
         public ICommand AddGuest { get; private set; }
 
@@ -62,7 +63,7 @@ namespace UI.ViewModels
             _requestId = requestId;
 
             _request = _requestService.GetWithGuests(_requestId);
-            SeatingLayout = _requestService.GetSeatingLayout(_requestId) ?? CreateDebugSeatingLayout();
+            SeatingLayout = _requestService.GetSeatingLayout(_requestId);
 
             AddGuest = new AddGuestCommand(this, _requestService, _requestId);
             UpdateGuestSearch();
@@ -185,9 +186,15 @@ namespace UI.ViewModels
             }
         }
 
-        private Guest GetGuestForChair(int chairId)
+        public Guest GetGuestForChair(int chairId)
         {
             return _request.Guests.SingleOrDefault(g => g.ChairId == chairId);
+        }
+
+        public Chair GetChairForGuests(int guestId)
+        {
+            var guest = _request.Guests.SingleOrDefault(g => g.Id == guestId);
+            return SeatingLayout.Tables.SelectMany(t => t.Chairs).SingleOrDefault(c => c.Id == guest.ChairId);
         }
     }
 }

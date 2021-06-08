@@ -118,8 +118,7 @@ namespace UI.ViewModels
         {
             Request = _requestService.Get(RequestId);
             CurrentCost = _requestService.GetRequestCost(RequestId);
-            //CanEditSeatingLayout = _requestService.IsLocationAccepted(RequestId);
-            CanEditSeatingLayout = true; // TODO: PROMENITI OVO POSLE OVO JE SAMO ZA DEBUG
+            CanEditSeatingLayout = _requestService.IsLocationAccepted(RequestId);
             UpdatePage(0);
             HelpPage = "request-details";
         }
