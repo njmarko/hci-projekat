@@ -78,7 +78,7 @@ namespace UI.ViewModels
         public TaskTypeModel TaskTypeValue
         {
             get { return _taskType; }
-            set { _taskType = value; OnPropertyChanged(nameof(TaskTypeModel)); }
+            set { _taskType = value; OnPropertyChanged(nameof(TaskTypeValue)); }
         }
 
         private TaskStatusModel _taskStatus;
@@ -88,7 +88,7 @@ namespace UI.ViewModels
             set 
             { 
                 _taskStatus = value;
-                OnPropertyChanged(nameof(TaskStatusModel));
+                OnPropertyChanged(nameof(TaskStatusValue));
             }
         }
 
@@ -115,6 +115,7 @@ namespace UI.ViewModels
 
         public ObservableCollection<ClientTaskCardModel> TaskModels { get; private set; } = new ObservableCollection<ClientTaskCardModel>();
         public ICommand Search { get; private set; }
+        public ICommand Clear { get; private set; }
         public ICommand ShowSeatingModal { get; private set; }
         public ObservableCollection<TaskTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<TaskTypeModel>();
         public ObservableCollection<TaskStatusModel> TaskStatusModels { get; private set; } = new ObservableCollection<TaskStatusModel>();
@@ -131,6 +132,7 @@ namespace UI.ViewModels
         public RequestDetailsViewModel(IApplicationContext context, IRequestService requestService, ITaskService taskService, IModalService modalService) : base(context)
         {
             Search = new DelegateCommand(() => UpdatePage(0));
+            Clear = new DelegateCommand(ClearFilters);
             ShowSeatingModal = new DelegateCommand(ShowClientSeatingLayoutModal);
             Rows = 1;
             Columns = 4;
@@ -177,10 +179,15 @@ namespace UI.ViewModels
 
         private void ShowClientSeatingLayoutModal()
         {
-            if (_modalService.ShowModal<ClientSeatingLayoutModal>(new ClientSeatingLayoutViewModel(Context, _requestService, RequestId)))
-            {
+            _modalService.ShowModal<ClientSeatingLayoutModal>(new ClientSeatingLayoutViewModel(Context, _requestService, RequestId));
+        }
 
-            }
+        public void ClearFilters()
+        {
+            Query = string.Empty;
+            TaskTypeValue = _typeInitial;
+            TaskStatusValue = _statusInitial;
+            UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)

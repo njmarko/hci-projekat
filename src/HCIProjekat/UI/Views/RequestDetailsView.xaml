@@ -32,7 +32,7 @@
 
         <StackPanel Orientation="Vertical" Background="#e8e8e8" Grid.Row="0">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding BackRoute}">
+                <Button Command="{Binding Context.Router.RouterPushCommand}" Foreground="White" CommandParameter="{Binding BackRoute}">
                     <materialDesign:PackIcon Kind="ArrowLeft"></materialDesign:PackIcon>
                 </Button>
             </StackPanel>
@@ -126,21 +126,31 @@
                               materialDesign:ShadowAssist.ShadowEdges="All" 
                               Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
                 <!--Filter block-->
-                <UniformGrid Grid.Row="2" Grid.Column="0" Rows="1" 
-                                 Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">
-                    <ComboBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" 
-                                  materialDesign:HintAssist.Hint="Select task type" 
-                                  ItemsSource="{Binding TaskTypeModels}" 
-                                  SelectedItem="{Binding TaskTypeValue}" 
-                                  DisplayMemberPath="Name" />
+                <Grid Grid.Row="2" Grid.ColumnSpan="3" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" 
+                                      materialDesign:HintAssist.Hint="Select task type" 
+                                      ItemsSource="{Binding TaskTypeModels}" 
+                                      SelectedItem="{Binding TaskTypeValue}" 
+                                      DisplayMemberPath="Name" />
 
-                    <ComboBox Margin="10 10 10 10" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" 
-                                  materialDesign:HintAssist.Hint="Select task status" 
-                                  ItemsSource="{Binding TaskStatusModels}" 
-                                  SelectedItem="{Binding TaskStatusValue}" 
-                                  DisplayMemberPath="Name" />
-
-                </UniformGrid>
+                    <ComboBox Grid.Row="0" Grid.Column="1" Margin="10 10 10 10" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" 
+                                      materialDesign:HintAssist.Hint="Select task status" 
+                                      ItemsSource="{Binding TaskStatusModels}" 
+                                      SelectedItem="{Binding TaskStatusValue}" 
+                                      DisplayMemberPath="Name" />
+                    <UniformGrid Grid.Row="0" Grid.Column="2" Rows="1" >
+                        <Button Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" />
+                        <Button Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" />
+                    </UniformGrid>
+                </Grid>
             </Grid>
         </Grid>
 
