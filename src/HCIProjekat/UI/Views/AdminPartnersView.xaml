@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
 
-        <Grid Grid.Row="0" Background="White" Margin="10">
+        <Grid Grid.Row="0" Background="#e8e8e8" Margin="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
