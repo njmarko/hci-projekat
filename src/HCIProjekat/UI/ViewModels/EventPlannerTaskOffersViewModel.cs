@@ -20,6 +20,7 @@ namespace UI.ViewModels
     {
         private readonly ITaskOfferService _taskOfferService;
         private readonly IModalService _modalService;
+        private readonly EventPlannerTaskDetailsViewModel _taskVm;
 
         private int _taskId;
         public int TaskId
@@ -61,11 +62,11 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
-        public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService, IModalService modalService) : base(context)
+        public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService, IModalService modalService, EventPlannerTaskDetailsViewModel taskVm) : base(context)
         {
-
             _taskOfferService = taskOfferService;
             _modalService = modalService;
+            _taskVm = taskVm;
 
             Search = new DelegateCommand(() => UpdatePage(0));
 
@@ -96,6 +97,10 @@ namespace UI.ViewModels
                 UpdatePage(0);
                 Context.Notifier.ShowInformation("Offer succesfully removed from the task.");
                 AvailableVm.UpdatePage(0);
+            }
+            else
+            {
+                _taskVm.TabSelectedIndex = 0;
             }
         }
     }

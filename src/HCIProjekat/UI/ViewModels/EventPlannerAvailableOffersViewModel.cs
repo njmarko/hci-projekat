@@ -20,6 +20,7 @@ namespace UI.ViewModels
         private readonly IOfferService _offerService;
         private readonly ITaskOfferService _taskOfferService;
         private readonly IModalService _modalService;
+        private readonly EventPlannerTaskDetailsViewModel _taskVm;
 
         private int _taskId;
         public int TaskId
@@ -54,11 +55,12 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
-        public EventPlannerAvailableOffersViewModel(IApplicationContext context, IOfferService offerService, ITaskOfferService taskOfferService, IModalService modalService) : base(context)
+        public EventPlannerAvailableOffersViewModel(IApplicationContext context, IOfferService offerService, ITaskOfferService taskOfferService, IModalService modalService, EventPlannerTaskDetailsViewModel taskVm) : base(context)
         {
             _offerService = offerService;
             _taskOfferService = taskOfferService;
             _modalService = modalService;
+            _taskVm = taskVm;
 
             Search = new DelegateCommand(() => UpdatePage(0));
             SearchQuery = string.Empty;
@@ -88,6 +90,10 @@ namespace UI.ViewModels
                 UpdatePage(0);
                 Context.Notifier.ShowInformation("Offer successfully added to the task.");
                 AddedVm.UpdatePage(0);
+            }
+            else
+            {
+                _taskVm.TabSelectedIndex = 1;
             }
         }
     }
