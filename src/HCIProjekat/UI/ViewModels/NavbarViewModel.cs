@@ -27,7 +27,6 @@ namespace UI.ViewModels
     {
         private readonly IModalService _modalService;
         private readonly IUserService _userService;
-        private readonly IAdminService _adminService;
 
         private bool _isVisible;
 
@@ -51,12 +50,6 @@ namespace UI.ViewModels
             }
         }
 
-        private bool _canRegisterAdmin;
-        public bool CanRegisterAdmin
-        {
-            get { return _canRegisterAdmin; }
-            set { _canRegisterAdmin = value; OnPropertyChanged(nameof(CanRegisterAdmin)); }
-        }
 
         public NotificationViewModel NotificationViewModel { get; private set; }
         public ICommand Logout { get; private set; }
@@ -64,25 +57,18 @@ namespace UI.ViewModels
         public ICommand ChangePassword { get; private set; }
         public ICommand OpenNotifications { get; private set; }
 
-        public ICommand AddAdmin { get; private set; }
-
         public ObservableCollection<NavbarItemModel> NavbarItems { get; private set; } = new ObservableCollection<NavbarItemModel>();
 
-        public NavbarViewModel(IApplicationContext context, IModalService modalService, IUserService userService, IAdminService adminService, NotificationViewModel notificationsVm) : base(context)
+        public NavbarViewModel(IApplicationContext context, IModalService modalService, IUserService userService, NotificationViewModel notificationsVm) : base(context)
         {
             _modalService = modalService;
             _userService = userService;
-            _adminService = adminService;
             NotificationViewModel = notificationsVm;
 
             Logout = new LogoutCommand(context);
             UpdateProfile = new DelegateCommand(OpenUpdateProfileInfoModal);
             ChangePassword = new DelegateCommand(OpenChangePasswordModal);
             OpenNotifications = new DelegateCommand(OpenNotificationsView);
-            AddAdmin = new DelegateCommand(OpenRegisterAdminModal);
-
-            CanRegisterAdmin = Context.Store.CurrentUser is Admin;
-
 
             context.Router.RouteChanged += UpdateNavbar;
         }
@@ -102,11 +88,6 @@ namespace UI.ViewModels
             Context.Router.Push("Notifications");
         }
 
-        private void OpenRegisterAdminModal()
-        {
-            _modalService.ShowModal<AddAdminModal>(new RegisterAdminViewModel(Context, _adminService));
-        }
-
         private void UpdateNavbar(ViewModelBase currentVm)
         {
             IsVisible = (currentVm is not LoginViewModel) && (currentVm is not RegisterViewModel);
@@ -114,7 +95,6 @@ namespace UI.ViewModels
             {
                 NavbarItems.Clear();
                 User user = Context.Store.CurrentUser;
-                CanRegisterAdmin = user is Admin;
                 if (user is Admin)
                 {
                     NavbarItems.Add(new NavbarItemModel { Name = "Partners", Route = "AdminPartners", IsSelected = currentVm is AdminPartnersViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
@@ -122,11 +102,10 @@ namespace UI.ViewModels
                     NavbarItems.Add(new NavbarItemModel { Name = "Clients", Route = "AdminClients", IsSelected = currentVm is AdminClientsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                     NavbarItems.Add(new NavbarItemModel { Name = "Admins", Route = "AdminAdmins", IsSelected = currentVm is AdminAdminsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                     NavbarItems.Add(new NavbarItemModel { Name = "Requests", Route = "AdminRequests", IsSelected = currentVm is AdminRequestsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
-                    CanRegisterAdmin = true;
                 }
                 else if (user is EventPlanner)
                 {
-                    NavbarItems.Add(new NavbarItemModel { Name = "Home", Route = "EventPlannerHome", IsSelected = currentVm is EventPlannerHomeViewModel, RouterPushCommand = Context.Router.RouterPushCommand });                  
+                    NavbarItems.Add(new NavbarItemModel { Name = "Home", Route = "EventPlannerHome", IsSelected = currentVm is EventPlannerHomeViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                     NavbarItems.Add(new NavbarItemModel { Name = "Partners", Route = "AdminPartners", IsSelected = currentVm is AdminPartnersViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                     NavbarItems.Add(new NavbarItemModel { Name = "Requests", Route = "EventPlannerRequests", IsSelected = currentVm is EventPlannerRequestsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                 }
@@ -134,7 +113,7 @@ namespace UI.ViewModels
                 {
                     NavbarItems.Add(new NavbarItemModel { Name = "Home", Route = "ClientRequests", IsSelected = currentVm is ClientRequestsViewModel, RouterPushCommand = Context.Router.RouterPushCommand });
                 }
-            } 
+            }
         }
     }
 }
