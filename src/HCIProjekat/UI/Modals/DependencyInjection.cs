@@ -21,6 +21,7 @@ namespace UI.Modals
             services.AddTransient<AddEventPlannerModal>();
             services.AddTransient<AddPartnerModal>();
             services.AddTransient<OfferSeatingLayoutModal>();
+            services.AddTransient<ClientSeatingLayoutModal>();
             return services;
         }
     }

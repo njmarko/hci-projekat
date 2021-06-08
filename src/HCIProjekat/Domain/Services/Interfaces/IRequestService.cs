@@ -21,6 +21,18 @@ namespace Domain.Services.Interfaces
 
         Page<Request> GetAllRequests(RequestsPage page);
 
+        Request GetWithGuests(int requestId);
+
         int GetRequestCost(int requestId);
+
+        bool IsLocationAccepted(int requestId);
+
+        SeatingLayout GetSeatingLayout(int requestId);
+
+        Guest AddGuest(Guest guest, int requestId);
+
+        void RemoveGuest(int requestId, int guestId);
+
+        Guest SetGuestChair(int guestId, int chairId);
     }
 }

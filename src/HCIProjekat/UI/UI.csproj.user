@@ -31,6 +31,9 @@
     <Compile Update="Controls\EventPlannerTaskOfferCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\GuestIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Navbar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +44,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\TableIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\ClientSeatingLayoutModal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Modals\CreateTaskModal.xaml.cs">
@@ -129,6 +135,9 @@
     <Page Update="Controls\EventPlannerTaskOfferCard.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\GuestIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Navbar.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -154,6 +163,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modals\AddEventPlannerModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\ClientSeatingLayoutModal.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modals\CreateTaskModal.xaml">
