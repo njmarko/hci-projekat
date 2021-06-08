@@ -49,6 +49,12 @@ namespace UI.ViewModels
             return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
         }
 
+        public bool ChairsPresentInTable(double xOffset, double yOffset)
+        {
+            var table = SeatingLayout.Tables.Where(t => t.X == xOffset && t.Y == yOffset).FirstOrDefault();
+            return table.Chairs.Count > 0;
+        }
+
         public void UpdateTable(double xOffset, double yOffset, double newXOffset, double newYOffset)
         {
             var table = SeatingLayout.Tables.Where(t => t.X == xOffset && t.Y == yOffset).FirstOrDefault();

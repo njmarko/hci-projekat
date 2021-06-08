@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UI.Modals;
+using UI.ViewModels;
 
 namespace UI.Controls
 {
@@ -33,6 +35,14 @@ namespace UI.Controls
             SeatingLayoutModal.SelectedChair = null;
             SeatingLayoutModal.SelectedTable = this;
             SeatingLayoutModal.CurrentItem = null;
+
+            var vm = SeatingLayoutModal.DataContext as CreateOfferSeatingLayoutViewModel;
+            var thisVm = DataContext as ILayoutItem;
+
+            if (vm.ChairsPresentInTable(thisVm.X, thisVm.Y))
+            {
+                return;
+            }
 
             var fe = sender as FrameworkElement;
             DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
