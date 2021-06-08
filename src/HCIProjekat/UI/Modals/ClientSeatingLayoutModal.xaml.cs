@@ -24,7 +24,7 @@ namespace UI.Modals
     public partial class ClientSeatingLayoutModal : Window, IModalWindow
     {
         private readonly double TABLE_RADIUS = 40;
-        private readonly double CHAIR_RADIUS = 15;
+        private readonly double CHAIR_RADIUS = 10;
         private readonly double GUEST_RADIUS = 15;
         private readonly double CHAIR_DISTANCE_THRESHOLD = 50;
 

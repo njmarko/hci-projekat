@@ -23,6 +23,12 @@ namespace UI.ViewModels
         public ICommand RemoveGuest { get; set; }
     }
 
+    public class TableTabViewModel
+    {
+        public string Name { get; set; }
+        public ObservableCollection<int> Chairs { get; set; } 
+    }
+
     public class ClientSeatingLayoutViewModel : ViewModelBase
     {
         private readonly IRequestService _requestService;
@@ -54,6 +60,7 @@ namespace UI.ViewModels
 
         public SeatingLayout SeatingLayout { get; private set; }
         public ObservableCollection<GuestModel> Guests { get; private set; } = new ObservableCollection<GuestModel>();
+        public ObservableCollection<TableTabViewModel> TableTabs { get; private set; }
 
         public ICommand AddGuest { get; private set; }
 
@@ -64,6 +71,12 @@ namespace UI.ViewModels
 
             _request = _requestService.GetWithGuests(_requestId);
             SeatingLayout = _requestService.GetSeatingLayout(_requestId) ?? CreateDebugSeatingLayout();
+            if (SeatingLayout != null)
+            {
+                TableTabs = new ObservableCollection<TableTabViewModel>(
+                    SeatingLayout.Tables.Select(t => new TableTabViewModel { Name = t.Label, Chairs = new ObservableCollection<int>() { 1, 2, 3 } })
+                );
+            }
 
             AddGuest = new AddGuestCommand(this, _requestService, _requestId);
             UpdateGuestSearch();
