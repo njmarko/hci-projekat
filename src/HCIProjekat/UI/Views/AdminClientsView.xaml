@@ -17,7 +17,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
-    <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}" MaxWidth="1366" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*"/>
@@ -71,7 +71,7 @@
         <ItemsControl Grid.Row="1" ItemsSource="{Binding ClientModels}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                    <UniformGrid MaxWidth="1366" MinHeight="520" MaxHeight="520" VerticalAlignment="Top" HorizontalAlignment="Stretch" Columns="{Binding Columns}" Rows="{Binding Rows}" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>

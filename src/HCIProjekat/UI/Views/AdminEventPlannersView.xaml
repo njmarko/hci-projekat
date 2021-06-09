@@ -23,7 +23,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#e8e8e8" Margin="10">
+        <Grid Grid.Row="0" Background="#e8e8e8" Margin="10" MaxWidth="1366" HorizontalAlignment="Stretch">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -72,7 +72,7 @@
         <ItemsControl Grid.Row="1" ItemsSource="{Binding EventPlannerModels}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                    <UniformGrid MaxWidth="1366" MinHeight="520" MaxHeight="520" VerticalAlignment="Top" HorizontalAlignment="Stretch" Columns="{Binding Columns}" Rows="{Binding Rows}" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
