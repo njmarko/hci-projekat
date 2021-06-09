@@ -13,6 +13,7 @@
              TextOptions.TextFormattingMode="Ideal" 
              TextOptions.TextRenderingMode="Auto"
              mc:Ignorable="d" 
+             controls:MyUserControlBehavior.WindowTitle="Home page"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}">
         <Grid.RowDefinitions>
