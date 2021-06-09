@@ -81,7 +81,7 @@ namespace UI.Modals
             _offset.Y = Canvas.GetTop(_dragObject);
             _mainCanvas.CaptureMouse();
         }
-
+        
         private void OnCanvasResized(object sender, SizeChangedEventArgs e)
         {
             _mainContainter.Width = e.NewSize.Width;
@@ -195,7 +195,23 @@ namespace UI.Modals
 
         private void OnTableDrag(DragEventArgs e)
         {
+            if (SelectedTable != null)
+            {
+                SelectedTable.AllowDrop = true;
+            }
+
             var position = e.GetPosition(_mainCanvas);
+            if (position.X <= TABLE_DISTANCE_TRESHOLD || position.Y <= TABLE_DISTANCE_TRESHOLD)
+            {
+                if (SelectedTable != null)
+                {
+                    SelectedTable.AllowDrop = false;
+                }
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
+                return;
+            }
+
             var tables = _vm.SeatingLayout.Tables;
             foreach(Domain.Entities.Table table in tables)
             {
