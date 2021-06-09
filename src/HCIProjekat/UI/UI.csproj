@@ -4,7 +4,22 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <Win32Resource></Win32Resource>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\password.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="{d37e2a3e-8545-3a39-9f4f-31827c9124ab}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>d37e2a3e-8545-3a39-9f4f-31827c9124ab</Guid>
+    </COMReference>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
@@ -33,6 +48,9 @@
 
   <ItemGroup>
     <Resource Include="EmptyImage\EmptyImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\password.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

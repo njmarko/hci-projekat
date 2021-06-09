@@ -59,7 +59,7 @@ namespace UI.Commands
                 _adminAdminsVm.AddItem(registerAdmin);
 
                 _registerVm.ResetFields();
-                _adminAdminsVm.UpdatePage(0);
+                _adminAdminsVm.UpdatePage(_adminAdminsVm.PaginationViewModel.Page);
             }
             catch (UsernameAlreadyExistsException exception)
             {
