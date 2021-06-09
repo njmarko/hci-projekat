@@ -20,7 +20,6 @@ namespace UI.Commands
         private readonly CreateOfferViewModel _createOfferVm;
         private readonly IOfferService _offerService;
         private readonly ISeatingLayoutService _seatingLayoutService;
-        private readonly IModalService _modalService;
 
         private int _offerId;
         private int _partnerId;
@@ -28,13 +27,12 @@ namespace UI.Commands
 
         public event EventHandler CanExecuteChanged;
 
-        public CreateOfferCommand(PartnerOffersViewModel partnerVm, CreateOfferViewModel createOfferViewModel, IOfferService offerService, ISeatingLayoutService seatingLayoutService, IModalService modalService, int partnerId, int offerId, SeatingLayout seatingLayout)
+        public CreateOfferCommand(PartnerOffersViewModel partnerVm, CreateOfferViewModel createOfferViewModel, IOfferService offerService, ISeatingLayoutService seatingLayoutService, int partnerId, int offerId, SeatingLayout seatingLayout)
         {
             _partnerVm = partnerVm;
             _createOfferVm = createOfferViewModel;
             _offerService = offerService;
             _seatingLayoutService = seatingLayoutService;
-            _modalService = modalService;
             _offerId = offerId;
             _partnerId = partnerId;
             _seatingLayout = seatingLayout;
@@ -58,23 +56,19 @@ namespace UI.Commands
         {                   
             if (_offerId != -1)
             {
-                DoAction(parameter, "Are you sure you want to update this offer?", UpdateOffer);
+                DoAction(parameter, UpdateOffer);
             }
             else
             {
-                DoAction(parameter, "Are you sure you want to create this offer?", CreateOffer);
+                DoAction(parameter, CreateOffer);
             }
         }
 
-        private void DoAction(object parameter, string confirmMessage, Action action)
+        private void DoAction(object parameter, Action action)
         {
-            var ok = _modalService.ShowConfirmationDialog(confirmMessage);
-            if (ok)
-            {
-                action();
-                ((Window)parameter).DialogResult = true;
-                ((Window)parameter).Close();
-            }
+            action();
+            ((Window)parameter).DialogResult = true;
+            ((Window)parameter).Close();
         }
 
         private void UpdateOffer()

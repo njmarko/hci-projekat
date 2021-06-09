@@ -127,13 +127,13 @@ namespace UI.ViewModels
             }
             else
             {
+                Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
                 _seatingLayout = new SeatingLayout();
             }
 
-            Image = new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
 
             OnImageInput = new DelegateCommand(ImageInput);
-            CreateOfferCommand = new CreateOfferCommand(partnerVm, this, offerService, seatingLayoutService, modalService, partnerId, offerId, _seatingLayout);
+            CreateOfferCommand = new CreateOfferCommand(partnerVm, this, offerService, seatingLayoutService, partnerId, offerId, _seatingLayout);
             ShowEditSeatingDialogModal = new DelegateCommand(ShowSeatingDialogModal);
         }
 
