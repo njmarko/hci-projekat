@@ -63,9 +63,79 @@ namespace Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] animator1 {
+            get {
+                object obj = ResourceManager.GetObject("animator1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Baja_Mali_Knindža_Kockar_bez_sreće {
+            get {
+                object obj = ResourceManager.GetObject("Baja_Mali_Knindža_Kockar_bez_sreće", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] bighall {
             get {
                 object obj = ResourceManager.GetObject("bighall", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] birthday {
+            get {
+                object obj = ResourceManager.GetObject("birthday", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] cutabend {
+            get {
+                object obj = ResourceManager.GetObject("cutabend", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] EmptyImage {
+            get {
+                object obj = ResourceManager.GetObject("EmptyImage", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] fireeater {
+            get {
+                object obj = ResourceManager.GetObject("fireeater", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] fireeater2 {
+            get {
+                object obj = ResourceManager.GetObject("fireeater2", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -83,6 +153,46 @@ namespace Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] gocibend {
+            get {
+                object obj = ResourceManager.GetObject("gocibend", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] images {
+            get {
+                object obj = ResourceManager.GetObject("images", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] kifla {
+            get {
+                object obj = ResourceManager.GetObject("kifla", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] mašinac {
+            get {
+                object obj = ResourceManager.GetObject("mašinac", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] party {
             get {
                 object obj = ResourceManager.GetObject("party", resourceCulture);
@@ -93,9 +203,89 @@ namespace Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] pekarakodbake {
+            get {
+                object obj = ResourceManager.GetObject("pekarakodbake", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] perazdera {
+            get {
+                object obj = ResourceManager.GetObject("perazdera", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] photographblicpomic {
+            get {
+                object obj = ResourceManager.GetObject("photographblicpomic", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] photographydrone {
+            get {
+                object obj = ResourceManager.GetObject("photographydrone", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] poslasticarnica {
+            get {
+                object obj = ResourceManager.GetObject("poslasticarnica", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] small_private {
             get {
                 object obj = ResourceManager.GetObject("small_private", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] svedskisto {
+            get {
+                object obj = ResourceManager.GetObject("svedskisto", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] swordeater {
+            get {
+                object obj = ResourceManager.GetObject("swordeater", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] swordeater2 {
+            get {
+                object obj = ResourceManager.GetObject("swordeater2", resourceCulture);
                 return ((byte[])(obj));
             }
         }

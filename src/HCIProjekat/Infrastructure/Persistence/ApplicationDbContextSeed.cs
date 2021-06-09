@@ -141,7 +141,7 @@ namespace Infrastructure.Persistence
             var par3 = new Partner { Name = "Ex-Yu-Too", Type = PartnerType.MUSIC, Location = new Location { City = "Beograd", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
             var par4 = new Partner { Name = "BMK", Type = PartnerType.MUSIC, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Somborska", StreetNumber = "13" } };
             var par5 = new Partner { Name = "Mašinac", Type = PartnerType.CAFFEE, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Stražilovska", StreetNumber = "14" } };
-            var par6 = new Partner { Name = "Burek sa čokoladom", Type = PartnerType.BAKERY, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Radnička", StreetNumber = "22" } };
+            var par6 = new Partner { Name = "Pekara kod bake", Type = PartnerType.BAKERY, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Radnička", StreetNumber = "22" } };
             var par7 = new Partner { Name = "Gutač mačeva", Type = PartnerType.ANIMATOR, Location = new Location { City = "Budva", Country = "Crna Gora", Street = "Nato pakta", StreetNumber = "41" } };
             var par8 = new Partner { Name = "Ćuta bend", Type = PartnerType.MUSIC, Location = new Location { City = "Prigrevica", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
             var par9 = new Partner { Name = "Kifla na metar", Type = PartnerType.BAKERY, Location = new Location { City = "Beograd", Country = "Srbija", Street = "Partizanska", StreetNumber = "3" } };
