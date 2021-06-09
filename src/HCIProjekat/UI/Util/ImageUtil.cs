@@ -12,14 +12,22 @@ namespace UI.Util
     {
         public static BitmapImage ConvertToImage(byte[] imageArray)
         {
-            using (var ms = new MemoryStream(imageArray))
+            try
             {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
+                using (var ms = new MemoryStream(imageArray))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.StreamSource = ms;
+                    image.EndInit();
+                    return image;
+                }
+            } 
+            catch (Exception)
+            {
+                // Security STONKS
+                return new BitmapImage(new Uri(@"pack://application:,,,/EmptyImage/EmptyImage.png", UriKind.Absolute));
             }
         }
 

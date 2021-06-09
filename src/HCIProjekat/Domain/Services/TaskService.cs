@@ -84,9 +84,9 @@ namespace Domain.Services
             return context.Tasks
                           .Where(t => t.Active)
                           .Where(t => t.Request.Id == requestId)
-                          .Where(t => t.Name.ToLower().Contains(searchQuery)
-                          || t.Description.ToLower().Contains(searchQuery)
-                          || t.TaskType.ToString().ToLower().Contains(searchQuery))
+                          .Where(t => t.Name.ToLower().Contains(query)
+                          || t.Description.ToLower().Contains(query)
+                          || t.TaskType.ToString().ToLower().Contains(query))
                           .ToList();
         }
 
