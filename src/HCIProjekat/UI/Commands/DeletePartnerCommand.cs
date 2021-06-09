@@ -42,9 +42,21 @@ namespace UI.Commands
                 // undo redo
                 var partner = _partnerService.Get(_partnerId);
                 _adminPartnersVm.AddItem(partner);
-
                 _partnerService.Delete(_partnerId);
-                _adminPartnersVm.UpdatePage(0);
+                if (_adminPartnersVm.PaginationViewModel.TotalElements - _adminPartnersVm.PaginationViewModel.Page * _adminPartnersVm.PaginationViewModel.PerPage <= 1 && _adminPartnersVm.PaginationViewModel.Page > 0)
+                {
+                    Console.WriteLine("Vrati");
+                    _adminPartnersVm.UpdatePage(_adminPartnersVm.PaginationViewModel.Page - 1);
+                } else if (_adminPartnersVm.PaginationViewModel.TotalElements - _adminPartnersVm.PaginationViewModel.Page * _adminPartnersVm.PaginationViewModel.PerPage > 1)
+                {
+                    Console.WriteLine("brisi");
+                    _adminPartnersVm.UpdatePage(_adminPartnersVm.PaginationViewModel.Page);
+                }
+                else
+                {
+                    _adminPartnersVm.UpdatePage(0);
+                }
+                
                 _adminPartnersVm.Context.Notifier.ShowInformation($"Partner {_partnerName} has been deleted successfully.");
             }
         }
