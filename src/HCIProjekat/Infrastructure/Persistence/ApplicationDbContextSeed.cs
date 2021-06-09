@@ -151,6 +151,7 @@ namespace Infrastructure.Persistence
             var par13 = new Partner { Name = "Goci bend", Type = PartnerType.MUSIC, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Bulevar Cara Lazara", StreetNumber = "122" } };
             var par14 = new Partner { Name = "Poslastičarnica", Type = PartnerType.CONFECTIONERY, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Bulevar Cara Dušana", StreetNumber = "222" } };
             var par15 = new Partner { Name = "Švedski Sto", Type = PartnerType.CONFECTIONERY, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Zlatne Grede", StreetNumber = "124" } };
+            var par16 = new Partner { Name = "Elitni Odredi", Type = PartnerType.MUSIC, Location = new Location { City = "Beograd", Country = "Srbija", Street = "Novosadska", StreetNumber = "134" } };
 
             context.Partners.Add(par1);
             context.Partners.Add(par2);
@@ -167,6 +168,7 @@ namespace Infrastructure.Persistence
             context.Partners.Add(par13);
             context.Partners.Add(par14);
             context.Partners.Add(par15);
+            context.Partners.Add(par16);
 
             // Tasks
             var t1 = new Task { Name = "Odabir animatora", Description = "Odabrati nekoga zanimljivog", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
@@ -206,24 +208,67 @@ namespace Infrastructure.Persistence
             var com7 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:53", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Jel vam Dunja bila asistent na analizi?", Sender = ep1, Task = t3 };
             var com8 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:54", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Treba ovo raditi na vreme.", Sender = ep1, Task = t1 };
             var com9 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:55", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Ajde da počnemo.", Sender = ep1, Task = t1 };
-            var com10 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:56", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Jel gutač mačeva adekvatan za priliku kakva je proslava godišnjice ispita iz analize?", Sender = ep1, Task = t1 };
-            var com11 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:57", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Ili gutač vatre?", Sender = ep1, Task = t1 };
+            var com10 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:56", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Jel gutačica mačeva adekvatan za priliku kakva je proslava godišnjice ispita iz analize?", Sender = ep1, Task = t1 };
+            var com11 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:57", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Ili gutačica vatre?", Sender = ep1, Task = t1 };
 
             context.Partners.Add(p1);
             context.Partners.Add(p2);
             context.Partners.Add(p3);
 
-            var o1 = new Offer { Name = "Velika sala", Price = 1000, Description = "opis ponude", Image = Properties.Resources.bighall, OfferType = t3.TaskType, Partner = par1 };
-            var o2 = new Offer { Name = "Terasa", Price = 2000, Description = "opis ponude 2", Image = Properties.Resources.garden, OfferType = t3.TaskType, Partner = par1 };
-            var o3 = new Offer { Name = "Mala sala", Price = 3000, Description = "opis ponude 3", Image = Properties.Resources.small_private, OfferType = t3.TaskType, Partner = par1 };
+            var o1 = new Offer { Name = "Velika sala", Price = 1000, Description = "Velika sala za velike proslave", Image = Properties.Resources.bighall, OfferType = ServiceType.CATERING, Partner = par1 };
+            var o2 = new Offer { Name = "Terasa", Price = 2000, Description = "Bašta sa biljkama i kornjačom", Image = Properties.Resources.garden, OfferType = ServiceType.CATERING, Partner = par1 };
+            var o3 = new Offer { Name = "Mala sala", Price = 3000, Description = "Mala sala za manje proslave", Image = Properties.Resources.small_private, OfferType = ServiceType.CATERING, Partner = par1 };
+            var o4 = new Offer { Name = "Čupavac", Price = 4000, Description = "Čupava zabava", Image = Properties.Resources.animator1, OfferType = ServiceType.ANIMATOR, Partner = par2 };
+            var o5 = new Offer { Name = "Ex-Yu bend", Price = 5000, Description = "Nostalgija za jugom", Image = Properties.Resources.images, OfferType = ServiceType.MUSIC, Partner = par3 };
+            var o6 = new Offer { Name = "BMK", Price = 6000, Description = "Kockar bez sreće", Image = Properties.Resources.Baja_Mali_Knindža_Kockar_bez_sreće, OfferType = ServiceType.MUSIC, Partner = par4 };
+            var o7 = new Offer { Name = "Mašinac", Price = 3000, Description = "Mesto za sve prilike", Image = Properties.Resources.mašinac, OfferType = ServiceType.CATERING, Partner = par5 };
+            var o8 = new Offer { Name = "Pekara", Price = 2000, Description = "Burek sa čokoladom", Image = Properties.Resources.pekarakodbake, OfferType = ServiceType.CATERING, Partner = par6 };
+            var o9 = new Offer { Name = "Gutačica mačeva 1", Price = 30000, Description = "Pripitomljavanje mača", Image = Properties.Resources.swordeater, OfferType = ServiceType.ANIMATOR, Partner = par7 };
+            var o10 = new Offer { Name = "Gutačica mačeva 2", Price = 35000, Description = "Mač pripitomljen", Image = Properties.Resources.swordeater2, OfferType = ServiceType.ANIMATOR, Partner = par7 };
+            var o11 = new Offer { Name = "Lokalni Bend", Price = 3000, Description = "Domaća muzika", Image = Properties.Resources.cutabend, OfferType = ServiceType.MUSIC, Partner = par8 };
+            var o12 = new Offer { Name = "Kiflice", Price = 4000, Description = "Kupovina na metar", Image = Properties.Resources.kifla, OfferType = ServiceType.CATERING, Partner = par9 };
+            var o13 = new Offer { Name = "Fotograf u boji", Price = 5000, Description = "8 boja", Image = Properties.Resources.photographblicpomic, OfferType = ServiceType.PHOTOGRAPHY, Partner = par10 };
+            var o14 = new Offer { Name = "Foto dron", Price = 6000, Description = "Dron sa visine snima", Image = Properties.Resources.photographydrone, OfferType = ServiceType.PHOTOGRAPHY, Partner = par11 };
+            var o15 = new Offer { Name = "Pera ždera", Price = 7000, Description = "Pljeskavice", Image = Properties.Resources.perazdera, OfferType = ServiceType.CATERING, Partner = par12 };
+            var o16 = new Offer { Name = "Narodna muzika", Price = 8000, Description = "Goci radi poso", Image = Properties.Resources.gocibend, OfferType = ServiceType.MUSIC, Partner = par13 };
+            var o17 = new Offer { Name = "Poslastičarnica", Price = 2000, Description = "Slatki zub", Image = Properties.Resources.poslasticarnica, OfferType = ServiceType.CATERING, Partner = par14 };
+            var o18 = new Offer { Name = "Švedski sto", Price = 11000, Description = "Jedi koliko možeš", Image = Properties.Resources.svedskisto, OfferType = ServiceType.CATERING, Partner = par15 };
+            var o19 = new Offer { Name = "Gutačica vatre 1", Price = 45000, Description = "Pripitomljavanje vatre", Image = Properties.Resources.fireeater, OfferType = ServiceType.ANIMATOR, Partner = p1 };
+            var o20 = new Offer { Name = "Gutačica vatre 2", Price = 50000, Description = "Vatra pripitomljena", Image = Properties.Resources.fireeater2, OfferType = ServiceType.ANIMATOR, Partner = p1 };
+            var o21 = new Offer { Name = "Fotograf crno beli", Price = 13000, Description = "Belo na crno", Image = Properties.Resources.blackwhite, OfferType = ServiceType.PHOTOGRAPHY, Partner = p2 };
+            var o22 = new Offer { Name = "Loft kafic", Price = 14000, Description = "Fenseri in.", Image = Properties.Resources.loft, OfferType = ServiceType.CATERING, Partner = p3 };
+            var o23 = new Offer { Name = "Elitni Odredi", Price = 24000, Description = "Drima & Wonta", Image = Properties.Resources.oko_sveta, OfferType = ServiceType.MUSIC, Partner = par16 };
 
+            context.Offers.Add(o10);
+            context.Offers.Add(o19);
+            context.Offers.Add(o20);
             context.Offers.Add(o1);
             context.Offers.Add(o2);
+            context.Offers.Add(o3);
+            context.Offers.Add(o4);
+            context.Offers.Add(o5);
+            context.Offers.Add(o6);
+            context.Offers.Add(o7);
+            context.Offers.Add(o8);
+            context.Offers.Add(o9);
+            context.Offers.Add(o11);
+            context.Offers.Add(o12);
+            context.Offers.Add(o13);
+            context.Offers.Add(o14);
+            context.Offers.Add(o15);
+            context.Offers.Add(o16);
+            context.Offers.Add(o17);
+            context.Offers.Add(o18);
+
+            context.Offers.Add(o21);
+            context.Offers.Add(o22);
+            context.Offers.Add(o23);
+
 
             var taskOffer1 = new TaskOffer { Offer = o1, Task = t3, OfferStatus = OfferStatus.PENDING};
             var taskOffer2 = new TaskOffer { Offer = o2, Task = t3, OfferStatus = OfferStatus.PENDING };
             var taskOffer3 = new TaskOffer { Offer = o3, Task = t3, OfferStatus = OfferStatus.PENDING };
-            var taskOffer4 = new TaskOffer { Offer = o1, Task = t3, OfferStatus = OfferStatus.PENDING };
+            var taskOffer4 = new TaskOffer { Offer = o19, Task = t3, OfferStatus = OfferStatus.PENDING };
             context.TaskOffers.Add(taskOffer1);
             context.TaskOffers.Add(taskOffer2);
             context.TaskOffers.Add(taskOffer3);
