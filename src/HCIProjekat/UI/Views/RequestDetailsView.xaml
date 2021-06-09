@@ -114,7 +114,7 @@
                             Content="Edit seating layout"/>
                 <!--Search and filter block-->
                 <TextBox Grid.Row="1" Grid.Column="0" Margin="10 10 10 10" Name="FirstField" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
-                             materialDesign:HintAssist.Hint="Search tasks" Text="{Binding Query}"/>
+                             materialDesign:HintAssist.Hint="Search tasks" Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Grid.Row="1" Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" 
                             materialDesign:ShadowAssist.ShadowEdges="All" 
                             Width="100" Foreground="White" 

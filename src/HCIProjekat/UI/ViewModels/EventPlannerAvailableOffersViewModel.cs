@@ -51,7 +51,7 @@ namespace UI.ViewModels
         }
 
         public EventPlannerTaskOffersViewModel AddedVm { get; set; }
-        public ICommand Search { get; private set; }
+        public override ICommand Search { get; set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
         public EventPlannerAvailableOffersViewModel(IApplicationContext context, IOfferService offerService, ITaskOfferService taskOfferService, EventPlannerTaskDetailsViewModel taskVm) : base(context)

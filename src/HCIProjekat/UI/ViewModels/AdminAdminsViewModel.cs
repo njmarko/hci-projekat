@@ -62,10 +62,10 @@ namespace UI.ViewModels
             set { _bornAfter = value; OnPropertyChanged(nameof(BornAfter)); }
         }
 
-        public ICommand Search { get; set; }
+        public override ICommand Search { get; set; }
 
-        public ICommand AddAdmin { get; private set; }
-        public ICommand Clear { get; private set; }
+        public override ICommand Add { get; set; }
+        public override ICommand Clear { get; set; }
         public ObservableCollection<AdminAdminsCardModel> AdminModels { get; private set; } = new ObservableCollection<AdminAdminsCardModel>();
 
         public AdminAdminsViewModel(IApplicationContext context, IAdminService adminService, IModalService modalService) : base(context, adminService, modalService)
@@ -76,7 +76,7 @@ namespace UI.ViewModels
             Clear = new DelegateCommand(ClearFilters);
             _bornBefore = _bornBeforeInitial;
             _bornAfter = _bornAfterInitial;
-            AddAdmin = new DelegateCommand(OpenRegisterAdminModal);
+            Add = new DelegateCommand(OpenRegisterAdminModal);
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);

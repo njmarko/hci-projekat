@@ -24,8 +24,8 @@ namespace UI.ViewModels
         public bool CanUndo => _undoItems.Count > 0;
         public bool CanRedo => _redoItems.Count > 0;
 
-        public ICommand Undo { get; private set; }
-        public ICommand Redo { get; private set; }
+        public override ICommand Undo { get; set; }
+        public override ICommand Redo { get; set; }
 
         protected UndoModelBase(IApplicationContext context, ICRUDService<T> service, IModalService modalService) : base(context) 
         {

@@ -86,15 +86,15 @@ namespace UI.ViewModels
 
         public ObservableCollection<ClientRequestCardModel> RequestModels { get; private set; } = new ObservableCollection<ClientRequestCardModel>();
         public ObservableCollection<RequestTypeModel> RequestTypeModels { get; private set; } = new ObservableCollection<RequestTypeModel>();
-        public ICommand Search { get; private set; }
-        public ICommand Clear { get; private set; }
-        public ICommand ShowCreateRequestModal { get; private set; }
+        public override ICommand Search { get; set; }
+        public override ICommand Clear { get; set; }
+        public override ICommand Add { get; set; }
 
         public ClientRequestsViewModel(IApplicationContext context, IClientService clientService, IRequestService requestService, IModalService modalService) : base(context, requestService, modalService)
         {
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
-            ShowCreateRequestModal = new DelegateCommand(() => ShowRequestModal(-1));
+            Add = new DelegateCommand(() => ShowRequestModal(-1));
 
             _clientService = clientService;
             _requestService = requestService;

@@ -66,7 +66,18 @@ namespace UI.ViewModels
         public int TabSelectedIndex
         {
             get { return _tabSelectedIndex; }
-            set { _tabSelectedIndex = value; OnPropertyChanged(nameof(TabSelectedIndex)); }
+            set { 
+                _tabSelectedIndex = value;
+                OnPropertyChanged(nameof(TabSelectedIndex));
+                if (value == 0)
+                {
+                    Search = AddedOffersVm.Search;
+                }
+                else
+                {
+                    Search = AvailableOffersVm.Search;
+                }
+            }
         }
 
 
@@ -75,7 +86,15 @@ namespace UI.ViewModels
             get { return "EventPlannerHome"; }
         }
 
-        public ICommand ChangeTabCommand { get; private set; }
+        public override ICommand ChangeTabCommand { get; set; }
+
+        private ICommand _search;
+        public override ICommand Search
+        {
+            get { return _search; }
+            set { _search = value; OnPropertyChanged(nameof(Search)); }
+        }
+
 
         public EventPlannerTaskDetailsViewModel(IApplicationContext context, ITaskService taskService, ITaskOfferService taskOfferService, IOfferService offerService, IModalService modalService, ICommentService commentService) : base(context, taskOfferService, modalService)
         {
@@ -90,7 +109,6 @@ namespace UI.ViewModels
 
             ChangeTabCommand = new DelegateCommand(ChangeTab);
 
-            //TabSelectedIndex = 0;
             HelpPage = "event-planner-task-details";
         }
 

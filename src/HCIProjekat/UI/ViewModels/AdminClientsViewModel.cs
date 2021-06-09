@@ -71,9 +71,9 @@ namespace UI.ViewModels
             }
         }
 
-        public ICommand Search { get; set; }
+        public override ICommand Search { get; set; }
 
-        public ICommand Clear { get; private set; }
+        public override ICommand Clear { get; set; }
         public ObservableCollection<AdminClientCardModel> ClientModels { get; private set; } = new ObservableCollection<AdminClientCardModel>();
 
         public AdminClientsViewModel(IApplicationContext context, IClientService clientService, IModalService modalService) : base(context, clientService, modalService)

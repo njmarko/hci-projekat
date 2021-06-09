@@ -24,8 +24,12 @@
         <KeyBinding Key="F1" Command="{Binding Context.OpenLink}"
                     CommandParameter="{Binding Context.Router.CurrentViewModel.HelpPage}">
         </KeyBinding>
+        <KeyBinding Key="Return" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Search}" />
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Add}" />
+        <KeyBinding Key="K" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Clear}" />
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Undo}" />
-        <!--<KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding Redo}" />-->
+        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Redo}" />
+        <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.ChangeTabCommand}" />
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
