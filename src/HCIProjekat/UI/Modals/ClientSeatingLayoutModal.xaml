@@ -15,7 +15,7 @@
         WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="ClientSeatingLayoutModal" MinHeight="600" MinWidth="800">
+        Title="Seating Layout" MinHeight="600" MinWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

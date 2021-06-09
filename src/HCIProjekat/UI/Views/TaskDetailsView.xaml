@@ -13,6 +13,7 @@
              TextOptions.TextFormattingMode="Ideal" 
              TextOptions.TextRenderingMode="Auto"
              xmlns:controls="clr-namespace:UI.Controls"
+             controls:MyUserControlBehavior.WindowTitle="Task details"
              xmlns:util="clr-namespace:UI.Util"
 >
     <UserControl.Resources>
@@ -21,7 +22,7 @@
     <UserControl.InputBindings>
         <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding ChangeTabCommand}"></KeyBinding>
     </UserControl.InputBindings>
-    <Grid Margin="20,20,20,0" FocusManager.FocusedElement="{Binding ElementName=FirstField}">
+    <Grid Margin="20,20,20,0" FocusManager.FocusedElement="{Binding ElementName=FirstField}" MaxWidth="1366" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"/>
@@ -106,7 +107,7 @@
                     <ItemsControl ItemsSource="{Binding TaskOfferModels}" Grid.Row="1">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                                <UniformGrid MaxWidth="1366" MinHeight="320" MaxHeight="320" VerticalAlignment="Top" HorizontalAlignment="Stretch" Columns="{Binding Columns}" Rows="{Binding Rows}" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>

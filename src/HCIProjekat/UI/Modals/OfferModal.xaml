@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="OfferModal" Height="780" Width="500" ResizeMode="NoResize"
+        Title="Create offer" Height="780" Width="500" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         WindowStyle="SingleBorderWindow">
     <Window.Resources>
