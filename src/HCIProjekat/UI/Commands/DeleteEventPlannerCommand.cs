@@ -45,7 +45,18 @@ namespace UI.Commands
                 _adminEventPlannersViewModel.AddItem(eventPlanner);
 
                 _eventPlannerService.Delete(_eventPlannerId);
-                _adminEventPlannersViewModel.UpdatePage(0);
+                if (_adminEventPlannersViewModel.PaginationViewModel.TotalElements - _adminEventPlannersViewModel.PaginationViewModel.Page * _adminEventPlannersViewModel.PaginationViewModel.PerPage <= 1 && _adminEventPlannersViewModel.PaginationViewModel.Page > 0)
+                {
+                    _adminEventPlannersViewModel.UpdatePage(_adminEventPlannersViewModel.PaginationViewModel.Page - 1);
+                }
+                else if (_adminEventPlannersViewModel.PaginationViewModel.TotalElements - _adminEventPlannersViewModel.PaginationViewModel.Page * _adminEventPlannersViewModel.PaginationViewModel.PerPage > 1)
+                {
+                    _adminEventPlannersViewModel.UpdatePage(_adminEventPlannersViewModel.PaginationViewModel.Page);
+                }
+                else
+                {
+                    _adminEventPlannersViewModel.UpdatePage(0);
+                }
                 _adminEventPlannersViewModel.Context.Notifier.ShowInformation($"Event planner {_eventPlannerUsername} has been deleted successfully.");
             }
         }
