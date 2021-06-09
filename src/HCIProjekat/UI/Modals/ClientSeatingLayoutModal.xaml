@@ -16,6 +16,9 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Title="Seating Layout" MinHeight="600" MinWidth="800">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="{Binding HelpPage}" />
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
 
 
-        <MediaElement Name="mePlayer" Grid.Row="0" LoadedBehavior="Manual" Source="C:\Users\Marko\Desktop\SIIT-Semestar6\MRS\Projekat\2021-04-27 19-30-51.mp4"/>
+        <MediaElement Name="mePlayer" Grid.Row="0" LoadedBehavior="Manual" Source="Demo/demo.mp4"/>
 
         <StatusBar Grid.Row="1">
             <StatusBar.ItemsPanel>

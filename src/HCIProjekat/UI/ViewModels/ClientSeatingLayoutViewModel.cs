@@ -62,6 +62,8 @@ namespace UI.ViewModels
             _requestService = requestService;
             _requestId = requestId;
 
+            HelpPage = "client-seating-layout";
+
             _request = _requestService.GetWithGuests(_requestId);
             SeatingLayout = _requestService.GetSeatingLayout(_requestId);
 
