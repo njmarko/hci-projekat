@@ -11,18 +11,6 @@ namespace Infrastructure.Persistence
 {
     public static class ApplicationDbContextSeed
     {
-        public static byte[] ReadFromFile(string fileName)
-        {
-            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-            {
-                byte[] bytes = File.ReadAllBytes(fileName);
-                fs.Read(bytes, 0, Convert.ToInt32(fs.Length));
-                fs.Close();
-
-                return bytes;
-            }
-        }
-
         public static void Seed(ApplicationDbContext context)
         {
             var c1 = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) };
@@ -224,9 +212,9 @@ namespace Infrastructure.Persistence
             context.Partners.Add(p2);
             context.Partners.Add(p3);
 
-            var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", /*Image = "slika"*/ OfferType = t3.TaskType, Partner = p1 };
-            var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", /*Image = "slika"*/ OfferType = t3.TaskType, Partner = p2 };
-            var o3 = new Offer { Name = "Ponuda 3", Price = 3000, Description = "opis ponude 3", /*Image = "slika"*/ OfferType = t3.TaskType, Partner = par3 };
+            var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", Image = Properties.Resources._struct, OfferType = t3.TaskType, Partner = p1 };
+            var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", Image = Properties.Resources.ts, OfferType = t3.TaskType, Partner = p2 };
+            var o3 = new Offer { Name = "Ponuda 3", Price = 3000, Description = "opis ponude 3", Image = Properties.Resources.ts, OfferType = t3.TaskType, Partner = par3 };
 
             context.Offers.Add(o1);
             context.Offers.Add(o2);
