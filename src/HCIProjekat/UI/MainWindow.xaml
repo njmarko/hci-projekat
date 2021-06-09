@@ -22,7 +22,10 @@
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="F1" Command="{Binding Context.OpenLink}"
-                    CommandParameter="{Binding Context.Router.CurrentViewModel.HelpPage}"></KeyBinding>
+                    CommandParameter="{Binding Context.Router.CurrentViewModel.HelpPage}">
+        </KeyBinding>
+        <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Undo}" />
+        <!--<KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding Redo}" />-->
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
