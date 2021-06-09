@@ -36,8 +36,8 @@ namespace UI.ViewModels
             PageModels.Add(new PageModel { Text = $"<", Page = Page - 1, IsEnabled = Page != 0, ToolTip = "Go to the page before the current" });
             var currentPage = PageCount == 0 ? 0 : Page + 1;
             PageModels.Add(new PageModel { Text = $"{currentPage} / {PageCount}", Page = page, IsChecked = true, ToolTip = "Current page" } );
-            PageModels.Add(new PageModel { Text = $">", Page = Page + 1, IsEnabled = Page != PageCount - 1, ToolTip = "Go to the page after the current" });
-            PageModels.Add(new PageModel { Text = ">>", Page = -1, IsEnabled = Page != PageCount - 1, ToolTip = "Go to the last page" });
+            PageModels.Add(new PageModel { Text = $">", Page = Page + 1, IsEnabled = Page != PageCount - 1 && PageCount != 0, ToolTip = "Go to the page after the current" });
+            PageModels.Add(new PageModel { Text = ">>", Page = -1, IsEnabled = Page != PageCount - 1 && PageCount != 0, ToolTip = "Go to the last page" });
         }
     }
 }
