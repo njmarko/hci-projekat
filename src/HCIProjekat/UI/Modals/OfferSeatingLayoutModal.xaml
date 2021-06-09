@@ -15,9 +15,10 @@
         WindowStartupLocation="CenterOwner"
         WindowStyle="SingleBorderWindow"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="OfferSeatingLayoutModal" MinHeight="450" MinWidth="800">
+        Title="Seating layout" MinHeight="450" MinWidth="800">
     <Window.InputBindings>
-        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveChanges}" />
+        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}"
+                    CommandParameter="{Binding HelpPage}"/>
     </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>

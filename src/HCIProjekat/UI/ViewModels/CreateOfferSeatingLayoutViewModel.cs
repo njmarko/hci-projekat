@@ -22,7 +22,7 @@ namespace UI.ViewModels
             get { return _deletableItemSelected; }
             set { _deletableItemSelected = value; OnPropertyChanged(nameof(DeletableItemSelected)); }
         }
-        
+
         public SeatingLayout SeatingLayout { get; private set; }
 
         public ICommand SaveChanges { get; private set; }
@@ -34,6 +34,7 @@ namespace UI.ViewModels
             SeatingLayout = seatingLayout;
 
             SaveChanges = new DelegateCommand(SaveChangesImpl);
+            HelpPage = "event-planner-seating-layout";
         }
 
         private void SaveChangesImpl()
