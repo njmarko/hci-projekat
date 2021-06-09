@@ -23,6 +23,8 @@ namespace UI.Views
         public EventPlannerRequestsView()
         {
             InitializeComponent();
+            Focusable = true;
+            Loaded += (s, e) => Keyboard.Focus(this);
         }
     }
 }

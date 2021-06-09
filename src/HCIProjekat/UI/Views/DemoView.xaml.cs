@@ -13,41 +13,7 @@ namespace UI.Views
     /// </summary>
     public partial class DemoView : UserControl
     {
-		/*public DemoView()
-        {
-            InitializeComponent();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
-            timer.Start();
-            player.Play();
-        }
-        void timer_Tick(object sender, EventArgs e)
-        {
-            if (player.Source != null)
-            {
-                if (player.NaturalDuration.HasTimeSpan)
-                    label.Text = String.Format("{0} / {1}", player.Position.ToString(@"mm\:ss"), player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
-            }
-            else
-                label.Text = "No file selected...";
-        }
-        private void play_Click(object sender, RoutedEventArgs e)
-        {
-            player.Play();
-        }
-
-        private void pause_Click(object sender, RoutedEventArgs e)
-        {
-            player.Pause();
-        }
-
-        private void stop_Click(object sender, RoutedEventArgs e)
-        {
-            player.Stop();
-        }
-
-     */
+		
 
 		private bool mediaPlayerIsPlaying = false;
 		private bool userIsDraggingSlider = false;
@@ -55,6 +21,8 @@ namespace UI.Views
 		public DemoView()
 		{
 			InitializeComponent();
+			Focusable = true;
+			Loaded += (s, e) => Keyboard.Focus(this);
 
 			DispatcherTimer timer = new DispatcherTimer();
 			timer.Interval = TimeSpan.FromSeconds(1);

@@ -126,7 +126,6 @@ namespace UI.ViewModels
             CurrentCost = _requestService.GetRequestCost(RequestId);
             CanEditSeatingLayout = _requestService.IsLocationAccepted(RequestId);
             UpdatePage(0);
-            HelpPage = "request-details";
         }
 
         public RequestDetailsViewModel(IApplicationContext context, IRequestService requestService, ITaskService taskService, IModalService modalService) : base(context)
@@ -158,6 +157,7 @@ namespace UI.ViewModels
             TaskStatusModels.Add(new TaskStatusModel { TaskStatus = TaskStatus.SENT_TO_CLIENT, Name = "Pending" });
             TaskStatusModels.Add(new TaskStatusModel { TaskStatus = TaskStatus.ACCEPTED, Name = "Accepted" });
             TaskStatusModels.Add(new TaskStatusModel { TaskStatus = TaskStatus.REJECTED, Name = "Rejected" });
+            HelpPage = "client-request-details";
 
             if (Context.Store.CurrentUser is Client)
             {

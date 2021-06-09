@@ -23,6 +23,8 @@ namespace UI.Views
         public AdminAdminsView()
         {
             InitializeComponent();
+            Focusable = true;
+            Loaded += (s, e) => Keyboard.Focus(this);
         }
     }
 }

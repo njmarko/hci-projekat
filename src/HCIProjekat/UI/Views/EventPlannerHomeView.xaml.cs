@@ -27,6 +27,8 @@ namespace UI.Views
         public EventPlannerHomeView()
         {
             InitializeComponent();
+            Focusable = true;
+            Loaded += (s, e) => Keyboard.Focus(this);
         }
 
         private void ToDoSelected(object sender, MouseButtonEventArgs e)
