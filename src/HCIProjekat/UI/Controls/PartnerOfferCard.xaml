@@ -26,23 +26,16 @@
                      TextWrapping="Wrap"
                       Text="{Binding Description}"/>
                 </ScrollViewer>
-  
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
 
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Width="35" Height="35" Style="{DynamicResource MaterialDesignFloatingActionButton}" Margin="5 0" Foreground="White" Command="{Binding EditOffer}" ToolTip="Edit partner offer">
+                        <materialDesign:PackIcon Kind="Edit" />
+                    </Button>
 
-                    <Button Grid.Column="0" FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}"
-                     Margin="10 15" Foreground="White" Command="{Binding EditOffer}"
-                     Content="Edit"/>
-
-                    <Button Grid.Column="1" FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}"
-                         Margin="10 15" Foreground="White" Command="{Binding DeleteOffer}"
-                     Content="Delete"/>
-                </Grid>
+                    <Button Width="35" Height="35" Style="{DynamicResource MaterialDesignFloatingActionButton}" Margin="5 0" Foreground="White" Command="{Binding DeleteOffer}" ToolTip="Delete partner offer">
+                        <materialDesign:PackIcon Kind="Delete" />
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </materialDesign:Card>
     </Grid>
