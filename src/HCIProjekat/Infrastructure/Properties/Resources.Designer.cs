@@ -103,6 +103,16 @@ namespace Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] blackwhite {
+            get {
+                object obj = ResourceManager.GetObject("blackwhite", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] cutabend {
             get {
                 object obj = ResourceManager.GetObject("cutabend", resourceCulture);
@@ -183,9 +193,29 @@ namespace Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] loft {
+            get {
+                object obj = ResourceManager.GetObject("loft", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] mašinac {
             get {
                 object obj = ResourceManager.GetObject("mašinac", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] oko_sveta {
+            get {
+                object obj = ResourceManager.GetObject("oko_sveta", resourceCulture);
                 return ((byte[])(obj));
             }
         }

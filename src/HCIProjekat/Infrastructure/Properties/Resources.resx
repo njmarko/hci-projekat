@@ -118,16 +118,82 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="animator1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\animator1.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Baja_Mali_Knindža_Kockar_bez_sreće" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Baja-Mali-Knindža-Kockar-bez-sreće.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="bighall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bighall.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="birthday" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\birthday.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="blackwhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blackwhite.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cutabend" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cutabend.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="EmptyImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EmptyImage.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fireeater" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fireeater.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fireeater2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fireeater2.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="garden" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\garden.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="gocibend" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gocibend.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kifla" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kifla.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="loft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loft.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mašinac" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mašinac.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="oko_sveta" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\oko-sveta.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="party" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\party.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="pekarakodbake" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pekarakodbake.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="perazdera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\perazdera.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="photographblicpomic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\photographblicpomic.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="photographydrone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\photographydrone.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="poslasticarnica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\poslasticarnica.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="small_private" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\small private.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="svedskisto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\svedskisto.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="swordeater" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\swordeater.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="swordeater2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\swordeater2.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
