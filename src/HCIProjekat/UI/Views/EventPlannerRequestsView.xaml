@@ -17,9 +17,6 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
-    <UserControl.InputBindings>
-        <KeyBinding Modifiers="Ctrl" Key="Z" Command="{Binding Undo}" />
-    </UserControl.InputBindings>
     <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -41,13 +38,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10" Name="FirstField" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search requests" Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}" />
                     <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
-                    <Button Grid.Row="0" Grid.Column="3" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}" />
-                    <CheckBox Grid.Row="0" Grid.Column="4" Margin="5 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
+                    <CheckBox Grid.Row="0" Grid.Column="2" Margin="5 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
                 </Grid>
                 <!--Filter block-->
                 <Grid Grid.Row="1" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">

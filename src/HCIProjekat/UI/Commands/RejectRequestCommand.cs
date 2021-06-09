@@ -35,12 +35,11 @@ namespace UI.Commands
 
         public void Execute(object parameter)
         {
-            if (_modalService.ShowConfirmationDialog($"Are you sure you want to reject request {_requestId}?"))
+            var request = _requestService.Get(_requestId);
+            if (_modalService.ShowConfirmationDialog($"Are you sure you want to reject request '{request.Name}'?"))
             {
-                var request = _requestService.Get(_requestId);
-                _eventPlannerRequestsVm.AddItem(request);
                 _requestService.Reject(_requestId, _eventPlannerRequestsVm.Context.Store.CurrentUser.Id);
-                _eventPlannerRequestsVm.Context.Notifier.ShowInformation($"Request {_requestId} has been rejected.");
+                _eventPlannerRequestsVm.Context.Notifier.ShowInformation($"Request {request.Name} has been rejected.");
                 _eventPlannerRequestsVm.UpdatePage(0);
             }
         }

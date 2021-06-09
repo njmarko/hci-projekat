@@ -27,7 +27,7 @@ namespace UI.ViewModels
         public ICommand Reject { get; set; }
     }
 
-    public class EventPlannerRequestsViewModel : UndoModelBase<Request>
+    public class EventPlannerRequestsViewModel : PagingViewModelBase
     {
         private readonly DateTime _fromDateInitial = DateTime.Now.AddYears(-1);
         private readonly DateTime _toDateInitial = DateTime.Now.AddYears(1);
@@ -83,7 +83,7 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ICommand Clear { get; private set; }
 
-        public EventPlannerRequestsViewModel(IApplicationContext context, IRequestService requestService, IModalService modalService) : base(context, requestService, modalService)
+        public EventPlannerRequestsViewModel(IApplicationContext context, IRequestService requestService, IModalService modalService) : base(context)
         {
             _requestService = requestService;
             _modalService = modalService;

@@ -192,26 +192,7 @@ namespace Domain.Services
         {
             using var context = _dbContextFactory.CreateDbContext();
 
-            var req = context.Requests.Find(request.Id);
-            var planner = context.EventPlanners
-                                 .Include(e => e.AcceptedRequests)
-                                 .SingleOrDefault(e => e.AcceptedRequests.Contains(req));
-
-            if (planner != null && request.EventPlanner == null)
-            {
-                planner.AcceptedRequests.Remove(req);
-            }
-
-            req.Name = request.Name;
-            req.GuestNumber = request.GuestNumber;
-            req.Budget = request.Budget;
-            req.BudgetFlexible = request.BudgetFlexible;
-            req.Theme = request.Theme;
-            req.Notes = request.Notes;
-            req.Type = request.Type;
-            req.Active = request.Active;
-            context.Requests.Update(req);
-
+            context.Requests.Update(request);
             context.SaveChanges();
             return request;
         }
