@@ -11,12 +11,13 @@
              TextOptions.TextFormattingMode="Ideal" 
              TextOptions.TextRenderingMode="Auto"      
              xmlns:local="clr-namespace:UI"
+             controls:MyUserControlBehavior.WindowTitle="Partner offers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
-    <Grid Margin="20,20,20,0" FocusManager.FocusedElement="{Binding ElementName=FirstField}">
+    <Grid Margin="20,20,20,0" FocusManager.FocusedElement="{Binding ElementName=FirstField}" MaxWidth="1366" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto"/>
@@ -64,7 +65,7 @@
                 <Button Grid.Row="0" Grid.Column="1" Margin="50 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
                 <Button Grid.Row="0" Grid.Column="2" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add offer" Command="{Binding AddOffer}"/>
                 <Button Grid.Row="0" Grid.Column="3" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}"/>
-                <Button Grid.Row="0" Grid.Column="4" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Redo" Command="{Binding Undo}"/>
+                <Button Grid.Row="0" Grid.Column="4" Margin="10 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Width="100" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Redo" Command="{Binding Redo}"/>
                 <CheckBox Grid.Row="0" Grid.Column="5" Margin="10 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
                 <!--Filter block-->
                 <Grid  Grid.Row="1" Grid.Column="0" Visibility="{Binding ElementName=CheckBox, Path=IsChecked, Converter={StaticResource b2vc}}">
@@ -84,7 +85,7 @@
         <ItemsControl Grid.Row="2" ItemsSource="{Binding OfferModels}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" VerticalAlignment="Top" />
+                    <UniformGrid MaxWidth="1366" MinHeight="400" MaxHeight="400" VerticalAlignment="Top" Columns="{Binding Columns}" Rows="{Binding Rows}" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
