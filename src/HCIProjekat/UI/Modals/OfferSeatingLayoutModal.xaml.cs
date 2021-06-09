@@ -71,7 +71,6 @@ namespace UI.Modals
             Canvas.SetTop(_dragObject, context.Y - context.Radius);
 
             _dragObject = null;
-            _mainCanvas.ReleaseMouseCapture(); 
         }
 
         private void ObjectDrag(object sender, MouseButtonEventArgs e)
@@ -80,7 +79,6 @@ namespace UI.Modals
             _offset = e.GetPosition(_mainCanvas);
             _offset.X = Canvas.GetLeft(_dragObject);
             _offset.Y = Canvas.GetTop(_dragObject);
-            _mainCanvas.CaptureMouse();
         }
         
         private void OnCanvasResized(object sender, SizeChangedEventArgs e)
@@ -131,7 +129,6 @@ namespace UI.Modals
         private void OnItemDrop(object sender, DragEventArgs e)
         {
             _dragObject = null;
-            _mainCanvas.ReleaseMouseCapture();
 
             if (CurrentItem == null && SelectedChair == null && SelectedTable == null)
             {
@@ -164,7 +161,7 @@ namespace UI.Modals
                 "Chair" => new ChairIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved, SeatingLayoutModal = this },
                 _ => throw new Exception("Invalid item type"),
             };
-            //item.PreviewMouseDown += ObjectDrag;
+            item.PreviewMouseDown += ObjectDrag;
             Canvas.SetLeft(item, xOffset);
             Canvas.SetTop(item, yOffset);
             _mainCanvas.Children.Add(item);
@@ -257,6 +254,7 @@ namespace UI.Modals
         {
             SelectedChair = null;
             SelectedTable = null;
+            _dragObject = null;
 
             var item = sender as ListViewItem;
             CurrentItem = item.Content.ToString();
@@ -283,7 +281,7 @@ namespace UI.Modals
             var t = new TableIcon { Width = 2 * TABLE_RADIUS, Height = 2 * TABLE_RADIUS, AllowDrop = false, ToolTip = table.Label, DataContext = table, SeatingLayoutModal = this };
             Canvas.SetLeft(t, table.X - TABLE_RADIUS);
             Canvas.SetTop(t, table.Y - TABLE_RADIUS);
-            //t.PreviewMouseDown += ObjectDrag;
+            t.PreviewMouseDown += ObjectDrag;
             _mainCanvas.Children.Add(t);
         }
 
@@ -292,7 +290,7 @@ namespace UI.Modals
             var c = new ChairIcon { Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false, ToolTip = chair.Label, DataContext = chair, SeatingLayoutModal = this };
             Canvas.SetLeft(c, chair.X - CHAIR_RADIUS);
             Canvas.SetTop(c, chair.Y - CHAIR_RADIUS);
-           //c.PreviewMouseDown += ObjectDrag;
+            c.PreviewMouseDown += ObjectDrag;
             _mainCanvas.Children.Add(c);
         }
 

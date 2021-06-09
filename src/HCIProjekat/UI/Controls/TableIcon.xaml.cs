@@ -47,18 +47,15 @@ namespace UI.Controls
                 return;
             }
 
-            AllowDrop = true;
-
             var fe = sender as FrameworkElement;
             var effect = DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
             if (effect == DragDropEffects.None)
             {
                 thisVm.X = prevX;
                 thisVm.Y = prevY;
-                //SeatingLayoutModal.DragingStopped();
+                SeatingLayoutModal.DragingStopped();
             }
 
-            AllowDrop = false;
         }
     }
 }
