@@ -25,6 +25,7 @@ namespace UI.ViewModels
         public DemoViewModel(IApplicationContext context) : base(context)
         {
             Header = "DEMO";
+            HelpPage = "demo";
         }
     }
 }
