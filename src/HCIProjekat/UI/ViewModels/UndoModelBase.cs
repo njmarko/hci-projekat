@@ -46,34 +46,26 @@ namespace UI.ViewModels
 
         private void UndoAction()
         {
-            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to undo last action?");
-            if (ok)
-            {
-                var item = _undoItems.Pop();
-                var currentItem = _service.Get(item.Id);
-                _redoItems.Push(currentItem.Clone());
-                _service.Update(item);
-                Context.Notifier.ShowInformation("Action successfully reverted");
-                OnPropertyChanged(nameof(CanUndo));
-                OnPropertyChanged(nameof(CanRedo));
-                UpdatePage(0);
-            }
+            var item = _undoItems.Pop();
+            var currentItem = _service.Get(item.Id);
+            _redoItems.Push(currentItem.Clone());
+            _service.Update(item);
+            Context.Notifier.ShowInformation("Action successfully reverted");
+            OnPropertyChanged(nameof(CanUndo));
+            OnPropertyChanged(nameof(CanRedo));
+            UpdatePage(0);
         }
 
         private void RedoAction()
         {
-            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to redo last undo?");
-            if (ok)
-            {
-                var item = _redoItems.Pop();
-                var currentItem = _service.Get(item.Id);
-                _undoItems.Push(currentItem.Clone());
-                _service.Update(item);
-                Context.Notifier.ShowInformation("Action successfully reverted");
-                OnPropertyChanged(nameof(CanUndo));
-                OnPropertyChanged(nameof(CanRedo));
-                UpdatePage(0);
-            }
+            var item = _redoItems.Pop();
+            var currentItem = _service.Get(item.Id);
+            _undoItems.Push(currentItem.Clone());
+            _service.Update(item);
+            Context.Notifier.ShowInformation("Action successfully reverted");
+            OnPropertyChanged(nameof(CanUndo));
+            OnPropertyChanged(nameof(CanRedo));
+            UpdatePage(0);
         }
 
     }
