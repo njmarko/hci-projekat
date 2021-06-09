@@ -111,7 +111,10 @@ namespace UI.ViewModels
             foreach (Chair chair in table.Chairs)
             {
                 chair.Label = $"{startingIndex++}";
-                _seatingLayoutService.UpdateChair(chair);
+                if (SeatingLayout.Id != 0)
+                {
+                    _seatingLayoutService.UpdateChair(chair);
+                }
             }
         }
 
@@ -121,7 +124,10 @@ namespace UI.ViewModels
             foreach(Table table in SeatingLayout.Tables)
             {
                 table.Label = $"Table #{startingIndex++}";
-                _seatingLayoutService.UpdateTable(table);
+                if (SeatingLayout.Id != 0)
+                {
+                    _seatingLayoutService.UpdateTable(table);
+                }
             }
         }
 

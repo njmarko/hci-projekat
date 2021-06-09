@@ -159,7 +159,7 @@
         <ItemsControl ItemsSource="{Binding TaskModels}" Grid.Row="3">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid MaxWidth="1366" MinHeight="320" MaxHeight="320" VerticalAlignment="Top" HorizontalAlignment="Stretch" Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                    <UniformGrid MaxWidth="1366" MinHeight="270" MaxHeight="270" VerticalAlignment="Top" HorizontalAlignment="Stretch" Columns="{Binding Columns}" Rows="{Binding Rows}" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
