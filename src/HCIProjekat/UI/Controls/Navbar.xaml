@@ -72,7 +72,7 @@
                           Command="{Binding UpdateProfile}" />
                 <MenuItem Cursor="Hand" Header="Change password" Style="{DynamicResource MaterialDesignMenuItem}" 
                           Command="{Binding ChangePassword}" />
-                <MenuItem Cursor="Hand" Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding Logout}"/>
+                <MenuItem Cursor="Hand" Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding LogOut}"/>
             </MenuItem>
         </Menu>
     </Grid>

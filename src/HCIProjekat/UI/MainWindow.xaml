@@ -30,6 +30,9 @@
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Undo}" />
         <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.Redo}" />
         <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding Context.Router.CurrentViewModel.ChangeTabCommand}" />
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding NavbarVm.LogOut}" />
+        <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding NavbarVm.UpdateProfile}" />
+        <KeyBinding Key="P" Modifiers="Alt" Command="{Binding NavbarVm.ChangePassword}" />
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>

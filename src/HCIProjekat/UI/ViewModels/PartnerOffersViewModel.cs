@@ -122,6 +122,7 @@ namespace UI.ViewModels
 
         private void ClearFilter()
         {
+            SearchQuery = string.Empty;
             OfferTypeValue = OfferTypeModels.First();
             UpdatePage(0);
         }
