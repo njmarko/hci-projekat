@@ -78,6 +78,7 @@ namespace UI.ViewModels
 
         public AdminClientsViewModel(IApplicationContext context, IClientService clientService, IModalService modalService) : base(context, clientService, modalService)
         {
+            HelpPage = "admin-clients";
             _clientService = clientService;
             Query = string.Empty;
             Search = new DelegateCommand(() => UpdatePage(0));
