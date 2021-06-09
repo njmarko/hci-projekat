@@ -12,6 +12,8 @@
     <None Remove="EmptyImage\birthday.jpg" />
     <None Remove="EmptyImage\party.jpg" />
     <None Remove="Fonts\password.ttf" />
+    <None Remove="Icon1.ico" />
+    <None Remove="programicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +54,8 @@
     <Resource Include="Fonts\password.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icon1.ico" />
+    <Resource Include="programicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,7 +104,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
