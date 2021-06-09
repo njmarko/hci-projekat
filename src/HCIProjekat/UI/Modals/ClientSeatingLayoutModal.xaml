@@ -57,7 +57,11 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox MaxLength="30" Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter guest name" Text="{Binding GuestName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox MaxLength="30" Grid.Column="0" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter guest name" Text="{Binding GuestName, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding AddGuest}" />
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button Grid.Column="1" Width="40" Height="40" Margin="5 0 5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" Command="{Binding AddGuest}" ToolTip="Add new guest to the guest list">
                     <materialDesign:PackIcon Kind="PeopleAdd" />
                 </Button>

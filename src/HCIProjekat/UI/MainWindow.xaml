@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="768" MinWidth="1366"
+        Title="MainWindow" MinHeight="780" MinWidth="1366"
         WindowStartupLocation="CenterScreen"
         >
     <Window.Resources>
