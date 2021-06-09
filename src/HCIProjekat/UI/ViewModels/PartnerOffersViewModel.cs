@@ -85,9 +85,9 @@ namespace UI.ViewModels
         }
 
 
-        public ICommand AddOffer { get; private set; }
-        public ICommand Search { get; private set; }
-        public ICommand Clear { get; private set; }
+        public override ICommand Add { get; set; }
+        public override ICommand Search { get; set; }
+        public override ICommand Clear { get; set; }
 
         public ObservableCollection<ServiceTypeModel> OfferTypeModels { get; private set; } = new ObservableCollection<ServiceTypeModel>();
         public ObservableCollection<PartnerOfferCardModel> OfferModels { get; private set; } = new ObservableCollection<PartnerOfferCardModel>();
@@ -103,7 +103,7 @@ namespace UI.ViewModels
             OfferTypeModels.Add(new ServiceTypeModel { Name = "Animator", Type = ServiceType.ANIMATOR });
             _partnerService = partnerService;
 
-            AddOffer = new DelegateCommand(() => OpenOfferModal(-1));
+            Add = new DelegateCommand(() => OpenOfferModal(-1));
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(() => ClearFilter());
 
@@ -122,6 +122,7 @@ namespace UI.ViewModels
 
         private void ClearFilter()
         {
+            SearchQuery = string.Empty;
             OfferTypeValue = OfferTypeModels.First();
             UpdatePage(0);
         }

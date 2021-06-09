@@ -71,8 +71,8 @@ namespace UI.ViewModels
 
         public ObservableCollection<AdminRequestCardModel> RequestModels { get; private set; } = new ObservableCollection<AdminRequestCardModel>();
         public ObservableCollection<RequestTypeModel> RequestTypeModels { get; private set; } = new ObservableCollection<RequestTypeModel>();
-        public ICommand Search { get; private set; }
-        public ICommand Clear { get; private set; }
+        public override ICommand Search { get; set; }
+        public override ICommand Clear { get; set; }
         public AdminRequestsViewModel(IApplicationContext context, IClientService clientService, IRequestService requestService) : base(context)
         {
             _clientService = clientService;

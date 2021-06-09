@@ -73,11 +73,11 @@ namespace UI.ViewModels
             }
         }
 
-        public ICommand Search { get; set; }
+        public override ICommand Search { get; set; }
 
-        public ICommand AddEventPlanner { get; private set; }
+        public override ICommand Add { get; set; }
 
-        public ICommand Clear { get; private set; }
+        public override ICommand Clear { get; set; }
 
 
         public ObservableCollection<AdminEventPlannerCardModel> EventPlannerModels { get; private set; } = new ObservableCollection<AdminEventPlannerCardModel>();
@@ -90,7 +90,7 @@ namespace UI.ViewModels
             Clear = new DelegateCommand(ClearFilters);
             _bornBefore = _bornBeforeInitial;
             _bornAfter = _bornAfterInitial;
-            AddEventPlanner = new DelegateCommand(OpenRegisterEventPlannerModal);
+            Add = new DelegateCommand(OpenRegisterEventPlannerModal);
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);

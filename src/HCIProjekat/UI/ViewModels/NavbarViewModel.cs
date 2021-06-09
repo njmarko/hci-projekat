@@ -52,7 +52,7 @@ namespace UI.ViewModels
 
 
         public NotificationViewModel NotificationViewModel { get; private set; }
-        public ICommand Logout { get; private set; }
+        public ICommand LogOut { get; private set; }
         public ICommand UpdateProfile { get; private set; }
         public ICommand ChangePassword { get; private set; }
         public ICommand OpenNotifications { get; private set; }
@@ -65,7 +65,7 @@ namespace UI.ViewModels
             _userService = userService;
             NotificationViewModel = notificationsVm;
 
-            Logout = new LogoutCommand(context);
+            LogOut = new LogoutCommand(context);
             UpdateProfile = new DelegateCommand(OpenUpdateProfileInfoModal);
             ChangePassword = new DelegateCommand(OpenChangePasswordModal);
             OpenNotifications = new DelegateCommand(OpenNotificationsView);

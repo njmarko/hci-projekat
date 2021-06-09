@@ -65,10 +65,10 @@ namespace UI.ViewModels
             set { _partnerType = value; OnPropertyChanged(nameof(PartnerTypeValue)); }
         }
 
-        public ICommand Search { get; set; }
-        public ICommand AddPartner { get; private set; }
+        public override ICommand Search { get; set; }
+        public override ICommand Add { get; set; }
 
-        public ICommand Clear { get; private set; }
+        public override ICommand Clear { get; set; }
         public ObservableCollection<AdminPartnerCardModel> PartnerModels { get; private set; } = new ObservableCollection<AdminPartnerCardModel>();
 
         public ObservableCollection<PartnerTypeModel> PartnerTypeModels { get; private set; } = new ObservableCollection<PartnerTypeModel>();
@@ -80,7 +80,7 @@ namespace UI.ViewModels
             Query = string.Empty;
             Search = new DelegateCommand(() => UpdatePage(0));
             Clear = new DelegateCommand(ClearFilters);
-            AddPartner = new DelegateCommand(OpenRegisterPartnerModal);
+            Add = new DelegateCommand(OpenRegisterPartnerModal);
 
             _modalService = modalService;
             Columns = 4;

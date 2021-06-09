@@ -69,10 +69,27 @@
                     <materialDesign:PackIcon Kind="ArrowDownCircle" />
                 </MenuItem.Icon>
                 <MenuItem Cursor="Hand" Header="Profile" Style="{DynamicResource MaterialDesignMenuItem}" 
-                          Command="{Binding UpdateProfile}" />
+                          Command="{Binding UpdateProfile}">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Ctrl+P" Placement="Bottom"></ToolTip>
+                    </MenuItem.ToolTip>
+                    
+                
+                </MenuItem>
+
+
                 <MenuItem Cursor="Hand" Header="Change password" Style="{DynamicResource MaterialDesignMenuItem}" 
-                          Command="{Binding ChangePassword}" />
-                <MenuItem Cursor="Hand" Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding Logout}"/>
+                          Command="{Binding ChangePassword}">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Alt+P" Placement="Bottom"></ToolTip>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                
+                <MenuItem Cursor="Hand" Header="Logout" Style="{DynamicResource MaterialDesignMenuItem}" Command="{Binding LogOut}">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="Ctrl+L" Placement="Bottom"></ToolTip>
+                    </MenuItem.ToolTip>
+                </MenuItem>
             </MenuItem>
         </Menu>
     </Grid>

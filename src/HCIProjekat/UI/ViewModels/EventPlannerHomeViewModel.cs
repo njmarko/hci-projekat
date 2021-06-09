@@ -115,8 +115,8 @@ namespace UI.ViewModels
 
         public bool CanAddTask => CurrentRequest != null;
 
-        public ICommand Search { get; private set; }
-        public ICommand ShowCreateTaskModal { get; private set; }
+        public override ICommand Search { get; set; }
+        public override ICommand Add { get; set; }
 
         public EventPlannerHomeViewModel(IApplicationContext context, IEventPlannersService eventPlannersService, ITaskService taskService, IModalService modalService) : base(context, taskService, modalService)
         {
@@ -124,7 +124,7 @@ namespace UI.ViewModels
             _taskService = taskService;
             _modalService = modalService;
             Search = new DelegateCommand(FetchTasksForSelectedRequest);
-            ShowCreateTaskModal = new ShowCreateTaskModal(this, _taskService, _modalService, -1);
+            Add = new ShowCreateTaskModal(this, _taskService, _modalService, -1);
             ActiveRequests = new ObservableCollection<Request>(_eventPlannersService.GetActiveRequests(Context.Store.CurrentUser.Id));
             HelpPage = "event-planner-home-page";
             if (ActiveRequests.Count > 0)

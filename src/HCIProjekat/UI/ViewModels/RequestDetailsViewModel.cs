@@ -145,9 +145,9 @@ namespace UI.ViewModels
         public string BackRoute { get; private set; }
 
         public ObservableCollection<ClientTaskCardModel> TaskModels { get; private set; } = new ObservableCollection<ClientTaskCardModel>();
-        public ICommand Search { get; private set; }
-        public ICommand Clear { get; private set; }
-        public ICommand ShowSeatingModal { get; private set; }
+        public override ICommand Search { get; set; }
+        public override ICommand Clear { get; set; }
+        public ICommand ShowSeatingModal { get; set; }
         public ObservableCollection<TaskTypeModel> TaskTypeModels { get; private set; } = new ObservableCollection<TaskTypeModel>();
         public ObservableCollection<TaskStatusModel> TaskStatusModels { get; private set; } = new ObservableCollection<TaskStatusModel>();
 

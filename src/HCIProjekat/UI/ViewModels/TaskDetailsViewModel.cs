@@ -175,9 +175,9 @@ namespace UI.ViewModels
 
         public ICommand Reject { get; set; }
 
-        public ICommand Search { get; private set; }
+        public override ICommand Search { get; set; }
 
-        public ICommand ChangeTabCommand { get; private set; }
+        public override ICommand ChangeTabCommand { get; set; }
 
 
 

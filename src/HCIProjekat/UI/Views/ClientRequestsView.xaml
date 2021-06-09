@@ -18,11 +18,6 @@
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
     
-    <UserControl.InputBindings>
-        
-        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding ShowCreateRequestModal}"></KeyBinding>
-
-    </UserControl.InputBindings>
     <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -49,10 +44,10 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Row="0" Grid.Column="0" Margin="10 10 10 10" Name="FirstField" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search requests" Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" />
-                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add request" Command="{Binding ShowCreateRequestModal}" />
-                    <Button Grid.Row="0" Grid.Column="3" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}" />
-                    <Button Grid.Row="0" Grid.Column="4" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Redo" Command="{Binding Redo}" />
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" ToolTip="Ctrl+Return"/>
+                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add request" Command="{Binding Add}" ToolTip="Ctrl+N"/>
+                    <Button Grid.Row="0" Grid.Column="3" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}" ToolTip="Ctrl+Z"/>
+                    <Button Grid.Row="0" Grid.Column="4" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Redo" Command="{Binding Redo}" ToolTip="Ctrl+Y"/>
                     <CheckBox Grid.Row="0" Grid.Column="5" Margin="5 10 10 10" Content="Show filter" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Cursor="Hand" x:Name="CheckBox" IsChecked="False" Style="{DynamicResource MaterialDesignAccentCheckBox}" />
                 </Grid>
                 <!--Filter block-->
@@ -70,8 +65,8 @@
                         <DatePicker Margin="10 10 10 10" SelectedDate="{Binding From, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select from date" />
                         <DatePicker Margin="10 10 10 10" SelectedDate="{Binding To, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Select to date" />
                     </UniformGrid>
-                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" />
-                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" />
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" ToolTip="Ctrl+Return"/>
+                    <Button Grid.Row="0" Grid.Column="2" Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" ToolTip="Ctrl+K"/>
                 </Grid>
             </Grid>
         </Grid>
