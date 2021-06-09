@@ -134,7 +134,7 @@ namespace UI.ViewModels
                     Budget = $"{entity.Budget} RSD",
                     BudgetFlexible = entity.BudgetFlexible,
                     Theme = entity.Theme,
-                    Date = entity.Date.ToString("dd.MM.yyyy"),
+                    Date = entity.Date.ToString("dd.MM.yyyy."),
                     Context = Context,
                     Route = $"RequestDetails?requestId={entity.Id}",
                     Vm = this,
