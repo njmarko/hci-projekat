@@ -38,9 +38,9 @@ namespace UI.ViewModels
         private readonly TaskTypeModel _typeInitial;
         private readonly TaskStatusModel _statusInitial;
 
-        private int _currentCost { get; set; }
+        private string _currentCost { get; set; }
 
-        public int CurrentCost 
+        public string CurrentCost 
         {
             get { return _currentCost; }
             set 
@@ -110,6 +110,37 @@ namespace UI.ViewModels
             get { return _canEditSeatingLayout; }
             set { _canEditSeatingLayout = value; OnPropertyChanged(nameof(CanEditSeatingLayout)); }
         }
+
+        private string _date;
+
+        public string Date
+        {
+            get { return _date; }
+            set 
+            { 
+                _date = value;
+                OnPropertyChanged(nameof(Date));
+            }
+        }
+
+        private string _budget;
+
+        public string Budget
+        {
+            get 
+            { 
+                return _budget; 
+            }
+            
+            set 
+            { 
+                _budget = value;
+                OnPropertyChanged(nameof(Budget));
+            }
+        }
+
+
+
         public string TaskDetailsRoute { get; set; }
         public string BackRoute { get; private set; }
 
@@ -123,7 +154,9 @@ namespace UI.ViewModels
         private void LoadRequest()
         {
             Request = _requestService.Get(RequestId);
-            CurrentCost = _requestService.GetRequestCost(RequestId);
+            Date = Request.Date.ToString("dd.MM.yyyy.");
+            Budget = $"{Request.Budget} RSD";
+            CurrentCost = $"{_requestService.GetRequestCost(RequestId)} RSD";
             CanEditSeatingLayout = _requestService.IsLocationAccepted(RequestId);
             UpdatePage(0);
         }
@@ -174,7 +207,6 @@ namespace UI.ViewModels
                 BackRoute = "AdminRequests";
                 TaskDetailsRoute = "TaskDetails";
             }
-            //UpdatePage(0);
         }
 
         private void ShowClientSeatingLayoutModal()
