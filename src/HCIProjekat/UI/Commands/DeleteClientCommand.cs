@@ -44,7 +44,18 @@ namespace UI.Commands
                 _adminClientsViewModel.AddItem(client);
 
                 _clientService.Delete(_clientId);
-                _adminClientsViewModel.UpdatePage(0);
+                if (_adminClientsViewModel.PaginationViewModel.TotalElements - _adminClientsViewModel.PaginationViewModel.Page * _adminClientsViewModel.PaginationViewModel.PerPage <= 1 && _adminClientsViewModel.PaginationViewModel.Page > 0)
+                {
+                    _adminClientsViewModel.UpdatePage(_adminClientsViewModel.PaginationViewModel.Page - 1);
+                }
+                else if (_adminClientsViewModel.PaginationViewModel.TotalElements - _adminClientsViewModel.PaginationViewModel.Page * _adminClientsViewModel.PaginationViewModel.PerPage > 1)
+                {
+                    _adminClientsViewModel.UpdatePage(_adminClientsViewModel.PaginationViewModel.Page);
+                }
+                else
+                {
+                    _adminClientsViewModel.UpdatePage(0);
+                }
                 _adminClientsViewModel.Context.Notifier.ShowInformation($"Client {_clientUsername} has been deleted successfully.");
             }
         }
