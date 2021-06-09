@@ -28,6 +28,7 @@ namespace UI.Modals
         private readonly double CHAIR_RADIUS = 10;
         private readonly double TABLE_DISTANCE_TRESHOLD = 60;
         private readonly double TABLE_TABLE_DISTANCE = 130;
+        private readonly double CHAIR_CHAIR_DISTANCE = 25;
         private CreateOfferSeatingLayoutViewModel _vm;
 
         private TableIcon _selectedTable;
@@ -190,6 +191,26 @@ namespace UI.Modals
             {
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;
+                return;
+            }
+
+            var chairs = closestTable.Chairs;
+            foreach(Chair chair in chairs)
+            {
+                if (_vm.Distance(chair, position.X, position.Y) <= CHAIR_CHAIR_DISTANCE)
+                {
+                    if (SelectedChair != null)
+                    {
+                        var context = SelectedChair.DataContext as ILayoutItem;
+                        if (context.Label == chair.Label)
+                        {
+                            continue;
+                        }
+                    }
+                    e.Effects = DragDropEffects.None;
+                    e.Handled = true;
+                    return;
+                }
             }
         }
 
