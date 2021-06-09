@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Pagination
 {
-    public class Page<TEntity> where TEntity : BaseEntity
+    public class Page<TEntity> where TEntity : class
     {
         public IEnumerable<TEntity> Entities;
         public int TotalElements { get; set; }

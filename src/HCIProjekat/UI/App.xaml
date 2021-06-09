@@ -6,12 +6,16 @@
              xmlns:views="clr-namespace:UI.Views"
              xmlns:local="clr-namespace:UI">
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="LightBlue" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+            <FontFamily x:Key="Password">pack://application:,,,/Fonts/#password</FontFamily>
             <DataTemplate DataType="{x:Type vm:LoginViewModel}">
                 <views:LoginView />
             </DataTemplate>
@@ -20,6 +24,42 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
                 <views:RegisterView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdminClientsViewModel}">
+                <views:AdminClientsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdminEventPlannersViewModel}">
+                <views:AdminEventPlannersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdminPartnersViewModel}">
+                <views:AdminPartnersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RequestDetailsViewModel}">
+                <views:RequestDetailsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:TaskDetailsViewModel}">
+                <views:TaskDetailsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EventPlannerHomeViewModel}">
+                <views:EventPlannerHomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PartnerOffersViewModel}">
+                <views:PartnerOffersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EventPlannerRequestsViewModel}">
+                <views:EventPlannerRequestsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdminRequestsViewModel}">
+                <views:AdminRequestsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EventPlannerTaskDetailsViewModel}">
+                <views:EventPlannerTaskDetailsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdminAdminsViewModel}">
+                <views:AdminAdminsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DemoViewModel}">
+                <views:DemoView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

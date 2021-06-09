@@ -1,39 +1,230 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup>
+    <_LastSelectedProfileId>D:\Fakultet\HCI\Projekat\hci-projekat\src\HCIProjekat\UI\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
   <ItemGroup>
     <ApplicationDefinition Update="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\AdminRequestCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ChairIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ClientTaskCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ClientTaskOfferCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Comment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\EventPlannerRequestCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\EventPlannerTaskCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\EventPlannerTaskOfferCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\GuestIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Navbar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\NotificationMessage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\PartnerOfferCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\TableIcon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\ClientSeatingLayoutModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\CreateTaskModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\OfferModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\OfferSeatingLayoutModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\RequestModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\UpdateProfileInfoModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminRequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ClientRequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DemoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EventPlannerHomeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EventPlannerRequestsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EventPlannerTaskDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\LoginView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\PartnerOffersView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\RegisterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RequestDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TaskDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\AdminPartnerCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\AdminEventPlannerCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\AdminClientCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\AdminRequestCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ChairIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\ClientRequestCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ClientTaskCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ClientTaskOfferCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Comment.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\EventPlannerRequestCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\EventPlannerTaskCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\EventPlannerTaskOfferCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GuestIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Navbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\NotificationMessage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Pagination.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\PartnerOfferCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\TableIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddAdminModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddPartnerModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddEventPlannerModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\ClientSeatingLayoutModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\CreateTaskModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\OfferModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\OfferSeatingLayoutModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\RequestModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\UpdateProfileInfoModal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminAdminsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminClientsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminPartnersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ClientRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\DemoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EventPlannerHomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EventPlannerRequestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EventPlannerTaskDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\LoginView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\PartnerOffersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\RegisterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RequestDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TaskDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

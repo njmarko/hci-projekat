@@ -9,9 +9,12 @@ namespace UI.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public MainViewModel(IApplicationContext context) : base(context)
+        public NavbarViewModel NavbarVm { get; private set; }
+
+        public MainViewModel(IApplicationContext context, NavbarViewModel navbarVm) : base(context)
         {
-            Context.Router.Push("ClientRequests");
+            NavbarVm = navbarVm;
+            Context.Router.Push("Login");
         }
     }
 }

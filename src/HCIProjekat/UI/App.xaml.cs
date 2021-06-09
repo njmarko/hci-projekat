@@ -20,6 +20,8 @@ using UI.Context;
 using UI.Context.Locators;
 using UI.Context.Routers;
 using UI.Context.Stores;
+using UI.Modals;
+using UI.Services;
 using UI.ViewModels;
 
 namespace UI
@@ -50,6 +52,8 @@ namespace UI
                     services.AddInfrastructure(context.Configuration);
                     services.AddApplicationContext();
                     services.AddViewModels();
+                    services.AddServices();
+                    services.AddModalWindows();
                 });
         }
 
@@ -66,9 +70,9 @@ namespace UI
                 ApplicationDbContextSeed.Seed(context);
             }
 
-            //var clientService = _host.Services.GetRequiredService<IClientService>();
-            //var page = clientService.GetRequestsForClient(1, new RequestsPage { Page = 0, Size = 6, RequestName = "req" });
-            //Console.WriteLine(page);
+            //var service = _host.Services.GetRequiredService<IRequestService>();
+            //var reqPage = service.GetAllRequests(new RequestsPage { Page = -1, Size = 8, Query = "" });
+            //Console.WriteLine(reqPage);
 
             Window window = new MainWindow(_host.Services.GetRequiredService<MainViewModel>());
             window.Show();

@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="UI.Views.EventPlannerHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:UI.Controls"
+             xmlns:util="clr-namespace:UI.Util"
+             xmlns:local="clr-namespace:UI.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"
+             mc:Ignorable="d" 
+             controls:MyUserControlBehavior.WindowTitle="Home page"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Row="0" Grid.Column="0" Margin="10 10 5 10" ItemsSource="{Binding ActiveRequests}" SelectedItem="{Binding CurrentRequest}" DisplayMemberPath="Name" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Select request" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5 10 5 10" Name="FirstField" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search tasks" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Row="0" Grid.Column="2" Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Search" Command="{Binding Search}" ToolTip="Ctrl+Return"/>
+            <Button Grid.Row="0" Grid.Column="3" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add task" Command="{Binding Add}" ToolTip="Ctrl+N"/>
+            <Button Grid.Row="0" Grid.Column="4" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Undo" Command="{Binding Undo}" ToolTip="Ctrl+Z"/>
+            <Button Grid.Row="0" Grid.Column="5" Margin="5 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Redo" Command="{Binding Redo}" ToolTip="Ctrl+Y"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!--Task labels header-->
+            <Border Grid.Row="0" Grid.Column="0" Background="#0d62ff" CornerRadius="10" Padding="4" Margin="10 0">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">To do</TextBlock>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" Background="#0d62ff" CornerRadius="10" Padding="4" Margin="10 0">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">In progress</TextBlock>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="2" Background="#fcc428" CornerRadius="10" Padding="4" Margin="10 0">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">Sent to client</TextBlock>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="3" Background="#de1212" CornerRadius="10" Padding="4" Margin="10 0">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">Client rejected</TextBlock>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="4" Background="#088a35" CornerRadius="10" Padding="4" Margin="10 0">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">Client accepted</TextBlock>
+            </Border>
+            <!--To do tasks-->
+            <ScrollViewer util:ScrollToTheEnd.AutoScroll="{Binding ToDoAdded}" Grid.Row="1" Grid.Column="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="{Binding AllowToDoDrop}" Drop="OnToDoTaskDrop">
+                <ItemsControl ItemsSource="{Binding ToDo}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:EventPlannerTaskCard MouseDown="ToDoSelected" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <!--In progress tasks-->
+            <ScrollViewer util:ScrollToTheEnd.AutoScroll="{Binding InProgressAdded}" Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="{Binding AllowInProgressDrop}" Drop="OnInProgressTaskDrop">
+                <ItemsControl ItemsSource="{Binding InProgress}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:EventPlannerTaskCard MouseDown="InProgressSelected" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <!--Sent to client tasks-->
+            <ScrollViewer util:ScrollToTheEnd.AutoScroll="{Binding SentToClientAdded}" Grid.Row="1" Grid.Column="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}" AllowDrop="True" Drop="OnSentToClientTaskDrop">
+                <ItemsControl ItemsSource="{Binding SentToClient}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:EventPlannerTaskCard />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <!--Rejected tasks-->
+            <ScrollViewer Grid.Row="1" Grid.Column="3" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}">
+                <ItemsControl ItemsSource="{Binding Rejected}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:EventPlannerTaskCard MouseDown="RejectedSelected" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <!--Accepted tasks-->
+            <ScrollViewer Grid.Row="1" Grid.Column="4" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Style="{DynamicResource MaterialDesignScrollViewer}">
+                <ItemsControl ItemsSource="{Binding Accepted}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:EventPlannerTaskCard />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

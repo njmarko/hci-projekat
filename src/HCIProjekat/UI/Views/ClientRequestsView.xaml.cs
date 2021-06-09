@@ -23,6 +23,8 @@ namespace UI.Views
         public ClientRequestsView()
         {
             InitializeComponent();
+            Focusable = true;
+            Loaded += (s, e) => Keyboard.Focus(this);
         }
     }
 }

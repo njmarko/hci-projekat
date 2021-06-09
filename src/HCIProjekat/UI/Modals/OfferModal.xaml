@@ -1,0 +1,106 @@
+﻿<Window x:Class="UI.Modals.OfferModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Modals"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"      
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Create offer" Height="780" Width="500" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="{Binding Help}"></KeyBinding>
+    </Window.InputBindings>
+    <Grid>
+        <StackPanel FocusManager.FocusedElement="{Binding ElementName=FirstField}">
+
+            <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Offer" Margin="0 10" />
+
+            <Rectangle Grid.Column="1" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" Margin="10 10"/>
+
+            <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Name="FirstField" MaxLength="30" materialDesign:HintAssist.Hint="Enter name" Margin="10 15" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" >
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding CreateOfferCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding NameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -15 10 0" FontSize="10" />
+
+            <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding OfferTypeModels}" SelectedItem="{Binding OfferTypeValue}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Select offer type" Margin="10 15" />
+
+            <Button Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding ShowEditSeatingDialogModal}" Visibility="{Binding IsLocation, Converter={StaticResource b2vc}}" FontSize="14" Foreground="White" Margin="10 0" Width="180" HorizontalAlignment="Left" Content="Edit seating layout" />
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding LayoutError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" MaxLength="9" materialDesign:HintAssist.Hint="Enter price" Margin="10 15" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding CreateOfferCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+
+                <TextBlock Grid.Column="1" Text="RSD" Margin="0 38 0 0" />
+            </Grid>
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding PriceError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -15 10 0" FontSize="10" />
+
+
+            <TextBox BorderThickness="1"
+                     MaxLength="150"
+                    Height="100"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto"
+                    Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter description" 
+                    Margin="10 15" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" >
+                <TextBox.InputBindings>
+                    <KeyBinding Modifiers="Ctrl" Key="Return" Command="{Binding CreateOfferCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding DescriptionError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 -15 10 0" FontSize="10" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button AllowDrop="True" ToolTip="Click to chose an image from filesystem or simply drag and drop an image" x:Name="_imgDrop" Drop="OnImageDrop" DragOver="OnImageDrag" Width="300" Height="200" BorderThickness="1" Command="{Binding OnImageInput}" Margin="0 15 0 0 ">
+                    <Button.Background>
+                        <ImageBrush ImageSource="{Binding Image, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" />
+                    </Button.Background>
+                </Button>
+            </Grid>
+            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding ImageError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Command="{Binding CreateOfferCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}" Content="{Binding ButtonText}" Margin="10 15" Foreground="White" FocusManager.FocusedElement="{Binding ElementName=FirstField}"/>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</Window>

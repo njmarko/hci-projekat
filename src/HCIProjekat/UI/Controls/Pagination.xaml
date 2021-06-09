@@ -21,7 +21,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <RadioButton Margin="0" Padding="0" Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" Content="{Binding Page}" Command="{Binding ElementName=Root, Path=DataContext.UpdatePageCommand}" CommandParameter="{Binding Page}" IsChecked="{Binding IsChecked}" />
+                    <Button Width="35" Height="35" Foreground="White" ToolTip="{Binding ToolTip}" Margin=" 5" Padding="0" Style="{DynamicResource MaterialDesignFloatingActionButton}" IsEnabled="{Binding IsEnabled}" Content="{Binding Text}" Command="{Binding ElementName=Root, Path=DataContext.UpdatePageCommand}" CommandParameter="{Binding Page}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

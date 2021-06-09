@@ -15,6 +15,25 @@ namespace UI.ViewModels
             services.AddTransient<LoginViewModel>();
             services.AddTransient<RegisterViewModel>();
             services.AddTransient<ClientRequestsViewModel>();
+            services.AddTransient<AdminClientsViewModel>();
+            services.AddTransient<AdminEventPlannersViewModel>();
+            services.AddTransient<AdminPartnersViewModel>();
+            services.AddTransient<RegisterEventPlannerViewModel>();
+            services.AddTransient<RegisterAdminViewModel>();
+            services.AddTransient<RegisterPartnerViewModel>();
+            services.AddTransient<RequestDetailsViewModel>();
+            services.AddTransient<TaskDetailsViewModel>();
+            services.AddTransient<EventPlannerHomeViewModel>();
+            services.AddTransient<PartnerOffersViewModel>();
+            services.AddTransient<EventPlannerRequestsViewModel>();
+            services.AddTransient<AdminRequestsViewModel>();
+            services.AddTransient<EventPlannerTaskDetailsViewModel>();
+            services.AddTransient<AdminAdminsViewModel>();
+            services.AddTransient<DemoViewModel>();
+
+            services.AddSingleton<NotificationViewModel>();
+            services.AddSingleton<NavbarViewModel>();
+            
             return services;
         }
     }

@@ -4,10 +4,19 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <Win32Resource></Win32Resource>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="EmptyImage\birthday.jpg" />
+    <None Remove="EmptyImage\party.jpg" />
+    <None Remove="Fonts\password.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.6">
@@ -21,6 +30,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="ToastNotifications.Messages.Net5" Version="3.0.1" />
+    <PackageReference Include="ToastNotifications.Net5" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,9 +40,116 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="EmptyImage\birthday.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="EmptyImage\EmptyImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="EmptyImage\party.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\password.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Modals\AddAdminModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\AddModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Modals\AddEventPlannerModal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AdminAdminsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminClientsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RegisterAdminView - Copy.xaml.cs">
+      <DependentUpon>RegisterAdminView.xaml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegisterEventPlannerView - Copy %282%29 - Copy.xaml.cs">
+      <DependentUpon>RegisterEventPlannerView.xaml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegisterEventPlannerView - Copy %282%29.xaml.cs">
+      <DependentUpon>RegisterEventPlannerView.xaml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegisterEventPlannerView - Copy - Copy %282%29.xaml.cs">
+      <DependentUpon>RegisterEventPlannerView.xaml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegisterEventPlannerView - Copy - Copy - Copy.xaml.cs">
+      <DependentUpon>RegisterEventPlannerView - Copy.xaml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegisterEventPlannerView - Copy - Copy.xaml.cs">
+      <DependentUpon>RegisterEventPlannerView - Copy.xaml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegisterEventPlannerView - Copy.xaml.cs">
+      <DependentUpon>RegisterEventPlannerView.xaml.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Demo\demo.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\AdminPartnerCard.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\AdminEventPlannerCard.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\AdminClientCard.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddAdminModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modals\AddEventPlannerModal.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminAdminsView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminClientsView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminPartnersView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

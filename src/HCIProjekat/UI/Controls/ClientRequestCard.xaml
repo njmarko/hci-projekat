@@ -15,14 +15,41 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" />
-                <TextBlock Grid.Row="1" TextWrapping="Wrap" TextAlignment="Left" Style="{DynamicResource MaterialDesignBody1TextBlock}" FontSize="14">
-                    Stavka 1 <LineBreak />
-                    Stavka 2 <LineBreak />
-                    Stavka 3 <LineBreak />
-                    Stavka 4 <LineBreak />
-                </TextBlock>
-                <Button Grid.Row="2" Content="View details" Style="{DynamicResource MaterialDesignFlatButton}" />
+                <TextBlock Grid.Row="0" TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" Text="{Binding Name}" />
+                <StackPanel Grid.Row="1">
+                    <TextBlock Margin="0 0 0 10" TextAlignment="Center" Style="{DynamicResource MaterialDesignSubtitle1TextBlock}" Text="{Binding Type}" />
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Guest number: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding GuestNumber}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Theme: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Theme}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Budget: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Budget}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Budget flexible: "/>
+                        <CheckBox IsChecked="{Binding BudgetFlexible}" IsHitTestVisible="False" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="Date: "/>
+                        <TextBlock Style="{DynamicResource MaterialDesignBody2TextBlock}"  TextAlignment="Center" Text="{Binding Date}"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0 10 0 0">
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="View request details" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="{Binding Route}">
+                        <materialDesign:PackIcon Kind="DotsVertical" />
+                    </Button>
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Edit request details" Command="{Binding Edit}">
+                        <materialDesign:PackIcon Kind="Edit" />
+                    </Button>
+                    <Button Width="40" Height="40" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Foreground="White" ToolTip="Delete request" Command="{Binding Delete}">
+                        <materialDesign:PackIcon Kind="Delete" />
+                    </Button>
+                </StackPanel>
             </Grid>
         </materialDesign:Card>
     </Grid>

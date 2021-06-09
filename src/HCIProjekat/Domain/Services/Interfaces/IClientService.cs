@@ -9,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Services.Interfaces
 {
-    public interface IClientService
+    public interface IClientService : ICRUDService<Client>
     {
+        Client Create(Client client);
+
         Page<Request> GetRequestsForClient(int clientId, RequestsPage page);
+
+        Page<Client> GetClients(ClientsPage page);
+
+        public void Delete(int clientId);
     }
 }

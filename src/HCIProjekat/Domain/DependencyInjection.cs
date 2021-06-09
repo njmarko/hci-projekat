@@ -15,6 +15,18 @@ namespace Domain
         {
             services.AddSingleton<IAdminService, AdminService>();
             services.AddSingleton<IClientService, ClientService>();
+            services.AddSingleton<IEventPlannersService, EventPlannersService>();
+            services.AddSingleton<IAuthService, AuthService>();
+            services.AddSingleton<IPartnersService, PartnersService>();
+            services.AddSingleton<IRequestService, RequestService>();
+            services.AddSingleton<ITaskService, TaskService>();
+            services.AddSingleton<IOfferService, OfferService>();
+            services.AddSingleton<ICommentService, CommentService>();
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ITaskOfferService, TaskOfferService>();
+            services.AddSingleton<INotificationService, NotificationService>();
+            services.AddSingleton<ISeatingLayoutService, SeatingLayoutService>();
+            services.AddSingleton<IPartnerService, PartnerService>();
             return services;
         }
     }

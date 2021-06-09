@@ -1,0 +1,49 @@
+﻿<Window x:Class="UI.Modals.OfferSeatingLayoutModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Modals"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"      
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="SingleBorderWindow"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Title="Seating layout" MinHeight="450" MinWidth="800">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding Context.OpenLink}"
+                    CommandParameter="{Binding HelpPage}"/>
+    </Window.InputBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ListView SelectionMode="Single" Style="{DynamicResource MaterialDesignCardsListBox}" Margin="0 10" Grid.Row="0">
+                    <ListViewItem Content="Table" PreviewMouseDown="InitItemDrop" Style="{DynamicResource MaterialDesignFilterChipAccentListBoxItem}" />
+                    <ListViewItem Content="Chair" PreviewMouseDown="InitItemDrop" Style="{DynamicResource MaterialDesignFilterChipAccentListBoxItem}"/>
+                </ListView>
+
+                <materialDesign:PackIcon x:Name="_trashCan" PreviewDragOver="TrashCanDragOver" PreviewDragLeave="TrashCanDragLeave" Margin="0 0 0 -20"  Width="50" Height="100" Kind="Delete" AllowDrop="{Binding DeletableItemSelected}" PreviewDrop="DeleteItem" Grid.Row="1" HorizontalAlignment="Center"/>
+            </Grid>
+        </DockPanel>
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+            <Canvas Grid.Column="1" AllowDrop="True"  PreviewDrop="OnItemDrop" PreviewDragOver="OnItemDrag" SizeChanged="OnCanvasResized" x:Name="_mainCanvas">
+                <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
+            </Canvas>
+        </Border>
+    </Grid>
+</Window>

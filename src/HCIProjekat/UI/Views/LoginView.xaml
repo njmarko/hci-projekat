@@ -4,6 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.Views"
+             xmlns:rules="clr-namespace:UI.Validators"
+            xmlns:controls="clr-namespace:UI.Controls"
+
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -11,24 +14,36 @@
              TextOptions.TextFormattingMode="Ideal" 
              TextOptions.TextRenderingMode="Auto"  
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+            controls:MyUserControlBehavior.WindowTitle="Login"
+>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    
     <Grid VerticalAlignment="Center" MaxWidth="620">
-        <materialDesign:Card Height="400" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Margin="100 0" Padding="5">
-            <StackPanel>
+        <materialDesign:Card Height="380" materialDesign:ShadowAssist.Darken="False" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="All" Margin="100 0" Padding="5">
+            <StackPanel FocusManager.FocusedElement="{Binding ElementName=FirstField}">
                 <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Login" Margin="0 20" />
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter username" Margin="10 20">
-                    <TextBox.Text>
-                        <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
-                        </Binding>
-                    </TextBox.Text>
+                <Rectangle Margin="10 0" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Name="FirstField" materialDesign:HintAssist.Hint="Enter username" Margin="10 20 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding LoginCommand}" />
+                    </TextBox.InputBindings>
                 </TextBox>
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Enter password" Margin="10 20">
-                    <TextBox.Text>
-                        <Binding Path="Password" UpdateSourceTrigger="PropertyChanged">
-                        </Binding>
-                    </TextBox.Text>
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding UsernameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.FontFamily="{DynamicResource MaterialDesignFont}"  FontFamily="{DynamicResource ResourceKey=Password}" materialDesign:HintAssist.Hint="Enter password" Margin="10 15 10 0"  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <!--Disable CTRL+C -->
+                        <KeyBinding Command="ApplicationCommands.NotACommand"
+                            Key="C"
+                            Modifiers="Control" />
+                        <KeyBinding Key="Return" Command="{Binding LoginCommand}" />
+                    </TextBox.InputBindings>
                 </TextBox>
-                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Grid.Row="3" Content="Login" Margin="10 20" Foreground="White" Command="{Binding LoginCommandUI}" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding PasswordError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <TextBlock DataContext="{Binding LoginError}" Foreground="Red" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" HorizontalAlignment="Center" Margin="10 10 10 0" />
+                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Grid.Row="3" Content="Login" Margin="10 40 10 10" Foreground="White" Command="{Binding LoginCommand}" />
                 <TextBlock HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignBody2TextBlock}" Margin="0 10">
                     Don't have an account? <Hyperlink Foreground="Blue" Style="{DynamicResource MaterialDesignBody2Hyperlink}" Command="{Binding Context.Router.RouterPushCommand}" CommandParameter="Register">Register here!</Hyperlink>
                 </TextBlock>
