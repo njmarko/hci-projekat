@@ -61,7 +61,7 @@ namespace Infrastructure.Persistence
             var r11 = new Request { Name = "Ispraćaj Nedeljka u Vojsku", Budget = 28000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(6), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Vojska", Notes = "Budući tenkista." };
             var r12 = new Request { Name = "Upis ćerke na SIIT", Budget = 37000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(-5), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Elitizam", Notes = "Upis na elitni smer softverskog inženjerstva." };
             var r13 = new Request { Name = "Godišnjica DJT pobede", Budget = 46000, BudgetFlexible = true, Client = c4, Date = DateTime.Now.AddDays(-4), GuestNumber = 12, Type = RequestType.ANNIVERSARY, Theme = "Crvena kapa", Notes = "Gosti su zidari." };
-            var r14 = new Request { Name = "Završetak studija na SIIT", Budget = 55000, BudgetFlexible = true, Client = c5, Date = DateTime.Now.AddDays(13), GuestNumber = 12, Type = RequestType.GRADUATION, Theme = "Alkoloh", Notes = "Prve tri godine su teške, a onda upišeš drugu." };
+            var r14 = new Request { Name = "Završetak studija na SIIT", Budget = 55000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(13), GuestNumber = 12, Type = RequestType.GRADUATION, Theme = "Alkoloh", Notes = "Prve tri godine su teške, a onda upišeš drugu." };
 
             var l1 = new Location { StreetNumber = "301", Street = "Ulica1", City = "Novi Sad", Country = "Srbija" };
             var l2 = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" };
@@ -213,9 +213,9 @@ namespace Infrastructure.Persistence
             context.Partners.Add(p2);
             context.Partners.Add(p3);
 
-            var o1 = new Offer { Name = "Velika sala", Price = 1000, Description = "opis ponude", Image = Properties.Resources._struct, OfferType = t3.TaskType, Partner = p1 };
-            var o2 = new Offer { Name = "Terasa", Price = 2000, Description = "opis ponude 2", Image = Properties.Resources.ts, OfferType = t3.TaskType, Partner = p2 };
-            var o3 = new Offer { Name = "Ponuda 3", Price = 3000, Description = "opis ponude 3", Image = Properties.Resources.ts, OfferType = t3.TaskType, Partner = par3 };
+            var o1 = new Offer { Name = "Velika sala", Price = 1000, Description = "opis ponude", Image = Properties.Resources.bighall, OfferType = t3.TaskType, Partner = par1 };
+            var o2 = new Offer { Name = "Terasa", Price = 2000, Description = "opis ponude 2", Image = Properties.Resources.garden, OfferType = t3.TaskType, Partner = par1 };
+            var o3 = new Offer { Name = "Mala sala", Price = 3000, Description = "opis ponude 3", Image = Properties.Resources.small_private, OfferType = t3.TaskType, Partner = par1 };
 
             context.Offers.Add(o1);
             context.Offers.Add(o2);

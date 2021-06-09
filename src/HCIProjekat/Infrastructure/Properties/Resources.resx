@@ -118,10 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ts.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="bighall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bighall.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="_struct" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\struct.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="garden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\garden.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="party" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\party.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="small_private" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\small private.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

@@ -63,9 +63,9 @@ namespace Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] _struct {
+        internal static byte[] bighall {
             get {
-                object obj = ResourceManager.GetObject("_struct", resourceCulture);
+                object obj = ResourceManager.GetObject("bighall", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,9 +73,29 @@ namespace Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] ts {
+        internal static byte[] garden {
             get {
-                object obj = ResourceManager.GetObject("ts", resourceCulture);
+                object obj = ResourceManager.GetObject("garden", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] party {
+            get {
+                object obj = ResourceManager.GetObject("party", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] small_private {
+            get {
+                object obj = ResourceManager.GetObject("small_private", resourceCulture);
                 return ((byte[])(obj));
             }
         }
