@@ -39,13 +39,22 @@ namespace UI.Controls
             var vm = SeatingLayoutModal.DataContext as CreateOfferSeatingLayoutViewModel;
             var thisVm = DataContext as ILayoutItem;
 
+            var prevX = thisVm.X;
+            var prevY = thisVm.Y;
+
             if (vm.ChairsPresentInTable(thisVm.X, thisVm.Y))
             {
                 return;
             }
 
             var fe = sender as FrameworkElement;
-            DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
+            var effect = DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
+            if (effect == DragDropEffects.None)
+            {
+                thisVm.X = prevX;
+                thisVm.Y = prevY;
+                SeatingLayoutModal.DragingStopped();
+            }
         }
     }
 }
