@@ -15,7 +15,7 @@
         WindowStartupLocation="CenterOwner"
         WindowStyle="SingleBorderWindow"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="OfferSeatingLayoutModal" Height="450" Width="800">
+        Title="OfferSeatingLayoutModal" MinHeight="450" MinWidth="800">
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveChanges}" />
     </Window.InputBindings>
@@ -25,13 +25,22 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Column="0">
-            <ListView SelectionMode="Single" Style="{DynamicResource MaterialDesignCardsListBox}" Margin="0 10">
-                <ListViewItem Content="Table" PreviewMouseDown="InitItemDrop" Style="{DynamicResource MaterialDesignFilterChipAccentListBoxItem}" />
-                <ListViewItem Content="Chair" PreviewMouseDown="InitItemDrop" Style="{DynamicResource MaterialDesignFilterChipAccentListBoxItem}"/>
-            </ListView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ListView SelectionMode="Single" Style="{DynamicResource MaterialDesignCardsListBox}" Margin="0 10" Grid.Row="0">
+                    <ListViewItem Content="Table" PreviewMouseDown="InitItemDrop" Style="{DynamicResource MaterialDesignFilterChipAccentListBoxItem}" />
+                    <ListViewItem Content="Chair" PreviewMouseDown="InitItemDrop" Style="{DynamicResource MaterialDesignFilterChipAccentListBoxItem}"/>
+                </ListView>
+
+                <materialDesign:PackIcon x:Name="_trashCan" PreviewDragOver="TrashCanDragOver" PreviewDragLeave="TrashCanDragLeave" Margin="0 0 0 -20"  Width="50" Height="100" Kind="Delete" AllowDrop="{Binding DeletableItemSelected}" PreviewDrop="DeleteItem" Grid.Row="1" HorizontalAlignment="Center"/>
+            </Grid>
         </DockPanel>
         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
-            <Canvas Grid.Column="1" AllowDrop="True" Drop="OnItemDrop" DragOver="OnChairDrag" SizeChanged="OnCanvasResized" x:Name="_mainCanvas">
+            <Canvas Grid.Column="1" AllowDrop="True"  PreviewDrop="OnItemDrop" PreviewDragOver="OnItemDrag" SizeChanged="OnCanvasResized" x:Name="_mainCanvas">
                 <Rectangle Width="600" Height="400" x:Name="_mainContainter" Fill="#f2ebd8" Canvas.Left="0" Canvas.Top="0" />
             </Canvas>
         </Border>

@@ -50,5 +50,39 @@ namespace Domain.Services
 
             return seatingLayout;
         }
+
+        public void RemoveChair(Chair chair, int tableId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            var table = context.Tables.Include(t => t.Chairs).SingleOrDefault(t => t.Id == tableId);
+            table.Chairs.Remove(chair);
+            context.SaveChanges();
+        }
+
+        public void RemoveTable(Table table, int seatingLayoutId)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            var layout = context.SeatingLayouts.Include(l => l.Tables).SingleOrDefault(l => l.Id == seatingLayoutId);
+            layout.Tables.Remove(table);
+
+            context.SaveChanges();
+        }
+
+        public void UpdateChair(Chair chair)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.Chairs.Update(chair);
+            context.SaveChanges();
+        }
+
+        public void UpdateTable(Table table)
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+
+            context.Tables.Update(table);
+            context.SaveChanges();
+        }
     }
 }

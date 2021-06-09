@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">
     <Grid>
-        <Border Background="#de1212" CornerRadius="10000">
+        <Border Background="#de1212" CornerRadius="10000" PreviewMouseDown="ChairSelected">
             <Label Content="{Binding Label}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
     </Grid>
