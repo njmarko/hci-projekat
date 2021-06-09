@@ -56,7 +56,7 @@ namespace Infrastructure.Persistence
             var r6 = new Request { Name = "Žurka studenata Republike Srpske", Budget = 490000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(16), GuestNumber = 120, Type = RequestType.PARTY, Theme = "Alkohol", Notes = "Što glasnije to bolje. Svi su dobrodošli." };
             var r7 = new Request { Name = "Ženidba Zdeslava Dapčevića", Budget = 110000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(17), GuestNumber = 42, Type = RequestType.WEDDING, Theme = "Naučna Fantastika", Notes = "Mladoženja Darth Vader, mlada Storm Trooper." };
             var r8 = new Request { Name = "Sabor šabana u Stepojevcu", Budget = 220000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(18), GuestNumber = 332, Type = RequestType.PARTY, Theme = "Šator", Notes = "Obezbediti mesto za parking." };
-            var r9 = new Request { Name = "Rođendan Veselinka Borisov", Budget = 330000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(19), GuestNumber = 22, Type = RequestType.BIRTHDAY, Theme = "Barok", Notes = "Samo Bahato. Nošnja i muzika iz baroknog perioda. " };
+            var r9 = new Request { Name = "Rođendan Veselinke Borisov", Budget = 330000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(19), GuestNumber = 22, Type = RequestType.BIRTHDAY, Theme = "Barok", Notes = "Samo Bahato. Nošnja i muzika iz baroknog perioda. " };
             var r10 = new Request { Name = "Doček sina iz Crne Reke", Budget = 19000, BudgetFlexible = true, Client = c2, Date = DateTime.Now.AddDays(7), GuestNumber = 6, Type = RequestType.PARTY, Theme = "Rehabilitacija", Notes = "Mirna proslava." };
             var r11 = new Request { Name = "Ispraćaj Nedeljka u Vojsku", Budget = 28000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(6), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Vojska", Notes = "Budući tenkista." };
             var r12 = new Request { Name = "Upis ćerke na SIIT", Budget = 37000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(-5), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Elitizam", Notes = "Upis na elitni smer softverskog inženjerstva." };
@@ -169,23 +169,23 @@ namespace Infrastructure.Persistence
             context.Partners.Add(par15);
 
             // Tasks
-            var t1 = new Task { Name = "Task1", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
-            var t2 = new Task { Name = "Task2", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.LOCATION, Request = r1 };
-            var t3 = new Task { Name = "Task3", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec viverra nunc, vel scelerisque eros. Vestibulum varius dignissim nibh, ut suscipit lacus aliquam eget. Cras pulvinar tempus diam, id tincidunt justo. Nulla in tincidunt mi. Aenean hendrerit feugiat ligula. Integer sit amet elementum enim. Mauris ac dictum felis. Morbi feugiat rhoncus quam nec finibus. Integer laoreet urna ac sagittis fringilla. Cras sit amet lorem et ante malesuada volutpat eu ut lacus. Vivamus vel diam dignissim, vulputate lorem at, posuere risus. In vel erat nec risus auctor ullamcorper vel quis tellus. Fusce eget dui bibendum, varius mi ut, sodales enim. Duis accumsan nibh risus, sit amet iaculis lectus malesuada in. Etiam ac ante ligula. Proin et pharetra dolor. ", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
-            var t4 = new Task { Name = "Task4", Description = "Neki opis", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Request = r1 };
-            var t5 = new Task { Name = "Task5", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
-            var t6 = new Task { Name = "Task6", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };
-            var t7 = new Task { Name = "Task7", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.CATERING, Request = r1 };
-            var t8 = new Task { Name = "Task8", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
-            var t9 = new Task { Name = "Task9", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };
-            var t10 = new Task { Name = "Task10", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
-            var t11 = new Task { Name = "Task11", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
-            var t12 = new Task { Name = "Task12", Description = "Neki opis", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.CATERING, Request = r1 };
-            var t13 = new Task { Name = "Task13", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
-            var t14 = new Task { Name = "Task14", Description = "Neki opis", TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
-            var t15 = new Task { Name = "Task15", Description = "Neki opis", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
-            var t16 = new Task { Name = "Task16", Description = "Neki opis", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.CATERING, Request = r1 };
-            var t17 = new Task { Name = "Task17", Description = "Neki opis", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.ANIMATOR, Request = r1 };
+            var t1 = new Task { Name = "Odabir animatora", Description = "Odabrati nekoga zanimljivog", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
+            var t2 = new Task { Name = "Odabir lokacije", Description = "Daj šta daš", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.LOCATION, Request = r1 };
+            var t3 = new Task { Name = "Odabir latinske muzike", Description = "Reči pesme koju pevaju su: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec viverra nunc, vel scelerisque eros. Vestibulum varius dignissim nibh, ut suscipit lacus aliquam eget. Cras pulvinar tempus diam, id tincidunt justo. Nulla in tincidunt mi. Aenean hendrerit feugiat ligula. Integer sit amet elementum enim. Mauris ac dictum felis. Morbi feugiat rhoncus quam nec finibus. Integer laoreet urna ac sagittis fringilla. Cras sit amet lorem et ante malesuada volutpat eu ut lacus. Vivamus vel diam dignissim, vulputate lorem at, posuere risus. In vel erat nec risus auctor ullamcorper vel quis tellus. Fusce eget dui bibendum, varius mi ut, sodales enim. Duis accumsan nibh risus, sit amet iaculis lectus malesuada in. Etiam ac ante ligula. Proin et pharetra dolor. ", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t4 = new Task { Name = "Odabir ugostitelja", Description = "Za mnogo ljudi", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Request = r1 };
+            var t5 = new Task { Name = "Odabir muzike", Description = "Narodna izvorna", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t6 = new Task { Name = "Odabir muzike", Description = "Ex-yu", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t7 = new Task { Name = "Odabir ugostitelja", Description = "Neka skuplja varijanta", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.CATERING, Request = r1 };
+            var t8 = new Task { Name = "Odabir fotografa", Description = "Ako može čovek sa dronom", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
+            var t9 = new Task { Name = "Odabir muzike", Description = "Neki live bend", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t10 = new Task { Name = "Odabir animatora", Description = "Neko poznat", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
+            var t11 = new Task { Name = "Odabir muzike", Description = "Samo domaći bend", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t12 = new Task { Name = "Odabir ugostitelja", Description = "Da ima dovoljno za malu proslavu", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.CATERING, Request = r1 };
+            var t13 = new Task { Name = "Odabir fotografa", Description = "Sa blicom", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
+            var t14 = new Task { Name = "Odabir fotografa", Description = "Slikaće se noću", TaskStatus = TaskStatus.ACCEPTED, TaskType = ServiceType.PHOTOGRAPHY, Request = r1 };
+            var t15 = new Task { Name = "Odabir muzike", Description = "Neka patetika velika", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t16 = new Task { Name = "Odabir ugostitelja", Description = "Nsšto jeftino", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.CATERING, Request = r1 };
+            var t17 = new Task { Name = "Odabir animatora", Description = "Srednjovekovni stil", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.ANIMATOR, Request = r1 };
             context.Tasks.Add(t1);
             context.Tasks.Add(t2);
             context.Tasks.Add(t3);
@@ -268,16 +268,16 @@ namespace Infrastructure.Persistence
 
 
             // Notifications
-            var n1 = new Notification { Message = "Notifikacija 1", UserId = 11, RequestId = 1 };
-            var n2 = new Notification { Message = "Notifikacija 2", UserId = 11, RequestId = 1 };
-            var n3 = new Notification { Message = "Notifikacija 3", UserId = 11, RequestId = 1 };
-            var n4 = new Notification { Message = "Notifikacija 4", UserId = 11, RequestId = 1 };
-            var n5 = new Notification { Message = "Notifikacija 5", UserId = 11, RequestId = 1 };
-            var n6 = new Notification { Message = "Notifikacija 6", UserId = 11, RequestId = 1 };
-            var n7 = new Notification { Message = "Notifikacija 7", UserId = 11, RequestId = 1 };
-            var n8 = new Notification { Message = "Notifikacija 8", UserId = 11, RequestId = 1 };
-            var n9 = new Notification { Message = "Notifikacija 9", UserId = 11, RequestId = 1 };
-            var n10 = new Notification { Message = "Notifikacija 10", UserId = 11, RequestId = 1 };
+            var n1 = new Notification { Message = "Notifikacija 1", UserId = c1.Id, RequestId = r1.Id };
+            var n2 = new Notification { Message = "Notifikacija 2", UserId = c1.Id, RequestId = r1.Id };
+            var n3 = new Notification { Message = "Notifikacija 3", UserId = c1.Id, RequestId = r1.Id };
+            var n4 = new Notification { Message = "Notifikacija 4", UserId = c1.Id, RequestId = r1.Id };
+            var n5 = new Notification { Message = "Notifikacija 5", UserId = c1.Id, RequestId = r1.Id };
+            var n6 = new Notification { Message = "Notifikacija 6", UserId = c1.Id, RequestId = r1.Id };
+            var n7 = new Notification { Message = "Notifikacija 7", UserId = ep1.Id, RequestId = r1.Id };
+            var n8 = new Notification { Message = "Notifikacija 8", UserId = ep1.Id, RequestId = r1.Id };
+            var n9 = new Notification { Message = "Notifikacija 9", UserId = ep1.Id, RequestId = r1.Id };
+            var n10 = new Notification { Message = "Notifikacija 10", UserId = ep1.Id, RequestId = r1.Id };
             context.Notifications.Add(n1);
             context.Notifications.Add(n2);
             context.Notifications.Add(n3);
