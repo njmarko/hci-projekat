@@ -52,7 +52,7 @@ namespace Infrastructure.Persistence
             var r2 = new Request { Name = "Udaja Lade Brđanin", Budget = 300000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(12), GuestNumber = 40, Type = RequestType.WEDDING, Theme = "Etno", Notes = "Voditi računa da se poštuje tradicija." };
             var r3 = new Request { Name = "Doček Nikole Jokića", Budget = 860000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(13), GuestNumber = 1000, Type = RequestType.PARTY, Theme = "MVP", Notes = "Dočekati kako dolikuje velikog šampiona." };
             var r4 = new Request { Name = "Rođendan Zorane Čarapić", Budget = 270000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(14), GuestNumber = 20, Type = RequestType.BIRTHDAY, Theme = "Ex Yu Nostalgija", Notes = "Što više patetike to bolje." };
-            var r1 = new Request { Name = "Godišnjica ispita iz analize", Budget = 380000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(25), GuestNumber = 7, Type = RequestType.ANNIVERSARY, Theme = "Nostalgija", Notes = "Sinus voli minus." };
+            var r1 = new Request { Name = "Godišnjica ispita iz analize", Budget = 380000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(25), GuestNumber = 7, Type = RequestType.ANNIVERSARY, Theme = "Nostalgija", Notes = "Sinus voli minus. Tajno pitanje za ulazak na proslavu godišnjice analize je: Koliki je izvod od 5?" };
             var r6 = new Request { Name = "Žurka studenata R. Srpske", Budget = 490000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(16), GuestNumber = 120, Type = RequestType.PARTY, Theme = "Alkohol", Notes = "Što glasnije to bolje. Svi su dobrodošli." };
             var r7 = new Request { Name = "Ženidba Zdeslava Dapčevića", Budget = 110000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(17), GuestNumber = 42, Type = RequestType.WEDDING, Theme = "Naučna Fantastika", Notes = "Mladoženja Darth Vader, mlada Storm Trooper." };
             var r8 = new Request { Name = "Sabor čobana u Stepojevcu", Budget = 220000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(18), GuestNumber = 322, Type = RequestType.PARTY, Theme = "Šator", Notes = "Obezbediti mesto za parking." };
@@ -67,7 +67,7 @@ namespace Infrastructure.Persistence
             var l2 = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" };
             var l3 = new Location { StreetNumber = "303", Street = "Ulica3", City = "Novi Sad", Country = "Srbija" };
 
-            var p1 = new Partner { Name = "Gutač vatre", Location = l1, Type = PartnerType.ANIMATOR };
+            var p1 = new Partner { Name = "Gutačica vatre", Location = l1, Type = PartnerType.ANIMATOR };
             var p2 = new Partner { Name = "CrnoNaBelo", Location = l2, Type = PartnerType.PHOTOGRAPHY };
             var p3 = new Partner { Name = "Loft", Location = l3, Type = PartnerType.CAFFEE };
 
@@ -142,7 +142,7 @@ namespace Infrastructure.Persistence
             var par4 = new Partner { Name = "BMK", Type = PartnerType.MUSIC, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Somborska", StreetNumber = "13" } };
             var par5 = new Partner { Name = "Mašinac", Type = PartnerType.CAFFEE, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Stražilovska", StreetNumber = "14" } };
             var par6 = new Partner { Name = "Pekara kod bake", Type = PartnerType.BAKERY, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Radnička", StreetNumber = "22" } };
-            var par7 = new Partner { Name = "Gutač mačeva", Type = PartnerType.ANIMATOR, Location = new Location { City = "Budva", Country = "Crna Gora", Street = "Nato pakta", StreetNumber = "41" } };
+            var par7 = new Partner { Name = "Gutačica mačeva", Type = PartnerType.ANIMATOR, Location = new Location { City = "Budva", Country = "Crna Gora", Street = "Nato pakta", StreetNumber = "41" } };
             var par8 = new Partner { Name = "Ćuta bend", Type = PartnerType.MUSIC, Location = new Location { City = "Prigrevica", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
             var par9 = new Partner { Name = "Kifla na metar", Type = PartnerType.BAKERY, Location = new Location { City = "Beograd", Country = "Srbija", Street = "Partizanska", StreetNumber = "3" } };
             var par10 = new Partner { Name = "MicPoMicBlic", Type = PartnerType.PHOTOGRAPHY, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Rumenačka", StreetNumber = "42" } };
