@@ -26,7 +26,8 @@ namespace UI.Modals
     {
         private readonly double TABLE_RADIUS = 40;
         private readonly double CHAIR_RADIUS = 10;
-        private readonly double TABLE_DISTANCE_TRESHOLD = 100;
+        private readonly double TABLE_DISTANCE_TRESHOLD = 60;
+        private readonly double TABLE_TABLE_DISTANCE = 130;
         private CreateOfferSeatingLayoutViewModel _vm;
 
         private TableIcon _selectedTable;
@@ -162,13 +163,13 @@ namespace UI.Modals
                 "Chair" => new ChairIcon { Width = 2 * radius, Height = 2 * radius, AllowDrop = false, ToolTip = label, DataContext = saved, SeatingLayoutModal = this },
                 _ => throw new Exception("Invalid item type"),
             };
-            item.PreviewMouseDown += ObjectDrag;
+            //item.PreviewMouseDown += ObjectDrag;
             Canvas.SetLeft(item, xOffset);
             Canvas.SetTop(item, yOffset);
             _mainCanvas.Children.Add(item);
         }
 
-        private void OnChairDrag(object sender, DragEventArgs e)
+        private void OnItemDrag(object sender, DragEventArgs e)
         {
             if (_dragObject != null)
             {
@@ -177,8 +178,9 @@ namespace UI.Modals
                 Canvas.SetLeft(_dragObject, elPosition.X);
             }
 
-            if (CurrentItem != "Chair" && SelectedChair == null)
+            if (SelectedTable != null || CurrentItem == "Table")
             {
+                OnTableDrag(e);
                 return;
             }
 
@@ -188,6 +190,29 @@ namespace UI.Modals
             {
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;
+            }
+        }
+
+        private void OnTableDrag(DragEventArgs e)
+        {
+            var position = e.GetPosition(_mainCanvas);
+            var tables = _vm.SeatingLayout.Tables;
+            foreach(Domain.Entities.Table table in tables)
+            {
+                if (_vm.Distance(table, position.X, position.Y) <= TABLE_TABLE_DISTANCE)
+                {
+                    if (SelectedTable != null)
+                    {
+                        var context = SelectedTable.DataContext as ILayoutItem;
+                        if (context.Label == table.Label)
+                        {
+                            continue;
+                        }
+                    }
+                    e.Effects = DragDropEffects.None;
+                    e.Handled = true;
+                    return;
+                }
             }
         }
 
@@ -221,7 +246,7 @@ namespace UI.Modals
             var t = new TableIcon { Width = 2 * TABLE_RADIUS, Height = 2 * TABLE_RADIUS, AllowDrop = false, ToolTip = table.Label, DataContext = table, SeatingLayoutModal = this };
             Canvas.SetLeft(t, table.X - TABLE_RADIUS);
             Canvas.SetTop(t, table.Y - TABLE_RADIUS);
-            t.PreviewMouseDown += ObjectDrag;
+            //t.PreviewMouseDown += ObjectDrag;
             _mainCanvas.Children.Add(t);
         }
 
@@ -230,7 +255,7 @@ namespace UI.Modals
             var c = new ChairIcon { Width = 2 * CHAIR_RADIUS, Height = 2 * CHAIR_RADIUS, AllowDrop = false, ToolTip = chair.Label, DataContext = chair, SeatingLayoutModal = this };
             Canvas.SetLeft(c, chair.X - CHAIR_RADIUS);
             Canvas.SetTop(c, chair.Y - CHAIR_RADIUS);
-            c.PreviewMouseDown += ObjectDrag;
+           //c.PreviewMouseDown += ObjectDrag;
             _mainCanvas.Children.Add(c);
         }
 
