@@ -13,15 +13,22 @@ namespace Infrastructure.Persistence
         public static void Seed(ApplicationDbContext context)
         {
             var c1 = new Client { FirstName = "Dejan", LastName = "Djordjevic", Username = "dejandjordjevic", Password = "test123", DateOfBirth = DateTime.ParseExact("1999-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) };
-            var c2 = new Client { FirstName = "Dejan1", LastName = "Djordjevic1", Username = "dejandjordjevic1", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-1) };
-            var c3 = new Client { FirstName = "Dejan2", LastName = "Djordjevic2", Username = "dejandjordjevic2", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-2) };
-            var c4 = new Client { FirstName = "Dejan3", LastName = "Djordjevic3", Username = "dejandjordjevic3", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-3) };
-            var c5 = new Client { FirstName = "Dejan4", LastName = "Djordjevic4", Username = "dejandjordjevic4", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-4) };
-            var c6 = new Client { FirstName = "Dejan5", LastName = "Djordjevic5", Username = "dejandjordjevic5", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-5) };
-            var c7 = new Client { FirstName = "Dejan6", LastName = "Djordjevic6", Username = "dejandjordjevic6", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-6) };
-            var c8 = new Client { FirstName = "Dejan7", LastName = "Djordjevic7", Username = "dejandjordjevic7", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-7) };
-            var c9 = new Client { FirstName = "Dejan8", LastName = "Djordjevic8", Username = "dejandjordjevic8", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-8) };
-            var c10 = new Client { FirstName = "Dejan9", LastName = "Djordjevic9", Username = "dejandjordjevic9", Password = "test123", DateOfBirth = DateTime.Now.AddDays(-9) };
+            var c2 = new Client { FirstName = "Borivoje", LastName = "Vladić", Username = "borivojevladic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20) };
+            var c3 = new Client { FirstName = "Darinka", LastName = " Ignjatović", Username = "darinkaignjatovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-23) };
+            var c4 = new Client { FirstName = "Vlatka", LastName = "Gavrilović", Username = "vlatkagavrilovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-33) };
+            var c5 = new Client { FirstName = "Vujica", LastName = "Moldovan", Username = "vujicamoldovan", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-43) };
+            var c6 = new Client { FirstName = "Vladana", LastName = "Trkulja", Username = "vladanatrkulja", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-53) };
+            var c7 = new Client { FirstName = "Slavomir", LastName = "Trkulja", Username = "slavomirtrkulja", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-63) };
+            var c8 = new Client { FirstName = "Desanka", LastName = "Vukašinović", Username = "desankavukasinovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-73) };
+            var c9 = new Client { FirstName = "Sredoje", LastName = "Gojković", Username = "sredojegojkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-83) };
+            var c10 = new Client { FirstName = "Petra", LastName = "Kuzmanović", Username = "petrakuzmanovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-91) };
+            var c11 = new Client { FirstName = "Lada", LastName = "Borisov", Username = "ladaborisov", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-28) };
+            var c12 = new Client { FirstName = "Dobrila", LastName = "Jovanović", Username = "dobrilajovanovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55) };
+            var c13 = new Client { FirstName = "Dalbor", LastName = "Malić", Username = "dalbormalic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-44) };
+            var c14 = new Client { FirstName = "Cvetko", LastName = "Brkić", Username = "cvetkobrkic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-22) };
+            var c15 = new Client { FirstName = "Bojan", LastName = "Grgurović", Username = "bojangrgurovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-31) };
+            var c16 = new Client { FirstName = "Zeljana", LastName = "Bojanić", Username = "zeljanabojanic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-21) };
+            var c17 = new Client { FirstName = "Leposava", LastName = "Živić", Username = "petrakuzmanovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-41) };
             context.Clients.Add(c1);
             context.Clients.Add(c2);
             context.Clients.Add(c3);
@@ -32,6 +39,13 @@ namespace Infrastructure.Persistence
             context.Clients.Add(c8);
             context.Clients.Add(c9);
             context.Clients.Add(c10);
+            context.Clients.Add(c11);
+            context.Clients.Add(c12);
+            context.Clients.Add(c13);
+            context.Clients.Add(c14);
+            context.Clients.Add(c15);
+            context.Clients.Add(c16);
+            context.Clients.Add(c17);
 
             var r1 = new Request { Name = "Request 1", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(10), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Neka tema", Notes = "No notes." };
             var r2 = new Request { Name = "Request 2", Budget = 1000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(10), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Theme", Notes = "No notes." };
@@ -71,16 +85,23 @@ namespace Infrastructure.Persistence
             context.Requests.Add(r13);
             context.Requests.Add(r14);
 
-            var ep1 = new EventPlanner { FirstName = "Jakov", LastName = "Matic", Username = "jakovmatic", Password = "test123", DateOfBirth = DateTime.Now, AcceptedRequests = new List<Request>() };
-            var ep2 = new EventPlanner { FirstName = "Pera2", LastName = "Peric2", Username = "peraperic2", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), AcceptedRequests = new List<Request>() };
-            var ep3 = new EventPlanner { FirstName = "Pera3", LastName = "Peric3", Username = "peraperic3", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-30), AcceptedRequests = new List<Request>() };
-            var ep4 = new EventPlanner { FirstName = "Pera4", LastName = "Peric4", Username = "peraperic4", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), AcceptedRequests = new List<Request>() };
-            var ep5 = new EventPlanner { FirstName = "Pera5", LastName = "Peric5", Username = "peraperic5", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), AcceptedRequests = new List<Request>() };
-            var ep6 = new EventPlanner { FirstName = "Pera6", LastName = "Peric6", Username = "peraperic6", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-60), AcceptedRequests = new List<Request>() };
-            var ep7 = new EventPlanner { FirstName = "Pera7", LastName = "Peric7", Username = "peraperic7", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-70), AcceptedRequests = new List<Request>() };
-            var ep8 = new EventPlanner { FirstName = "Pera8", LastName = "Peric8", Username = "peraperic8", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-80), AcceptedRequests = new List<Request>() };
-            var ep9 = new EventPlanner { FirstName = "Pera9", LastName = "Peric9", Username = "peraperic9", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-90), AcceptedRequests = new List<Request>() };
+            var ep1 = new EventPlanner { FirstName = "Jakov", LastName = "Matic", Username = "jakovmatic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), AcceptedRequests = new List<Request>() };
+            var ep2 = new EventPlanner { FirstName = "Damjanka", LastName = "Stevanović", Username = "damjankastevanovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), AcceptedRequests = new List<Request>() };
+            var ep3 = new EventPlanner { FirstName = "Roksana", LastName = "Vukomanović", Username = "roksanavukomanovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-30), AcceptedRequests = new List<Request>() };
+            var ep4 = new EventPlanner { FirstName = "Zeljana", LastName = "Georgijević", Username = "zeljanageorgijevic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), AcceptedRequests = new List<Request>() };
+            var ep5 = new EventPlanner { FirstName = "Violeta", LastName = "Popadić", Username = "violetapopadic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), AcceptedRequests = new List<Request>() };
+            var ep6 = new EventPlanner { FirstName = "Stracimir", LastName = "Obradović", Username = "stracimirobradovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-60), AcceptedRequests = new List<Request>() };
+            var ep7 = new EventPlanner { FirstName = "Pribislav", LastName = "Moldovan", Username = "pribislavmoldovan", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-70), AcceptedRequests = new List<Request>() };
+            var ep8 = new EventPlanner { FirstName = "Obrad", LastName = "Nestorovski", Username = "obradnestorovski", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-80), AcceptedRequests = new List<Request>() };
+            var ep9 = new EventPlanner { FirstName = "Anka", LastName = "Brđanin", Username = "ankabrdjanin", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-90), AcceptedRequests = new List<Request>() };
             var ep10 = new EventPlanner { FirstName = "Mića", LastName = "Živac", Username = "e", Password = "e", DateOfBirth = DateTime.Now.AddYears(-23), AcceptedRequests = new List<Request>() };
+            var ep11 = new EventPlanner { FirstName = "Radojka", LastName = "Pap", Username = "radojkapap", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-43), AcceptedRequests = new List<Request>() };
+            var ep12 = new EventPlanner { FirstName = "Malina", LastName = "Nedeljković", Username = "malinanedeljkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-33), AcceptedRequests = new List<Request>() };
+            var ep13 = new EventPlanner { FirstName = "Lješ", LastName = "Filipović", Username = "ljesfilipovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-41), AcceptedRequests = new List<Request>() };
+            var ep14 = new EventPlanner { FirstName = "Stanoje", LastName = "Popović", Username = "stanojepopovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-52), AcceptedRequests = new List<Request>() };
+            var ep15 = new EventPlanner { FirstName = "Ljubisav", LastName = "Marinković", Username = "ljubislavmarinkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-66), AcceptedRequests = new List<Request>() };
+            var ep16 = new EventPlanner { FirstName = "Draginja", LastName = "Grgurović", Username = "draginjagrgurovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-75), AcceptedRequests = new List<Request>() };
+            var ep17 = new EventPlanner { FirstName = "Varadinka", LastName = "Despotović", Username = "varadinkadespotovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-34), AcceptedRequests = new List<Request>() };
             ep1.AcceptedRequests.Add(r1);
             ep1.AcceptedRequests.Add(r2);
             ep1.AcceptedRequests.Add(r3);
@@ -105,6 +126,13 @@ namespace Infrastructure.Persistence
             context.EventPlanners.Add(ep8);
             context.EventPlanners.Add(ep9);
             context.EventPlanners.Add(ep10);
+            context.EventPlanners.Add(ep11);
+            context.EventPlanners.Add(ep12);
+            context.EventPlanners.Add(ep13);
+            context.EventPlanners.Add(ep14);
+            context.EventPlanners.Add(ep15);
+            context.EventPlanners.Add(ep16);
+            context.EventPlanners.Add(ep17);
 
             // Partners
             var par1 = new Partner { Name = "Pečenjara1", Type = PartnerType.RESTAURANT, Location = new Location { City = "Novi Sad", Country = "Srbija", Street = "Dunavska", StreetNumber = "11" } };
@@ -208,9 +236,25 @@ namespace Infrastructure.Persistence
             context.Tasks.Add(t17);
 
             var admin1 = new Admin { FirstName = "Vidoje", LastName = "Gavrilovic", DateOfBirth = DateTime.Now.AddYears(-45), Username = "vidojegavrilovic", Password = "test123" };
-            var admin2 = new SuperAdmin { FirstName = "Djordje", LastName = "Vruci", DateOfBirth = DateTime.Now.AddYears(-30), Username = "a", Password = "a" };
+            var admin2 = new SuperAdmin { FirstName = "Djordje", LastName = "Vrući", DateOfBirth = DateTime.Now.AddYears(-30), Username = "a", Password = "a" };
+            var admin3 = new Admin { FirstName = "Damjanka", LastName = "Gojković", DateOfBirth = DateTime.Now.AddYears(-22), Username = "damjankagojkovic", Password = "test123" };
+            var admin4 = new Admin { FirstName = "Simonida", LastName = "Čarapić", DateOfBirth = DateTime.Now.AddYears(-31), Username = "simonidacarapic", Password = "test123" };
+            var admin5 = new Admin { FirstName = "Borka", LastName = "Mijatović", DateOfBirth = DateTime.Now.AddYears(-40), Username = "borkamijatovic", Password = "test123" };
+            var admin6 = new Admin { FirstName = "Vidoje", LastName = "Šaponjić", DateOfBirth = DateTime.Now.AddYears(-55), Username = "vidojesaponjic", Password = "test123" };
+            var admin7 = new Admin { FirstName = "Vukajlo", LastName = "Nikolić", DateOfBirth = DateTime.Now.AddYears(-67), Username = "vukajlonikolic", Password = "test123" };
+            var admin8 = new Admin { FirstName = "Savatije", LastName = "Ristić", DateOfBirth = DateTime.Now.AddYears(-48), Username = "savatijeristic", Password = "test123" };
+            var admin9 = new Admin { FirstName = "Daliborka", LastName = "Pavlović", DateOfBirth = DateTime.Now.AddYears(-39), Username = "daliborkapavlovic", Password = "test123" };
             context.Admins.Add(admin1);
             context.SuperAdmins.Add(admin2);
+            context.Admins.Add(admin3);
+            context.Admins.Add(admin4);
+            context.Admins.Add(admin5);
+            context.Admins.Add(admin6);
+            context.Admins.Add(admin7);
+            context.Admins.Add(admin8);
+            context.Admins.Add(admin9);
+
+
 
             // Notifications
             var n1 = new Notification { Message = "Notifikacija 1", UserId = 11, RequestId = 1 };
