@@ -26,13 +26,5 @@ namespace UI.Views
             Focusable = true;
             Loaded += (s, e) => Keyboard.Focus(this);
         }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext != null)
-            { 
-                ((dynamic)this.DataContext).Password = ((PasswordBox)sender).Password; 
-            }
-        }
     }
 }
