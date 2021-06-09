@@ -90,9 +90,9 @@ namespace UI.ViewModels
                 var toSave = _taskOfferService.Get(taskOffer.Id);
                 toSave.Active = false;
                 TaskVm.AddItem(toSave);
-                UpdatePage(0);
+                UpdatePage(this.PaginationViewModel.Page);
                 Context.Notifier.ShowInformation("Offer successfully added to the task.");
-                AddedVm.UpdatePage(0);
+                AddedVm.UpdatePage(AddedVm.PaginationViewModel.Page);
             }
             else
             {

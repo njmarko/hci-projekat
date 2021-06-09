@@ -38,7 +38,7 @@ namespace UI.Commands
             _taskDetailsViewModel.AddItem(offers.Last());
             _taskOfferService.AcceptTaskOffer(_clientTaskOfferCardModel.TaskId, _clientTaskOfferCardModel.TaskOfferId);
             _taskDetailsViewModel.TaskId = _clientTaskOfferCardModel.TaskId;
-            _taskDetailsViewModel.UpdatePage(0);
+            _taskDetailsViewModel.UpdatePage(_taskDetailsViewModel.PaginationViewModel.Page);
         }
     }
 }
