@@ -53,9 +53,9 @@ namespace Infrastructure.Persistence
             var r3 = new Request { Name = "Doček Nikole Jokića", Budget = 860000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(13), GuestNumber = 1000, Type = RequestType.PARTY, Theme = "MVP", Notes = "Dočekati kako dolikuje velikog šampiona." };
             var r4 = new Request { Name = "Rođendan Zorane Čarapić", Budget = 270000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(14), GuestNumber = 20, Type = RequestType.BIRTHDAY, Theme = "Ex Yu Nostalgija", Notes = "Što više patetike to bolje." };
             var r1 = new Request { Name = "Godišnjica ispita iz analize", Budget = 380000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(25), GuestNumber = 7, Type = RequestType.ANNIVERSARY, Theme = "Nostalgija", Notes = "Sinus voli minus." };
-            var r6 = new Request { Name = "Žurka studenata Republike Srpske", Budget = 490000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(16), GuestNumber = 120, Type = RequestType.PARTY, Theme = "Alkohol", Notes = "Što glasnije to bolje. Svi su dobrodošli." };
+            var r6 = new Request { Name = "Žurka studenata R. Srpske", Budget = 490000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(16), GuestNumber = 120, Type = RequestType.PARTY, Theme = "Alkohol", Notes = "Što glasnije to bolje. Svi su dobrodošli." };
             var r7 = new Request { Name = "Ženidba Zdeslava Dapčevića", Budget = 110000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(17), GuestNumber = 42, Type = RequestType.WEDDING, Theme = "Naučna Fantastika", Notes = "Mladoženja Darth Vader, mlada Storm Trooper." };
-            var r8 = new Request { Name = "Sabor šabana u Stepojevcu", Budget = 220000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(18), GuestNumber = 332, Type = RequestType.PARTY, Theme = "Šator", Notes = "Obezbediti mesto za parking." };
+            var r8 = new Request { Name = "Sabor čobana u Stepojevcu", Budget = 220000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(18), GuestNumber = 332, Type = RequestType.PARTY, Theme = "Šator", Notes = "Obezbediti mesto za parking." };
             var r9 = new Request { Name = "Rođendan Veselinke Borisov", Budget = 330000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(19), GuestNumber = 22, Type = RequestType.BIRTHDAY, Theme = "Barok", Notes = "Samo Bahato. Nošnja i muzika iz baroknog perioda. " };
             var r10 = new Request { Name = "Doček sina iz Crne Reke", Budget = 19000, BudgetFlexible = true, Client = c2, Date = DateTime.Now.AddDays(7), GuestNumber = 6, Type = RequestType.PARTY, Theme = "Rehabilitacija", Notes = "Mirna proslava." };
             var r11 = new Request { Name = "Ispraćaj Nedeljka u Vojsku", Budget = 28000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(6), GuestNumber = 12, Type = RequestType.PARTY, Theme = "Vojska", Notes = "Budući tenkista." };
@@ -67,9 +67,9 @@ namespace Infrastructure.Persistence
             var l2 = new Location { StreetNumber = "302", Street = "Ulica2", City = "Novi Sad", Country = "Srbija" };
             var l3 = new Location { StreetNumber = "303", Street = "Ulica3", City = "Novi Sad", Country = "Srbija" };
 
-            var p1 = new Partner { Name = "Partner 1", Location = l1, Type = PartnerType.RESTAURANT };
-            var p2 = new Partner { Name = "Partner 2", Location = l2, Type = PartnerType.RESTAURANT };
-            var p3 = new Partner { Name = "Partner 3", Location = l3, Type = PartnerType.RESTAURANT };
+            var p1 = new Partner { Name = "Gutač vatre", Location = l1, Type = PartnerType.ANIMATOR };
+            var p2 = new Partner { Name = "CrnoNaBelo", Location = l2, Type = PartnerType.PHOTOGRAPHY };
+            var p3 = new Partner { Name = "Loft", Location = l3, Type = PartnerType.CAFFEE };
 
             context.Requests.Add(r1);
             context.Requests.Add(r2);
@@ -171,8 +171,8 @@ namespace Infrastructure.Persistence
             // Tasks
             var t1 = new Task { Name = "Odabir animatora", Description = "Odabrati nekoga zanimljivog", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.ANIMATOR, Request = r1 };
             var t2 = new Task { Name = "Odabir lokacije", Description = "Daj šta daš", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.LOCATION, Request = r1 };
-            var t3 = new Task { Name = "Odabir latinske muzike", Description = "Reči pesme koju pevaju su: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec viverra nunc, vel scelerisque eros. Vestibulum varius dignissim nibh, ut suscipit lacus aliquam eget. Cras pulvinar tempus diam, id tincidunt justo. Nulla in tincidunt mi. Aenean hendrerit feugiat ligula. Integer sit amet elementum enim. Mauris ac dictum felis. Morbi feugiat rhoncus quam nec finibus. Integer laoreet urna ac sagittis fringilla. Cras sit amet lorem et ante malesuada volutpat eu ut lacus. Vivamus vel diam dignissim, vulputate lorem at, posuere risus. In vel erat nec risus auctor ullamcorper vel quis tellus. Fusce eget dui bibendum, varius mi ut, sodales enim. Duis accumsan nibh risus, sit amet iaculis lectus malesuada in. Etiam ac ante ligula. Proin et pharetra dolor. ", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
-            var t4 = new Task { Name = "Odabir ugostitelja", Description = "Za mnogo ljudi", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Request = r1 };
+            var t4 = new Task { Name = "Odabir latinske muzike", Description = "Reči pesme koju pevaju su: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec viverra nunc, vel scelerisque eros. Vestibulum varius dignissim nibh, ut suscipit lacus aliquam eget. Cras pulvinar tempus diam, id tincidunt justo. Nulla in tincidunt mi. Aenean hendrerit feugiat ligula. Integer sit amet elementum enim. Mauris ac dictum felis. Morbi feugiat rhoncus quam nec finibus. Integer laoreet urna ac sagittis fringilla. Cras sit amet lorem et ante malesuada volutpat eu ut lacus. Vivamus vel diam dignissim, vulputate lorem at, posuere risus. In vel erat nec risus auctor ullamcorper vel quis tellus. Fusce eget dui bibendum, varius mi ut, sodales enim. Duis accumsan nibh risus, sit amet iaculis lectus malesuada in. Etiam ac ante ligula. Proin et pharetra dolor. ", TaskStatus = TaskStatus.SENT_TO_CLIENT, TaskType = ServiceType.MUSIC, Request = r1 };
+            var t3 = new Task { Name = "Odabir ugostitelja", Description = "Za malo ljudi", TaskStatus = TaskStatus.REJECTED, TaskType = ServiceType.CATERING, Request = r1 };
             var t5 = new Task { Name = "Odabir muzike", Description = "Narodna izvorna", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.MUSIC, Request = r1 };
             var t6 = new Task { Name = "Odabir muzike", Description = "Ex-yu", TaskStatus = TaskStatus.IN_PROGRESS, TaskType = ServiceType.MUSIC, Request = r1 };
             var t7 = new Task { Name = "Odabir ugostitelja", Description = "Neka skuplja varijanta", TaskStatus = TaskStatus.TO_DO, TaskType = ServiceType.CATERING, Request = r1 };
@@ -197,23 +197,24 @@ namespace Infrastructure.Persistence
             context.Tasks.Add(t9);
             context.Tasks.Add(t10);
 
-            var com1 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 1", Sender = c1, Task = t3 };
-            var com2 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:20", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 2", Sender = c1, Task = t3 };
-            var com3 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:50", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 3", Sender = ep1, Task = t3 };
-            var com4 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:51", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 4", Sender = ep1, Task = t3 };
-            var com5 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:52", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 5", Sender = ep1, Task = t3 };
-            var com6 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:53", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 6", Sender = ep1, Task = t1 };
-            var com7 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:54", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 7", Sender = ep1, Task = t1 };
-            var com8 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:55", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 8", Sender = ep1, Task = t1 };
-            var com9 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:56", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 9", Sender = ep1, Task = t1 };
-            var com10 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:57", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "comment 10", Sender = ep1, Task = t1 };
+            var com1 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Poštovani, pomoz bog.", Sender = c1, Task = t3 };
+            var com2 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:20", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Kako ide?", Sender = c1, Task = t3 };
+            var com3 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:50", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Poštovani, Bog ti pomogo.", Sender = ep1, Task = t3 };
+            var com4 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:51", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Nije lako.", Sender = ep1, Task = t3 };
+            var com5 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:52", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Treba nabaviti veliku okruglu tortu, da bi se veličina parčeta računala kao n-ti koren kompleksnog broja, da bi tako dobili u kompleksnoj ravni temena pravilnog n'tougla čije je težište u koordinatnom početku. Tako će se zanti tačan ugao sečenja da svako dobije jednako parče.", Sender = ep1, Task = t3 };
+            var com6 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:53", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Poštovani, dobro veče.", Sender = ep1, Task = t1 };
+            var com7 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:53", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Jel vam Dunja bila asistent na analizi?", Sender = ep1, Task = t3 };
+            var com8 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:54", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Treba ovo raditi na vreme.", Sender = ep1, Task = t1 };
+            var com9 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:55", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Ajde da počnemo.", Sender = ep1, Task = t1 };
+            var com10 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:56", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Jel gutač mačeva adekvatan za priliku kakva je proslava godišnjice ispita iz analize?", Sender = ep1, Task = t1 };
+            var com11 = new Comment { SentDate = DateTime.ParseExact("2021-04-04 14:57", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture), Content = "Ili gutač vatre?", Sender = ep1, Task = t1 };
 
             context.Partners.Add(p1);
             context.Partners.Add(p2);
             context.Partners.Add(p3);
 
-            var o1 = new Offer { Name = "Ponuda 1", Price = 1000, Description = "opis ponude", Image = Properties.Resources._struct, OfferType = t3.TaskType, Partner = p1 };
-            var o2 = new Offer { Name = "Ponuda 2", Price = 2000, Description = "opis ponude 2", Image = Properties.Resources.ts, OfferType = t3.TaskType, Partner = p2 };
+            var o1 = new Offer { Name = "Velika sala", Price = 1000, Description = "opis ponude", Image = Properties.Resources._struct, OfferType = t3.TaskType, Partner = p1 };
+            var o2 = new Offer { Name = "Terasa", Price = 2000, Description = "opis ponude 2", Image = Properties.Resources.ts, OfferType = t3.TaskType, Partner = p2 };
             var o3 = new Offer { Name = "Ponuda 3", Price = 3000, Description = "opis ponude 3", Image = Properties.Resources.ts, OfferType = t3.TaskType, Partner = par3 };
 
             context.Offers.Add(o1);
@@ -238,6 +239,7 @@ namespace Infrastructure.Persistence
             context.Comments.Add(com8);
             context.Comments.Add(com9);
             context.Comments.Add(com10);
+            context.Comments.Add(com11);
             context.Tasks.Add(t11);
             context.Tasks.Add(t12);
             context.Tasks.Add(t13);
@@ -268,16 +270,16 @@ namespace Infrastructure.Persistence
 
 
             // Notifications
-            var n1 = new Notification { Message = "Notifikacija 1", UserId = c1.Id, RequestId = r1.Id };
-            var n2 = new Notification { Message = "Notifikacija 2", UserId = c1.Id, RequestId = r1.Id };
-            var n3 = new Notification { Message = "Notifikacija 3", UserId = c1.Id, RequestId = r1.Id };
-            var n4 = new Notification { Message = "Notifikacija 4", UserId = c1.Id, RequestId = r1.Id };
-            var n5 = new Notification { Message = "Notifikacija 5", UserId = c1.Id, RequestId = r1.Id };
-            var n6 = new Notification { Message = "Notifikacija 6", UserId = c1.Id, RequestId = r1.Id };
-            var n7 = new Notification { Message = "Notifikacija 7", UserId = ep1.Id, RequestId = r1.Id };
-            var n8 = new Notification { Message = "Notifikacija 8", UserId = ep1.Id, RequestId = r1.Id };
-            var n9 = new Notification { Message = "Notifikacija 9", UserId = ep1.Id, RequestId = r1.Id };
-            var n10 = new Notification { Message = "Notifikacija 10", UserId = ep1.Id, RequestId = r1.Id };
+            var n1 = new Notification { Message = "Dodat task", UserId = c1.Id, RequestId = r1.Id };
+            var n2 = new Notification { Message = "Prihvaćen task", UserId = c1.Id, RequestId = r1.Id };
+            var n3 = new Notification { Message = "Ostavljen komentar", UserId = c1.Id, RequestId = r1.Id };
+            var n4 = new Notification { Message = "Ažuriran Request", UserId = c1.Id, RequestId = r1.Id };
+            var n5 = new Notification { Message = "Jokić MVP", UserId = c1.Id, RequestId = r1.Id };
+            var n6 = new Notification { Message = "Ostavljen komentar", UserId = c1.Id, RequestId = r1.Id };
+            var n7 = new Notification { Message = "Djoković više nije vegetarijanac", UserId = ep1.Id, RequestId = r1.Id };
+            var n8 = new Notification { Message = "Ažuriran Request", UserId = ep1.Id, RequestId = r1.Id };
+            var n9 = new Notification { Message = "Uhapšen Čeda Nevolja", UserId = ep1.Id, RequestId = r1.Id };
+            var n10 = new Notification { Message = "Pušten Čeda Nevolja", UserId = ep1.Id, RequestId = r1.Id };
             context.Notifications.Add(n1);
             context.Notifications.Add(n2);
             context.Notifications.Add(n3);
