@@ -32,29 +32,33 @@ namespace UI.Controls
 
         private void TableSelected(object sender, MouseButtonEventArgs e)
         {
-            SeatingLayoutModal.SelectedChair = null;
-            SeatingLayoutModal.SelectedTable = this;
-            SeatingLayoutModal.CurrentItem = null;
-
-            var vm = SeatingLayoutModal.DataContext as CreateOfferSeatingLayoutViewModel;
-            var thisVm = DataContext as ILayoutItem;
-
-            var prevX = thisVm.X;
-            var prevY = thisVm.Y;
-
-            if (vm.ChairsPresentInTable(thisVm.X, thisVm.Y))
+            if(SeatingLayoutModal != null)
             {
-                return;
-            }
+                SeatingLayoutModal.SelectedChair = null;
+                SeatingLayoutModal.SelectedTable = this;
+                SeatingLayoutModal.CurrentItem = null;
 
-            var fe = sender as FrameworkElement;
-            var effect = DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
-            if (effect == DragDropEffects.None)
-            {
-                thisVm.X = prevX;
-                thisVm.Y = prevY;
-                SeatingLayoutModal.DragingStopped();
+                var vm = SeatingLayoutModal.DataContext as CreateOfferSeatingLayoutViewModel;
+                var thisVm = DataContext as ILayoutItem;
+
+                var prevX = thisVm.X;
+                var prevY = thisVm.Y;
+
+                if (vm.ChairsPresentInTable(thisVm.X, thisVm.Y))
+                {
+                    return;
+                }
+
+                var fe = sender as FrameworkElement;
+                var effect = DragDrop.DoDragDrop(fe, "nesto", DragDropEffects.Move);
+                if (effect == DragDropEffects.None)
+                {
+                    thisVm.X = prevX;
+                    thisVm.Y = prevY;
+                    SeatingLayoutModal.DragingStopped();
+                }
             }
+            
 
         }
     }
