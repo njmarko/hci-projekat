@@ -19,7 +19,6 @@ namespace UI.ViewModels
     {
         private readonly IOfferService _offerService;
         private readonly ITaskOfferService _taskOfferService;
-        private readonly IModalService _modalService;
         public EventPlannerTaskDetailsViewModel TaskVm { get; private set; }
 
         private int _taskId;
@@ -55,11 +54,10 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
-        public EventPlannerAvailableOffersViewModel(IApplicationContext context, IOfferService offerService, ITaskOfferService taskOfferService, IModalService modalService, EventPlannerTaskDetailsViewModel taskVm) : base(context)
+        public EventPlannerAvailableOffersViewModel(IApplicationContext context, IOfferService offerService, ITaskOfferService taskOfferService, EventPlannerTaskDetailsViewModel taskVm) : base(context)
         {
             _offerService = offerService;
             _taskOfferService = taskOfferService;
-            _modalService = modalService;
             TaskVm = taskVm;
 
             Search = new DelegateCommand(() => UpdatePage(0));
@@ -83,21 +81,13 @@ namespace UI.ViewModels
 
         private void AddOfferForTask(int offerId)
         {
-            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to add this offer to task?");
-            if (ok)
-            {
-                var taskOffer = _taskOfferService.AddOfferForTask(_taskId, offerId);
-                var toSave = _taskOfferService.Get(taskOffer.Id);
-                toSave.Active = false;
-                TaskVm.AddItem(toSave);
-                UpdatePage(this.PaginationViewModel.Page);
-                Context.Notifier.ShowInformation("Offer successfully added to the task.");
-                AddedVm.UpdatePage(AddedVm.PaginationViewModel.Page);
-            }
-            else
-            {
-                TaskVm.TabSelectedIndex = 1;
-            }
+            var taskOffer = _taskOfferService.AddOfferForTask(_taskId, offerId);
+            var toSave = _taskOfferService.Get(taskOffer.Id);
+            toSave.Active = false;
+            TaskVm.AddItem(toSave);
+            UpdatePage(this.PaginationViewModel.Page);
+            Context.Notifier.ShowInformation("Offer successfully added to the task.");
+            AddedVm.UpdatePage(AddedVm.PaginationViewModel.Page);
         }
     }
 }

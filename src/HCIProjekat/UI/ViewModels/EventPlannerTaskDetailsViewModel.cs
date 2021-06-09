@@ -81,8 +81,8 @@ namespace UI.ViewModels
         {
             _taskService = taskService;
 
-            AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService, modalService, this);
-            AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, offerService, taskOfferService, modalService, this);
+            AddedOffersVm = new EventPlannerTaskOffersViewModel(context, taskOfferService, this);
+            AvailableOffersVm = new EventPlannerAvailableOffersViewModel(context, offerService, taskOfferService, this);
             EventPlannerCommentsVm = new EventPlannerCommentsViewModel(context, commentService, modalService);
 
             AddedOffersVm.AvailableVm = AvailableOffersVm;

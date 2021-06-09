@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UI.ViewModels;
-
 namespace UI.Views
 {
     /// <summary>
@@ -33,6 +32,8 @@ namespace UI.Views
         {
             if (e.Effects.HasFlag(DragDropEffects.Move))
             {
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
                 return;
             }
 
@@ -44,6 +45,8 @@ namespace UI.Views
         {
             if (e.Effects.HasFlag(DragDropEffects.Copy))
             {
+                e.Effects = DragDropEffects.None;
+                e.Handled = true;
                 return;
             }
 

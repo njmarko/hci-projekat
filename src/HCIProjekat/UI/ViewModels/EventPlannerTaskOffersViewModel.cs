@@ -19,7 +19,6 @@ namespace UI.ViewModels
     public class EventPlannerTaskOffersViewModel : PagingViewModelBase
     {
         private readonly ITaskOfferService _taskOfferService;
-        private readonly IModalService _modalService;
         public EventPlannerTaskDetailsViewModel TaskVm { get; private set; }
 
         private int _taskId;
@@ -62,10 +61,9 @@ namespace UI.ViewModels
         public ICommand Search { get; private set; }
         public ObservableCollection<EventPlannerTaskOfferCardModel> TaskOfferModels { get; private set; } = new ObservableCollection<EventPlannerTaskOfferCardModel>();
 
-        public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService, IModalService modalService, EventPlannerTaskDetailsViewModel taskVm) : base(context)
+        public EventPlannerTaskOffersViewModel(IApplicationContext context, ITaskOfferService taskOfferService, EventPlannerTaskDetailsViewModel taskVm) : base(context)
         {
             _taskOfferService = taskOfferService;
-            _modalService = modalService;
             TaskVm = taskVm;
 
             Search = new DelegateCommand(() => UpdatePage(0));
@@ -90,20 +88,12 @@ namespace UI.ViewModels
 
         private void RemoveOfferFromTask(int offerId)
         {
-            var ok = _modalService.ShowConfirmationDialog("Are you sure you want to remove this offer from the task?");
-            if (ok)
-            {
-                var taskOffer = _taskOfferService.RemoveOfferFromTask(offerId);
-                taskOffer.Active = true;
-                TaskVm.AddItem(taskOffer);
-                UpdatePage(0);
-                Context.Notifier.ShowInformation("Offer succesfully removed from the task.");
-                AvailableVm.UpdatePage(0);
-            }
-            else
-            {
-                TaskVm.TabSelectedIndex = 0;
-            }
+            var taskOffer = _taskOfferService.RemoveOfferFromTask(offerId);
+            taskOffer.Active = true;
+            TaskVm.AddItem(taskOffer);
+            UpdatePage(0);
+            Context.Notifier.ShowInformation("Offer succesfully removed from the task.");
+            AvailableVm.UpdatePage(0);
         }
     }
 }
