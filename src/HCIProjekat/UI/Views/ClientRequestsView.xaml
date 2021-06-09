@@ -17,9 +17,11 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
+    
     <UserControl.InputBindings>
-        <KeyBinding Modifiers="Ctrl" Key="Z" Command="{Binding Undo}" />
-        <KeyBinding Modifiers="Ctrl" Key="Y" Command="{Binding Redo}" />
+        
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding ShowCreateRequestModal}"></KeyBinding>
+
     </UserControl.InputBindings>
     <Grid FocusManager.FocusedElement="{Binding ElementName=FirstField}">
         <Grid.RowDefinitions>
