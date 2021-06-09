@@ -95,6 +95,8 @@ namespace UI.ViewModels
             Rows = 2;
             Columns = 4;
             UpdatePage(0);
+
+            HelpPage = "admin-requests";
         }
         public void ClearFilters()
         {
