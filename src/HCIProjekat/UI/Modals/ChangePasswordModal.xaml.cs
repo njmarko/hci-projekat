@@ -24,29 +24,5 @@ namespace UI.Modals
         {
             InitializeComponent();
         }
-
-        private void OldPasswordPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext != null)
-            {
-                ((dynamic)this.DataContext).OldPassword = ((PasswordBox)sender).Password;
-            }
-        }
-
-        private void NewPasswordPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext != null)
-            {
-                ((dynamic)this.DataContext).NewPassword = ((PasswordBox)sender).Password;
-            }
-        }
-
-        private void ConfirmPasswordPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext != null)
-            {
-                ((dynamic)this.DataContext).ConfirmPassword = ((PasswordBox)sender).Password;
-            }
-        }
     }
 }
