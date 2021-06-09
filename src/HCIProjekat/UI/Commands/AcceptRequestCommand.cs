@@ -41,7 +41,7 @@ namespace UI.Commands
                 _eventPlannerRequestsVm.AddItem(request);
                 _requestService.Accept(_requestId, _eventPlannerRequestsVm.Context.Store.CurrentUser.Id);
                 _eventPlannerRequestsVm.Context.Notifier.ShowInformation($"Request {_requestId} has been accepted.");
-                _eventPlannerRequestsVm.UpdatePage(0);
+                _eventPlannerRequestsVm.UpdatePage(_eventPlannerRequestsVm.PaginationViewModel.Page);
             }
         }
     }

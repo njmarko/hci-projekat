@@ -42,7 +42,18 @@ namespace UI.Commands
                 var admin = _adminService.Get(_adminId);
                 _adminAdminsViewModel.AddItem(admin);
                 _adminService.Delete(_adminId);
-                _adminAdminsViewModel.UpdatePage(0);
+                if (_adminAdminsViewModel.PaginationViewModel.TotalElements - _adminAdminsViewModel.PaginationViewModel.Page * _adminAdminsViewModel.PaginationViewModel.PerPage <= 1 && _adminAdminsViewModel.PaginationViewModel.Page > 0)
+                {
+                    _adminAdminsViewModel.UpdatePage(_adminAdminsViewModel.PaginationViewModel.Page - 1);
+                }
+                else if (_adminAdminsViewModel.PaginationViewModel.TotalElements - _adminAdminsViewModel.PaginationViewModel.Page * _adminAdminsViewModel.PaginationViewModel.PerPage > 1)
+                {
+                    _adminAdminsViewModel.UpdatePage(_adminAdminsViewModel.PaginationViewModel.Page);
+                }
+                else
+                {
+                    _adminAdminsViewModel.UpdatePage(0);
+                }
                 _adminAdminsViewModel.Context.Notifier.ShowInformation($"Admin {_adminUsername} has been deleted successfully.");
             }
         }

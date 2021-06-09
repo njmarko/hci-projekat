@@ -40,7 +40,18 @@ namespace UI.Commands
                 var request = _requestService.Get(_requestId);
                 _clientRequestsVm.AddItem(request);
                 _requestService.Delete(_requestId);
-                _clientRequestsVm.UpdatePage(0);
+                if (_clientRequestsVm.PaginationViewModel.TotalElements - _clientRequestsVm.PaginationViewModel.Page * _clientRequestsVm.PaginationViewModel.PerPage <= 1 && _clientRequestsVm.PaginationViewModel.Page > 0)
+                {
+                    _clientRequestsVm.UpdatePage(_clientRequestsVm.PaginationViewModel.Page - 1);
+                }
+                else if (_clientRequestsVm.PaginationViewModel.TotalElements - _clientRequestsVm.PaginationViewModel.Page * _clientRequestsVm.PaginationViewModel.PerPage > 1)
+                {
+                    _clientRequestsVm.UpdatePage(_clientRequestsVm.PaginationViewModel.Page);
+                }
+                else
+                {
+                    _clientRequestsVm.UpdatePage(0);
+                }
                 _clientRequestsVm.Context.Notifier.ShowInformation($"Request {_requestId} has been deleted successfully.");
             }
         }

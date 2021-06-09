@@ -180,12 +180,14 @@ namespace Infrastructure.Persistence
             context.Offers.Add(o1);
             context.Offers.Add(o2);
 
-            var taskOffer1 = new TaskOffer { Offer = o1, Task = t3, OfferStatus =  OfferStatus.PENDING};
+            var taskOffer1 = new TaskOffer { Offer = o1, Task = t3, OfferStatus = OfferStatus.PENDING};
             var taskOffer2 = new TaskOffer { Offer = o2, Task = t3, OfferStatus = OfferStatus.PENDING };
             var taskOffer3 = new TaskOffer { Offer = o3, Task = t3, OfferStatus = OfferStatus.PENDING };
+            var taskOffer4 = new TaskOffer { Offer = o1, Task = t3, OfferStatus = OfferStatus.PENDING };
             context.TaskOffers.Add(taskOffer1);
             context.TaskOffers.Add(taskOffer2);
             context.TaskOffers.Add(taskOffer3);
+            context.TaskOffers.Add(taskOffer4);
 
             context.Comments.Add(com1);
             context.Comments.Add(com2);
