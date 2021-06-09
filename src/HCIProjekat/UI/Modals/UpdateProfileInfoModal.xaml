@@ -38,6 +38,10 @@
                         <Binding Path="FirstName" UpdateSourceTrigger="PropertyChanged">
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Update}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}" />
+                    </TextBox.InputBindings>
                 </TextBox>
 
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
@@ -48,34 +52,44 @@
                 <!--Last name-->
                 <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
                          materialDesign:HintAssist.Hint="Enter last name" Margin="10 15 10 0" 
-                         Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Update}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}" />
+                    </TextBox.InputBindings>
+                </TextBox>
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
                            Foreground="Red" DataContext="{Binding LastNameError}" 
                            Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" 
                            Margin="10 0 10 0" FontSize="10" />
-                
-               <!--Username-->
-                <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
-                         materialDesign:HintAssist.Hint="Enter username" 
-                         Margin="10 15 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
-                           Foreground="Red" DataContext="{Binding UsernameError}" 
-                           Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" 
-                           Margin="10 0 10 0" FontSize="10" />
-                
+
                 <!--Date of birth-->
                 <DatePicker Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" 
                             materialDesign:HintAssist.Hint="Enter date of birth" 
                             IsTodayHighlighted="True" Margin="10 15 10 0" 
                             SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
-                
+
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" 
                            DataContext="{Binding DateOfBirthError}" 
                            Text="{Binding ErrorMessage}" 
                            Visibility="{Binding HasError, Converter={StaticResource b2vc}}" 
                            Margin="10 0 10 0" FontSize="10" />
-                
-                
+
+                <!--Username-->
+                <TextBox MaxLength="30" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                         materialDesign:HintAssist.Hint="Enter username" 
+                         Margin="10 15 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Update}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
+                           AncestorType={x:Type Window}}}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
+                           Foreground="Red" DataContext="{Binding UsernameError}" 
+                           Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" 
+                           Margin="10 0 10 0" FontSize="10" />
+
+
                 <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
                         Content="Save changes" Margin="10 25 10 15" Foreground="White" 
                         Command="{Binding Update}"

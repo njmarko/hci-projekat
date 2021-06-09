@@ -62,14 +62,14 @@
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Separator />
-            <Button Command="MediaCommands.Play" ToolTip="Play">
+            <Button Command="MediaCommands.Play" Margin="5" Width="35" Height="35" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" ToolTip="Play">
                 <materialDesign:PackIcon Kind="Play"></materialDesign:PackIcon>
             </Button>
-            <Button Command="MediaCommands.Pause" ToolTip="Pause">
+            <Button Command="MediaCommands.Pause" Margin="5" Width="35" Height="35" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" ToolTip="Pause">
                 <materialDesign:PackIcon Kind="Pause"></materialDesign:PackIcon>
 
             </Button>
-            <Button Command="MediaCommands.Stop" ToolTip="Stop">
+            <Button Command="MediaCommands.Stop" Margin="5" Width="35" Height="35" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" ToolTip="Stop">
                 <materialDesign:PackIcon Kind="Stop"></materialDesign:PackIcon>
             </Button>
         </StackPanel>

@@ -26,7 +26,11 @@
             <StackPanel FocusManager.FocusedElement="{Binding ElementName=FirstField}">
                 <TextBlock TextAlignment="Center" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Login" Margin="0 20" />
                 <Rectangle Margin="10 0" HorizontalAlignment="Stretch" Fill="#b3d1ff" Height="1" />
-                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Name="FirstField" materialDesign:HintAssist.Hint="Enter username" Margin="10 20 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Name="FirstField" materialDesign:HintAssist.Hint="Enter username" Margin="10 20 10 0" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding LoginCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding UsernameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.FontFamily="{DynamicResource MaterialDesignFont}"  FontFamily="{DynamicResource ResourceKey=Password}" materialDesign:HintAssist.Hint="Enter password" Margin="10 15 10 0"  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
@@ -34,6 +38,7 @@
                         <KeyBinding Command="ApplicationCommands.NotACommand"
                             Key="C"
                             Modifiers="Control" />
+                        <KeyBinding Key="Return" Command="{Binding LoginCommand}" />
                     </TextBox.InputBindings>
                 </TextBox>
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding PasswordError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
