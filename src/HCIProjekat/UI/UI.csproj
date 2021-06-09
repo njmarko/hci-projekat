@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="EmptyImage\birthday.jpg" />
+    <None Remove="EmptyImage\party.jpg" />
     <None Remove="Fonts\password.ttf" />
   </ItemGroup>
 
@@ -38,7 +40,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="EmptyImage\birthday.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="EmptyImage\EmptyImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="EmptyImage\party.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Fonts\password.ttf">
