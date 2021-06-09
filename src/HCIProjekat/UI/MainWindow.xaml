@@ -15,7 +15,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="768" MinWidth="1366"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        >
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </Window.Resources>

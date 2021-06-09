@@ -24,6 +24,8 @@ namespace UI.Views
         {
             InitializeComponent();
             this.CommentScrollViewer.ScrollToEnd();
+            Focusable = true;
+            Loaded += (s, e) => Keyboard.Focus(this);
         }
     }
 }

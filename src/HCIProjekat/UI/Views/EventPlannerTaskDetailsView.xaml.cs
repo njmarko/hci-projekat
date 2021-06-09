@@ -25,6 +25,8 @@ namespace UI.Views
         public EventPlannerTaskDetailsView()
         {
             InitializeComponent();
+            Focusable = true;
+            Loaded += (s, e) => Keyboard.Focus(this);
         }
 
         private void ShowAvailableOffers(object sender, DragEventArgs e)
