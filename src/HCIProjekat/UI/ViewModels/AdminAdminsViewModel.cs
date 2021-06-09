@@ -80,6 +80,8 @@ namespace UI.ViewModels
             _modalService = modalService;
             Columns = 4;
             UpdatePage(0);
+
+            HelpPage = "admin-admins";
         }
 
         private void OpenRegisterAdminModal()
