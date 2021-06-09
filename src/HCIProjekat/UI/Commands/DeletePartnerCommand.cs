@@ -45,11 +45,9 @@ namespace UI.Commands
                 _partnerService.Delete(_partnerId);
                 if (_adminPartnersVm.PaginationViewModel.TotalElements - _adminPartnersVm.PaginationViewModel.Page * _adminPartnersVm.PaginationViewModel.PerPage <= 1 && _adminPartnersVm.PaginationViewModel.Page > 0)
                 {
-                    Console.WriteLine("Vrati");
                     _adminPartnersVm.UpdatePage(_adminPartnersVm.PaginationViewModel.Page - 1);
                 } else if (_adminPartnersVm.PaginationViewModel.TotalElements - _adminPartnersVm.PaginationViewModel.Page * _adminPartnersVm.PaginationViewModel.PerPage > 1)
                 {
-                    Console.WriteLine("brisi");
                     _adminPartnersVm.UpdatePage(_adminPartnersVm.PaginationViewModel.Page);
                 }
                 else
