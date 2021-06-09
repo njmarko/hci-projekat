@@ -120,7 +120,7 @@
                             Width="100" Foreground="White" 
                             Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
                             Content="Search" 
-                            Command="{Binding Search}"/>
+                            Command="{Binding Search}" ToolTip="Ctrl+Return"/>
                 <CheckBox Grid.Row="1" Grid.Column="2" Margin="10 10 10 10" Content="Show filter" 
                               materialDesign:ShadowAssist.ShadowDepth="Depth1" 
                               materialDesign:ShadowAssist.ShadowEdges="All" 
@@ -147,8 +147,8 @@
                                       SelectedItem="{Binding TaskStatusValue}" 
                                       DisplayMemberPath="Name" />
                     <UniformGrid Grid.Row="0" Grid.Column="2" Rows="1" >
-                        <Button Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" />
-                        <Button Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" />
+                        <Button Margin="20 10 5 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Apply" Command="{Binding Search}" ToolTip="Ctrl+Return"/>
+                        <Button Margin="5 10 10 10" materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="All" Foreground="White" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Cancel" Command="{Binding Clear}" ToolTip="Ctrl+K"/>
                     </UniformGrid>
                 </Grid>
             </Grid>
