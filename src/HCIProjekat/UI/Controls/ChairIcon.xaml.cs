@@ -36,7 +36,6 @@ namespace UI.Controls
             SeatingLayoutModal.SelectedTable = null;
             SeatingLayoutModal.CurrentItem = null;
 
-            var vm = SeatingLayoutModal.DataContext as CreateOfferSeatingLayoutViewModel;
             var thisVm = DataContext as ILayoutItem;
 
             var prevX = thisVm.X;

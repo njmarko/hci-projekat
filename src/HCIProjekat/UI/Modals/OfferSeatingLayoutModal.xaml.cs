@@ -236,6 +236,8 @@ namespace UI.Modals
 
         private void DeleteItem(object sender, DragEventArgs e)
         {
+            _trashCan.Foreground = new SolidColorBrush(Colors.Black);
+
             if (SelectedChair == null && SelectedTable == null)
             {
                 return;
@@ -252,6 +254,21 @@ namespace UI.Modals
             }
 
             RedrawCanvas();
+        }
+
+        private void TrashCanDragOver(object sender, DragEventArgs e)
+        {
+            if (SelectedChair == null && SelectedTable == null)
+            {
+                return;
+            }
+
+            _trashCan.Foreground = new SolidColorBrush(Colors.Red);
+        }
+
+        private void TrashCanDragLeave(object sender, DragEventArgs e)
+        {
+            _trashCan.Foreground = new SolidColorBrush(Colors.Black);
         }
     }
 }
