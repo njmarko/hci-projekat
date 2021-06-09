@@ -15,6 +15,13 @@ namespace UI.ViewModels
     {
         private readonly CreateOfferViewModel _createOfferVm;
         private readonly ISeatingLayoutService _seatingLayoutService;
+
+        private bool _deletableItemSelected;
+        public bool DeletableItemSelected
+        {
+            get { return _deletableItemSelected; }
+            set { _deletableItemSelected = value; OnPropertyChanged(nameof(DeletableItemSelected)); }
+        }
         
         public SeatingLayout SeatingLayout { get; private set; }
 
@@ -49,6 +56,86 @@ namespace UI.ViewModels
             return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
         }
 
+        public bool ChairsPresentInTable(double xOffset, double yOffset)
+        {
+            var table = SeatingLayout.Tables.Where(t => t.X == xOffset && t.Y == yOffset).FirstOrDefault();
+            return table.Chairs.Count > 0;
+        }
+
+        public void UpdateTable(double xOffset, double yOffset, double newXOffset, double newYOffset)
+        {
+            var table = SeatingLayout.Tables.Where(t => t.X == xOffset && t.Y == yOffset).FirstOrDefault();
+            table.X = newXOffset;
+            table.Y = newYOffset;
+            if (SeatingLayout.Id != 0)
+            {
+                _seatingLayoutService.UpdateTable(table);
+            }
+        }
+
+        public void UpdateChair(double xOffset, double yOffset, double newXOffset, double newYOffset)
+        {
+            var closestTable = ClosestTable(xOffset, yOffset);
+            var newClosestTable = ClosestTable(newXOffset, newYOffset);
+            if (closestTable == null)
+            {
+                throw new Exception("No table present.");
+            }
+
+            var chair = closestTable.Chairs.Where(c => c.X == xOffset && c.Y == yOffset).FirstOrDefault();
+            chair.X = newXOffset;
+            chair.Y = newYOffset;
+
+            if (closestTable == newClosestTable)
+            {
+                return;
+            }
+
+            closestTable.Chairs.Remove(chair);
+            newClosestTable.Chairs.Add(chair);
+
+            UpdateChairIndexes(closestTable);
+            UpdateChairIndexes(newClosestTable);
+
+            if (SeatingLayout.Id != 0)
+            {
+                _seatingLayoutService.UpdateChair(chair);
+                _seatingLayoutService.UpdateTable(newClosestTable);
+            }
+        }
+
+        private void UpdateChairIndexes(Table table)
+        {
+            var startingIndex = 1;
+            foreach (Chair chair in table.Chairs)
+            {
+                chair.Label = $"{startingIndex++}";
+                _seatingLayoutService.UpdateChair(chair);
+            }
+        }
+
+        private void UpdateTableIndexes()
+        {
+            var startingIndex = 1;
+            foreach(Table table in SeatingLayout.Tables)
+            {
+                table.Label = $"Table #{startingIndex++}";
+                _seatingLayoutService.UpdateTable(table);
+            }
+        }
+
+        public void RemoveTable(double xOffset, double yOffset)
+        {
+            var table = SeatingLayout.Tables.Where(t => t.X == xOffset && t.Y == yOffset).FirstOrDefault();
+            SeatingLayout.Tables.Remove(table);
+            if (SeatingLayout.Id != 0)
+            {
+                _seatingLayoutService.RemoveTable(table, SeatingLayout.Id);
+            }
+
+            UpdateTableIndexes();
+        }
+
         public Table AddTable(double xOffset, double yOffset)
         {
             var tableNum = SeatingLayout.Tables.Count + 1;
@@ -59,6 +146,24 @@ namespace UI.ViewModels
                 _seatingLayoutService.AddTable(table, SeatingLayout.Id);
             }
             return table;
+        }
+
+        public void RemoveChair(double xOffset, double yOffset)
+        {
+            var closestTable = ClosestTable(xOffset, yOffset);
+            if (closestTable == null)
+            {
+                throw new Exception("No table present.");
+            }
+
+            var chair = closestTable.Chairs.Where(c => c.X == xOffset && c.Y == yOffset).FirstOrDefault();
+            closestTable.Chairs.Remove(chair);
+            if (SeatingLayout.Id != 0)
+            {
+                _seatingLayoutService.RemoveChair(chair, SeatingLayout.Id);
+            }
+
+            UpdateChairIndexes(closestTable);
         }
 
         public Chair AddChair(double xOffset, double yOffset)

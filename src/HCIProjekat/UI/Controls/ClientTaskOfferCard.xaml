@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </UserControl.Resources>
-    <Grid MinHeight="300" Height="300" MinWidth="250" MaxWidth="420">
+    <Grid MinHeight="320" Height="320" MinWidth="250" MaxWidth="420">
         <materialDesign:Card UniformCornerRadius="20" Margin="10">
             
             <StackPanel>
@@ -73,17 +73,15 @@
 
                 
 
-                <StackPanel Orientation="Horizontal" MinHeight="37">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal" Visibility="{Binding IsVisible, Converter={StaticResource b2vc}}">
-                        <Button Margin="20,0,0,10" Content="Accept" 
-                                Style="{DynamicResource MaterialDesignOutlinedButton}" 
-                                Foreground="Green" BorderBrush="Green"
-                                Command="{Binding AcceptTaskOffer}"></Button>
+                        <Button Width="35" Height="35" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" Command="{Binding AcceptTaskOffer}" ToolTip="Accept task offer">
+                            <materialDesign:PackIcon Kind="Check" />
+                        </Button>
 
-                        <Button Margin="20,0,0,10" Content="Reject" 
-                                Style="{DynamicResource MaterialDesignOutlinedButton}" 
-                                Foreground="Red" BorderBrush="Red"
-                                Command="{Binding RejectTaskOffer}"></Button>
+                        <Button Width="35" Height="35" Margin="5 0" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="White" Command="{Binding RejectTaskOffer}" ToolTip="Reject task offer">
+                            <materialDesign:PackIcon Kind="Remove" />
+                        </Button>
                     </StackPanel>
                 </StackPanel>
 
