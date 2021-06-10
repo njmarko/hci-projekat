@@ -8,7 +8,7 @@
         Title="Confirmation" Height="200"  Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        WindowStyle="SingleBorderWindow">
+        WindowStyle="SingleBorderWindow" Icon="/Modals/programicon.ico">
     <Grid>
         <StackPanel>
             <TextBlock Margin="10 50 10 0"  HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap">
