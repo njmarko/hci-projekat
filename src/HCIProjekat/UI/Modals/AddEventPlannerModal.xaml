@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="Register Event Planner" Height="572" Width="500" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        WindowStyle="SingleBorderWindow">
+        WindowStyle="SingleBorderWindow" Icon="/Modals/programicon.ico">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="b2vc"></BooleanToVisibilityConverter>
     </Window.Resources>

@@ -13,6 +13,7 @@
     <None Remove="EmptyImage\party.jpg" />
     <None Remove="Fonts\password.ttf" />
     <None Remove="Icon1.ico" />
+    <None Remove="Modals\programicon.ico" />
     <None Remove="programicon.ico" />
   </ItemGroup>
 
@@ -54,7 +55,7 @@
     <Resource Include="Fonts\password.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Icon1.ico" />
+    <Resource Include="Modals\programicon.ico" />
     <Resource Include="programicon.ico" />
   </ItemGroup>
 

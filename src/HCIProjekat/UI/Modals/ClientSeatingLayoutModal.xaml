@@ -15,7 +15,7 @@
         WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="Seating Layout" MinHeight="600" MinWidth="800">
+        Title="Seating Layout" MinHeight="600" MinWidth="800" Icon="/Modals/programicon.ico">
     <Window.InputBindings>
         <KeyBinding Key="F1" Command="{Binding Context.OpenLink}" CommandParameter="{Binding HelpPage}" />
     </Window.InputBindings>
