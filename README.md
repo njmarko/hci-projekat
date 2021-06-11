@@ -16,6 +16,15 @@ In order to start the project, you have two option:
 If you download the source code, open the solution and set the project UI as the startup project. Then run with F5.
 If you download the installer, simply run it as any other windows installer.
 
+## Login data
+
+|         | username           | password  |
+| ------------- |:-------------:| -----:|
+| Super admin      | a | a |
+| Admin      | vidojegavrilovic | test123 |
+| Event planner      | jakovmatic      |   test123 |
+| Client | dejandjordjevic      |    test123 |
+
 ## Preview screens
 
 <p align="center">
