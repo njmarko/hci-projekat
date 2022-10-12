@@ -48,7 +48,7 @@ namespace Infrastructure.Persistence
             context.Clients.Add(c16);
             context.Clients.Add(c17);
 
-            var r5 = new Request { Name = "Diplomiranje Dalbora Malića", Budget = 200000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(10), GuestNumber = 20, Type = RequestType.GRADUATION, Theme = "Alkohol", Notes = "Veliki dan za studente Republike Srpske i prijatelje." };
+            var r5 = new Request { Name = "Diplomiranje Dalbora Malića", Budget = 200000, BudgetFlexible = true, Client = c1, Date = DateTime.ParseExact("2022-10-12", "yyyy-MM-dd", CultureInfo.InvariantCulture), GuestNumber = 20, Type = RequestType.GRADUATION, Theme = "Alkohol", Notes = "Veliki dan za studente Republike Srpske i prijatelje." };
             var r2 = new Request { Name = "Udaja Lade Brđanin", Budget = 300000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(12), GuestNumber = 40, Type = RequestType.WEDDING, Theme = "Etno", Notes = "Voditi računa da se poštuje tradicija." };
             var r3 = new Request { Name = "Doček Nikole Jokića", Budget = 860000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(13), GuestNumber = 1000, Type = RequestType.PARTY, Theme = "MVP", Notes = "Dočekati kako dolikuje velikog šampiona." };
             var r4 = new Request { Name = "Rođendan Zorane Čarapić", Budget = 270000, BudgetFlexible = true, Client = c1, Date = DateTime.Now.AddDays(14), GuestNumber = 20, Type = RequestType.BIRTHDAY, Theme = "Ex Yu Nostalgija", Notes = "Što više patetike to bolje." };
